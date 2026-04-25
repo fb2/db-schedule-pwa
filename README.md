@@ -38,6 +38,8 @@ gh api --method PUT /repos/fb2/db-schedule-pwa/pages -f build_type=workflow
 
 Then push `main`. The deployed app will be available at `https://fb2.github.io/db-schedule-pwa/` once the workflow finishes.
 
+For ongoing maintenance notes, see `GITHUB_PAGES_MAINTENANCE.md`.
+
 ## Schedule Sources
 
 - Central / Discovery Bay: Transport Department Data.gov XLSX, last updated 22 Aug 2025.
