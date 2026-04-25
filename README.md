@@ -20,6 +20,24 @@ Then open `http://localhost:5173`.
 
 For testing on a phone on the same Wi-Fi, use your Mac's local IP address instead of `localhost`. For daily use as an installed PWA, deploy it to an HTTPS static host such as GitHub Pages, Netlify, or Cloudflare Pages, then use "Add to Home Screen" on the phone.
 
+## Deploy to GitHub Pages
+
+This repo includes a GitHub Actions workflow that publishes the static app to GitHub Pages whenever `main` is pushed.
+
+After authenticating with GitHub CLI, enable Pages for workflow deployments:
+
+```sh
+gh api --method POST /repos/fb2/db-schedule-pwa/pages -f build_type=workflow
+```
+
+If Pages is already enabled, update it instead:
+
+```sh
+gh api --method PUT /repos/fb2/db-schedule-pwa/pages -f build_type=workflow
+```
+
+Then push `main`. The deployed app will be available at `https://fb2.github.io/db-schedule-pwa/` once the workflow finishes.
+
 ## Schedule Sources
 
 - Central / Discovery Bay: Transport Department Data.gov XLSX, last updated 22 Aug 2025.
