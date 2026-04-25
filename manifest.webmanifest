@@ -1,0 +1,17 @@
+{
+  "name": "DB Ferry",
+  "short_name": "DB Ferry",
+  "description": "Fast Discovery Bay ferry schedule for Hong Kong.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#061724",
+  "theme_color": "#071f33",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
