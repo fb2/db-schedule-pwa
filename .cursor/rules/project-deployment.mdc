@@ -1,0 +1,33 @@
+---
+description: DB Ferry project workflow and GitHub Pages deployment context
+alwaysApply: true
+---
+
+# DB Ferry Project Context
+
+- This is a plain static PWA, not a Node/Vite/React build.
+- The deployed app is published from `main` to GitHub Pages by `.github/workflows/deploy.yml`.
+- The live project URL is `https://fb2.github.io/db-schedule-pwa/`.
+- The GitHub repository is `https://github.com/fb2/db-schedule-pwa`.
+
+## Maintenance Workflow
+
+- For normal changes, edit files locally, test with `python3 -m http.server 5173`, commit to git, and push `main`.
+- A push to `main` automatically triggers the GitHub Pages deployment workflow.
+- Do not create a separate deployment branch unless the user explicitly asks to change the Pages architecture.
+- When the user asks to save completed changes, use git commit and push unless they ask otherwise.
+
+## Static Site Files
+
+- `.github/workflows/deploy.yml` stages the static files that are uploaded to Pages.
+- If adding a new public file, add it to the workflow's `cp ... site/` command.
+- If the new file should work offline, add it to the `ASSETS` list in `sw.js`.
+- Keep asset paths relative, such as `./app.js`, because the app is hosted under `/db-schedule-pwa/`.
+
+## Key Files
+
+- `schedules.js`: ferry route data, public holidays, source links.
+- `app.js`: browser app logic and rendering.
+- `sw.js`: service worker and offline cache. Bump `CACHE_NAME` when forcing installed PWAs to refresh cached assets.
+- `manifest.webmanifest`: installable PWA metadata and scope.
+- `GITHUB_PAGES_MAINTENANCE.md`: human-readable maintenance and deployment guide.
