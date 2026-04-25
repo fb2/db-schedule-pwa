@@ -98,6 +98,12 @@ function relativeDay(date, now) {
   return new Intl.DateTimeFormat("en-HK", { weekday: "short", month: "short", day: "numeric" }).format(date);
 }
 
+function upcomingCutoff(now) {
+  const cutoff = addDays(now, 1);
+  cutoff.setHours(12, 0, 0, 0);
+  return cutoff;
+}
+
 function collectDepartures(direction, now) {
   const threshold = new Date(now.getTime() + state.walkBuffer * 60000);
   const departures = [];
@@ -192,7 +198,10 @@ function renderUpcoming(departures, now) {
     return;
   }
 
-  for (const departure of departures.slice(0, 6)) {
+  const scheduleCutoff = upcomingCutoff(now);
+  const visibleDepartures = departures.filter((departure) => departure.date <= scheduleCutoff);
+
+  for (const departure of visibleDepartures) {
     const item = document.createElement("li");
     const note = departure.note ? `<span class="pill">${departure.note}</span>` : "";
     item.innerHTML = `

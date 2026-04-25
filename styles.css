@@ -172,6 +172,11 @@ select {
   margin-bottom: 0.5rem;
 }
 
+.upcoming-card {
+  max-height: min(42rem, 55dvh);
+  overflow-y: auto;
+}
+
 .upcoming-list {
   display: grid;
   gap: 0.35rem;
