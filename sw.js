@@ -1,4 +1,4 @@
-const CACHE_NAME = "db-ferry-v2";
+const CACHE_NAME = "db-ferry-v3";
 const ASSETS = [
   "./",
   "./index.html",

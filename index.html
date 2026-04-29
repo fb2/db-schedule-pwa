@@ -25,7 +25,10 @@
       </header>
 
       <section class="card next-card" aria-live="polite">
-        <div class="next-label">Next catchable ferry</div>
+        <div class="next-card-header">
+          <div class="next-label">Next catchable ferry</div>
+          <button id="refreshSchedule" class="refresh-button" type="button">Refresh</button>
+        </div>
         <div id="nextTime" class="next-time">--:--</div>
         <div id="countdown" class="countdown">Checking schedule...</div>
         <div id="departureMeta" class="departure-meta"></div>

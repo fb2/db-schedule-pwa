@@ -3,7 +3,8 @@ import { publicHolidays, routes } from "./schedules.js";
 const state = {
   routeId: localStorage.getItem("routeId") || "central",
   directionId: localStorage.getItem("directionId") || "db-central",
-  dayOverride: localStorage.getItem("dayOverride") || "auto",
+  dayOverride: "auto",
+  dayOverrideDateKey: null,
   walkBuffer: Number(localStorage.getItem("walkBuffer") || 10),
 };
 
@@ -17,11 +18,14 @@ const els = {
   directionSelect: document.querySelector("#directionSelect"),
   dayOverride: document.querySelector("#dayOverride"),
   walkBuffer: document.querySelector("#walkBuffer"),
+  refreshSchedule: document.querySelector("#refreshSchedule"),
   activeDayType: document.querySelector("#activeDayType"),
   upcomingList: document.querySelector("#upcomingList"),
   sourceText: document.querySelector("#sourceText"),
   sourceLink: document.querySelector("#sourceLink"),
 };
+
+localStorage.removeItem("dayOverride");
 
 function selectedRoute() {
   return routes.find((route) => route.id === state.routeId) || routes[0];
@@ -52,6 +56,15 @@ function dayTypeFor(date) {
   if (date.getDay() === 0 || holidays.includes(toDateKey(date))) return "sundayPH";
   if (date.getDay() === 6) return "saturday";
   return "weekday";
+}
+
+function resetExpiredDayOverride(now) {
+  if (state.dayOverride === "auto") return;
+
+  if (state.dayOverrideDateKey !== toDateKey(now)) {
+    state.dayOverride = "auto";
+    state.dayOverrideDateKey = null;
+  }
 }
 
 function dayTypeLabel(dayType) {
@@ -132,7 +145,6 @@ function collectDepartures(direction, now) {
 function saveState() {
   localStorage.setItem("routeId", state.routeId);
   localStorage.setItem("directionId", state.directionId);
-  localStorage.setItem("dayOverride", state.dayOverride);
   localStorage.setItem("walkBuffer", String(state.walkBuffer));
 }
 
@@ -214,6 +226,8 @@ function renderUpcoming(departures, now) {
 
 function render() {
   const now = new Date();
+  resetExpiredDayOverride(now);
+
   const route = selectedRoute();
   const direction = selectedDirection();
   const departures = collectDepartures(direction, now);
@@ -267,6 +281,7 @@ function bindEvents() {
 
   els.dayOverride.addEventListener("change", () => {
     state.dayOverride = els.dayOverride.value;
+    state.dayOverrideDateKey = state.dayOverride === "auto" ? null : toDateKey(new Date());
     saveState();
     render();
   });
@@ -278,6 +293,12 @@ function bindEvents() {
   });
 
   els.flipDirection.addEventListener("click", flipDirection);
+  els.refreshSchedule.addEventListener("click", render);
+  window.addEventListener("focus", render);
+  window.addEventListener("pageshow", render);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) render();
+  });
 }
 
 if ("serviceWorker" in navigator) {
