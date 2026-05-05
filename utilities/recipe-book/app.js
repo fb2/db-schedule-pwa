@@ -91,17 +91,15 @@ onAuthStateChanged(auth, async user => {
   render();
 
   if (!user) {
+    setSignedInUi(false);
     signedInControls.hidden = true;
-    signInBtn.hidden = false;
-    signOutBtn.hidden = true;
     userLabel.textContent = "Signed out";
     setStatus("Sign in with Google to load recipes.");
     return;
   }
 
   userLabel.textContent = user.email || "Signed in";
-  signInBtn.hidden = true;
-  signOutBtn.hidden = false;
+  setSignedInUi(true);
 
   if (!allowedEmails.has(user.email || "")) {
     signedInControls.hidden = true;
@@ -115,6 +113,13 @@ onAuthStateChanged(auth, async user => {
   await Promise.all([loadRecipes(), loadShortlist()]);
   render();
 });
+
+function setSignedInUi(isSignedIn) {
+  signInBtn.hidden = isSignedIn;
+  signOutBtn.hidden = !isSignedIn;
+  signInBtn.style.display = isSignedIn ? "none" : "";
+  signOutBtn.style.display = isSignedIn ? "" : "none";
+}
 
 async function loadRecipes() {
   const snapshot = await getDocs(collection(db, "recipes"));

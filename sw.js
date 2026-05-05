@@ -1,4 +1,4 @@
-const CACHE_NAME = "db-ferry-v3";
+const CACHE_NAME = "db-ferry-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -27,6 +27,12 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const requestUrl = new URL(event.request.url);
+  const scopeUrl = new URL(self.registration.scope);
+
+  if (!requestUrl.href.startsWith(scopeUrl.href)) return;
+  const scopedPath = requestUrl.href.slice(scopeUrl.href.length);
+  if (scopedPath.startsWith("utilities/")) return;
 
   event.respondWith(
     caches.match(event.request).then((cached) =>
