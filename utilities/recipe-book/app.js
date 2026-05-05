@@ -30,7 +30,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-const allowedEmails = new Set(["fbalazs@gmail.com", "enyalux@gmail.com"]);
 const recipes = [];
 const byId = new Map();
 let indexed = [];
@@ -101,17 +100,20 @@ onAuthStateChanged(auth, async user => {
   userLabel.textContent = user.email || "Signed in";
   setSignedInUi(true);
 
-  if (!allowedEmails.has(user.email || "")) {
-    signedInControls.hidden = true;
-    setStatus(`Access is not enabled for ${user.email}.`);
-    await signOut(auth);
-    return;
-  }
-
   signedInControls.hidden = false;
   setStatus("Loading private recipe data...");
-  await Promise.all([loadRecipes(), loadShortlist()]);
-  render();
+  try {
+    await Promise.all([loadRecipes(), loadShortlist()]);
+    render();
+  } catch (error) {
+    signedInControls.hidden = true;
+    recipes.length = 0;
+    byId.clear();
+    indexed = [];
+    shortlist = new Set();
+    render();
+    setStatus("This Google account is not allowed to access the private recipe book.");
+  }
 });
 
 function setSignedInUi(isSignedIn) {
