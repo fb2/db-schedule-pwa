@@ -30,7 +30,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-const allowedEmails = new Set(["fbalazs@gmail.com"]);
+const allowedEmails = new Set(["fbalazs@gmail.com", "enyalux@gmail.com"]);
 const recipes = [];
 const byId = new Map();
 let indexed = [];
