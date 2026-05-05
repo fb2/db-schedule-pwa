@@ -235,7 +235,8 @@ select {
   font-size: 0.75rem;
 }
 
-.source-card {
+.source-card,
+.utility-card {
   font-size: 0.85rem;
 }
 

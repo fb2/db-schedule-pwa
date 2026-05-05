@@ -1,0 +1,331 @@
+{
+  "updated": "2026-05-05",
+  "films": [
+    {
+      "id": "kodak-portra-400",
+      "name": "Kodak Portra 400",
+      "brand": "Kodak",
+      "iso": 400,
+      "priority": 1,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Kodak Portra datasheet + common field guideline",
+      "sourceUrl": "https://business.kodakmoments.com/sites/default/files/files/resources/KODAK-PROFESSIONAL-PORTRA160nc160vc400nv400vc800.pdf",
+      "notes": "Kodak does not publish fixed corrections beyond 1 second for Portra. This uses the common color-negative guide t^1.3; bracket important shots."
+    },
+    {
+      "id": "kodak-portra-160",
+      "name": "Kodak Portra 160",
+      "brand": "Kodak",
+      "iso": 160,
+      "priority": 2,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Kodak Portra datasheet + common field guideline",
+      "sourceUrl": "https://business.kodakmoments.com/sites/default/files/files/resources/KODAK-PROFESSIONAL-PORTRA160nc160vc400nv400vc800.pdf",
+      "notes": "No official fixed correction table beyond 1 second. Portra tolerates overexposure well; bracket when the result matters."
+    },
+    {
+      "id": "kodak-portra-800",
+      "name": "Kodak Portra 800",
+      "brand": "Kodak",
+      "iso": 800,
+      "priority": 3,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Kodak Portra 800 datasheet + common field guideline",
+      "sourceUrl": "https://imaging.kodakalaris.com/sites/default/files/files/products/e4040_portra_800.pdf",
+      "notes": "No official fixed correction table beyond 1 second. This is a practical color-negative estimate, not a lab guarantee."
+    },
+    {
+      "id": "kodak-gold-200",
+      "name": "Kodak Gold 200",
+      "brand": "Kodak",
+      "iso": 200,
+      "priority": 4,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Kodak Gold 200 datasheet + common color-negative guideline",
+      "sourceUrl": "https://imaging.kodakalaris.com/sites/default/files/files/resources/E7022_Gold_200.pdf",
+      "notes": "Kodak Gold 200 has no published fixed long-exposure table in the current datasheet. Use as a conservative estimate and bracket."
+    },
+    {
+      "id": "cinestill-800t",
+      "name": "CineStill 800T",
+      "brand": "CineStill",
+      "iso": 800,
+      "priority": 5,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Manufacturer guidance",
+      "sourceName": "CineStill reciprocity FAQ",
+      "sourceUrl": "https://help.cinestillfilm.com/hc/en-us/articles/4407453578893-What-are-the-reciprocity-failure-details-for-CineStill-films",
+      "notes": "CineStill says it has no published color-film reciprocity sheet and suggests t^1.3 as a general guide over 1 second. Bracketing by a couple stops is recommended."
+    },
+    {
+      "id": "kodak-trix-400",
+      "name": "Kodak Tri-X 400",
+      "brand": "Kodak",
+      "iso": 400,
+      "priority": 6,
+      "formats": ["35mm", "120"],
+      "model": {
+        "type": "table",
+        "thresholdSeconds": 0.9,
+        "points": [
+          { "metered": 0.9, "corrected": 0.9 },
+          { "metered": 1, "corrected": 2 },
+          { "metered": 10, "corrected": 50 },
+          { "metered": 100, "corrected": 1200 }
+        ]
+      },
+      "quality": "Manufacturer table",
+      "sourceName": "Kodak Tri-X technical data",
+      "sourceUrl": "https://imaging.kodakalaris.com/sites/default/files/files/resources/f4017_TriX.pdf",
+      "notes": "Kodak also recommends reduced development for long corrected exposures. This app only calculates exposure time."
+    },
+    {
+      "id": "ilford-hp5-plus-400",
+      "name": "Ilford HP5 Plus 400",
+      "brand": "Ilford",
+      "iso": 400,
+      "priority": 7,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.31 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.31 for exposures longer than 1 second."
+    },
+    {
+      "id": "ilford-fp4-plus-125",
+      "name": "Ilford FP4 Plus 125",
+      "brand": "Ilford",
+      "iso": 125,
+      "priority": 8,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.26 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.26 for exposures longer than 1 second."
+    },
+    {
+      "id": "fujifilm-acros-ii-100",
+      "name": "Fujifilm Neopan Acros II 100",
+      "brand": "Fujifilm",
+      "iso": 100,
+      "priority": 9,
+      "formats": ["35mm", "120"],
+      "model": {
+        "type": "thresholdMultiplier",
+        "thresholdSeconds": 120,
+        "multiplier": 1.41421356237
+      },
+      "quality": "Manufacturer guidance",
+      "sourceName": "Fujifilm Neopan 100 Acros II datasheet",
+      "sourceUrl": "https://asset.fujifilm.com/www/ca/files/2020-07/fb477bd9803b3c27ab592edcf9f3567c/AF3-0258E_PIB-NEOPAN-100-ACROSII-135-3_data-sheet.pdf",
+      "notes": "No correction below 120 seconds; add 1/2 stop from 120 seconds upward."
+    },
+    {
+      "id": "ilford-delta-100",
+      "name": "Ilford Delta 100",
+      "brand": "Ilford",
+      "iso": 100,
+      "priority": 10,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.26 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.26 for exposures longer than 1 second."
+    },
+    {
+      "id": "ilford-delta-400",
+      "name": "Ilford Delta 400",
+      "brand": "Ilford",
+      "iso": 400,
+      "priority": 11,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.41 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.41 for exposures longer than 1 second."
+    },
+    {
+      "id": "ilford-pan-f-plus-50",
+      "name": "Ilford Pan F Plus 50",
+      "brand": "Ilford",
+      "iso": 50,
+      "priority": 12,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.33 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.33 for exposures longer than 1 second."
+    },
+    {
+      "id": "ilford-xp2-super-400",
+      "name": "Ilford XP2 Super 400",
+      "brand": "Ilford",
+      "iso": 400,
+      "priority": 13,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.31 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "C-41 black-and-white film. Ilford formula: corrected time = metered time^1.31 for exposures longer than 1 second."
+    },
+    {
+      "id": "ilford-delta-3200",
+      "name": "Ilford Delta 3200",
+      "brand": "Ilford",
+      "iso": 3200,
+      "priority": 14,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.33 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Ilford formula: corrected time = metered time^1.33 for exposures longer than 1 second."
+    },
+    {
+      "id": "kentmere-400",
+      "name": "Kentmere 400",
+      "brand": "Kentmere",
+      "iso": 400,
+      "priority": 15,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford/Harman reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Harman lists Kentmere 400 as K400 with factor 1.30."
+    },
+    {
+      "id": "kentmere-100",
+      "name": "Kentmere 100",
+      "brand": "Kentmere",
+      "iso": 100,
+      "priority": 16,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.26 },
+      "quality": "Manufacturer formula",
+      "sourceName": "Ilford/Harman reciprocity failure compensation sheet",
+      "sourceUrl": "https://www.ilfordphoto.com/wp/wp-content/uploads/2024/05/Reciprocity-Failure-Compensation-v2.pdf",
+      "notes": "Harman lists Kentmere 100 as K100 with factor 1.26."
+    },
+    {
+      "id": "fomapan-100",
+      "name": "Fomapan 100 Classic",
+      "brand": "Foma",
+      "iso": 100,
+      "priority": 17,
+      "formats": ["35mm", "120"],
+      "model": {
+        "type": "table",
+        "thresholdSeconds": 0.5,
+        "points": [
+          { "metered": 0.5, "corrected": 0.5 },
+          { "metered": 1, "corrected": 2 },
+          { "metered": 10, "corrected": 80 },
+          { "metered": 100, "corrected": 1600 }
+        ]
+      },
+      "quality": "Manufacturer table",
+      "sourceName": "Foma technical information",
+      "sourceUrl": "https://www.foma.cz/en/fomapan-100",
+      "notes": "Foma table gives exposure lengthening factors at representative times; this app interpolates between them."
+    },
+    {
+      "id": "fomapan-200",
+      "name": "Fomapan 200 Creative",
+      "brand": "Foma",
+      "iso": 200,
+      "priority": 18,
+      "formats": ["35mm", "120"],
+      "model": {
+        "type": "table",
+        "thresholdSeconds": 0.5,
+        "points": [
+          { "metered": 0.5, "corrected": 0.5 },
+          { "metered": 1, "corrected": 3 },
+          { "metered": 10, "corrected": 90 },
+          { "metered": 100, "corrected": 1800 }
+        ]
+      },
+      "quality": "Manufacturer table",
+      "sourceName": "Foma technical information",
+      "sourceUrl": "https://www.foma.cz/en/fomapan-200",
+      "notes": "Foma table gives exposure lengthening factors at representative times; this app interpolates between them."
+    },
+    {
+      "id": "fomapan-400",
+      "name": "Fomapan 400 Action",
+      "brand": "Foma",
+      "iso": 400,
+      "priority": 19,
+      "formats": ["35mm", "120"],
+      "model": {
+        "type": "table",
+        "thresholdSeconds": 0.5,
+        "points": [
+          { "metered": 0.5, "corrected": 0.5 },
+          { "metered": 1, "corrected": 1.5 },
+          { "metered": 10, "corrected": 60 },
+          { "metered": 100, "corrected": 800 }
+        ]
+      },
+      "quality": "Manufacturer table",
+      "sourceName": "Foma technical information",
+      "sourceUrl": "https://www.foma.cz/en/catalogue_bw_photo_materials_and_developing_information",
+      "notes": "Foma table gives exposure lengthening factors at representative times; this app interpolates between them."
+    },
+    {
+      "id": "kodak-tmax-100",
+      "name": "Kodak T-Max 100",
+      "brand": "Kodak",
+      "iso": 100,
+      "priority": 20,
+      "formats": ["35mm", "120"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.15 },
+      "quality": "Field table",
+      "sourceName": "Kodak T-Max data + published reciprocity tables",
+      "sourceUrl": "https://www.kodakprofessional.com/sites/default/files/wysiwyg/pro/resources/f4016_TMax_100.pdf",
+      "notes": "T-Max films have comparatively good long-exposure behavior. This uses a common published P factor; bracket critical exposures."
+    },
+    {
+      "id": "kodak-colorplus-200",
+      "name": "Kodak ColorPlus 200",
+      "brand": "Kodak",
+      "iso": 200,
+      "priority": 21,
+      "formats": ["35mm"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Common color-negative guideline",
+      "sourceUrl": "https://lucas.dev/reciprocity/kodak-color-plus-200",
+      "notes": "No official fixed correction table found. Uses the same conservative color-negative estimate as Portra/Gold."
+    },
+    {
+      "id": "kodak-pro-image-100",
+      "name": "Kodak Pro Image 100",
+      "brand": "Kodak",
+      "iso": 100,
+      "priority": 22,
+      "formats": ["35mm"],
+      "model": { "type": "power", "thresholdSeconds": 1, "exponent": 1.3 },
+      "quality": "Field guide",
+      "sourceName": "Common color-negative guideline",
+      "sourceUrl": "https://lucas.dev/reciprocity/kodak-pro-image-100",
+      "notes": "No official fixed correction table found. Use as a practical estimate and bracket."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#17120d" />
+    <meta name="description" content="Film reciprocity exposure calculator and darkroom-style timer." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Reciprocity" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Reciprocity Timer</title>
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <p class="eyebrow">Film utility</p>
+        <h1>Reciprocity Timer</h1>
+        <p class="lede">Correct long film exposures and run a hands-free countdown.</p>
+      </header>
+
+      <section class="card controls-card">
+        <label>
+          Film stock
+          <select id="filmSelect"></select>
+        </label>
+
+        <div class="duration-row">
+          <label>
+            Metered exposure
+            <input id="meteredValue" type="number" inputmode="decimal" min="0.1" step="0.1" value="10" />
+          </label>
+          <label>
+            Unit
+            <select id="meteredUnit">
+              <option value="1">sec</option>
+              <option value="60">min</option>
+              <option value="3600">hr</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="card result-card" aria-live="polite">
+        <div class="result-label">Recommended exposure</div>
+        <div id="correctedTime" class="corrected-time">--</div>
+        <div id="correctionMeta" class="correction-meta"></div>
+        <button id="startTimer" class="primary-button" type="button">Start Timer</button>
+      </section>
+
+      <section id="timerPanel" class="card timer-card hidden" aria-live="assertive">
+        <div id="timerRemaining" class="timer-remaining">--</div>
+        <div class="timer-actions">
+          <button id="pauseTimer" type="button">Pause</button>
+          <button id="resetTimer" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section class="card notes-card">
+        <h2 id="filmName">Film notes</h2>
+        <p id="filmNotes"></p>
+        <dl>
+          <div>
+            <dt>Data quality</dt>
+            <dd id="dataQuality"></dd>
+          </div>
+          <div>
+            <dt>Source</dt>
+            <dd><a id="sourceLink" href="#" target="_blank" rel="noreferrer">Open source</a></dd>
+          </div>
+        </dl>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

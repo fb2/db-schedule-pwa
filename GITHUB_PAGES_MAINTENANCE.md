@@ -1,14 +1,9 @@
 # Maintaining GitHub Pages
 
-This app is a static PWA hosted on GitHub Pages. There is no server build step and no database. The deployed site is just these files:
+This is a static website hosted on GitHub Pages. There is no server build step and no database. It contains:
 
-- `index.html`
-- `styles.css`
-- `app.js`
-- `schedules.js`
-- `manifest.webmanifest`
-- `sw.js`
-- `icon.svg`
+- The root DB Ferry PWA.
+- Static utility PWAs under `utilities/`, currently `utilities/reciprocity-timer/`.
 
 ## Normal Update Flow
 
@@ -49,7 +44,7 @@ After editing schedules:
 4. Commit and push.
 5. Wait for the GitHub Pages action to finish.
 
-Because this is a PWA with a service worker, your phone may briefly keep an older cached version. If the live site looks stale, close and reopen the app, refresh the browser page, or remove and reinstall the home screen app.
+Because these are PWAs with service workers, your phone may briefly keep an older cached version. If the live site looks stale, close and reopen the app, refresh the browser page, or remove and reinstall the home screen app.
 
 ## Updating App Behavior
 
@@ -62,9 +57,11 @@ Use these files for typical changes:
 - `manifest.webmanifest`: installed PWA name, icon, colors, start URL, scope.
 - `sw.js`: offline caching behavior.
 
-If you add a new public file that must be deployed, also add it to the copy command in `.github/workflows/deploy.yml`.
+The deployment workflow now stages the whole static tree with `rsync`, excluding repo metadata and maintenance docs. New public files under the project root or `utilities/` deploy automatically.
 
 If the file should work offline, also add it to the `ASSETS` list in `sw.js`.
+
+Utility PWAs can have their own service worker and cache list, like `utilities/reciprocity-timer/sw.js`.
 
 ## Checking Deployments
 

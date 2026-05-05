@@ -5,7 +5,9 @@ alwaysApply: true
 
 # DB Ferry Project Context
 
-- This is a plain static PWA, not a Node/Vite/React build.
+- This is a plain static website with PWAs, not a Node/Vite/React build.
+- The root app is the DB Ferry PWA.
+- Additional utility PWAs live under `utilities/`, currently `utilities/reciprocity-timer/`.
 - The deployed app is published from `main` to GitHub Pages by `.github/workflows/deploy.yml`.
 - The live project URL is `https://fb2.github.io/db-schedule-pwa/`.
 - The GitHub repository is `https://github.com/fb2/db-schedule-pwa`.
@@ -19,9 +21,9 @@ alwaysApply: true
 
 ## Static Site Files
 
-- `.github/workflows/deploy.yml` stages the static files that are uploaded to Pages.
-- If adding a new public file, add it to the workflow's `cp ... site/` command.
-- If the new file should work offline, add it to the `ASSETS` list in `sw.js`.
+- `.github/workflows/deploy.yml` stages the static tree that is uploaded to Pages.
+- New public files under the project root or `utilities/` are deployed automatically by the workflow's `rsync`.
+- If the new file should work offline, add it to the relevant service worker `ASSETS` list.
 - Keep asset paths relative, such as `./app.js`, because the app is hosted under `/db-schedule-pwa/`.
 
 ## Key Files
