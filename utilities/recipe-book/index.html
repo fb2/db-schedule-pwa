@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recipe Book</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <div>
+        <p class="eyebrow">Private Utility</p>
+        <h1>Recipe Book</h1>
+      </div>
+      <div class="auth-actions">
+        <span id="userLabel" class="user-label">Signed out</span>
+        <button id="signInBtn" type="button">Sign in</button>
+        <button id="signOutBtn" class="secondary" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <div id="signedInControls" hidden>
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Search recipes, ingredients, tags..." autocomplete="off">
+        <button id="randomBtn" type="button">Random</button>
+      </div>
+      <div class="tabs">
+        <button id="allTab" type="button" class="active">All recipes</button>
+        <button id="shortTab" type="button">Shortlist</button>
+      </div>
+      <div class="utility-row">
+        <button id="shareShortlistBtn" class="secondary" type="button">Share shortlist links</button>
+        <label class="import-label">
+          <input id="importFile" type="file" accept="application/json">
+          Import private data
+        </label>
+      </div>
+    </div>
+    <div class="meta-bar"><span id="count">Sign in with Google to load recipes.</span><span id="storageNote"></span></div>
+  </header>
+
+  <main>
+    <section id="cards" class="grid" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>No recipes match this search.</p>
+  </main>
+
+  <dialog id="dialog">
+    <article id="detail" class="detail"></article>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

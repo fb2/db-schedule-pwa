@@ -1,0 +1,31 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firestore.rules",
+      "**/.*",
+      "**/node_modules/**",
+      "private/**",
+      "scripts/**",
+      "**/*.private.json",
+      "GITHUB_PAGES_MAINTENANCE.md",
+      "README.md"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(html|webmanifest|js|json|css|svg)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

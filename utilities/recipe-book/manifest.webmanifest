@@ -1,0 +1,10 @@
+{
+  "name": "Recipe Book",
+  "short_name": "Recipes",
+  "description": "Private searchable recipe shortlist utility.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffaf3",
+  "theme_color": "#b45f2a"
+}
