@@ -16,15 +16,7 @@ import {
   writeBatch
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  projectId: "fb-personal-utilities",
-  appId: "1:137538560522:web:a542decb62c9dc677cb5f3",
-  storageBucket: "fb-personal-utilities.firebasestorage.app",
-  apiKey: "AIzaSyBFejdmSCT49G0hxv_7GFPJW_O96G_a6SY",
-  authDomain: "fb-personal-utilities.firebaseapp.com",
-  messagingSenderId: "137538560522"
-};
-
+const firebaseConfig = await loadFirebaseConfig();
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -52,6 +44,14 @@ const signOutBtn = document.getElementById("signOutBtn");
 const userLabel = document.getElementById("userLabel");
 const signedInControls = document.getElementById("signedInControls");
 const importFile = document.getElementById("importFile");
+
+async function loadFirebaseConfig() {
+  const response = await fetch("/__/firebase/init.json", { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error("Firebase config is only available from Firebase Hosting.");
+  }
+  return response.json();
+}
 
 signInBtn.addEventListener("click", async () => {
   try {
