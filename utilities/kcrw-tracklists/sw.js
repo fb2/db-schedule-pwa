@@ -1,11 +1,11 @@
-const CACHE_NAME = "kcrw-tracklists-v2";
+const CACHE_NAME = "kcrw-tracklists-v3";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css?v=2",
   "./app.js?v=2",
   "./manifest.webmanifest",
-  "../../icon.svg",
+  "./icon.svg",
 ];
 
 self.addEventListener("install", (event) => {

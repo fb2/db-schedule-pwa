@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">KCRW Tracklists</title>
+  <desc id="desc">A red radio dial with tracklist lines on a dark background.</desc>
+  <rect width="512" height="512" rx="112" fill="#101820"/>
+  <circle cx="256" cy="208" r="116" fill="#d13f30"/>
+  <circle cx="256" cy="208" r="62" fill="#f6f2ea"/>
+  <circle cx="256" cy="208" r="26" fill="#101820"/>
+  <path d="M156 146c-30 36-30 88 0 124M356 146c30 36 30 88 0 124" fill="none" stroke="#f6f2ea" stroke-width="28" stroke-linecap="round"/>
+  <path d="M154 350h204M154 400h160" fill="none" stroke="#f6f2ea" stroke-width="30" stroke-linecap="round"/>
+  <path d="M354 384l28 28 52-64" fill="none" stroke="#d13f30" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
