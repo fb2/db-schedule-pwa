@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101820">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="KCRW Tracks">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>KCRW Tracklists</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css?v=1">
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <div>
+        <p class="eyebrow">Private Utility</p>
+        <h1>KCRW Tracklists</h1>
+      </div>
+      <div class="auth-actions">
+        <span id="userLabel" class="user-label">Signed out</span>
+        <button id="signInBtn" type="button">Sign in</button>
+        <button id="signOutBtn" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <div id="signedInControls" hidden>
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Search shows, hosts, artists, tracks..." autocomplete="off">
+      </div>
+      <div class="utility-row">
+        <button id="refreshBtn" class="secondary" type="button">Refresh</button>
+        <label class="import-label">
+          <input id="importFile" type="file" accept="application/json">
+          Import show JSON
+        </label>
+      </div>
+    </div>
+
+    <div class="meta-bar">
+      <span id="status">Sign in with Google to load saved shows.</span>
+      <span id="offlineNote"></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="shows" class="show-list" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>No saved shows match this search.</p>
+  </main>
+
+  <dialog id="detailDialog">
+    <article id="detail" class="detail"></article>
+  </dialog>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    }
+  </script>
+  <script type="module" src="./app.js?v=1"></script>
+</body>
+</html>
