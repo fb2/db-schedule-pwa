@@ -333,15 +333,19 @@ function markPayload(show, track) {
 }
 
 async function importShowFile(event) {
-  const file = event.target.files?.[0];
+  const files = [...(event.target.files || [])];
   event.target.value = "";
-  if (!file || !currentUser || !db) return;
+  if (!files.length || !currentUser || !db) return;
 
-  setStatus("Importing show...");
+  setStatus(`Importing ${files.length} show${files.length === 1 ? "" : "s"}...`);
   try {
-    const bundle = normalizeImportBundle(JSON.parse(await file.text()));
-    await saveShowBundle(bundle);
-    setStatus(`Imported ${bundle.show.title}.`);
+    const imported = [];
+    for (const file of files) {
+      const bundle = normalizeImportBundle(JSON.parse(await file.text()));
+      await saveShowBundle(bundle);
+      imported.push(bundle.show.title);
+    }
+    setStatus(`Imported ${imported.length} show${imported.length === 1 ? "" : "s"}.`);
     await loadRemoteData();
   } catch (error) {
     console.error(error);

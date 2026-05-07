@@ -261,6 +261,52 @@ def write_tracklists(base_path: Path, tracks: list[dict], episode: dict[str, obj
     return json_path, txt_path
 
 
+def load_existing_bundle_context(base_path: Path) -> tuple[str, str]:
+    bundle_path = base_path.with_suffix(".show.json")
+    if not bundle_path.exists():
+        return "", ""
+
+    try:
+        bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return "", ""
+
+    show = bundle.get("show") or {}
+    return clean_text(show.get("sourceUrl")), clean_text(show.get("imageUrl"))
+
+
+def write_existing_bundles(output_dir: Path) -> int:
+    episode_paths = sorted(output_dir.glob("*.episode.json"))
+    count = 0
+
+    for episode_path in episode_paths:
+        base_path = episode_path.with_suffix("")
+        tracklist_path = base_path.with_suffix(".tracklist.json")
+        if not tracklist_path.exists():
+            print(f"Skipping {episode_path.name}: missing {tracklist_path.name}", file=sys.stderr)
+            continue
+
+        episode = json.loads(episode_path.read_text(encoding="utf-8"))
+        tracks = json.loads(tracklist_path.read_text(encoding="utf-8"))
+        if not isinstance(tracks, list):
+            print(f"Skipping {episode_path.name}: tracklist is not a list", file=sys.stderr)
+            continue
+
+        source_url, image_url = load_existing_bundle_context(base_path)
+        if image_url and not episode.get("image_url"):
+            episode["image_url"] = image_url
+
+        bundle_path = base_path.with_suffix(".show.json")
+        bundle_path.write_text(
+            json.dumps(make_show_bundle(source_url, episode, tracks), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"Wrote: {bundle_path}")
+        count += 1
+
+    return count
+
+
 def download_file(url: str, output_path: Path) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = output_path.with_suffix(output_path.suffix + ".part")
@@ -400,6 +446,11 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_OUTPUT_DIR,
         help=f"directory for downloads (default: {DEFAULT_OUTPUT_DIR})",
     )
+    parser.add_argument(
+        "--bundle-existing",
+        action="store_true",
+        help="create or refresh *.show.json bundles from existing *.episode.json and *.tracklist.json files",
+    )
     parser.add_argument("--skip-audio", action="store_true", help="only write episode metadata and track lists")
     parser.add_argument("--chapters", action="store_true", help="write a chaptered MP3 with ffmpeg")
     parser.add_argument("--include-breaks", action="store_true", help="include [BREAK] entries as chapters")
@@ -415,6 +466,11 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
+
+    if args.bundle_existing:
+        count = write_existing_bundles(args.output_dir)
+        print(f"Bundled {count} existing shows.")
+        return 0 if count else 1
 
     try:
         page_html = fetch_text(args.url)
