@@ -201,13 +201,18 @@ dialog::backdrop { background: rgba(17, 24, 32, .45); }
   height: 104px;
   border-radius: 18px;
 }
+.detail-hero img {
+  object-fit: cover;
+  display: block;
+  background: var(--soft);
+}
 .detail-hero h2 { margin: 0; font-size: 1.28rem; line-height: 1.15; }
 .detail-hero p { margin: 7px 0 0; color: var(--muted); }
 .track-list { display: grid; gap: 1px; background: var(--line); }
 .track-row {
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 10px;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 12px;
   padding: 12px 14px;
   background: var(--card);
 }
@@ -215,6 +220,7 @@ dialog::backdrop { background: rgba(17, 24, 32, .45); }
   color: var(--accent);
   font-variant-numeric: tabular-nums;
   font-weight: 850;
+  white-space: nowrap;
 }
 .track-title { margin: 0; font-weight: 780; line-height: 1.25; }
 .track-artist { margin: 3px 0 0; color: var(--muted); }
@@ -249,5 +255,5 @@ dialog::backdrop { background: rgba(17, 24, 32, .45); }
   .show-card img, .show-image-placeholder { width: 72px; height: 72px; }
   .detail-hero { grid-template-columns: 78px 1fr; padding: 12px; }
   .detail-hero img, .detail-hero .show-image-placeholder { width: 78px; height: 78px; }
-  .track-row { grid-template-columns: 54px 1fr; padding: 12px 10px; }
+  .track-row { grid-template-columns: 70px minmax(0, 1fr); padding: 12px 10px; }
 }

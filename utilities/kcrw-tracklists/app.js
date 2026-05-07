@@ -276,7 +276,7 @@ function trackRowHtml(show, track) {
       ${track.album || track.label ? `<p class="track-album">${escapeHtml([track.album, track.label].filter(Boolean).join(" · "))}</p>` : ""}
       <div class="track-actions">
         ${!isBreak && currentUser ? `<button type="button" class="${marked ? "marked" : "secondary"}" data-toggle-mark data-show-id="${escapeAttr(show.id)}" data-track-id="${escapeAttr(track.id)}">${marked ? "Marked" : "Mark"}</button>` : ""}
-        ${spotifySearchUrl(track) ? `<a class="button secondary" href="${escapeAttr(spotifySearchUrl(track))}" target="_blank" rel="noopener">Spotify</a>` : ""}
+        ${!isBreak && spotifySearchUrl(track) ? `<a class="button secondary" href="${escapeAttr(spotifySearchUrl(track))}" target="_blank" rel="noopener">Spotify</a>` : ""}
       </div>
     </div>
   </article>`;
