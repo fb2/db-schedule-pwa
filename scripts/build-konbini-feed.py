@@ -644,7 +644,7 @@ def infer_english_context(product: dict[str, Any]) -> None:
     ja = product.get("nameJa") or ""
     if re.search(r"(おにぎり|おむすび|御握り|むすび)", ja):
         hints.append(
-            "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them."
+            "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title."
         )
     if re.search(r"ラテ|カフェラテ|カフェオレ", ja):
         hints.append(

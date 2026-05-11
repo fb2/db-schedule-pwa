@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-11T14:45:44.414602+00:00",
+  "generatedAt": "2026-05-11T14:46:26.065402+00:00",
   "weekLabel": "Week of 2026-05-11",
   "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, seasonal, regional, merch. Check limited and regional badges before planning a store run.",
   "sources": [
@@ -439,7 +439,7 @@
         "national availability"
       ],
       "summary": "Lawson · 203 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "supervised by a named restaurant, chef, or brand; おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "supervised by a named restaurant, chef, or brand; Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -478,7 +478,7 @@
         "national availability"
       ],
       "summary": "Lawson · 214 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "supervised by a named restaurant, chef, or brand; おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "supervised by a named restaurant, chef, or brand; Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -3857,7 +3857,7 @@
         "mentioned by Japanese local/context source"
       ],
       "summary": "7-Eleven · 298 yen (tax incl. 321.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": [
         {
           "sourceId": "mognavi_konbini_ranking",
@@ -3946,7 +3946,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -3985,7 +3985,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4055,7 +4055,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 178 yen (tax incl. 192.24 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4152,7 +4152,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4280,7 +4280,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4312,7 +4312,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4344,7 +4344,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 195 yen (tax incl. 210.60 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4376,7 +4376,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 208 yen (tax incl. 224.64 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4408,7 +4408,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 198 yen (tax incl. 213.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4568,7 +4568,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4632,7 +4632,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 168 yen (tax incl. 181.44 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4664,7 +4664,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 158 yen (tax incl. 170.64 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4728,7 +4728,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4761,7 +4761,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
@@ -4829,7 +4829,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
       "localSignals": []
     },
     {
