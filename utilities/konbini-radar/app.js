@@ -59,6 +59,7 @@ function uniqueSorted(values) {
 }
 
 function populateSelect(select, values, labeler = (value) => value) {
+  if (!select) return;
   for (const value of values) {
     const option = document.createElement("option");
     option.value = value;
@@ -67,21 +68,35 @@ function populateSelect(select, values, labeler = (value) => value) {
   }
 }
 
+/** Cached SW can serve an older index without .product-thumb; repair so image append never targets null. */
+function ensureProductThumbHost(card) {
+  let thumbHost = card.querySelector(".product-thumb");
+  if (!thumbHost) {
+    thumbHost = document.createElement("div");
+    thumbHost.className = "product-thumb";
+    thumbHost.setAttribute("aria-hidden", "true");
+    card.insertBefore(thumbHost, card.firstChild);
+  }
+  return thumbHost;
+}
+
 function productMatchesSection(product) {
+  const tags = product.tags || [];
   if (state.section === "all") return true;
   if (state.section === "hot") return product.score >= 70;
-  if (state.section === "short") return Boolean(product.timeGate) || product.tags.includes("limited");
-  return product.tags.includes(state.section);
+  if (state.section === "short") return Boolean(product.timeGate) || tags.includes("limited");
+  return tags.includes(state.section);
 }
 
 function filteredProducts() {
-  const chain = els.chainFilter.value;
-  const tag = els.tagFilter.value;
-  const sort = els.sortSelect.value;
+  const chain = els.chainFilter?.value ?? "all";
+  const tag = els.tagFilter?.value ?? "all";
+  const sort = els.sortSelect?.value ?? "recommended";
   const products = state.feed.products.filter((product) => {
+    const tags = product.tags || [];
     if (chain !== "all" && product.chain !== chain) return false;
-    if (tag !== "all" && !product.tags.includes(tag)) return false;
-    return productMatchesSection(product);
+    if (tag !== "all" && !tags.includes(tag)) return false;
+    return productMatchesSection({ ...product, tags });
   });
 
   return products.sort((a, b) => {
@@ -118,7 +133,12 @@ function sourceLink(url, index) {
 function renderProduct(product) {
   const fragment = els.productTemplate.content.cloneNode(true);
   const card = fragment.querySelector(".product-card");
-  const thumbHost = card.querySelector(".product-thumb");
+  if (!card) return fragment;
+
+  const thumbHost = ensureProductThumbHost(card);
+  const tags = product.tags || [];
+  const sourceUrls = Array.isArray(product.sourceUrls) ? product.sourceUrls : [];
+
   card.dataset.chain = product.chain;
   const imageUrl = (product.imageUrl || "").trim();
   if (imageUrl) {
@@ -129,7 +149,7 @@ function renderProduct(product) {
     img.decoding = "async";
     img.referrerPolicy = "no-referrer";
     img.addEventListener("error", () => {
-      thumbHost.remove();
+      thumbHost?.remove();
       card.classList.add("product-card-no-thumb");
     });
     thumbHost.append(img);
@@ -150,37 +170,48 @@ function renderProduct(product) {
     .join(" · ");
 
   const badges = card.querySelector(".badges");
-  for (const tag of product.tags.filter((item) => item !== "new").slice(0, 6)) {
-    badges.append(badge(tag));
+  if (badges) {
+    for (const tag of tags.filter((item) => item !== "new").slice(0, 6)) {
+      badges.append(badge(tag));
+    }
   }
 
   const context = card.querySelector(".context");
-  context.textContent = product.englishContext
-    ? `English context: ${product.englishContext}.`
-    : "English context: automated glossary plus wording safeguards; open the official Japanese links for exact naming and allergens.";
+  if (context) {
+    context.textContent = product.englishContext
+      ? `English context: ${product.englishContext}.`
+      : "English context: automated glossary plus wording safeguards; open the official Japanese links for exact naming and allergens.";
+  }
 
   const reasons = card.querySelector(".reasons");
-  for (const reason of product.scoreReasons || []) {
-    const item = document.createElement("li");
-    item.textContent = reason;
-    reasons.append(item);
+  if (reasons) {
+    for (const reason of product.scoreReasons || []) {
+      const item = document.createElement("li");
+      item.textContent = reason;
+      reasons.append(item);
+    }
   }
 
   const localSignals = card.querySelector(".local-signals");
   if (product.localSignals?.length) {
     const signal = product.localSignals[0];
-    localSignals.textContent = `Local signal: ${signal.sourceName} matched "${signal.matchedText}".`;
-  } else {
+    if (localSignals) {
+      localSignals.textContent = `Local signal: ${signal.sourceName} matched "${signal.matchedText}".`;
+    }
+  } else if (localSignals) {
     localSignals.remove();
   }
 
   const sourceLinks = card.querySelector(".source-links");
-  product.sourceUrls.slice(0, 3).forEach((url, index) => sourceLinks.append(sourceLink(url, index)));
+  if (sourceLinks) {
+    sourceUrls.slice(0, 3).forEach((url, index) => sourceLinks.append(sourceLink(url, index)));
+  }
 
   return fragment;
 }
 
 function renderProducts() {
+  if (!els.productList) return;
   const products = filteredProducts();
   els.productList.innerHTML = "";
   if (!products.length) {
@@ -197,6 +228,7 @@ function renderProducts() {
 }
 
 function renderSources() {
+  if (!els.sourceList) return;
   els.sourceList.innerHTML = "";
   for (const source of state.feed.sources) {
     const item = document.createElement("li");
@@ -211,7 +243,10 @@ function renderSources() {
 
 function renderSummary() {
   const products = state.feed.products;
-  const limited = products.filter((product) => product.timeGate || product.tags.includes("limited")).length;
+  const limited = products.filter((product) => {
+    const tags = product.tags || [];
+    return product.timeGate || tags.includes("limited");
+  }).length;
   els.weekLabel.textContent = state.feed.weekLabel;
   els.generatedAt.textContent = formatDateTime(state.feed.generatedAt);
   els.introTitle.textContent = "What to watch this week";
@@ -231,12 +266,12 @@ function setupControls() {
   populateSelect(els.chainFilter, uniqueSorted(state.feed.products.map((product) => product.chain)));
   populateSelect(
     els.tagFilter,
-    uniqueSorted(state.feed.products.flatMap((product) => product.tags)),
+    uniqueSorted(state.feed.products.flatMap((product) => product.tags || [])),
     (value) => TAG_LABELS[value] || value
   );
 
   [els.chainFilter, els.tagFilter, els.sortSelect].forEach((control) => {
-    control.addEventListener("change", renderProducts);
+    if (control) control.addEventListener("change", renderProducts);
   });
 
   for (const tab of els.tabs) {
@@ -249,6 +284,9 @@ function setupControls() {
 }
 
 async function loadFeed() {
+  if (!els.productTemplate) {
+    throw new Error("Product template (#productTemplate) is missing.");
+  }
   const response = await fetch("./feed.json", { cache: "no-store" });
   if (!response.ok) throw new Error(`Feed request failed with ${response.status}`);
   state.feed = await response.json();
