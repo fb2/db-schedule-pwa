@@ -1,9 +1,9 @@
-const CACHE_NAME = "konbini-radar-v7";
+const CACHE_NAME = "konbini-radar-v9";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=7",
-  "./app.js?v=7",
+  "./styles.css?v=9",
+  "./app.js?v=9",
   "./feed.json",
   "./manifest.webmanifest",
   "./icon.svg",
