@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-11T14:29:32.977618+00:00",
+  "generatedAt": "2026-05-11T14:38:16.591267+00:00",
   "weekLabel": "Week of 2026-05-11",
-  "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Hokkaido azuki bean matcha shaved ice 175ml. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, regional, merch. Check limited and regional badges before planning a store run.",
+  "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, seasonal, regional, merch. Check limited and regional badges before planning a store run.",
   "sources": [
     {
       "id": "seven_this_week",
@@ -37,8 +37,8 @@
       "url": "https://www.lawson.co.jp/recommend/new/",
       "ok": true,
       "status": 200,
-      "title": "",
-      "titleJa": ""
+      "title": "5 12 () |",
+      "titleJa": "5月12日（火）発売の新商品｜ローソン公式サイト"
     },
     {
       "id": "lawson_lab_this_week",
@@ -115,6 +115,114 @@
   ],
   "products": [
     {
+      "id": "lawson-1057893b20",
+      "chain": "Lawson",
+      "name": "Uchi Café× Morihan matcha milk",
+      "nameJa": "Uchi Café×森半 どらもっち 抹茶ミルク",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "257 yen(tax incl.)",
+      "priceTextJa": "257円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527480_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 91,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "seasonal flavor or format",
+        "mentioned by Japanese local/context source",
+        "national availability"
+      ],
+      "summary": "Lawson · 257 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Uchi",
+          "matchedTextJa": "Uchi",
+          "snippet": "10 、 12 、 。 Uchi Café× Morihan rich matcha sandwich :297 () :2026 05 05 () Morihan 。 、 matcha sandwich",
+          "snippetJa": "全10種のプリントに加え、書き下ろしを含む全12種のシール付きで、選ぶ楽しさも魅力の一品です。 ローソンの新作スイーツ Uchi Café×森半 濃い抹茶しっとりビスケットサンド 価格：297円（税込） 発売日：2026年05月05日（火）発売 森半コラボ商品。しっとりとした口あたりと、ほろほろとほどける食感のビスケット生地で抹茶クリームをサンドしたスイーツ"
+        }
+      ]
+    },
+    {
+      "id": "lawson-4954e356be",
+      "chain": "Lawson",
+      "name": "Uchi Café× Morihan rich matcha sandwich and",
+      "nameJa": "Uchi Café×森半 濃い抹茶サンド つぶあん&おもち",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "346 yen(tax incl.)",
+      "priceTextJa": "346円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527479_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 91,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "seasonal flavor or format",
+        "mentioned by Japanese local/context source",
+        "national availability"
+      ],
+      "summary": "Lawson · 346 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Uchi",
+          "matchedTextJa": "Uchi",
+          "snippet": "10 、 12 、 。 Uchi Café× Morihan rich matcha sandwich :297 () :2026 05 05 () Morihan 。 、 matcha sandwich",
+          "snippetJa": "全10種のプリントに加え、書き下ろしを含む全12種のシール付きで、選ぶ楽しさも魅力の一品です。 ローソンの新作スイーツ Uchi Café×森半 濃い抹茶しっとりビスケットサンド 価格：297円（税込） 発売日：2026年05月05日（火）発売 森半コラボ商品。しっとりとした口あたりと、ほろほろとほどける食感のビスケット生地で抹茶クリームをサンドしたスイーツ"
+        }
+      ]
+    },
+    {
       "id": "familymart-b4c0ea97ff",
       "chain": "FamilyMart",
       "name": "Mofusand waffle-frame character snack",
@@ -177,6 +285,201 @@
           "snippetJa": "ップと練乳を包み込んだ和スイーツです。やわらかな生地とコクのある甘みが広がる味わい。満足感のある食べごたえも特長です。 mofusand わっふれーむ 価格：250円（税込） 発売日：2026年05月05日（火）発売予定 mofusandが描かれた、もちもち食感の四角いワッフルです。中にはカスタード味のクリーム入り。全10種のプリントに加え、書き下ろしを含む"
         }
       ]
+    },
+    {
+      "id": "lawson-391e4407d6",
+      "chain": "Lawson",
+      "name": "Supervised pork and soba",
+      "nameJa": "きじ監修 豚玉&焼そば",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "630 yen(tax incl.)",
+      "priceTextJa": "630円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527514_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new"
+      ],
+      "timeGate": null,
+      "score": 79,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "national availability"
+      ],
+      "summary": "Lawson · 630 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-048ff8be13",
+      "chain": "Lawson",
+      "name": "Tenkaippin supervised MAX",
+      "nameJa": "天下一品監修 こってりMAXあんかけチャーハン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "697 yen(tax incl.)",
+      "priceTextJa": "697円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527470_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new"
+      ],
+      "timeGate": null,
+      "score": 79,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "national availability"
+      ],
+      "summary": "Lawson · 697 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-f1ef780fb5",
+      "chain": "Lawson",
+      "name": "Tenkaippin supervised MAX ramen",
+      "nameJa": "天下一品監修 こってりMAXラーメン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "745 yen(tax incl.)",
+      "priceTextJa": "745円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527474_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new"
+      ],
+      "timeGate": null,
+      "score": 79,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "national availability"
+      ],
+      "summary": "Lawson · 745 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-484df1db6d",
+      "chain": "Lawson",
+      "name": "Tenkaippin supervised rice ball",
+      "nameJa": "天下一品監修 こってりスープ仕立ての炒飯おにぎり",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "203 yen(tax incl.)",
+      "priceTextJa": "203円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527465_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new"
+      ],
+      "timeGate": null,
+      "score": 79,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "national availability"
+      ],
+      "summary": "Lawson · 203 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-959a41db3e",
+      "chain": "Lawson",
+      "name": "Tenkaippin supervised miso rice ball",
+      "nameJa": "天下一品監修 こってりスープ仕立ての辛味噌チャーシューマヨネーズおにぎり",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "214 yen(tax incl.)",
+      "priceTextJa": "214円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527464_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "collab",
+        "new"
+      ],
+      "timeGate": null,
+      "score": 79,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "collaboration or supervised item",
+        "national availability"
+      ],
+      "summary": "Lawson · 214 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "localSignals": []
     },
     {
       "id": "familymart-9e85259353",
@@ -493,6 +796,95 @@
       "localSignals": []
     },
     {
+      "id": "lawson-61aef94380",
+      "chain": "Lawson",
+      "name": "Hokkaido azuki bean matcha shaved ice",
+      "nameJa": "明治 北海道あずき抹茶氷",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "246 yen(tax incl.)",
+      "priceTextJa": "246円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527459_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "seasonal flavor or format",
+        "national availability"
+      ],
+      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-401a5ac3ae",
+      "chain": "Lawson",
+      "name": "Extra-milk salted vanilla latte",
+      "nameJa": "ミルクたっぷり 塩バニララテ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "228 yen(tax incl.)",
+      "priceTextJa": "228円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527469_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 68,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "mentioned by Japanese local/context source",
+        "national availability"
+      ],
+      "summary": "Lawson · 228 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named.",
+      "localSignals": [
+        {
+          "sourceId": "mognavi_konbini_ranking",
+          "sourceName": "Mognavi konbini ranking",
+          "tier": "ranking",
+          "language": "ja",
+          "url": "https://s.mognavi.jp/konbini/ranking/1",
+          "matchedText": "Milk extra",
+          "matchedTextJa": "ミルクたっぷり",
+          "snippet": "Miso milk extra latte 4.7 45 153 supervised latte 4.8 4 10 - strawberry milk 5.5 2 8",
+          "snippetJa": "プ・コンビニ味噌汁のおすすめランキングをもっと見る コンビニドリンク・コンビニカップ飲料のおすすめランキング ローソン ミルクたっぷり キャラメルラテ 4.7 45 153 ローソン 猿田彦珈琲監修 ジョージア 恵比寿ラテ 4.8 4 10 セブン-イレブン セブンカフェ いちごミルクスムージー 5.5 2 8 コンビニドリンク・コンビニカップ飲料のおすすめ"
+        }
+      ]
+    },
+    {
       "id": "lawson-ef9eab9f99",
       "chain": "Lawson",
       "name": "Extra-milk salted vanilla latte 240ml",
@@ -540,6 +932,56 @@
           "matchedTextJa": "ミルクたっぷり",
           "snippet": "Miso milk extra latte 4.7 45 153 supervised latte 4.8 4 10 - strawberry milk 5.5 2 8",
           "snippetJa": "プ・コンビニ味噌汁のおすすめランキングをもっと見る コンビニドリンク・コンビニカップ飲料のおすすめランキング ローソン ミルクたっぷり キャラメルラテ 4.7 45 153 ローソン 猿田彦珈琲監修 ジョージア 恵比寿ラテ 4.8 4 10 セブン-イレブン セブンカフェ いちごミルクスムージー 5.5 2 8 コンビニドリンク・コンビニカップ飲料のおすすめ"
+        }
+      ]
+    },
+    {
+      "id": "lawson-99a4e4e4ec",
+      "chain": "Lawson",
+      "name": "Item",
+      "nameJa": "モカショコラ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "322 yen(tax incl.)",
+      "priceTextJa": "322円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527478_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 68,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "mentioned by Japanese local/context source",
+        "national availability"
+      ],
+      "summary": "Lawson · 322 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Item",
+          "matchedTextJa": "モカショコラ",
+          "snippet": "5 12 regional 「Uchi Cafe× Morihan rich matcha sandwich and 」「 」 、5 12 。「Uchi Cafe× Morihan rich matcha sandwich and 」 「 」 。 Region regional 5 12 ~!",
+          "snippetJa": "にぎり 【5月12日発売】ローソン 新商品スイーツまとめ「Uchi Cafe×森半 濃い抹茶サンド つぶあん＆おもち」「モカショコラ」など ローソンで、5月12日に発売される新商品スイーツをまとめてご紹介します。「Uchi Cafe×森半 濃い抹茶サンド つぶあん＆おもち」や「モカショコラ」など。 コンビニ 【セブン-イレブン】5月12日~発売！後味スッキリ"
         }
       ]
     },
@@ -662,6 +1104,154 @@
       "localSignals": []
     },
     {
+      "id": "lawson-8f4fffff04",
+      "chain": "Lawson",
+      "name": "1 salad",
+      "nameJa": "1食分の野菜が摂れる パリパリ麺のサラダ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "451 yen(tax incl.)",
+      "priceTextJa": "451円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527472_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 451 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-8a1cb505dd",
+      "chain": "Lawson",
+      "name": "Item",
+      "nameJa": "おいなりさん 梅おかか",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "225 yen(tax incl.)",
+      "priceTextJa": "225円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527466_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 225 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-2331f177ec",
+      "chain": "Lawson",
+      "name": "! bento",
+      "nameJa": "おかズドン!トリプルメンチカツ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "646 yen(tax incl.)",
+      "priceTextJa": "646円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527471_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 646 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-f15654d01a",
+      "chain": "Lawson",
+      "name": "Bread",
+      "nameJa": "つぶつぶコーンマヨネーズパン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "192 yen(tax incl.)",
+      "priceTextJa": "192円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527484_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 192 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
       "id": "lawson-6b12b27af9",
       "chain": "Lawson",
       "name": "Salad ROLL teriyaki chicken",
@@ -678,11 +1268,12 @@
         "全国"
       ],
       "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+        "https://www.lawson.co.jp/recommend/original/detail/1527477_1996.html"
       ],
       "sourceTiers": [
-        "official",
-        "featured"
+        "featured",
+        "official"
       ],
       "imageUrl": "",
       "tags": [
@@ -716,11 +1307,12 @@
         "全国"
       ],
       "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+        "https://www.lawson.co.jp/recommend/original/detail/1527476_1996.html"
       ],
       "sourceTiers": [
-        "official",
-        "featured"
+        "featured",
+        "official"
       ],
       "imageUrl": "",
       "tags": [
@@ -734,6 +1326,265 @@
         "national availability"
       ],
       "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-462cecbe94",
+      "chain": "Lawson",
+      "name": "Green onion",
+      "nameJa": "シャキッとたまねぎ天",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "235 yen(tax incl.)",
+      "priceTextJa": "235円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527461_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 235 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-b2dbe1896e",
+      "chain": "Lawson",
+      "name": "Chocolate and",
+      "nameJa": "チョコ&カスタードデニッシュ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "149 yen(tax incl.)",
+      "priceTextJa": "149円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527485_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 149 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-a520850d25",
+      "chain": "Lawson",
+      "name": "Chocolate 4",
+      "nameJa": "チョコスティックパイ 4本入",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "192 yen(tax incl.)",
+      "priceTextJa": "192円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527481_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 192 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-136eaa432b",
+      "chain": "Lawson",
+      "name": "Bread",
+      "nameJa": "ポテトチーズパン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "192 yen(tax incl.)",
+      "priceTextJa": "192円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527483_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 192 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-ff71a15cbe",
+      "chain": "Lawson",
+      "name": "Chocolate",
+      "nameJa": "マシュマロブロック チョコミント風味",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "218 yen(tax incl.)",
+      "priceTextJa": "218円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527462_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 218 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-2d35fe54d4",
+      "chain": "Lawson",
+      "name": "Chocolate",
+      "nameJa": "ミント増し 麦チョコミント",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "188 yen(tax incl.)",
+      "priceTextJa": "188円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527463_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 188 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-c90b17305e",
+      "chain": "Lawson",
+      "name": "Hokkaido-grown melon",
+      "nameJa": "日本のフルーツ 北海道産メロン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "279 yen(tax incl.)",
+      "priceTextJa": "279円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527468_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
       "englishContext": "",
       "localSignals": []
     },
@@ -776,6 +1627,43 @@
       "localSignals": []
     },
     {
+      "id": "lawson-464be91620",
+      "chain": "Lawson",
+      "name": "Seafood tuna",
+      "nameJa": "混ぜて食べる 海鮮ばくだん まぐろ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "346 yen(tax incl.)",
+      "priceTextJa": "346円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527473_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 346 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
       "id": "lawson-1d06a01bff",
       "chain": "Lawson",
       "name": "Hot or cold choose by mood! udon with soft-boiled egg and chilled dashi poured on top",
@@ -814,6 +1702,154 @@
       "localSignals": []
     },
     {
+      "id": "lawson-63aabfd724",
+      "chain": "Lawson",
+      "name": "Hot or cold choose by mood! udon with soft-boiled egg and chilled dashi poured on top",
+      "nameJa": "温・冷 気分で選べる!半熟玉子ぶっかけうどん",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "538 yen(tax incl.)",
+      "priceTextJa": "538円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527475_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 538 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs.",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-76bb81f6c0",
+      "chain": "Lawson",
+      "name": "Bread",
+      "nameJa": "素朴なてりやきマヨネーズパン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "119 yen(tax incl.)",
+      "priceTextJa": "119円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527482_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 119 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-067202368c",
+      "chain": "Lawson",
+      "name": "Salmon",
+      "nameJa": "銀鮭の西京焼",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen(tax incl.)",
+      "priceTextJa": "430円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527467_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 430 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-6c970d498c",
+      "chain": "Lawson",
+      "name": "Chicken",
+      "nameJa": "鶏と野菜の黒酢あん",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "346 yen(tax incl.)",
+      "priceTextJa": "346円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://www.lawson.co.jp/recommend/original/detail/1527515_1996.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 346 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
       "id": "lawson-e923911da3",
       "chain": "Lawson",
       "name": "Bonito dashi aromatic soba",
@@ -830,11 +1866,12 @@
         "全国"
       ],
       "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+        "https://www.lawson.co.jp/recommend/original/detail/1527460_1996.html"
       ],
       "sourceTiers": [
-        "official",
-        "featured"
+        "featured",
+        "official"
       ],
       "imageUrl": "",
       "tags": [

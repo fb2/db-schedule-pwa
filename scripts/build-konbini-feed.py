@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+from html import unescape
 from html.parser import HTMLParser
 import hashlib
 import json
@@ -58,6 +59,10 @@ LAWSON_LAB_PRODUCT_BLOCK_RE = re.compile(
     r"(?:<span[^>]*>\s*)?(\d{4}年\d{1,2}月\d{1,2}日[^<]*?発売[^<]*?)(?:\s*</span>)?\s*"
     r"<br\s*/>\s*ローソン標準価格\s*([0-9,]+円\(税込\))",
     re.IGNORECASE | re.DOTALL,
+)
+LAWSON_NEW_CARD_RE = re.compile(
+    r'<a\s+href="(/recommend/(?:original|new)/detail/\d+_\d+\.html)"[^>]*>([\s\S]*?)</a>',
+    re.IGNORECASE,
 )
 OG_TITLE_RE = re.compile(
     r'<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']',
@@ -330,6 +335,9 @@ def normalize_lawson_product_name(name: str) -> str:
     t = clean_text(name)
     t = unicodedata.normalize("NFKC", t)
     t = re.sub(r"^※+\s*", "", t)
+    # Trailing regional / footnote tails (e.g. "…※沖縄ではお取り扱いが～") are not part of the product name.
+    t = re.sub(r"\s*※\s*沖縄[^※]*$", "", t, flags=re.DOTALL)
+    t = re.sub(r"\s*※\s*(?:画像|店舗|店頭|パッケージ|表示|参考)[^※]*$", "", t)
     t = t.replace("\u3000", " ")
     t = re.sub(r"\s+", " ", t).strip(" ・、,，")
     return t
@@ -513,6 +521,39 @@ def parse_japanese_date(text: str, fallback_year: int | None = None) -> str | No
         return None
 
 
+def parse_lawson_list_date(text: str, fallback_year: int | None = None) -> str | None:
+    t = clean_text(text)
+    dot = re.fullmatch(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", t)
+    if dot:
+        year, month, day = int(dot.group(1)), int(dot.group(2)), int(dot.group(3))
+        try:
+            return dt.date(year, month, day).isoformat()
+        except ValueError:
+            return None
+    return parse_japanese_date(t, fallback_year)
+
+
+def extract_lawson_new_list_rows(html: str) -> list[tuple[str, str, str, str | None]]:
+    """Lawson weekly new list: title from p.ttl, price/date from card HTML (not anchor text noise)."""
+    rows: list[tuple[str, str, str, str | None]] = []
+    for match in LAWSON_NEW_CARD_RE.finditer(html or ""):
+        href_rel, block = match.group(1), match.group(2)
+        ttl_match = re.search(r'<p[^>]*class=(["\'])ttl\1[^>]*>([^<]*)</p>', block, flags=re.IGNORECASE)
+        if not ttl_match:
+            continue
+        raw_title = ttl_match.group(2)
+        price_match = re.search(
+            r'<p[^>]*class=(["\'])price\1[^>]*>\s*<span>([0-9,]+)</span>\s*<span>円',
+            block,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        price_digits = price_match.group(2) if price_match else ""
+        date_match = re.search(r'発売日\s*<span>([^<]+)</span>', block, flags=re.IGNORECASE)
+        date_raw = date_match.group(1).strip() if date_match else None
+        rows.append((href_rel, raw_title, price_digits, date_raw))
+    return rows
+
+
 def parse_price(texts: list[str]) -> str:
     for text in texts:
         if "円" in text and re.search(r"\d", text):
@@ -646,7 +687,9 @@ def parse_familymart(events: list[dict[str, str]], source: dict[str, Any], today
     return products, warnings
 
 
-def parse_lawson(events: list[dict[str, str]], source: dict[str, Any], today: dt.date) -> tuple[list[dict[str, Any]], list[str]]:
+def parse_lawson(
+    html: str, events: list[dict[str, str]], source: dict[str, Any], today: dt.date
+) -> tuple[list[dict[str, Any]], list[str]]:
     products: list[dict[str, Any]] = []
     warnings: list[str] = []
     release_date = None
@@ -656,6 +699,27 @@ def parse_lawson(events: list[dict[str, str]], source: dict[str, Any], today: dt
             break
 
     seen_names: set[str] = set()
+    card_rows = extract_lawson_new_list_rows(html)
+    if card_rows:
+        for href_rel, raw_title, price_digits, date_raw in card_rows:
+            name = normalize_lawson_product_name(unescape(raw_title))
+            if is_weak_lawson_title(name):
+                continue
+            if len(name) < 3 or name in seen_names or "ローソン" in name:
+                continue
+            product = new_product("Lawson", name, source, absolute_url(href_rel, source["url"]))
+            if price_digits:
+                product["priceTextJa"] = f"{price_digits}円(税込)"
+                product["priceText"] = translate_price(product["priceTextJa"])
+            parsed_d = parse_lawson_list_date(date_raw, today.year) if date_raw else None
+            product["releaseDate"] = parsed_d or release_date
+            product["regionsJa"] = parse_regions([], "全国")
+            product["regions"] = translate_regions(product["regionsJa"])
+            products.append(product)
+            seen_names.add(name)
+        if products:
+            return products[:80], warnings
+
     for index, event in enumerate(events):
         if event["type"] != "link":
             continue
@@ -663,7 +727,7 @@ def parse_lawson(events: list[dict[str, str]], source: dict[str, Any], today: dt
         name = normalize_lawson_product_name(event["text"])
         if is_lawson_disclaimer_text(event["text"]) or is_weak_lawson_title(name):
             continue
-        if not any(piece in href for piece in ("/recommend/original/detail/", "/recommend/new/detail/", "/recommend/")):
+        if "/recommend/original/detail/" not in href and "/recommend/new/detail/" not in href:
             continue
         if len(name) < 3 or name in seen_names or "ローソン" in name:
             continue
@@ -672,7 +736,10 @@ def parse_lawson(events: list[dict[str, str]], source: dict[str, Any], today: dt
         product = new_product("Lawson", name, source, absolute_url(href, source["url"]))
         product["priceTextJa"] = parse_price(following)
         product["priceText"] = translate_price(product["priceTextJa"])
-        product["releaseDate"] = next((parse_japanese_date(piece, today.year) for piece in following if parse_japanese_date(piece, today.year)), release_date)
+        product["releaseDate"] = next(
+            (parse_japanese_date(piece, today.year) for piece in following if parse_japanese_date(piece, today.year)),
+            release_date,
+        )
         product["regionsJa"] = parse_regions(following, "全国")
         product["regions"] = translate_regions(product["regionsJa"])
         products.append(product)
@@ -1058,7 +1125,8 @@ def main() -> int:
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "lawson_weekly":
-            parsed, parser_warnings = parse_lawson(parser.events, source, today)
+            lawson_weekly_html = decode_html(raw_path)
+            parsed, parser_warnings = parse_lawson(lawson_weekly_html, parser.events, source, today)
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "lawson_lab_weekly":

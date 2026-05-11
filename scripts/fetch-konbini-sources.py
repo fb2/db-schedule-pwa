@@ -7,13 +7,20 @@ import argparse
 import datetime as dt
 import json
 import pathlib
+import re
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "scripts" / "konbini_sources.json"
+
+META_REFRESH_RE = re.compile(
+    r'<meta\s+http-equiv=["\']Refresh["\']\s+content=["\'][^"\']*?;\s*url=([^"\'>\s]+)',
+    re.IGNORECASE,
+)
 
 
 def utc_now() -> dt.datetime:
@@ -38,6 +45,38 @@ def fetch(url: str, timeout: int) -> tuple[int | None, str, bytes]:
         return error.code, error.headers.get("content-type", ""), error.read()
     except urllib.error.URLError as error:
         return None, str(error.reason), b""
+
+
+def follow_meta_refresh(
+    start_url: str,
+    body: bytes,
+    timeout: int,
+    *,
+    initial_status: int | None,
+    initial_ctype: str,
+    max_hops: int = 6,
+) -> tuple[str, bytes, int | None, str]:
+    """If HTML is a meta-refresh stub, fetch the target URL. Returns final URL, body, status, content-type."""
+    current_url = start_url
+    current = body
+    status = initial_status
+    ctype = initial_ctype
+    for _ in range(max_hops):
+        text = current.decode("utf-8", errors="replace")
+        match = META_REFRESH_RE.search(text)
+        if not match:
+            return current_url, current, status, ctype
+        target = urllib.parse.unquote(match.group(1).strip().strip("'\""))
+        if target.lower().startswith("url="):
+            target = target[4:].strip()
+        next_url = urllib.parse.urljoin(current_url, target)
+        if next_url == current_url:
+            return current_url, current, status, ctype
+        status, ctype, current = fetch(next_url, timeout)
+        current_url = next_url
+        if status is None or not (200 <= status < 400) or not current:
+            return current_url, current, status, ctype
+    return current_url, current, status, ctype
 
 
 def main() -> int:
@@ -70,6 +109,15 @@ def main() -> int:
         source_id = source["id"]
         raw_path = raw_dir / f"{source_id}.html"
         status, content_type, body = fetch(source["url"], args.timeout)
+        resolved_url = source["url"]
+        if status and 200 <= status < 400 and body:
+            resolved_url, body, status, content_type = follow_meta_refresh(
+                source["url"],
+                body,
+                args.timeout,
+                initial_status=status,
+                initial_ctype=content_type,
+            )
         raw_path.write_bytes(body)
 
         ok = bool(status and 200 <= status < 400 and body)
@@ -80,6 +128,7 @@ def main() -> int:
                 "tier": source["tier"],
                 "chain": source.get("chain"),
                 "url": source["url"],
+                "resolvedUrl": resolved_url if resolved_url != source["url"] else source["url"],
                 "parser": source["parser"],
                 "language": source.get("language", "ja"),
                 "status": status,

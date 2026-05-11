@@ -28,7 +28,7 @@
       "chain": "Lawson",
       "tier": "official",
       "url": "https://www.lawson.co.jp/recommend/new/",
-      "parser": "context_page",
+      "parser": "lawson_weekly",
       "language": "ja"
     },
     {
