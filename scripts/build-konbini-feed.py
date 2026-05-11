@@ -68,6 +68,14 @@ OG_TITLE_RE = re.compile(
     r'<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']',
     re.IGNORECASE,
 )
+OG_IMAGE_RE = re.compile(
+    r'<meta\s+property=["\']og:image["\']\s+content=["\']([^"\']+)["\']',
+    re.IGNORECASE,
+)
+LAWSON_DETAIL_HERO_IMG_RE = re.compile(
+    r'<p[^>]*class=(["\'])mb05\1[^>]*>\s*<img[^>]+src=(["\'])([^"\']+)\2',
+    re.I,
+)
 SOURCE_NAME_TRANSLATIONS = {
     "えん食べ konbini roundup": "Entabe konbini roundup",
     "コンビニ チェッカー new items": "Conveni Checker new items",
@@ -113,6 +121,8 @@ CATEGORY_TRANSLATIONS = {
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
+    ("雉虎亭キジ監修", "Kiji-supervised (Kijiko-tei)"),
+    ("きじ監修", "Kiji-supervised"),
     ("ミルクたっぷり 塩バニララテ", "extra-milk salted vanilla latte"),
     ("塩バニララテ", "salted vanilla latte"),
     ("半熟玉子ぶっかけうどん", "udon with soft-boiled egg and chilled dashi poured on top"),
@@ -141,6 +151,8 @@ PHRASE_TRANSLATIONS = {
     "森半": "Morihan",
     "八天堂": "Hattendo",
     "天下一品": "Tenkaippin",
+    "雉虎亭": "Kijiko-tei",
+    "キジ": "Kiji",
     "七宝麻辣湯": "Shippo Malatang",
     "札幌すみれ": "Sapporo Sumire",
     "mofusand": "mofusand",
@@ -195,6 +207,10 @@ PHRASE_TRANSLATIONS = {
     "チュロッキー": "churro-style donut",
     "パスタ": "pasta",
     "ラーメン": "ramen",
+    "焼きそば": "yakisoba",
+    "焼そば": "yakisoba",
+    "ヤキソバ": "yakisoba",
+    "豚玉": "pork and egg",
     "そば": "soba",
     "うどん": "udon",
     "サラダ": "salad",
@@ -324,6 +340,54 @@ def extract_og_title(html: str) -> str:
     return clean_text(match.group(1)) if match else ""
 
 
+def extract_og_image(html: str) -> str:
+    match = OG_IMAGE_RE.search(html or "")
+    return clean_text(unescape(match.group(1))) if match else ""
+
+
+def fix_lawson_image_url(url: str, base: str = "https://www.lawson.co.jp") -> str:
+    raw = clean_text(unescape(url or ""))
+    if not raw:
+        return ""
+    raw = raw.replace("https://www.lawson.co.jphttps://", "https://")
+    raw = raw.replace("http://www.lawson.co.jphttp://", "http://")
+    if raw.startswith("//"):
+        return f"https:{raw}"
+    if raw.startswith("/"):
+        return absolute_url(raw, base)
+    return raw
+
+
+def extract_lawson_detail_h2_title(html: str) -> str:
+    match = re.search(
+        r'<h2[^>]*class=(["\'])ttl\1[^>]*>\s*([^<]+?)\s*</h2>',
+        html or "",
+        re.I,
+    )
+    if not match:
+        return ""
+    return normalize_lawson_product_name(unescape(match.group(2)))
+
+
+def extract_lawson_detail_hero_image(html: str) -> str:
+    hero = LAWSON_DETAIL_HERO_IMG_RE.search(html or "")
+    if hero:
+        return fix_lawson_image_url(hero.group(3))
+    fallback = re.search(
+        r'src=(["\'])(/recommend/(?:original|new)/detail/img/[^"\']+\.(?:png|jpe?g|webp))\1',
+        html or "",
+        re.I,
+    )
+    return fix_lawson_image_url(fallback.group(2)) if fallback else ""
+
+
+def lawson_detail_thumbnail_from_html(html: str) -> str:
+    og = fix_lawson_image_url(extract_og_image(html))
+    if og:
+        return og
+    return extract_lawson_detail_hero_image(html)
+
+
 def is_lawson_disclaimer_text(text: str) -> bool:
     t = clean_text(text)
     if not t:
@@ -422,6 +486,7 @@ SANITIZE_ENGLISH_PATTERNS = [
     # Whole phrase first (modifiers like "egg bukkake udon").
     (re.compile(r"\bbukkake\s+(udon|soba)\b", re.I), r"broth-poured \1"),
     (re.compile(r"\bbukkake\b", re.I), "broth-poured"),
+    (re.compile(r"\bpork and egg and yakisoba\b", re.I), "pork and egg & yakisoba"),
     # Half-width / broken tokenizer cases where "latte" drops out.
     (re.compile(r"\bsalt vanilla\b(?!\s+latte\b)", re.I), "salted vanilla latte"),
     (re.compile(r"\bsalted vanilla\b(?!\s+latte\b)(?=\s|$|\d)", re.I), "salted vanilla latte"),
@@ -452,6 +517,10 @@ def infer_english_context(product: dict[str, Any]) -> None:
     elif "ぶっかけ" in ja:
         hints.append(
             "ぶっかけ styles pour savory chilled broth over noodles; English wording avoids misleading homographs."
+        )
+    if re.search(r"焼きそば|焼そば|ヤキソバ", ja):
+        hints.append(
+            "Lawson labeling uses 焼そば / 焼きそば for fried yakisoba noodles, not buckwheat soba."
         )
     if re.search(r"\d+\s*ml", ja, flags=re.I):
         hints.append("Milliliters on pack shots reflect Japanese retail labeling.")
@@ -1010,6 +1079,51 @@ def enrich_product_thumbnails(products: list[dict[str, Any]], seven_html: str, f
                 product["imageUrl"] = thumb
 
 
+def enrich_lawson_from_detail_snapshots(products: list[dict[str, Any]], snapshots: list[dict[str, Any]]) -> None:
+    """Fill Lawson imageUrl (and longer Japanese titles when present) from fetched detail HTML."""
+    if not snapshots:
+        return
+    detail_map: dict[str, dict[str, str]] = {}
+    for snap in snapshots:
+        if not snap.get("ok"):
+            continue
+        rel = snap.get("rawPath") or ""
+        path = ROOT / rel
+        if not path.is_file():
+            continue
+        html = decode_html(path)
+        key = url_canonical(snap.get("url", ""))
+        if not key:
+            continue
+        detail_map[key] = {
+            "thumb": lawson_detail_thumbnail_from_html(html),
+            "nameJaDetail": extract_lawson_detail_h2_title(html),
+        }
+
+    for product in products:
+        if product["chain"] != "Lawson":
+            continue
+        for src_url in product.get("sourceUrls", []):
+            if "/recommend/" not in src_url or "/detail/" not in src_url:
+                continue
+            meta = detail_map.get(url_canonical(src_url))
+            if not meta:
+                continue
+            if meta.get("thumb") and not (product.get("imageUrl") or "").strip():
+                product["imageUrl"] = meta["thumb"]
+            detail_name = meta.get("nameJaDetail") or ""
+            if detail_name:
+                current = normalize_lawson_product_name(product.get("nameJa") or "")
+                if len(detail_name) > len(current) + 2:
+                    product["nameJa"] = detail_name
+                    product["name"] = translate_japanese_text(detail_name)
+
+
+def assign_product_ids(products: list[dict[str, Any]]) -> None:
+    for product in products:
+        product["id"] = item_id(product["chain"], product["nameJa"], product.get("releaseDate"))
+
+
 def summarize_product(product: dict[str, Any]) -> None:
     pieces = [product["chain"]]
     if product.get("category"):
@@ -1147,6 +1261,9 @@ def main() -> int:
             )
 
     products = merge_products(products)
+
+    enrich_lawson_from_detail_snapshots(products, manifest.get("lawsonDetailSnapshots") or [])
+    assign_product_ids(products)
 
     seven_html = ""
     family_html = ""

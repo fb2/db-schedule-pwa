@@ -21,6 +21,12 @@ META_REFRESH_RE = re.compile(
     r'<meta\s+http-equiv=["\']Refresh["\']\s+content=["\'][^"\']*?;\s*url=([^"\'>\s]+)',
     re.IGNORECASE,
 )
+# Lawson weekly cards link to these detail pages; snapshot them for og:image / richer titles.
+LAWSON_DETAIL_HREF_RE = re.compile(
+    r'<a\s+href="(/recommend/(?:original|new)/detail/\d+_\d+\.html)"',
+    re.IGNORECASE,
+)
+MAX_LAWSON_DETAIL_FETCHES = 120
 
 
 def utc_now() -> dt.datetime:
@@ -100,6 +106,7 @@ def main() -> int:
         "configPath": str(config_path.relative_to(ROOT)),
         "draftDir": str(draft_dir.relative_to(ROOT)),
         "sources": [],
+        "lawsonDetailSnapshots": [],
     }
 
     for index, source in enumerate(config["sources"]):
@@ -141,6 +148,41 @@ def main() -> int:
 
         state = "ok" if ok else "warning"
         print(f"{state}: {source_id} status={status} bytes={len(body)}")
+
+        if source_id == "lawson_new" and ok and body:
+            detail_dir = raw_dir / "lawson_details"
+            detail_dir.mkdir(parents=True, exist_ok=True)
+            html_text = body.decode("utf-8", errors="replace")
+            detail_urls: list[str] = []
+            seen: set[str] = set()
+            for match in LAWSON_DETAIL_HREF_RE.finditer(html_text):
+                rel = match.group(1)
+                absolute = urllib.parse.urljoin("https://www.lawson.co.jp/", rel)
+                if absolute not in seen:
+                    seen.add(absolute)
+                    detail_urls.append(absolute)
+            detail_urls = detail_urls[:MAX_LAWSON_DETAIL_FETCHES]
+            print(f"lawson_new: fetching {len(detail_urls)} detail pages")
+            for detail_index, detail_url in enumerate(detail_urls):
+                if detail_index:
+                    time.sleep(args.sleep)
+                slug = urllib.parse.urlparse(detail_url).path.strip("/").replace("/", "_")
+                detail_path = detail_dir / f"{slug}.html"
+                d_status, d_ctype, d_body = fetch(detail_url, args.timeout)
+                d_ok = bool(d_status and 200 <= d_status < 400 and d_body)
+                detail_path.write_bytes(d_body)
+                manifest["lawsonDetailSnapshots"].append(
+                    {
+                        "url": detail_url,
+                        "rawPath": str(detail_path.relative_to(ROOT)),
+                        "status": d_status,
+                        "ok": d_ok,
+                        "contentType": d_ctype,
+                        "bytes": len(d_body),
+                    }
+                )
+                tag = "ok" if d_ok else "warn"
+                print(f"  {tag}: lawson detail {detail_index + 1}/{len(detail_urls)} status={d_status}")
 
     (draft_dir / "fetch-manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

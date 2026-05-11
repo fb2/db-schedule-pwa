@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-11T14:38:16.591267+00:00",
+  "generatedAt": "2026-05-11T14:43:25.343646+00:00",
   "weekLabel": "Week of 2026-05-11",
   "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, seasonal, regional, merch. Check limited and regional badges before planning a store run.",
   "sources": [
@@ -136,7 +136,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l808491.png",
       "tags": [
         "collab",
         "new",
@@ -190,7 +190,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l809390.png",
       "tags": [
         "collab",
         "new",
@@ -289,7 +289,7 @@
     {
       "id": "lawson-391e4407d6",
       "chain": "Lawson",
-      "name": "Supervised pork and soba",
+      "name": "Kiji-supervised pork and egg & yakisoba",
       "nameJa": "きじ監修 豚玉&焼そば",
       "category": "",
       "categoryJa": "",
@@ -308,7 +308,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l785127.png",
       "tags": [
         "collab",
         "new"
@@ -322,7 +322,7 @@
         "national availability"
       ],
       "summary": "Lawson · 630 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "englishContext": "supervised by a named restaurant, chef, or brand; Lawson labeling uses 焼そば / 焼きそば for fried yakisoba noodles, not buckwheat soba.",
       "localSignals": []
     },
     {
@@ -347,7 +347,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l808906.png",
       "tags": [
         "collab",
         "new"
@@ -386,7 +386,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l808240.png",
       "tags": [
         "collab",
         "new"
@@ -425,7 +425,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810630.png",
       "tags": [
         "collab",
         "new"
@@ -464,7 +464,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810629.png",
       "tags": [
         "collab",
         "new"
@@ -817,7 +817,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l807379.png",
       "tags": [
         "new",
         "seasonal"
@@ -856,7 +856,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l807391.png",
       "tags": [
         "new"
       ],
@@ -957,7 +957,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810421.png",
       "tags": [
         "new"
       ],
@@ -1125,7 +1125,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l811012.png",
       "tags": [
         "new"
       ],
@@ -1162,7 +1162,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810624.png",
       "tags": [
         "new"
       ],
@@ -1199,7 +1199,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l808904.png",
       "tags": [
         "new"
       ],
@@ -1236,7 +1236,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l811430.png",
       "tags": [
         "new"
       ],
@@ -1275,7 +1275,7 @@
         "featured",
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l809197.png",
       "tags": [
         "new"
       ],
@@ -1314,7 +1314,7 @@
         "featured",
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l809199.png",
       "tags": [
         "new"
       ],
@@ -1351,7 +1351,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810506.png",
       "tags": [
         "new"
       ],
@@ -1388,7 +1388,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810948.png",
       "tags": [
         "new"
       ],
@@ -1425,7 +1425,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810951.png",
       "tags": [
         "new"
       ],
@@ -1462,7 +1462,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810950.png",
       "tags": [
         "new"
       ],
@@ -1499,7 +1499,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l802436.png",
       "tags": [
         "new"
       ],
@@ -1536,7 +1536,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l803065.png",
       "tags": [
         "new"
       ],
@@ -1573,7 +1573,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l807369.png",
       "tags": [
         "new"
       ],
@@ -1648,7 +1648,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l807216.png",
       "tags": [
         "new"
       ],
@@ -1723,7 +1723,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l809566.png",
       "tags": [
         "new"
       ],
@@ -1760,7 +1760,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810960.png",
       "tags": [
         "new"
       ],
@@ -1797,7 +1797,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l810074.png",
       "tags": [
         "new"
       ],
@@ -1834,7 +1834,7 @@
       "sourceTiers": [
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l807782.png",
       "tags": [
         "new"
       ],
@@ -1873,7 +1873,7 @@
         "featured",
         "official"
       ],
-      "imageUrl": "",
+      "imageUrl": "https://www.lawson.co.jp/recommend/original/detail/img/l806882.png",
       "tags": [
         "new"
       ],
@@ -3875,7 +3875,7 @@
     {
       "id": "7-eleven-017cdb011b",
       "chain": "7-Eleven",
-      "name": "Pork pork",
+      "name": "Pork and egg pork",
       "nameJa": "豚玉あんかけ飯 道産豚肉使用",
       "category": "",
       "categoryJa": "",
