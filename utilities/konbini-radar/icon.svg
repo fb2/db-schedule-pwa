@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Konbini Radar icon</title>
+  <desc id="desc">A convenience-store shelf with a radar sweep.</desc>
+  <rect width="512" height="512" rx="112" fill="#101820"/>
+  <circle cx="256" cy="256" r="172" fill="none" stroke="#ffcc4d" stroke-width="22" opacity="0.28"/>
+  <path d="M256 256 376 136" fill="none" stroke="#ffcc4d" stroke-width="24" stroke-linecap="round"/>
+  <path d="M143 327h226" fill="none" stroke="#f8f4e8" stroke-width="28" stroke-linecap="round"/>
+  <path d="M163 207h186" fill="none" stroke="#f8f4e8" stroke-width="28" stroke-linecap="round"/>
+  <rect x="172" y="235" width="54" height="76" rx="14" fill="#ff7a59"/>
+  <rect x="242" y="220" width="54" height="91" rx="14" fill="#80bfff"/>
+  <rect x="312" y="247" width="36" height="64" rx="12" fill="#7ddc9c"/>
+  <circle cx="256" cy="256" r="30" fill="#ffcc4d"/>
+</svg>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#101820" />
+    <meta
+      name="description"
+      content="A weekly English guide to Japan convenience-store new products, collabs, limited drops, and local buzz."
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Konbini Radar" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=5" />
+    <title>Konbini Radar</title>
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Japan convenience-store watch</p>
+          <h1>Konbini Radar</h1>
+          <p class="lede">
+            Weekly new products, collabs, seasonal drops, and local Japanese context translated for English readers.
+          </p>
+          <div class="hero-meta">
+            <span id="weekLabel">Loading feed...</span>
+            <span id="generatedAt"></span>
+          </div>
+        </div>
+        <aside class="mascot-card" aria-label="Konbini Krow mascot">
+          <div class="krow" aria-hidden="true">
+            <div class="krow-head">
+              <span class="krow-eye"></span>
+              <span class="krow-eye"></span>
+              <span class="krow-beak"></span>
+            </div>
+            <div class="krow-body">
+              <span class="krow-bag">新</span>
+            </div>
+          </div>
+          <p class="mascot-name">Konbini Krow</p>
+          <p class="mascot-copy">Bringing shelf intel from Japan.</p>
+        </aside>
+      </header>
+
+      <section class="intro-card" aria-live="polite">
+        <div>
+          <p class="section-kicker">This Week</p>
+          <h2 id="introTitle">Reading the shelves...</h2>
+        </div>
+        <p id="weeklyIntro">Fetching the latest generated feed.</p>
+      </section>
+
+      <section class="dashboard" aria-label="Feed summary">
+        <div class="metric">
+          <span id="productCount">--</span>
+          <span>products</span>
+        </div>
+        <div class="metric">
+          <span id="limitedCount">--</span>
+          <span>limited or regional</span>
+        </div>
+        <div class="metric">
+          <span id="sourceCount">--</span>
+          <span>sources checked</span>
+        </div>
+      </section>
+
+      <section class="filters" aria-label="Filters">
+        <label>
+          Chain
+          <select id="chainFilter">
+            <option value="all">All chains</option>
+          </select>
+        </label>
+        <label>
+          Tag
+          <select id="tagFilter">
+            <option value="all">All tags</option>
+          </select>
+        </label>
+        <label>
+          Sort
+          <select id="sortSelect">
+            <option value="recommended">Recommended</option>
+            <option value="newest">Newest</option>
+            <option value="urgency">Urgency</option>
+            <option value="chain">Chain</option>
+          </select>
+        </label>
+      </section>
+
+      <nav class="section-tabs" aria-label="Quick sections">
+        <button class="tab active" type="button" data-section="all">All</button>
+        <button class="tab" type="button" data-section="hot">Hot Now</button>
+        <button class="tab" type="button" data-section="short">Short Window</button>
+        <button class="tab" type="button" data-section="collab">Collabs</button>
+        <button class="tab" type="button" data-section="seasonal">Seasonal</button>
+      </nav>
+
+      <section id="productList" class="product-list" aria-live="polite"></section>
+
+      <section class="sources-card">
+        <div>
+          <p class="section-kicker">Source Health</p>
+          <h2>Japanese sources checked</h2>
+        </div>
+        <ul id="sourceList"></ul>
+      </section>
+    </main>
+
+    <template id="productTemplate">
+      <article class="product-card">
+        <div class="product-thumb" aria-hidden="true"></div>
+        <div class="product-body">
+        <div class="card-topline">
+          <span class="chain-pill"></span>
+          <span class="score-pill"></span>
+        </div>
+        <h2></h2>
+        <p class="summary"></p>
+        <div class="badges"></div>
+        <p class="context"></p>
+        <details>
+          <summary>Why it ranks</summary>
+          <ul class="reasons"></ul>
+        </details>
+        <div class="local-signals"></div>
+        <div class="source-links"></div>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js?v=5"></script>
+  </body>
+</html>

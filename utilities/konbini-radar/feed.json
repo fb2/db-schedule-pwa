@@ -1,0 +1,4432 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-11T14:12:57.545822+00:00",
+  "weekLabel": "Week of 2026-05-11",
+  "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Shaved ice vanilla ice cream shaved ice. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, regional, merch. Check limited and regional badges before planning a store run.",
+  "sources": [
+    {
+      "id": "seven_this_week",
+      "name": "7-Eleven Japan weekly new products",
+      "nameJa": "7-Eleven Japan weekly new products",
+      "tier": "official",
+      "chain": "7-Eleven",
+      "url": "https://www.sej.co.jp/products/thisweek_recommend.html",
+      "ok": true,
+      "status": 200,
+      "title": "| ‐",
+      "titleJa": "今週の新商品｜セブン‐イレブン"
+    },
+    {
+      "id": "familymart_newgoods",
+      "name": "FamilyMart weekly new products",
+      "nameJa": "FamilyMart weekly new products",
+      "tier": "official",
+      "chain": "FamilyMart",
+      "url": "https://www.family.co.jp/goods/newgoods.html",
+      "ok": true,
+      "status": 200,
+      "title": "| |",
+      "titleJa": "今週の新商品｜商品情報｜ファミリーマート"
+    },
+    {
+      "id": "lawson_new",
+      "name": "Lawson new products",
+      "nameJa": "Lawson new products",
+      "tier": "official",
+      "chain": "Lawson",
+      "url": "https://www.lawson.co.jp/recommend/new/",
+      "ok": true,
+      "status": 200,
+      "title": "",
+      "titleJa": ""
+    },
+    {
+      "id": "lawson_lab_this_week",
+      "name": "Lawson Lab weekly featured products",
+      "nameJa": "ローソン研究所 weekly featured products",
+      "tier": "official",
+      "chain": "Lawson",
+      "url": "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+      "ok": true,
+      "status": 200,
+      "title": "2026 5 12 ()! 「 」|",
+      "titleJa": "2026年5月12日(火)発売！ローソン研究所おすすめ「今週の注目商品」｜ローソン公式サイト"
+    },
+    {
+      "id": "entabe_konbini",
+      "name": "Entabe konbini roundup",
+      "nameJa": "えん食べ konbini roundup",
+      "tier": "local_media",
+      "chain": null,
+      "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+      "ok": true,
+      "status": 200,
+      "title": "Twitter",
+      "titleJa": "Twitter"
+    },
+    {
+      "id": "conveni_check",
+      "name": "Conveni Checker new items",
+      "nameJa": "コンビニ チェッカー new items",
+      "tier": "local_media",
+      "chain": null,
+      "url": "https://convenicheck.com/newitem/",
+      "ok": true,
+      "status": 200,
+      "title": "–",
+      "titleJa": "新商品情報 – コンビニ チェッカー"
+    },
+    {
+      "id": "conveni_everyday",
+      "name": "Conveni Everyday new products",
+      "nameJa": "コンビニエブリデイ new products",
+      "tier": "local_media",
+      "chain": null,
+      "url": "https://convenieveryday.com/category/%E6%96%B0%E5%95%86%E5%93%81/",
+      "ok": true,
+      "status": 200,
+      "title": "|",
+      "titleJa": "新商品 | コンビニエブリデイ"
+    },
+    {
+      "id": "mognavi_konbini_ranking",
+      "name": "Mognavi konbini ranking",
+      "nameJa": "もぐナビ konbini ranking",
+      "tier": "ranking",
+      "chain": null,
+      "url": "https://s.mognavi.jp/konbini/ranking/1",
+      "ok": true,
+      "status": 200,
+      "title": "2026 5 8 regional 「 (、 、 、 、 、)」 Region regional",
+      "titleJa": "【2026年5月8日更新】「コンビニオリジナル(セブンイレブン、ローソン、ナチュラルローソン、ファミリーマート、ファミマ、ミニストップなど)」のおすすめランキング【もぐナビ】"
+    },
+    {
+      "id": "prtimes_konbini",
+      "name": "PR TIMES konbini releases",
+      "nameJa": "PR TIMES konbini releases",
+      "tier": "press",
+      "chain": null,
+      "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
+      "ok": true,
+      "status": 200,
+      "title": "PR TIMES",
+      "titleJa": "コンビニに関するプレスリリース・ニュースリリースのPR TIMES"
+    }
+  ],
+  "products": [
+    {
+      "id": "familymart-b4c0ea97ff",
+      "chain": "FamilyMart",
+      "name": "Mofusand waffle-frame character snack",
+      "nameJa": "mofusand わっふれーむ",
+      "category": "Mofusand waffle-frame character snack",
+      "categoryJa": "デザート mofusand わっふれーむ",
+      "priceText": "232 yen (tax incl. 250 yen)",
+      "priceTextJa": "232円（税込250円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai"
+      ],
+      "regionsJa": [
+        "関東",
+        "東海",
+        "北陸",
+        "関西"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/dessert/1952315.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1952315.jpg",
+      "tags": [
+        "collab",
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 82,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "collaboration or supervised item",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Mofusand waffle-frame character snack · 232 yen (tax incl. 250 yen) · Regions: Kanto, Tokai, Hokuriku, Kansai",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Mofusand waffle-frame character snack",
+          "matchedTextJa": "mofusand わっふれーむ",
+          "snippet": "Condensed milk 。 。 。 mofusand waffle-frame character snack :250 () :2026 05 05 () mofusand 、 chewy 。 。 10",
+          "snippetJa": "ップと練乳を包み込んだ和スイーツです。やわらかな生地とコクのある甘みが広がる味わい。満足感のある食べごたえも特長です。 mofusand わっふれーむ 価格：250円（税込） 発売日：2026年05月05日（火）発売予定 mofusandが描かれた、もちもち食感の四角いワッフルです。中にはカスタード味のクリーム入り。全10種のプリントに加え、書き下ろしを含む"
+        }
+      ]
+    },
+    {
+      "id": "familymart-9e85259353",
+      "chain": "FamilyMart",
+      "name": "GODIVA melting fondant chocolate ice cream bar",
+      "nameJa": "ゴディバ とろけるフォンダンショコラ バーアイスクリーム",
+      "category": "Ice cream GODIVA melting fondant chocolate ice cream bar",
+      "categoryJa": "アイス ゴディバ とろけるフォンダンショコラ バーアイスクリーム",
+      "priceText": "350 yen (tax incl. 378 yen)",
+      "priceTextJa": "350円（税込378円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/ice/3444290.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/3444290.jpg",
+      "tags": [
+        "collab",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 73,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "collaboration or supervised item",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Ice cream GODIVA melting fondant chocolate ice cream bar · 350 yen (tax incl. 378 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-0958216d96",
+      "chain": "FamilyMart",
+      "name": "Chugoku/Shikoku regional snack chicken",
+      "nameJa": "【中国・四国】おつまみチキン",
+      "category": "Chugoku/Shikoku limited side dish Chugoku/Shikoku regional snack chicken",
+      "categoryJa": "中国・四国限定 チルド惣菜 【中国・四国】おつまみチキン",
+      "priceText": "297 yen (tax incl. 320 yen)",
+      "priceTextJa": "297円（税込320円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Chugoku/Shikoku"
+      ],
+      "regionsJa": [
+        "中国・四国"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1137125.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1137125.jpg",
+      "tags": [
+        "limited",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "limited",
+        "label": "Limited or short-window release"
+      },
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "limited/time-gated language",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Chugoku/Shikoku limited side dish Chugoku/Shikoku regional snack chicken · 297 yen (tax incl. 320 yen) · Regions: Chugoku/Shikoku",
+      "englishContext": "limited release",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-d314829a83",
+      "chain": "FamilyMart",
+      "name": "Hokuriku regional",
+      "nameJa": "【北陸】福井名物 ボルガライス",
+      "category": "Hokuriku limited bento Hokuriku regional",
+      "categoryJa": "北陸限定 お弁当 【北陸】福井名物 ボルガライス",
+      "priceText": "647 yen (tax incl. 698 yen)",
+      "priceTextJa": "647円（税込698円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokuriku"
+      ],
+      "regionsJa": [
+        "北陸"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/obento/0735452.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0735452.jpg",
+      "tags": [
+        "limited",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "limited",
+        "label": "Limited or short-window release"
+      },
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "limited/time-gated language",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Hokuriku limited bento Hokuriku regional · 647 yen (tax incl. 698 yen) · Regions: Hokuriku",
+      "englishContext": "limited release",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-e64ad57a63",
+      "chain": "FamilyMart",
+      "name": "Tokai regional and miso chicken bento",
+      "nameJa": "【東海】タルタル&味噌チキンカツ弁当",
+      "category": "Tokai limited bento Tokai regional and miso chicken bento",
+      "categoryJa": "東海限定 お弁当 【東海】タルタル&味噌チキンカツ弁当",
+      "priceText": "647 yen (tax incl. 698 yen)",
+      "priceTextJa": "647円（税込698円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tokai"
+      ],
+      "regionsJa": [
+        "東海"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/obento/0615884.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0615884.jpg",
+      "tags": [
+        "limited",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "limited",
+        "label": "Limited or short-window release"
+      },
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "limited/time-gated language",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Tokai limited bento Tokai regional and miso chicken bento · 647 yen (tax incl. 698 yen) · Regions: Tokai",
+      "englishContext": "limited release",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-98d8a4ad95",
+      "chain": "FamilyMart",
+      "name": "Kanto regional tomato fresh pasta",
+      "nameJa": "【関東の一部】辛味ソースがくせになるトマトのソースの生パスタ",
+      "category": "Kanto limited pasta Kanto regional tomato fresh pasta",
+      "categoryJa": "関東限定 パスタ 【関東の一部】辛味ソースがくせになるトマトのソースの生パスタ",
+      "priceText": "554 yen (tax incl. 598 yen)",
+      "priceTextJa": "554円（税込598円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Kanto"
+      ],
+      "regionsJa": [
+        "関東"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/pasta/0823265.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0823265.jpg",
+      "tags": [
+        "limited",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "limited",
+        "label": "Limited or short-window release"
+      },
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "limited/time-gated language",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Kanto limited pasta Kanto regional tomato fresh pasta · 554 yen (tax incl. 598 yen) · Regions: Kanto",
+      "englishContext": "limited release",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-c18e95f309",
+      "chain": "FamilyMart",
+      "name": "Kansai regional 7.9g dashi",
+      "nameJa": "【関西】食物繊維7.9gおだしのきいたうの花",
+      "category": "Kansai limited side dish Kansai regional 7.9g dashi",
+      "categoryJa": "関西限定 チルド惣菜 【関西】食物繊維7.9gおだしのきいたうの花",
+      "priceText": "198 yen (tax incl. 213 yen)",
+      "priceTextJa": "198円（税込213円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Kansai"
+      ],
+      "regionsJa": [
+        "関西"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1136128.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1136128.jpg",
+      "tags": [
+        "limited",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "limited",
+        "label": "Limited or short-window release"
+      },
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "limited/time-gated language",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Kansai limited side dish Kansai regional 7.9g dashi · 198 yen (tax incl. 213 yen) · Regions: Kansai",
+      "englishContext": "limited release",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-144cdab26e",
+      "chain": "Lawson",
+      "name": "Shaved ice vanilla ice cream shaved ice",
+      "nameJa": "かき氷とバニラアイスの相性が素敵な和風かき氷",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "246 yen(tax incl.)",
+      "priceTextJa": "246円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "seasonal flavor or format",
+        "national availability"
+      ],
+      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-ed309f7a59",
+      "chain": "Lawson",
+      "name": "Hokkaido azuki bean matcha shaved ice 175ml",
+      "nameJa": "明治 北海道あずき 抹茶氷 175ml",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "246 yen(tax incl.)",
+      "priceTextJa": "246円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 72,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "seasonal flavor or format",
+        "national availability"
+      ],
+      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-ef9eab9f99",
+      "chain": "Lawson",
+      "name": "Extra-milk salted vanilla latte 240ml",
+      "nameJa": "ミルクたっぷり 塩バニララテ 240ml",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "228 yen(tax incl.)",
+      "priceTextJa": "228円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 68,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "mentioned by Japanese local/context source",
+        "national availability"
+      ],
+      "summary": "Lawson · 228 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named.; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "mognavi_konbini_ranking",
+          "sourceName": "Mognavi konbini ranking",
+          "tier": "ranking",
+          "language": "ja",
+          "url": "https://s.mognavi.jp/konbini/ranking/1",
+          "matchedText": "Milk extra",
+          "matchedTextJa": "ミルクたっぷり",
+          "snippet": "Miso milk extra latte 4.7 45 153 supervised latte 4.8 4 10 - strawberry milk 5.5 2 8",
+          "snippetJa": "プ・コンビニ味噌汁のおすすめランキングをもっと見る コンビニドリンク・コンビニカップ飲料のおすすめランキング ローソン ミルクたっぷり キャラメルラテ 4.7 45 153 ローソン 猿田彦珈琲監修 ジョージア 恵比寿ラテ 4.8 4 10 セブン-イレブン セブンカフェ いちごミルクスムージー 5.5 2 8 コンビニドリンク・コンビニカップ飲料のおすすめ"
+        }
+      ]
+    },
+    {
+      "id": "familymart-ca9c8e9b4f",
+      "chain": "FamilyMart",
+      "name": "Dense mango",
+      "nameJa": "クリート 濃密マンゴーグミ",
+      "category": "Dense mango",
+      "categoryJa": "お菓子 クリート 濃密マンゴーグミ",
+      "priceText": "207 yen (tax incl. 223 yen)",
+      "priceTextJa": "207円（税込223円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/snack/4721888.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/4721888.jpg",
+      "tags": [
+        "new",
+        "regional",
+        "seasonal"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 66,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Dense mango · 207 yen (tax incl. 223 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-e2f631c331",
+      "chain": "FamilyMart",
+      "name": "Hokkaido-grown condensed milk strawberry shaved ice",
+      "nameJa": "北海道産練乳のいちご氷カップ",
+      "category": "Ice cream Hokkaido-grown condensed milk strawberry shaved ice",
+      "categoryJa": "アイス 北海道産練乳のいちご氷カップ",
+      "priceText": "147 yen (tax incl. 158 yen)",
+      "priceTextJa": "147円（税込158円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/ice/3470701.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/3470701.jpg",
+      "tags": [
+        "new",
+        "regional",
+        "seasonal"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 66,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Ice cream Hokkaido-grown condensed milk strawberry shaved ice · 147 yen (tax incl. 158 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-9e03f70a74",
+      "chain": "Lawson",
+      "name": "※",
+      "nameJa": "※ナチュラルローソンでは、お取り扱いがありません",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "279 yen(tax incl.)",
+      "priceTextJa": "279円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-d298856599",
+      "chain": "Lawson",
+      "name": "※ Okinawa",
+      "nameJa": "※ナチュラルローソン・沖縄エリアのローソンでは、お取り扱いがありません",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "354 yen(tax incl.)",
+      "priceTextJa": "354円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "featured",
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-45914f7574",
+      "chain": "Lawson",
+      "name": "※ 、 Okinawa",
+      "nameJa": "※ナチュラルローソン・近畿エリア、沖縄エリアのローソンでは、お取り扱いがありません",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "246 yen(tax incl.)",
+      "priceTextJa": "246円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-957a8ba167",
+      "chain": "Lawson",
+      "name": "salted vanilla latte",
+      "nameJa": "まろやかな塩味と優しいバニラ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "228 yen(tax incl.)",
+      "priceTextJa": "228円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 228 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-6b12b27af9",
+      "chain": "Lawson",
+      "name": "Salad ROLL teriyaki chicken",
+      "nameJa": "サラダROLL 照焼チキン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "354 yen(tax incl.)",
+      "priceTextJa": "354円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-34116084de",
+      "chain": "Lawson",
+      "name": "Salad ROLL pork",
+      "nameJa": "サラダROLL 豚しゃぶ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "354 yen(tax incl.)",
+      "priceTextJa": "354円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-62d9ae8d10",
+      "chain": "Lawson",
+      "name": "Sandwich",
+      "nameJa": "ワンハンドで楽しめる、トルティーヤ生地のラップサンド",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "354 yen(tax incl.)",
+      "priceTextJa": "354円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-195fc32432",
+      "chain": "Lawson",
+      "name": "Udon with soft-boiled egg and chilled dashi poured on top",
+      "nameJa": "半熟玉子ぶっかけうどん",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "538 yen(tax incl.)",
+      "priceTextJa": "538円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 538 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs.",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-7d8eba31bf",
+      "chain": "Lawson",
+      "name": "Hokkaido-grown melon 70ml",
+      "nameJa": "日本のフルーツ 北海道産メロン 70ml",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "279 yen(tax incl.)",
+      "priceTextJa": "279円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-b360d64dc0",
+      "chain": "Lawson",
+      "name": "Ice cream",
+      "nameJa": "日本のフルーツをアイスで味わう",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "279 yen(tax incl.)",
+      "priceTextJa": "279円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-0664d1f84a",
+      "chain": "Lawson",
+      "name": "「 」 「 」",
+      "nameJa": "気分次第で「ひや」でも「あつ」でも",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "538 yen(tax incl.)",
+      "priceTextJa": "538円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 538 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-e923911da3",
+      "chain": "Lawson",
+      "name": "Bonito dashi aromatic soba",
+      "nameJa": "麺大盛り 鰹だし香るそば",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "198 yen(tax incl.)",
+      "priceTextJa": "198円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 198 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "lawson-89a7ced62c",
+      "chain": "Lawson",
+      "name": "Item",
+      "nameJa": "麺大盛りシリーズに和風フレーバー登場",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "198 yen(tax incl.)",
+      "priceTextJa": "198円(税込)",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Nationwide"
+      ],
+      "regionsJa": [
+        "全国"
+      ],
+      "sourceUrls": [
+        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
+      ],
+      "sourceTiers": [
+        "official",
+        "featured"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "national availability"
+      ],
+      "summary": "Lawson · 198 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-5e21cb8d4c",
+      "chain": "FamilyMart",
+      "name": "Wafer snack +9",
+      "nameJa": "にゃんこ大戦争ウエハース＋9",
+      "category": "Wafer snack +9",
+      "categoryJa": "キャラクターくじ・エンタメ雑貨など にゃんこ大戦争ウエハース＋9",
+      "priceText": "155 yen (tax incl. 170 yen)",
+      "priceTextJa": "155円（税込170円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/charakuji/4799818.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/4799818.jpg",
+      "tags": [
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 63,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item"
+      ],
+      "summary": "FamilyMart · Wafer snack +9 · 155 yen (tax incl. 170 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-f3335569dc",
+      "chain": "FamilyMart",
+      "name": "Vol.6",
+      "nameJa": "イタジャガ 名探偵コナン vol.6",
+      "category": "Vol.6",
+      "categoryJa": "キャラクターくじ・エンタメ雑貨など イタジャガ 名探偵コナン vol.6",
+      "priceText": "155 yen (tax incl. 170 yen)",
+      "priceTextJa": "155円（税込170円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/charakuji/4794950.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/4794950.jpg",
+      "tags": [
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 63,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item"
+      ],
+      "summary": "FamilyMart · Vol.6 · 155 yen (tax incl. 170 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-8b2967d667",
+      "chain": "FamilyMart",
+      "name": "Socks",
+      "nameJa": "ショートソックス ハラペーニョ",
+      "category": "Socks",
+      "categoryJa": "コンビニエンスウェア ショートソックス ハラペーニョ",
+      "priceText": "390 yen (tax incl. 429 yen)",
+      "priceTextJa": "390円（税込429円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/cw/7442896.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/7442896.webp",
+      "tags": [
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 63,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item"
+      ],
+      "summary": "FamilyMart · Socks · 390 yen (tax incl. 429 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-a9f2572687",
+      "chain": "FamilyMart",
+      "name": "Socks",
+      "nameJa": "ショートソックス フラミンゴ",
+      "category": "Socks",
+      "categoryJa": "コンビニエンスウェア ショートソックス フラミンゴ",
+      "priceText": "390 yen (tax incl. 429 yen)",
+      "priceTextJa": "390円（税込429円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/cw/7442902.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/7442902.webp",
+      "tags": [
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 63,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item"
+      ],
+      "summary": "FamilyMart · Socks · 390 yen (tax incl. 429 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-1600b8fa15",
+      "chain": "FamilyMart",
+      "name": "Ichiban Kuji lottery ~ ~",
+      "nameJa": "一番くじ お文具といっしょ ～いっぱいたべたいな～",
+      "category": "Ichiban Kuji lottery ~ ~",
+      "categoryJa": "キャラクターくじ・エンタメ雑貨など 一番くじ お文具といっしょ ～いっぱいたべたいな～",
+      "priceText": "619 yen (tax incl. 680 yen)",
+      "priceTextJa": "619円（税込680円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/charakuji/7910050.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/7910050.jpg",
+      "tags": [
+        "merch",
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 63,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "character goods or merch-adjacent item"
+      ],
+      "summary": "FamilyMart · Ichiban Kuji lottery ~ ~ · 619 yen (tax incl. 680 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-b41449d9c9",
+      "chain": "FamilyMart",
+      "name": "Mackerel rice (with barley rice)",
+      "nameJa": "さばほぐしごはん（麦入りごはん）",
+      "category": "Bento mackerel rice (with barley rice)",
+      "categoryJa": "お弁当 さばほぐしごはん（麦入りごはん）",
+      "priceText": "369 yen (tax incl. 398 yen)",
+      "priceTextJa": "369円（税込398円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/obento/0616027.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0616027.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 62,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Bento mackerel rice (with barley rice) · 369 yen (tax incl. 398 yen) · Regions: Tohoku, Kanto, Kansai, Chugoku/Shikoku",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "With barley rice",
+          "matchedTextJa": "麦入りごはん",
+          "snippet": "】 rice ball bento 「 dashi soy sauce rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 5 12 regional",
+          "snippetJa": "発売】ファミリーマート 新商品おむすび・お弁当まとめ「だし醤油まぶし飯 海苔佃煮おむすび」や「照り焼きチキンごはん（もち麦入りごはん）」など ファミリーマートで5月5日に発売されるおむすび・お弁当の新商品をまとめてご紹介。「だし醤油まぶし飯 海苔佃煮おむすび」「照り焼きチキンごはん（もち麦入りごはん）」など6品。 おにぎり 【5月12日発売】ローソン 新商品"
+        }
+      ]
+    },
+    {
+      "id": "familymart-c897a0ba5f",
+      "chain": "FamilyMart",
+      "name": "Chocolate parfait ()",
+      "nameJa": "チョコレートパフェ（コーヒーゼリー入り）",
+      "category": "Chocolate parfait ()",
+      "categoryJa": "デザート チョコレートパフェ（コーヒーゼリー入り）",
+      "priceText": "332 yen (tax incl. 358 yen)",
+      "priceTextJa": "332円（税込358円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/dessert/1940015.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1940015.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 62,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Chocolate parfait () · 332 yen (tax incl. 358 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Chocolate parfait ()",
+          "matchedTextJa": "チョコレートパフェ（コーヒーゼリー入り）",
+          "snippet": "Chocolate parfait () :358 () :2026 05 05 () milk chocolate 、 chocolate 、 parfait 。 chocolate chocolate",
+          "snippetJa": "い甘さのクリームとメープルの風味が広がる味わい。ほどよいコクと軽やかな後味が特長です。 ファミリーマートの新作スイーツ チョコレートパフェ（コーヒーゼリー入り） 価格：358円（税込） 発売日：2026年05月05日（火）発売予定 ミルクチョコプリンにコーヒーゼリー、チョコムース、ココアスポンジを重ねたパフェです。チョコホイップとパリパリの線掛けチョコをトッ"
+        }
+      ]
+    },
+    {
+      "id": "familymart-3b167de08e",
+      "chain": "FamilyMart",
+      "name": "Large fluffy-chewy daifuku (azuki bean and condensed milk)",
+      "nameJa": "大きなふわもち生大福（あずきホイップ&練乳）",
+      "category": "Large fluffy-chewy daifuku (azuki bean and condensed milk)",
+      "categoryJa": "デザート 大きなふわもち生大福（あずきホイップ&練乳）",
+      "priceText": "184 yen (tax incl. 198 yen)",
+      "priceTextJa": "184円（税込198円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/dessert/1940428.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1940428.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 62,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Large fluffy-chewy daifuku (azuki bean and condensed milk) · 184 yen (tax incl. 198 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Large fluffy-chewy daifuku (azuki bean and condensed milk)",
+          "matchedTextJa": "大きなふわもち生大福（あずきホイップ&練乳）",
+          "snippet": "Chocolate 。 chocolate 、 。 large fluffy-chewy daifuku (azuki bean and condensed milk) :198 () :2026 05 05 () fluffy-chewy daifuku 、 azuki bean condensed milk",
+          "snippetJa": "プとパリパリの線掛けチョコをトッピングした仕立て。さまざまな食感とチョコの味わいが重なり、ボリューム感のある一品です。 大きなふわもち生大福（あずきホイップ&練乳） 価格：198円（税込） 発売日：2026年05月05日（火）発売予定 ふわもち食感の大福で、あずきホイップと練乳を包み込んだ和スイーツです。やわらかな生地とコクのある甘みが広がる味わい。満足感の"
+        }
+      ]
+    },
+    {
+      "id": "familymart-ce15b263ed",
+      "chain": "FamilyMart",
+      "name": "Teriyaki chicken rice (mochi barley rice)",
+      "nameJa": "照り焼きチキンごはん（もち麦入りごはん）",
+      "category": "Bento teriyaki chicken rice (mochi barley rice)",
+      "categoryJa": "お弁当 照り焼きチキンごはん（もち麦入りごはん）",
+      "priceText": "554 yen (tax incl. 598 yen)",
+      "priceTextJa": "554円（税込598円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/obento/0730839.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0730839.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 62,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Bento teriyaki chicken rice (mochi barley rice) · 554 yen (tax incl. 598 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Teriyaki chicken rice (mochi barley rice)",
+          "matchedTextJa": "照り焼きチキンごはん（もち麦入りごはん）",
+          "snippet": "5 5 regional rice ball bento 「 dashi soy sauce rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 【5 1",
+          "snippetJa": "食べの人気記事 【5月5日発売】ファミリーマート 新商品おむすび・お弁当まとめ「だし醤油まぶし飯 海苔佃煮おむすび」や「照り焼きチキンごはん（もち麦入りごはん）」など ファミリーマートで5月5日に発売されるおむすび・お弁当の新商品をまとめてご紹介。「だし醤油まぶし飯 海苔佃煮おむすび」「照り焼きチキンごはん（もち麦入りごはん）」など6品。 おにぎり 【5月1"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-ed529a34b4",
+      "chain": "7-Eleven",
+      "name": "5 chilled soy sauce ramen",
+      "nameJa": "チャーシュー５枚のせ冷し醤油ラーメン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090910/chugoku/",
+        "https://www.sej.co.jp/products/a/item/090910/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/090910/kyushu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090910/98BB9D145A827109537D3EC4744A4BF5.jpg",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 61,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-fb59e9f56f",
+      "chain": "7-Eleven",
+      "name": "Chilled chikuwa tempura udon with chilled dashi poured on top",
+      "nameJa": "冷しちく玉天ぶっかけうどん",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "560 yen (tax incl. 604.80 yen)",
+      "priceTextJa": "560円（税込604.80円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090901/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090901/689D5F60CA04AC6476DF1140C517A3F3.jpg",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 61,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format"
+      ],
+      "summary": "7-Eleven · 560 yen (tax incl. 604.80 yen)",
+      "englishContext": "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-2ef1c499d1",
+      "chain": "7-Eleven",
+      "name": "Chilled broth-poured wakame soba",
+      "nameJa": "冷しぶっかけわかめそば",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen (tax incl. 464.40 yen)",
+      "priceTextJa": "430円（税込464.40円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090944/koshinetsu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090944/08D9483BEE917E383582F1E93234A86E.jpg",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 61,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format"
+      ],
+      "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
+      "englishContext": "ぶっかけ styles pour savory chilled broth over noodles; English wording avoids misleading homographs.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-6b55a0f750",
+      "chain": "7-Eleven",
+      "name": "Chilled broth-poured tanuki toppings soba",
+      "nameJa": "麺大盛 冷しぶっかけたぬきそば",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "470 yen (tax incl. 507.60 yen)",
+      "priceTextJa": "470円（税込507.60円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090971/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090971/E7A2DD62F41044D1F1B2A49D3ABED8EF.jpg",
+      "tags": [
+        "new",
+        "seasonal"
+      ],
+      "timeGate": null,
+      "score": 61,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "seasonal flavor or format"
+      ],
+      "summary": "7-Eleven · 470 yen (tax incl. 507.60 yen)",
+      "englishContext": "ぶっかけ styles pour savory chilled broth over noodles; English wording avoids misleading homographs.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-249189602f",
+      "chain": "7-Eleven",
+      "name": "BE KIND chocolate",
+      "nameJa": "マース ＢＥーＫＩＮＤ プロテイン ダークチョコラズベリー",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "248 yen (tax incl. 267.84 yen)",
+      "priceTextJa": "248円（税込267.84円）",
+      "releaseDate": "2026-05-11",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/480084/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/480084/9D09D58AAEF335C12D4286D03596EA3B.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 248 yen (tax incl. 267.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-95f825bea3",
+      "chain": "7-Eleven",
+      "name": "1DAY",
+      "nameJa": "宝仙堂 凄十 １ＤＡＹパック",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "460 yen (tax incl. 496.80 yen)",
+      "priceTextJa": "460円（税込496.80円）",
+      "releaseDate": "2026-05-11",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/480019/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/480019/B03F797BCAD866464F3C15E843D3482B.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 460 yen (tax incl. 496.80 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-be89bf7fbe",
+      "chain": "FamilyMart",
+      "name": "Hokkaido Tohoku regional green onion squid",
+      "nameJa": "【北海道・東北】ねぎいかお好み焼",
+      "category": "Hokkaido Tohoku regional green onion squid",
+      "categoryJa": "スープ・グラタン・お好み焼き 【北海道・東北】ねぎいかお好み焼",
+      "priceText": "462 yen (tax incl. 498 yen)",
+      "priceTextJa": "462円（税込498円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/deli/1063134.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1063134.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Hokkaido Tohoku regional green onion squid · 462 yen (tax incl. 498 yen) · Regions: Hokkaido, Tohoku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-d07f1a51f8",
+      "chain": "FamilyMart",
+      "name": "Tokai Hokuriku regional burdock ()",
+      "nameJa": "【東海・北陸】やみつきごぼうとタレ唐揚げ（甘辛ダレ）",
+      "category": "Side dish Tokai Hokuriku regional burdock ()",
+      "categoryJa": "チルド惣菜 【東海・北陸】やみつきごぼうとタレ唐揚げ（甘辛ダレ）",
+      "priceText": "304 yen (tax incl. 328 yen)",
+      "priceTextJa": "304円（税込328円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tokai",
+        "Hokuriku"
+      ],
+      "regionsJa": [
+        "東海",
+        "北陸"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1135725.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1135725.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish Tokai Hokuriku regional burdock () · 304 yen (tax incl. 328 yen) · Regions: Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-68176073ce",
+      "chain": "FamilyMart",
+      "name": "Soba",
+      "nameJa": "かつおとソーキ味 琉球そば",
+      "category": "Soba",
+      "categoryJa": "加工食品 かつおとソーキ味 琉球そば",
+      "priceText": "198 yen (tax incl. 213 yen)",
+      "priceTextJa": "198円（税込213円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/processed_foods/3818619.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/3818619.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Soba · 198 yen (tax incl. 213 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-0370be0419",
+      "chain": "FamilyMart",
+      "name": "Salad",
+      "nameJa": "ごまドレで食べるバンバンジー風サラダ",
+      "category": "Side dish salad",
+      "categoryJa": "チルド惣菜 ごまドレで食べるバンバンジー風サラダ",
+      "priceText": "304 yen (tax incl. 328 yen)",
+      "priceTextJa": "304円（税込328円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1132229.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1132229.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish salad · 304 yen (tax incl. 328 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-acc584c657",
+      "chain": "FamilyMart",
+      "name": "! chicken salad",
+      "nameJa": "たんぱく質が摂れる！しそ入り鶏つくねのサラダ",
+      "category": "Salad! chicken salad",
+      "categoryJa": "サラダ たんぱく質が摂れる！しそ入り鶏つくねのサラダ",
+      "priceText": "415 yen (tax incl. 448 yen)",
+      "priceTextJa": "415円（税込448円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/salad/1210705.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1210705.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Salad! chicken salad · 415 yen (tax incl. 448 yen) · Regions: Kanto, Tokai, Hokuriku, Kansai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-549cedcfd6",
+      "chain": "FamilyMart",
+      "name": "Dashi aromatic! okra",
+      "nameJa": "だし香る！オクラのとろーり豆腐",
+      "category": "Side dish dashi aromatic! okra",
+      "categoryJa": "チルド惣菜 だし香る！オクラのとろーり豆腐",
+      "priceText": "276 yen (tax incl. 298 yen)",
+      "priceTextJa": "276円（税込298円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1160284.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1160284.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish dashi aromatic! okra · 276 yen (tax incl. 298 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-8803823649",
+      "chain": "FamilyMart",
+      "name": "Big satisfaction bread (chicken)",
+      "nameJa": "どかっと満足パン（バターチキンカレーナン）",
+      "category": "Bread big satisfaction bread (chicken)",
+      "categoryJa": "パン どかっと満足パン（バターチキンカレーナン）",
+      "priceText": "230 yen (tax incl. 248 yen)",
+      "priceTextJa": "230円（税込248円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/bread/1520064.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1520064.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Bread big satisfaction bread (chicken) · 230 yen (tax incl. 248 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-b1450e3e30",
+      "chain": "FamilyMart",
+      "name": "Ice cream ice cream",
+      "nameJa": "アンデイコ アイスモア ミントアイスバー",
+      "category": "Ice cream ice cream ice cream",
+      "categoryJa": "アイス アンデイコ アイスモア ミントアイスバー",
+      "priceText": "180 yen (tax incl. 194 yen)",
+      "priceTextJa": "180円（税込194円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/ice/3444252.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/3444252.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Ice cream ice cream ice cream · 180 yen (tax incl. 194 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-ce42e66f58",
+      "chain": "FamilyMart",
+      "name": "Melon bread ice cream",
+      "nameJa": "アンデイコ メロンパンアイス",
+      "category": "Ice cream melon bread ice cream",
+      "categoryJa": "アイス アンデイコ メロンパンアイス",
+      "priceText": "230 yen (tax incl. 248 yen)",
+      "priceTextJa": "230円（税込248円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/ice/3464120.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/3464120.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Ice cream melon bread ice cream · 230 yen (tax incl. 248 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-af9750cf99",
+      "chain": "FamilyMart",
+      "name": "Churro-style donut 6",
+      "nameJa": "サクサク食感のミニチュロッキー6個入",
+      "category": "Bread churro-style donut 6",
+      "categoryJa": "パン サクサク食感のミニチュロッキー6個入",
+      "priceText": "204 yen (tax incl. 220 yen)",
+      "priceTextJa": "204円（税込220円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/bread/1510249.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1510249.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Bread churro-style donut 6 · 204 yen (tax incl. 220 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-86c2e77e24",
+      "chain": "FamilyMart",
+      "name": "Salad chicken sandwich",
+      "nameJa": "サラダチキンとたまごのサンド",
+      "category": "Sandwich roll bread burger salad chicken sandwich",
+      "categoryJa": "サンドイッチ・ロールパン・バーガー サラダチキンとたまごのサンド",
+      "priceText": "369 yen (tax incl. 398 yen)",
+      "priceTextJa": "369円（税込398円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sandwich/0910101.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0910101.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Sandwich roll bread burger salad chicken sandwich · 369 yen (tax incl. 398 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-ab80f5a6bb",
+      "chain": "FamilyMart",
+      "name": "Salad sushi",
+      "nameJa": "シーフードサラダ寿司",
+      "category": "Sushi salad sushi",
+      "categoryJa": "お寿司 シーフードサラダ寿司",
+      "priceText": "204 yen (tax incl. 220 yen)",
+      "priceTextJa": "204円（税込220円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sushi/0510394.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0510394.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Sushi salad sushi · 204 yen (tax incl. 220 yen) · Regions: Tohoku, Kanto, Tokai, Kansai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-7d1b503c7d",
+      "chain": "FamilyMart",
+      "name": "Item",
+      "nameJa": "ジェーシーシ 缶詰風ナカミグミグレープフルーツ味",
+      "category": "Category",
+      "categoryJa": "お菓子 ジェーシーシ 缶詰風ナカミグミグレープフルーツ味",
+      "priceText": "168 yen (tax incl. 181 yen)",
+      "priceTextJa": "168円（税込181円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/snack/4721352.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/4721352.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Category · 168 yen (tax incl. 181 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-c05870484f",
+      "chain": "FamilyMart",
+      "name": "Bread",
+      "nameJa": "ソフトなチーズクリームパン",
+      "category": "Bread bread",
+      "categoryJa": "パン ソフトなチーズクリームパン",
+      "priceText": "139 yen (tax incl. 150 yen)",
+      "priceTextJa": "139円（税込150円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/bread/1531701.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1531701.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Bread bread · 139 yen (tax incl. 150 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-ae2b53fc1b",
+      "chain": "FamilyMart",
+      "name": "Burger",
+      "nameJa": "チーズバーガー",
+      "category": "Sandwich roll bread burger burger",
+      "categoryJa": "サンドイッチ・ロールパン・バーガー チーズバーガー",
+      "priceText": "297 yen (tax incl. 320 yen)",
+      "priceTextJa": "297円（税込320円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sandwich/0921022.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0921022.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Sandwich roll bread burger burger · 297 yen (tax incl. 320 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-07610bb8c0",
+      "chain": "FamilyMart",
+      "name": "Salad",
+      "nameJa": "ハムとマカロニのサラダ",
+      "category": "Salad salad",
+      "categoryJa": "サラダ ハムとマカロニのサラダ",
+      "priceText": "239 yen (tax incl. 258 yen)",
+      "priceTextJa": "239円（税込258円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/salad/1212167.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1212167.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Salad salad · 239 yen (tax incl. 258 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-fd1242b1e1",
+      "chain": "FamilyMart",
+      "name": "Bread",
+      "nameJa": "プリンみたいなパン",
+      "category": "Bread bread",
+      "categoryJa": "パン プリンみたいなパン",
+      "priceText": "121 yen (tax incl. 130 yen)",
+      "priceTextJa": "121円（税込130円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/bread/1535761.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1535761.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Bread bread · 121 yen (tax incl. 130 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-fd2fc665e1",
+      "chain": "FamilyMart",
+      "name": "Tomato",
+      "nameJa": "ミートボール トマトのソース煮",
+      "category": "Side dish tomato",
+      "categoryJa": "チルド惣菜 ミートボール トマトのソース煮",
+      "priceText": "399 yen (tax incl. 430 yen)",
+      "priceTextJa": "399円（税込430円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1160239.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1160239.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish tomato · 399 yen (tax incl. 430 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-bf5fb2f0e3",
+      "chain": "FamilyMart",
+      "name": "Cabbage (salt lemon)",
+      "nameJa": "炭火焼鳥キャベツ（塩レモン）",
+      "category": "Side dish cabbage (salt lemon)",
+      "categoryJa": "チルド惣菜 炭火焼鳥キャベツ（塩レモン）",
+      "priceText": "276 yen (tax incl. 298 yen)",
+      "priceTextJa": "276円（税込298円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1132205.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1132205.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish cabbage (salt lemon) · 276 yen (tax incl. 298 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-20186a41e6",
+      "chain": "FamilyMart",
+      "name": "Fresh pasta",
+      "nameJa": "生パスタ ミートカルボナーラ",
+      "category": "Pasta fresh pasta",
+      "categoryJa": "パスタ 生パスタ ミートカルボナーラ",
+      "priceText": "510 yen (tax incl. 550 yen)",
+      "priceTextJa": "510円（税込550円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/pasta/0823326.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/0823326.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Pasta fresh pasta · 510 yen (tax incl. 550 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-6c7a0d296a",
+      "chain": "FamilyMart",
+      "name": "Pork ()",
+      "nameJa": "豚肉ザーサイ炒め（中華麺入り）",
+      "category": "Side dish pork ()",
+      "categoryJa": "チルド惣菜 豚肉ザーサイ炒め（中華麺入り）",
+      "priceText": "369 yen (tax incl. 398 yen)",
+      "priceTextJa": "369円（税込398円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu"
+      ],
+      "regionsJa": [
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/sidedishes/1170276.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1170276.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Side dish pork () · 369 yen (tax incl. 398 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-ac500fba4f",
+      "chain": "FamilyMart",
+      "name": "Tuna pickled daikon",
+      "nameJa": "青磯海苔 まぐろたくあん",
+      "category": "Rice ball tuna pickled daikon",
+      "categoryJa": "おむすび 青磯海苔 まぐろたくあん",
+      "priceText": "221 yen (tax incl. 238 yen)",
+      "priceTextJa": "221円（税込238円）",
+      "releaseDate": "2026-05-05",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/omusubi/0410106.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 58,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · Rice ball tuna pickled daikon · 221 yen (tax incl. 238 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-89a4760fb0",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "おおきなおむすび 和風ツナマヨネーズ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "298 yen (tax incl. 321.84 yen)",
+      "priceTextJa": "298円（税込321.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041265/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041265/CE103BEC3B14C2A9E4F86810FD7455B5.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 57,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · 298 yen (tax incl. 321.84 yen)",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "mognavi_konbini_ranking",
+          "sourceName": "Mognavi konbini ranking",
+          "tier": "ranking",
+          "language": "ja",
+          "url": "https://s.mognavi.jp/konbini/ranking/1",
+          "matchedText": "Item",
+          "matchedTextJa": "和風ツナマヨネーズ",
+          "snippet": "Pasta rice ball hand-rolled sushi 4.5 70 79 - soy sauce rice ball 5.0 1 5 tuna rice ball soy sauce 5.0 1 10 rice ball hand-rolled sushi",
+          "snippetJa": "パスタのおすすめランキングをもっと見る コンビニおにぎり・コンビニ手巻寿司のおすすめランキング ファミリーマート 直巻 和風ツナマヨネーズ 4.5 70 79 セブン-イレブン 醤油まぶしおむすび しゃけ 麦めし入り 5.0 1 5 ファミリーマート 漬けまぐろおむすび わさび醤油たれ 5.0 1 10 コンビニおにぎり・コンビニ手巻寿司のおすすめランキング"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-017cdb011b",
+      "chain": "7-Eleven",
+      "name": "Pork pork",
+      "nameJa": "豚玉あんかけ飯 道産豚肉使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "648 yen (tax incl. 699.84 yen)",
+      "priceTextJa": "648円（税込699.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/040500/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/040500/765E5245BACA3125E0989ED684AFA99F.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 57,
+      "scoreReasons": [
+        "official product listing",
+        "released this week",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · 648 yen (tax incl. 699.84 yen)",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "mognavi_konbini_ranking",
+          "sourceName": "Mognavi konbini ranking",
+          "tier": "ranking",
+          "language": "ja",
+          "url": "https://s.mognavi.jp/konbini/ranking/1",
+          "matchedText": "Pork",
+          "matchedTextJa": "道産豚肉使用",
+          "snippet": "Miso - pork 7.0 1 11 - 6.0 3 10 Famimaru aromatic 々 4.0 2 4 miso",
+          "snippetJa": "おすすめランキングをもっと見る コンビニスープ・コンビニ味噌汁のおすすめランキング セブン-イレブン 具だくさんぶた汁 道産豚肉使用 7.0 1 11 セブン-イレブン つるもち太麺春雨 麻辣湯 6.0 3 10 ファミリーマート ファミマル 本格スパイス香る春雨スープ担々麺味 4.0 2 4 コンビニスープ・コンビニ味噌汁のおすすめランキングをもっと見る"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-fd3ee7630c",
+      "chain": "7-Eleven",
+      "name": "Rice ball (soy sauce)",
+      "nameJa": "おおきなおむすび すじこ（醤油麹仕立て）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041012/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041012/C2DA77E5C11CF0D3E803F8F396767C05.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-2eee819e16",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "おにぎりランチ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen (tax incl. 464.40 yen)",
+      "priceTextJa": "430円（税込464.40円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042899/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042899/hokkaido/",
+        "https://www.sej.co.jp/products/a/item/042899/kanto/",
+        "https://www.sej.co.jp/products/a/item/042899/kinki/",
+        "https://www.sej.co.jp/products/a/item/042899/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042899/kyushu/",
+        "https://www.sej.co.jp/products/a/item/042899/shikoku/",
+        "https://www.sej.co.jp/products/a/item/042899/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042899/086DFDA83A2D81B48E9A0C2EF4792BEB.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-d88f83510f",
+      "chain": "7-Eleven",
+      "name": "Chicken roll",
+      "nameJa": "たんぱく質が摂れるチキンロール",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053700/chugoku/",
+        "https://www.sej.co.jp/products/a/item/053700/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053700/EAD4ABDAF7082BDD7238947A1BFE3947.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-b7d479a966",
+      "chain": "7-Eleven",
+      "name": "Dashi",
+      "nameJa": "だしむすび 焼しゃけ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "178 yen (tax incl. 192.24 yen)",
+      "priceTextJa": "178円（税込192.24円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042623/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/042623/kanto/",
+        "https://www.sej.co.jp/products/a/item/042623/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042623/kyushu/",
+        "https://www.sej.co.jp/products/a/item/042623/tohoku/",
+        "https://www.sej.co.jp/products/a/item/042623/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042623/E8028CA23B6BE818AC5051BCB24B9F10.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 178 yen (tax incl. 192.24 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-618e02a640",
+      "chain": "7-Eleven",
+      "name": "Dashi bento ()",
+      "nameJa": "だし巻き玉子と炭火焼鳥弁当（モモ・ムネ）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "698 yen (tax incl. 753.84 yen)",
+      "priceTextJa": "698円（税込753.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042890/kyushu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042890/B0E9FC9D55574BED39B461B7F071F51B.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 698 yen (tax incl. 753.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-8f4875de96",
+      "chain": "7-Eleven",
+      "name": "Dashi bento",
+      "nameJa": "だし巻き玉子と焼き鳥弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "668 yen (tax incl. 721.44 yen)",
+      "priceTextJa": "668円（税込721.44円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042508/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042508/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042508/670C018B53C37D1E562ECF405A046040.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 668 yen (tax incl. 721.44 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-d7489a39a6",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "スパイスキーマカレーおむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "148 yen (tax incl. 159.84 yen)",
+      "priceTextJa": "148円（税込159.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042877/chugoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042877/EE13AA39B50FACCC66F0C083FCC70ED3.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-0f17ca7aa9",
+      "chain": "7-Eleven",
+      "name": "Chicken bento",
+      "nameJa": "チキンかつ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "685 yen (tax incl. 739.80 yen)",
+      "priceTextJa": "685円（税込739.80円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042901/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042901/778F04CC3110442B4A30C55456D0352E.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 685 yen (tax incl. 739.80 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-b40a5e3c70",
+      "chain": "7-Eleven",
+      "name": "Chicken and chicken bento",
+      "nameJa": "ピリ辛チキン＆鶏そぼろ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "660 yen (tax incl. 712.80 yen)",
+      "priceTextJa": "660円（税込712.80円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042888/kyushu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042888/FAB00CA72ECDF85730679D5B90AF2155.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 660 yen (tax incl. 712.80 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-c325332766",
+      "chain": "7-Eleven",
+      "name": "Rice bowl",
+      "nameJa": "ホイコーロー丼",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "638 yen (tax incl. 689.04 yen)",
+      "priceTextJa": "638円（税込689.04円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042427/koshinetsu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042427/F04D7675759334A535EEAE4AA68D86CA.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 638 yen (tax incl. 689.04 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-3c995accdb",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "五目おこわおむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "170 yen (tax incl. 183.60 yen)",
+      "priceTextJa": "170円（税込183.60円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042790/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042790/56A21A1FB7513B6112C721355980F33B.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-1e3d48df65",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "五目おこわおむすび あぶくまもち使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "170 yen (tax incl. 183.60 yen)",
+      "priceTextJa": "170円（税込183.60円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042619/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042619/B7D9A812E86FDCEA29793B54C856F52E.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-02e969b467",
+      "chain": "7-Eleven",
+      "name": "Rice ball (dashi soy sauce)",
+      "nameJa": "味付のりおにぎり 山わさび（だし醤油仕立て）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "195 yen (tax incl. 210.60 yen)",
+      "priceTextJa": "195円（税込210.60円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041097/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041097/D263EEC9A3C0339134F06DA91B4504EF.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 195 yen (tax incl. 210.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-4575086d39",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "味付のりおにぎり 梅おかか",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "208 yen (tax incl. 224.64 yen)",
+      "priceTextJa": "208円（税込224.64円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041754/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041754/CA136F4A60DEE7592684F18DFC49CC35.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 208 yen (tax incl. 224.64 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-92c78231e4",
+      "chain": "7-Eleven",
+      "name": "Hand-rolled rice ball",
+      "nameJa": "手巻おにぎり ピリ辛高菜",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "198 yen (tax incl. 213.84 yen)",
+      "priceTextJa": "198円（税込213.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042744/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042744/F00DE9815EE16746C2DEE466B49A4774.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 198 yen (tax incl. 213.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-9d3f10c2d3",
+      "chain": "7-Eleven",
+      "name": "Beef rice bowl",
+      "nameJa": "旨辛ジャンの牛野菜スタミナ丼",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "698 yen (tax incl. 753.84 yen)",
+      "priceTextJa": "698円（税込753.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042914/chugoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042914/A4A22F036BF211D2C70B433DFA9E1829.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 698 yen (tax incl. 753.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-8764b858e7",
+      "chain": "7-Eleven",
+      "name": "Item",
+      "nameJa": "旨辛麻婆チャーハン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042727/kanto/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042727/8A040763B153D7DDA6076155302552E9.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-d01add7a3c",
+      "chain": "7-Eleven",
+      "name": "Plum and shiso",
+      "nameJa": "梅しそいなり 紀州南高梅使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "198 yen (tax incl. 213.84 yen)",
+      "priceTextJa": "198円（税込213.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042910/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042910/154A12651E5043312A377E9AB6DDC18C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 198 yen (tax incl. 213.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-6a3dd16698",
+      "chain": "7-Eleven",
+      "name": "Beef",
+      "nameJa": "海上自衛隊てんりゅう 呉海自カレー牛すじ入り",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "678 yen (tax incl. 732.24 yen)",
+      "priceTextJa": "678円（税込732.24円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042353/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042353/A8474543D351029401F997E2EB3A3181.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 678 yen (tax incl. 732.24 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-34e52a72b5",
+      "chain": "7-Eleven",
+      "name": "Rice ball miso",
+      "nameJa": "漬物おむすび 仙台味噌漬胡瓜",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "148 yen (tax incl. 159.84 yen)",
+      "priceTextJa": "148円（税込159.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042620/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042620/AE487532894F5F40595D0752BA20F115.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-4611d16ff5",
+      "chain": "7-Eleven",
+      "name": "And chicken bento",
+      "nameJa": "炙り焼きソーセージ＆チキンカツ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "698 yen (tax incl. 753.84 yen)",
+      "priceTextJa": "698円（税込753.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042428/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042428/675DB6AC50049DD925C838919528EDA1.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 698 yen (tax incl. 753.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-1625e46de1",
+      "chain": "7-Eleven",
+      "name": "Rice ball (soy sauce)",
+      "nameJa": "炭火で焼いた焼おにぎり（ひしほ醤油使用）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "168 yen (tax incl. 181.44 yen)",
+      "priceTextJa": "168円（税込181.44円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042917/hokuriku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042917/EF34958D18668ECB1D76F15C25CCD4E7.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 168 yen (tax incl. 181.44 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-78f69c34e5",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "焼きめしおむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "158 yen (tax incl. 170.64 yen)",
+      "priceTextJa": "158円（税込170.64円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042905/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042905/6D8CA7F43A7EBC827D8EAB8B8CE5D016.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 158 yen (tax incl. 170.64 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-4cae7716bf",
+      "chain": "7-Eleven",
+      "name": "()",
+      "nameJa": "生ドーナツ（紅芋餡）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "168 yen (tax incl. 181.44 yen)",
+      "priceTextJa": "168円（税込181.44円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/303838/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/303838/818C11D6215C8E774DB425D18CC450B1.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 168 yen (tax incl. 181.44 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-0141923991",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "舞茸ご飯おむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "148 yen (tax incl. 159.84 yen)",
+      "priceTextJa": "148円（税込159.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042904/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042904/D137455F9495E5726EF7B017D9FC0A83.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-f19256f758",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "菜めしおむすびツナマヨネーズ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "148 yen (tax incl. 159.84 yen)",
+      "priceTextJa": "148円（税込159.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042784/kanto/",
+        "https://www.sej.co.jp/products/a/item/042785/kanto/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042784/620B73EC1B6AF499C47212D67E4B3D08.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-596d3dbf5c",
+      "chain": "7-Eleven",
+      "name": "Item",
+      "nameJa": "鉄鍋炒めのキムチ炒飯",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042896/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/042896/kanto/",
+        "https://www.sej.co.jp/products/a/item/042896/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042896/tohoku/",
+        "https://www.sej.co.jp/products/a/item/042896/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042896/C0D4CF0DD5CC7FA422D1F896045B3125.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-01b2cd72b6",
+      "chain": "7-Eleven",
+      "name": "Chicken burdock rice ball burdock",
+      "nameJa": "鶏ごぼう味めしおむすび 青森県産ごぼう使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "170 yen (tax incl. 183.60 yen)",
+      "priceTextJa": "170円（税込183.60円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042789/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042789/A37E31085595DADE85A28A4BC0393939.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-73057f73c4",
+      "chain": "7-Eleven",
+      "name": "And",
+      "nameJa": "麻婆豆腐＆チャーハン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042779/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042779/7147437231D9668C808599883640329C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-96dffcf86b",
+      "chain": "7-Eleven",
+      "name": "2 chicken bento",
+      "nameJa": "２種盛りチーズチキンカツ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "660 yen (tax incl. 712.80 yen)",
+      "priceTextJa": "660円（税込712.80円）",
+      "releaseDate": "2026-05-05",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041272/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041272/4EAC70B773AF7E7B3630A6A586ACF804.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 660 yen (tax incl. 712.80 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-3bc86b1ad2",
+      "chain": "7-Eleven",
+      "name": "Tomato pasta",
+      "nameJa": "ガーリックトマトソースの大盛パスタ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "520 yen (tax incl. 561.60 yen)",
+      "priceTextJa": "520円（税込561.60円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090822/hokuriku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090822/4A27276E1DB17C5E3B97E47326722A00.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 520 yen (tax incl. 561.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-db3f2d1428",
+      "chain": "7-Eleven",
+      "name": "Sandwich",
+      "nameJa": "シャキシャキレタスサンド",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "370 yen (tax incl. 399.60 yen)",
+      "priceTextJa": "370円（税込399.60円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053556/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053556/67C4FC994A5FC159F568C8D852E0E365.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 370 yen (tax incl. 399.60 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-429ebf64c8",
+      "chain": "7-Eleven",
+      "name": "Pasta",
+      "nameJa": "チーズの虜 アラビアータ 焼きパスタ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "550 yen (tax incl. 594 yen)",
+      "priceTextJa": "550円（税込594円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090823/hokuriku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090823/9E4D4CBE0A7A821DECFB131DA2D18AF7.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 550 yen (tax incl. 594 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-df30f8ef31",
+      "chain": "7-Eleven",
+      "name": "Roll",
+      "nameJa": "フィリーチーズステーキ仕立てロール",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053714/koshinetsu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053714/809DFA34C0EBEEED5627CEE9D03117DE.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-8c2cec5503",
+      "chain": "7-Eleven",
+      "name": "And tomato sandwich",
+      "nameJa": "モッツァレラ＆トマトサンド",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053289/kyushu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053289/D893FF4B6E164BA1C6BFE21C8A2359F7.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-da8dcbc00b",
+      "chain": "7-Eleven",
+      "name": "Pork pasta",
+      "nameJa": "豚しゃぶと胡麻ぽん酢の和風おろし冷製パスタ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-06",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090860/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090860/5EE8FF3D4B5F39C705D2AF126A9BAA0C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-c669abf4d8",
+      "chain": "7-Eleven",
+      "name": "Extra pork pasta salad",
+      "nameJa": "お肉たっぷり 豚しゃぶパスタサラダ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "350 yen (tax incl. 378 yen)",
+      "priceTextJa": "350円（税込378円）",
+      "releaseDate": "2026-05-07",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/104931/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/104931/2A7CA64CC1A052C7E4D53F16AA849CE3.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 53,
+      "scoreReasons": [
+        "official product listing",
+        "released this week"
+      ],
+      "summary": "7-Eleven · 350 yen (tax incl. 378 yen)",
+      "englishContext": "",
+      "localSignals": []
+    }
+  ],
+  "warnings": []
+}
