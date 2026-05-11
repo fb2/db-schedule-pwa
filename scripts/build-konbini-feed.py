@@ -1,0 +1,1129 @@
+#!/usr/bin/env python3
+"""Build a public Konbini Radar feed from fetched draft source pages."""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+from html.parser import HTMLParser
+import hashlib
+import json
+import pathlib
+import re
+import unicodedata
+from typing import Any
+
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+CONFIG_PATH = ROOT / "scripts" / "konbini_sources.json"
+REGION_NAMES = {
+    "全国",
+    "北海道",
+    "東北",
+    "関東",
+    "甲信越",
+    "北陸",
+    "東海",
+    "近畿",
+    "関西",
+    "中国",
+    "四国",
+    "中国・四国",
+    "九州",
+    "沖縄",
+}
+CHAIN_NAMES = {
+    "7-Eleven": ["セブン", "セブンイレブン", "セブン‐イレブン", "7-Eleven"],
+    "FamilyMart": ["ファミマ", "ファミリーマート", "FamilyMart"],
+    "Lawson": ["ローソン", "Lawson"],
+    "Ministop": ["ミニストップ", "Ministop"],
+    "NewDays": ["NewDays", "ニューデイズ"],
+}
+JP_CHAR_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
+# Lawson article footnotes / store-type disclaimers (not product names).
+LAWSON_DISCLAIMER_RES = [
+    re.compile(r"お取り扱いがありません"),
+    re.compile(r"取り扱いのない場合がございます"),
+    re.compile(r"一部取り扱いのない場合"),
+    re.compile(r"イメージです"),
+    re.compile(r"掲載当時の売価"),
+    re.compile(r"フランチャイズチェーン本部"),
+    re.compile(r"納品時間が異なる"),
+    re.compile(r"内容が一部変更"),
+    re.compile(r"ナチュラルローソン", re.I),
+    re.compile(r"ローソンストア100"),
+]
+LAWSON_LAB_PRODUCT_BLOCK_RE = re.compile(
+    r"<b>\s*([^<][^<]{0,200}?)\s*</b>\s*<br\s*/>\s*<b>\s*"
+    r"(?:<span[^>]*>\s*)?(\d{4}年\d{1,2}月\d{1,2}日[^<]*?発売[^<]*?)(?:\s*</span>)?\s*"
+    r"<br\s*/>\s*ローソン標準価格\s*([0-9,]+円\(税込\))",
+    re.IGNORECASE | re.DOTALL,
+)
+OG_TITLE_RE = re.compile(
+    r'<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']',
+    re.IGNORECASE,
+)
+SOURCE_NAME_TRANSLATIONS = {
+    "えん食べ konbini roundup": "Entabe konbini roundup",
+    "コンビニ チェッカー new items": "Conveni Checker new items",
+    "コンビニエブリデイ new products": "Conveni Everyday new products",
+    "もぐナビ konbini ranking": "Mognavi konbini ranking",
+    "ローソン研究所 weekly featured products": "Lawson Lab weekly featured products",
+}
+REGION_TRANSLATIONS = {
+    "全国": "Nationwide",
+    "北海道": "Hokkaido",
+    "東北": "Tohoku",
+    "関東": "Kanto",
+    "甲信越": "Koshinetsu",
+    "北陸": "Hokuriku",
+    "東海": "Tokai",
+    "近畿": "Kinki",
+    "関西": "Kansai",
+    "中国": "Chugoku",
+    "四国": "Shikoku",
+    "中国・四国": "Chugoku/Shikoku",
+    "九州": "Kyushu",
+    "沖縄": "Okinawa",
+}
+CATEGORY_TRANSLATIONS = {
+    "おむすび": "Rice ball",
+    "お弁当": "Bento",
+    "サンドイッチ・ロールパン・バーガー": "Sandwiches, rolls, and burgers",
+    "パン": "Bakery",
+    "パスタ": "Pasta",
+    "サラダ": "Salad",
+    "チルド惣菜": "Chilled side dish",
+    "デザート": "Dessert",
+    "アイス": "Ice cream",
+    "菓子": "Snacks",
+    "飲料": "Drink",
+    "日用品": "Daily goods",
+    "キャラクターくじ・エンタメ雑貨など": "Character lottery and entertainment goods",
+    "関東限定 おむすび": "Kanto-only rice ball",
+    "東北限定 おむすび": "Tohoku-only rice ball",
+    "中国・四国限定 おむすび": "Chugoku/Shikoku-only rice ball",
+    "関東限定 お弁当": "Kanto-only bento",
+    "東海限定 お弁当": "Tokai-only bento",
+}
+# Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
+PRIORITY_JP_PHRASES = [
+    ("ミルクたっぷり 塩バニララテ", "extra-milk salted vanilla latte"),
+    ("塩バニララテ", "salted vanilla latte"),
+    ("半熟玉子ぶっかけうどん", "udon with soft-boiled egg and chilled dashi poured on top"),
+    ("温・冷　気分で選べる！ 半熟玉子ぶっかけうどん", "hot-or-cold udon with soft-boiled egg and chilled dashi poured on top"),
+    ("玉子ぶっかけうどん", "udon with egg and chilled dashi poured on top"),
+    ("ぶっかけうどん", "udon with chilled dashi poured on top"),
+]
+
+PHRASE_TRANSLATIONS = {
+    "セブンプレミアム": "Seven Premium",
+    "ファミマル": "Famimaru",
+    "ウチカフェ": "Uchi Cafe",
+    "ローソン標準価格": "Lawson standard price",
+    "北海道産": "Hokkaido-grown",
+    "北海道": "Hokkaido",
+    "東北": "Tohoku",
+    "関東": "Kanto",
+    "東海": "Tokai",
+    "北陸": "Hokuriku",
+    "関西": "Kansai",
+    "中国・四国": "Chugoku/Shikoku",
+    "九州": "Kyushu",
+    "沖縄": "Okinawa",
+    "全国": "Nationwide",
+    "ゴディバ": "GODIVA",
+    "森半": "Morihan",
+    "八天堂": "Hattendo",
+    "天下一品": "Tenkaippin",
+    "七宝麻辣湯": "Shippo Malatang",
+    "札幌すみれ": "Sapporo Sumire",
+    "mofusand": "mofusand",
+    "監修": "supervised",
+    "ぶっかけ": "broth-poured",
+    "わかめ": "wakame",
+    "ちく玉天": "chikuwa tempura",
+    "たぬき": "tanuki toppings",
+    "数量限定": "limited quantity",
+    "期間限定": "limited-time",
+    "地域限定": "regional-only",
+    "限定": "limited",
+    "復刻": "revival",
+    "再販売": "returning",
+    "リニューアル": "renewed",
+    "新発売": "new release",
+    "大きな": "large",
+    "たっぷり": "extra",
+    "どかっと満足": "big satisfaction",
+    "もちもち": "chewy",
+    "もちっと": "chewy",
+    "ふわもち": "fluffy-chewy",
+    "ふんわり": "fluffy",
+    "とろける": "melting",
+    "濃厚": "rich",
+    "濃い": "rich",
+    "濃密": "dense",
+    "さっぱり": "refreshing",
+    "香る": "aromatic",
+    "だし": "dashi",
+    "鰹だし": "bonito dashi",
+    "生パスタ": "fresh pasta",
+    "半熟玉子": "soft-boiled egg",
+    "温・冷": "hot or cold",
+    "気分で選べる": "choose by mood",
+    "冷し": "chilled",
+    "冷やし": "chilled",
+    "おにぎり": "rice ball",
+    "おむすび": "rice ball",
+    "手巻": "hand-rolled",
+    "寿司": "sushi",
+    "弁当": "bento",
+    "丼": "rice bowl",
+    "ごはん": "rice",
+    "もち麦": "mochi barley",
+    "麦入り": "with barley",
+    "サンド": "sandwich",
+    "ロール": "roll",
+    "バーガー": "burger",
+    "パン": "bread",
+    "蒸しぱん": "steamed bread",
+    "チュロッキー": "churro-style donut",
+    "パスタ": "pasta",
+    "ラーメン": "ramen",
+    "そば": "soba",
+    "うどん": "udon",
+    "サラダ": "salad",
+    "惣菜": "side dish",
+    "チキン": "chicken",
+    "鶏": "chicken",
+    "豚": "pork",
+    "牛": "beef",
+    "まぐろ": "tuna",
+    "鮪": "tuna",
+    "鮭": "salmon",
+    "紅鮭": "red salmon",
+    "さば": "mackerel",
+    "いか": "squid",
+    "海鮮": "seafood",
+    "たらこ": "cod roe",
+    "明太子": "spicy cod roe",
+    "たくあん": "pickled daikon",
+    "ガリ": "pickled ginger",
+    "ねぎ": "green onion",
+    "オクラ": "okra",
+    "ごぼう": "burdock",
+    "キャベツ": "cabbage",
+    "トマト": "tomato",
+    "味噌": "miso",
+    "醤油": "soy sauce",
+    "照焼": "teriyaki",
+    "照り焼き": "teriyaki",
+    "塩": "salt",
+    "塩レモン": "salt lemon",
+    "梅しそ": "plum and shiso",
+    "抹茶": "matcha",
+    "ほうじ茶": "hojicha",
+    "黒ごま": "black sesame",
+    "きなこ": "kinako roasted soybean flour",
+    "あずき": "azuki bean",
+    "練乳": "condensed milk",
+    "いちご": "strawberry",
+    "苺": "strawberry",
+    "桃": "peach",
+    "メロン": "melon",
+    "マンゴー": "mango",
+    "みかん": "mandarin orange",
+    "アイス": "ice cream",
+    "氷": "shaved ice",
+    "バーアイスクリーム": "ice cream bar",
+    "フォンダンショコラ": "fondant chocolate",
+    "チョコレート": "chocolate",
+    "チョコ": "chocolate",
+    "パフェ": "parfait",
+    "大福": "daifuku",
+    "クレープ": "crepe",
+    "カフェラテ": "café latte",
+    "ラテ": "latte",
+    "ミルク": "milk",
+    "バニラ": "vanilla",
+    "一番くじ": "Ichiban Kuji lottery",
+    "ソックス": "socks",
+    "ウエハース": "wafer snack",
+    "わっふれーむ": "waffle-frame character snack",
+    "おつまみ": "snack",
+}
+
+
+class SourceParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.events: list[dict[str, str]] = []
+        self._link_href = ""
+        self._link_text: list[str] = []
+        self._heading_tag = ""
+        self._heading_text: list[str] = []
+        self.title = ""
+        self._in_title = False
+        self._title_text: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attr_map = {key: value or "" for key, value in attrs}
+        if tag == "a":
+            self._link_href = attr_map.get("href", "")
+            self._link_text = []
+        elif tag in {"h1", "h2", "h3", "h4"}:
+            self._heading_tag = tag
+            self._heading_text = []
+        elif tag == "title":
+            self._in_title = True
+            self._title_text = []
+
+    def handle_data(self, data: str) -> None:
+        text = clean_text(data)
+        if not text:
+            return
+        if self._in_title:
+            self._title_text.append(text)
+        if self._heading_tag:
+            self._heading_text.append(text)
+        if self._link_href:
+            self._link_text.append(text)
+        if not self._in_title and not self._link_href and not self._heading_tag:
+            self.events.append({"type": "text", "text": text})
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._link_href:
+            text = clean_text(" ".join(self._link_text))
+            if text:
+                self.events.append({"type": "link", "text": text, "href": self._link_href})
+            self._link_href = ""
+            self._link_text = []
+        elif tag == self._heading_tag:
+            text = clean_text(" ".join(self._heading_text))
+            if text:
+                self.events.append({"type": "heading", "tag": self._heading_tag, "text": text})
+            self._heading_tag = ""
+            self._heading_text = []
+        elif tag == "title" and self._in_title:
+            self.title = clean_text(" ".join(self._title_text))
+            self._in_title = False
+            self._title_text = []
+
+
+def clean_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value.replace("\u3000", " ")).strip()
+
+
+def extract_og_title(html: str) -> str:
+    match = OG_TITLE_RE.search(html or "")
+    return clean_text(match.group(1)) if match else ""
+
+
+def is_lawson_disclaimer_text(text: str) -> bool:
+    t = clean_text(text)
+    if not t:
+        return False
+    return any(pattern.search(t) for pattern in LAWSON_DISCLAIMER_RES)
+
+
+def normalize_lawson_product_name(name: str) -> str:
+    t = clean_text(name)
+    t = unicodedata.normalize("NFKC", t)
+    t = re.sub(r"^※+\s*", "", t)
+    t = t.replace("\u3000", " ")
+    t = re.sub(r"\s+", " ", t).strip(" ・、,，")
+    return t
+
+
+def is_weak_lawson_title(name: str) -> bool:
+    t = normalize_lawson_product_name(name)
+    if len(t) < 3:
+        return True
+    if is_lawson_disclaimer_text(t):
+        return True
+    if not JP_CHAR_RE.search(t) and len(t) < 12:
+        return True
+    if re.fullmatch(r"[\W_]+", t, flags=re.UNICODE):
+        return True
+    return False
+
+
+def extract_lawson_lab_product_rows(html: str) -> list[tuple[str, str, str]]:
+    rows: list[tuple[str, str, str]] = []
+    for match in LAWSON_LAB_PRODUCT_BLOCK_RE.finditer(html or ""):
+        name = normalize_lawson_product_name(match.group(1))
+        date_text = clean_text(match.group(2))
+        price_text = clean_text(match.group(3))
+        rows.append((name, date_text, price_text))
+    return rows
+
+
+def translate_regions(regions: list[str]) -> list[str]:
+    translated = []
+    for region in regions:
+        translated.append(REGION_TRANSLATIONS.get(region, translate_japanese_text(region, "region")))
+    return translated
+
+
+def translate_category(category: str) -> str:
+    if not category:
+        return ""
+    return CATEGORY_TRANSLATIONS.get(category, translate_japanese_text(category, "category"))
+
+
+def translate_japanese_text(text: str, fallback: str = "item") -> str:
+    """Best-effort glossary translation for public English feed fields."""
+    if not text:
+        return ""
+    value = clean_text(text)
+    value = unicodedata.normalize("NFKC", value)
+    value = value.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
+    value = re.sub(r"【([^】]+)】", lambda match: f"{translate_japanese_text(match.group(1), 'region')} regional ", value)
+    value = value.replace("＆", " and ").replace("&", " and ").replace("　", " ")
+    value = value.replace("（", " (").replace("）", ") ")
+    for japanese, english in sorted(PRIORITY_JP_PHRASES, key=lambda item: len(item[0]), reverse=True):
+        value = re.sub(re.escape(japanese), f" {english} ", value)
+    for japanese, english in sorted(PHRASE_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True):
+        value = re.sub(re.escape(japanese), f" {english} ", value)
+    value = value.replace("・", " ")
+    value = re.sub(r"[\u3040-\u30ff\u3400-\u9fff]+", " ", value)
+    value = re.sub(r"\s+", " ", value)
+    value = re.sub(r"\bregional regional\b", "regional", value, flags=re.IGNORECASE)
+    value = re.sub(r"\blimited limited\b", "limited", value, flags=re.IGNORECASE)
+    value = re.sub(r"\s+([),.!?])", r"\1", value)
+    value = re.sub(r"([(])\s+", r"\1", value)
+    value = value.strip(" -_/・、。:：")
+    if not value:
+        return fallback.title()
+    return value[:1].upper() + value[1:]
+
+
+def translate_price(price_text: str) -> str:
+    if not price_text:
+        return ""
+    value = price_text
+    value = value.replace("（税込", " (tax incl. ")
+    value = value.replace("税込", "tax incl.")
+    value = value.replace("）", ")")
+    value = value.replace("円", " yen")
+    value = value.replace("本体価格", "base price")
+    return clean_text(value)
+
+
+SANITIZE_ENGLISH_PATTERNS = [
+    # Whole phrase first (modifiers like "egg bukkake udon").
+    (re.compile(r"\bbukkake\s+(udon|soba)\b", re.I), r"broth-poured \1"),
+    (re.compile(r"\bbukkake\b", re.I), "broth-poured"),
+    # Half-width / broken tokenizer cases where "latte" drops out.
+    (re.compile(r"\bsalt vanilla\b(?!\s+latte\b)", re.I), "salted vanilla latte"),
+    (re.compile(r"\bsalted vanilla\b(?!\s+latte\b)(?=\s|$|\d)", re.I), "salted vanilla latte"),
+]
+
+
+def sanitize_english_output(text: str) -> str:
+    if not text:
+        return ""
+    value = clean_text(text)
+    for pattern, replacement in SANITIZE_ENGLISH_PATTERNS:
+        value = pattern.sub(replacement, value)
+    value = re.sub(r"\s+", " ", value).strip()
+    return value
+
+
+def infer_english_context(product: dict[str, Any]) -> None:
+    hints: list[str] = []
+    ja = product.get("nameJa") or ""
+    if re.search(r"ラテ|カフェラテ|カフェオレ", ja):
+        hints.append(
+            "Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named."
+        )
+    if "ぶっかけうどん" in ja:
+        hints.append(
+            "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs."
+        )
+    elif "ぶっかけ" in ja:
+        hints.append(
+            "ぶっかけ styles pour savory chilled broth over noodles; English wording avoids misleading homographs."
+        )
+    if re.search(r"\d+\s*ml", ja, flags=re.I):
+        hints.append("Milliliters on pack shots reflect Japanese retail labeling.")
+    pieces = [piece for piece in [product.get("englishContext") or ""] + hints if piece]
+    product["englishContext"] = "; ".join(dict.fromkeys(pieces))
+
+
+def finalize_product_copy(product: dict[str, Any]) -> None:
+    for key in ("name", "category"):
+        if product.get(key):
+            product[key] = sanitize_english_output(product[key])
+    if product.get("englishContext"):
+        product["englishContext"] = sanitize_english_output(product["englishContext"])
+    infer_english_context(product)
+    product["englishContext"] = sanitize_english_output(product.get("englishContext", ""))
+    for signal in product.get("localSignals", []):
+        for key in ("matchedText", "snippet"):
+            if signal.get(key):
+                signal[key] = sanitize_english_output(signal[key])
+    summarize_product(product)
+    product["summary"] = sanitize_english_output(product["summary"])
+
+
+def english_source_name(name: str) -> str:
+    return SOURCE_NAME_TRANSLATIONS.get(name, translate_japanese_text(name, "source"))
+
+
+def decode_html(raw_path: pathlib.Path) -> str:
+    data = raw_path.read_bytes()
+    for encoding in ("utf-8", "cp932", "euc-jp"):
+        try:
+            return data.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return data.decode("utf-8", errors="replace")
+
+
+def parse_source(raw_path: pathlib.Path) -> SourceParser:
+    parser = SourceParser()
+    parser.feed(decode_html(raw_path))
+    return parser
+
+
+def absolute_url(url: str, source_url: str) -> str:
+    if url.startswith("http"):
+        return url
+    if url.startswith("//"):
+        return f"https:{url}"
+    origin = re.match(r"^(https?://[^/]+)", source_url)
+    if not origin:
+        return url
+    if url.startswith("/"):
+        return f"{origin.group(1)}{url}"
+    return f"{source_url.rstrip('/')}/{url}"
+
+
+def parse_japanese_date(text: str, fallback_year: int | None = None) -> str | None:
+    match = re.search(r"(?:(\d{4})年)?\s*(\d{1,2})月\s*(\d{1,2})日", text)
+    if not match:
+        return None
+    year = int(match.group(1) or fallback_year or dt.date.today().year)
+    month = int(match.group(2))
+    day = int(match.group(3))
+    try:
+        return dt.date(year, month, day).isoformat()
+    except ValueError:
+        return None
+
+
+def parse_price(texts: list[str]) -> str:
+    for text in texts:
+        if "円" in text and re.search(r"\d", text):
+            return clean_text(text)
+    return ""
+
+
+def parse_regions(texts: list[str], fallback: str = "") -> list[str]:
+    for text in texts:
+        if "販売地域" in text or "発売地域" in text:
+            region_text = re.sub(r"^(販売地域|発売地域)：?", "", text).strip()
+            return [part.strip() for part in re.split(r"[、,]", region_text) if part.strip()]
+    return [fallback] if fallback else []
+
+
+def week_start_from_familymart(events: list[dict[str, str]], today: dt.date) -> str | None:
+    for event in events:
+        text = event.get("text", "")
+        match = re.search(r"今週の新商品\s*\((\d{1,2})/(\d{1,2})", text)
+        if match:
+            try:
+                return dt.date(today.year, int(match.group(1)), int(match.group(2))).isoformat()
+            except ValueError:
+                return None
+    return None
+
+
+def item_id(chain: str, name: str, release_date: str | None) -> str:
+    base = f"{chain}|{name}|{release_date or ''}"
+    digest = hashlib.sha1(base.encode("utf-8")).hexdigest()[:10]
+    slug = re.sub(r"[^a-z0-9]+", "-", chain.lower()).strip("-")
+    return f"{slug}-{digest}"
+
+
+def new_product(chain: str, name: str, source: dict[str, Any], source_url: str) -> dict[str, Any]:
+    return {
+        "id": "",
+        "chain": chain,
+        "name": translate_japanese_text(name),
+        "nameJa": name,
+        "category": "",
+        "categoryJa": "",
+        "priceText": "",
+        "priceTextJa": "",
+        "releaseDate": None,
+        "regions": [],
+        "regionsJa": [],
+        "sourceUrls": [source_url],
+        "sourceTiers": [source["tier"]],
+        "imageUrl": "",
+        "tags": ["new"],
+        "timeGate": None,
+        "score": 0,
+        "scoreReasons": [],
+        "summary": "",
+        "englishContext": "",
+        "localSignals": [],
+    }
+
+
+def parse_seven(events: list[dict[str, str]], source: dict[str, Any], today: dt.date) -> tuple[list[dict[str, Any]], list[str]]:
+    products: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    current_region = ""
+    for index, event in enumerate(events):
+        text = event.get("text", "")
+        if event["type"] == "heading" and text in REGION_NAMES:
+            current_region = text
+            continue
+        if event["type"] != "link" or "/products/a/item/" not in event.get("href", ""):
+            continue
+        if "ラインナップを見る" in text:
+            continue
+
+        following: list[str] = []
+        for next_event in events[index + 1 : index + 10]:
+            if next_event["type"] == "link" and "/products/a/item/" in next_event.get("href", ""):
+                break
+            following.append(next_event.get("text", ""))
+
+        product = new_product("7-Eleven", text, source, absolute_url(event["href"], source["url"]))
+        product["priceTextJa"] = parse_price(following)
+        product["priceText"] = translate_price(product["priceTextJa"])
+        product["releaseDate"] = next((parse_japanese_date(piece, today.year) for piece in following if parse_japanese_date(piece, today.year)), None)
+        product["regionsJa"] = parse_regions(following, current_region)
+        product["regions"] = translate_regions(product["regionsJa"])
+        products.append(product)
+
+    if not products:
+        warnings.append("No 7-Eleven products parsed from official source.")
+    return products, warnings
+
+
+def parse_familymart(events: list[dict[str, str]], source: dict[str, Any], today: dt.date) -> tuple[list[dict[str, Any]], list[str]]:
+    products: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    week_start = week_start_from_familymart(events, today)
+    ignored_headings = {"今週のおすすめ情報", "セール商品・価格について", "商品情報"}
+
+    for index, event in enumerate(events):
+        if event["type"] != "heading" or event.get("tag") != "h3":
+            continue
+        name = event["text"]
+        if name in ignored_headings or len(name) < 2:
+            continue
+
+        following = events[index + 1 : index + 10]
+        link_event = next((item for item in following if item["type"] == "link" and "/goods/" in item.get("href", "")), None)
+        if not link_event:
+            continue
+
+        text_pieces = [item.get("text", "") for item in following]
+        category_price = link_event["text"]
+        product = new_product("FamilyMart", name, source, absolute_url(link_event["href"], source["url"]))
+        price_match = re.search(r"(.+?)\s+(\d[\d,]*円.*)", category_price)
+        if price_match:
+            product["categoryJa"] = clean_text(price_match.group(1))
+            product["category"] = translate_category(product["categoryJa"])
+            product["priceTextJa"] = clean_text(price_match.group(2))
+            product["priceText"] = translate_price(product["priceTextJa"])
+        else:
+            product["categoryJa"] = category_price
+            product["category"] = translate_category(category_price)
+        product["releaseDate"] = week_start
+        product["regionsJa"] = parse_regions(text_pieces)
+        product["regions"] = translate_regions(product["regionsJa"])
+        products.append(product)
+
+    if not products:
+        warnings.append("No FamilyMart products parsed from official source.")
+    return products, warnings
+
+
+def parse_lawson(events: list[dict[str, str]], source: dict[str, Any], today: dt.date) -> tuple[list[dict[str, Any]], list[str]]:
+    products: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    release_date = None
+    for event in events[:20]:
+        release_date = parse_japanese_date(event.get("text", ""), today.year)
+        if release_date:
+            break
+
+    seen_names: set[str] = set()
+    for index, event in enumerate(events):
+        if event["type"] != "link":
+            continue
+        href = event.get("href", "")
+        name = normalize_lawson_product_name(event["text"])
+        if is_lawson_disclaimer_text(event["text"]) or is_weak_lawson_title(name):
+            continue
+        if not any(piece in href for piece in ("/recommend/original/detail/", "/recommend/new/detail/", "/recommend/")):
+            continue
+        if len(name) < 3 or name in seen_names or "ローソン" in name:
+            continue
+
+        following = [item.get("text", "") for item in events[index + 1 : index + 8]]
+        product = new_product("Lawson", name, source, absolute_url(href, source["url"]))
+        product["priceTextJa"] = parse_price(following)
+        product["priceText"] = translate_price(product["priceTextJa"])
+        product["releaseDate"] = next((parse_japanese_date(piece, today.year) for piece in following if parse_japanese_date(piece, today.year)), release_date)
+        product["regionsJa"] = parse_regions(following, "全国")
+        product["regions"] = translate_regions(product["regionsJa"])
+        products.append(product)
+        seen_names.add(name)
+
+    if not products:
+        warnings.append("No Lawson products parsed from official source; page may require parser tuning.")
+    return products[:80], warnings
+
+
+def _parse_lawson_lab_events_legacy(
+    events: list[dict[str, str]], source: dict[str, Any], today: dt.date
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Previous event-stream parser, kept as fallback if the article HTML layout changes."""
+    products: list[dict[str, Any]] = []
+    for index, event in enumerate(events):
+        text = event.get("text", "")
+        if is_lawson_disclaimer_text(text):
+            continue
+        match = re.search(
+            r"(.{3,80}?)\s+(20\d{2}年\d{1,2}月\d{1,2}日[^ ]{0,12})\s*発売[！!]?\s*ローソン標準価格\s*([0-9,]+円\(税込\))",
+            text,
+        )
+        if match:
+            name = clean_text(match.group(1))
+            date_text = match.group(2)
+            price_text = match.group(3)
+        else:
+            if event.get("type") == "heading":
+                continue
+            lookahead = [item.get("text", "") for item in events[index + 1 : index + 5]]
+            date_text = next((piece for piece in lookahead if "発売" in piece and parse_japanese_date(piece, today.year)), "")
+            price_text = next((piece for piece in lookahead if "ローソン標準価格" in piece and "円" in piece), "")
+            name = text
+            if not date_text or not price_text:
+                continue
+
+        name = re.split(r"[。！？]", clean_text(name))[-1].strip()
+        name = normalize_lawson_product_name(name)
+        if is_weak_lawson_title(name):
+            continue
+        if len(name) < 3 or any(skip in name for skip in ("ローソン研究所", "新商品", "おすすめ", "商品・おトク情報")):
+            continue
+        product = new_product("Lawson", name, source, source["url"])
+        product["releaseDate"] = parse_japanese_date(date_text, today.year)
+        product["priceTextJa"] = clean_text(price_text.replace("ローソン標準価格", "").strip())
+        product["priceText"] = translate_price(product["priceTextJa"])
+        product["regionsJa"] = ["全国"]
+        product["regions"] = ["Nationwide"]
+        product["sourceTiers"] = [source["tier"], "featured"]
+        products.append(product)
+
+    return products, []
+
+
+def parse_lawson_lab(
+    html: str, events: list[dict[str, str]], source: dict[str, Any], today: dt.date
+) -> tuple[list[dict[str, Any]], list[str]]:
+    products: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    seen_keys: set[str] = set()
+    rows = extract_lawson_lab_product_rows(html)
+    for name_ja, date_text, price_text in rows:
+        if is_weak_lawson_title(name_ja):
+            continue
+        dedupe = f"{name_ja}|{date_text}|{price_text}"
+        if dedupe in seen_keys:
+            continue
+        seen_keys.add(dedupe)
+        product = new_product("Lawson", name_ja, source, source["url"])
+        product["releaseDate"] = parse_japanese_date(date_text, today.year)
+        product["priceTextJa"] = clean_text(price_text)
+        product["priceText"] = translate_price(product["priceTextJa"])
+        product["regionsJa"] = ["全国"]
+        product["regions"] = ["Nationwide"]
+        product["sourceTiers"] = [source["tier"], "featured"]
+        products.append(product)
+
+    if not products:
+        warnings.append("Lawson Lab: no HTML product blocks matched; trying legacy event parse.")
+        legacy_products, _legacy_warnings = _parse_lawson_lab_events_legacy(events, source, today)
+        products.extend(legacy_products)
+    if not products:
+        og = extract_og_title(html)
+        if og:
+            warnings.append(f"No Lawson Lab rows; og:title is “{og[:120]}”.")
+        warnings.append("No Lawson Lab products parsed from weekly article.")
+    return products, warnings
+
+
+def visible_text(parser: SourceParser) -> str:
+    pieces = [parser.title]
+    pieces.extend(event.get("text", "") for event in parser.events)
+    return clean_text(" ".join(piece for piece in pieces if piece))
+
+
+def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> None:
+    text = f"{product['nameJa']} {product.get('categoryJa', '')} {' '.join(product.get('regionsJa', []))}"
+    tags = set(product.get("tags", []))
+    if any(token in text for token in ("コラボ", "×", "監修", "GODIVA", "ゴディバ", "mofusand", "森半", "八天堂", "ICHIBIKO")):
+        tags.add("collab")
+    if any(token in text for token in ("限定", "数量限定", "期間限定")):
+        tags.add("limited")
+    if any(token in text for token in ("抹茶", "いちご", "苺", "桃", "マンゴー", "桜", "春", "夏", "ほうじ茶", "冷し", "氷")):
+        tags.add("seasonal")
+    if any(token in text for token in ("復刻", "再販売")):
+        tags.add("returning")
+    if any(token in text for token in ("リニューアル", "刷新")):
+        tags.add("renewal")
+    if any(token in text for token in ("一番くじ", "ソックス", "ウエハース", "玩具", "グッズ", "イタジャガ", "わっふれーむ")):
+        tags.add("merch")
+    if product.get("regionsJa") and "全国" not in product["regionsJa"]:
+        tags.add("regional")
+
+    context_bits = [english for keyword, english in keyword_contexts.items() if keyword in text]
+    if JP_CHAR_RE.search(product["name"]):
+        context_bits.append(
+            "English names use a glossary; verify wording on the Japanese official source link."
+        )
+    product["tags"] = sorted(tags)
+    product["englishContext"] = "; ".join(context_bits[:3])
+
+
+def add_local_signals(products: list[dict[str, Any]], context_sources: list[dict[str, Any]]) -> None:
+    for product in products:
+        product_name = product["nameJa"]
+        chain_aliases = CHAIN_NAMES.get(product["chain"], [])
+        candidates = [product_name]
+        if len(product_name) > 8:
+            candidates.extend(re.split(r"[ 　（）()【】]", product_name)[:2])
+        candidates = [candidate for candidate in candidates if len(candidate) >= 4]
+
+        for source in context_sources:
+            body = source["text"]
+            if not any(alias in body for alias in chain_aliases):
+                continue
+            matched = next((candidate for candidate in candidates if candidate and candidate in body), "")
+            if not matched:
+                continue
+            position = body.find(matched)
+            snippet = clean_text(body[max(0, position - 60) : position + 120])
+            product["localSignals"].append(
+                {
+                    "sourceId": source["id"],
+                    "sourceName": english_source_name(source["name"]),
+                    "tier": source["tier"],
+                    "language": source.get("language", "ja"),
+                    "url": source["url"],
+                    "matchedText": translate_japanese_text(matched),
+                    "matchedTextJa": matched,
+                    "snippet": translate_japanese_text(snippet, "local source mention"),
+                    "snippetJa": snippet,
+                }
+            )
+
+
+def score_product(product: dict[str, Any], today: dt.date) -> None:
+    score = 35
+    reasons: list[str] = ["official product listing"]
+    release_date = None
+    if product.get("releaseDate"):
+        try:
+            release_date = dt.date.fromisoformat(product["releaseDate"])
+        except ValueError:
+            release_date = None
+
+    if release_date:
+        age = (today - release_date).days
+        if age <= 2:
+            score += 25
+            reasons.append("released in the last few days")
+        elif age <= 7:
+            score += 18
+            reasons.append("released this week")
+        elif age < 0:
+            score += 15
+            reasons.append("upcoming release")
+    for tag, points, reason in (
+        ("collab", 15, "collaboration or supervised item"),
+        ("limited", 14, "limited/time-gated language"),
+        ("seasonal", 8, "seasonal flavor or format"),
+        ("regional", 5, "regional availability makes it harder to find"),
+        ("merch", 5, "character goods or merch-adjacent item"),
+        ("returning", 4, "returning item"),
+    ):
+        if tag in product["tags"]:
+            score += points
+            reasons.append(reason)
+
+    if product["localSignals"]:
+        score += min(12, 4 * len(product["localSignals"]))
+        reasons.append("mentioned by Japanese local/context source")
+
+    if product.get("regionsJa") == ["全国"]:
+        score += 4
+        reasons.append("national availability")
+
+    product["score"] = min(score, 100)
+    product["scoreReasons"] = reasons[:6]
+    if "limited" in product["tags"]:
+        product["timeGate"] = {"type": "limited", "label": "Limited or short-window release"}
+    elif "regional" in product["tags"]:
+        product["timeGate"] = {"type": "regional", "label": "Regional availability"}
+    else:
+        product["timeGate"] = None
+
+
+def extract_familymart_thumb_map(html: str) -> dict[str, str]:
+    base = "https://www.family.co.jp"
+    mapping: dict[str, str] = {}
+    if not html:
+        return mapping
+    pattern = re.compile(
+        r'<a\s+href="(https://www\.family\.co\.jp/goods/[^"]+\.html)"[^>]*>[\s\S]{0,2600}?<img[^>]+src="([^"]+)"',
+        re.IGNORECASE,
+    )
+    for match in pattern.finditer(html):
+        href, src = match.group(1), match.group(2)
+        key = url_canonical(href)
+        mapping.setdefault(key, absolute_url(src, base))
+    return mapping
+
+
+def extract_seven_thumb_map(html: str) -> dict[str, str]:
+    mapping: dict[str, str] = {}
+    if not html:
+        return mapping
+    base = "https://www.sej.co.jp"
+    pattern = re.compile(
+        r'<figure>\s*<a\s+href="(/products/a/item/[^"]+)">\s*<img\b[^>]*>',
+        re.IGNORECASE,
+    )
+    for match in pattern.finditer(html):
+        href_rel = match.group(1)
+        block_end = html.find("</figure>", match.start())
+        snippet = html[match.start() : block_end + 9] if block_end != -1 else match.group(0)
+        img_match = re.search(r'data-original="([^"]+)"', snippet) or re.search(r'\bsrc="([^"]+)"', snippet)
+        if not img_match:
+            continue
+        thumb = img_match.group(1).strip()
+        if thumb.startswith("//"):
+            thumb = f"https:{thumb}"
+        elif thumb.startswith("/"):
+            thumb = absolute_url(thumb, base)
+        full_item_url = url_canonical(absolute_url(href_rel, base))
+        mapping.setdefault(full_item_url, thumb)
+    return mapping
+
+
+def url_canonical(url: str) -> str:
+    return url.split("#")[0].rstrip("/")
+
+
+def enrich_product_thumbnails(products: list[dict[str, Any]], seven_html: str, family_html: str) -> None:
+    fm_map = extract_familymart_thumb_map(family_html)
+    sj_map = extract_seven_thumb_map(seven_html)
+    for product in products:
+        urls = product.get("sourceUrls", [])
+        if product["chain"] == "FamilyMart":
+            detail = next((url for url in urls if "family.co.jp/goods/" in url), "")
+            thumb = fm_map.get(url_canonical(detail), "")
+            if thumb:
+                product["imageUrl"] = thumb
+        elif product["chain"] == "7-Eleven":
+            detail = next((url for url in urls if "sej.co.jp/products/a/item/" in url), "")
+            thumb = sj_map.get(url_canonical(detail), "")
+            if thumb:
+                product["imageUrl"] = thumb
+
+
+def summarize_product(product: dict[str, Any]) -> None:
+    pieces = [product["chain"]]
+    if product.get("category"):
+        pieces.append(product["category"])
+    if product.get("priceText"):
+        pieces.append(product["priceText"])
+    if product.get("regions"):
+        pieces.append(f"Regions: {', '.join(product['regions'][:4])}")
+    product["summary"] = " · ".join(pieces)
+
+
+def merge_products(products: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    merged: dict[tuple[str, str, str | None], dict[str, Any]] = {}
+    for product in products:
+        key = (product["chain"], product["nameJa"], product.get("releaseDate"))
+        if key not in merged:
+            merged[key] = product
+            continue
+        existing = merged[key]
+        existing["regions"] = sorted(set(existing.get("regions", [])) | set(product.get("regions", [])))
+        existing["sourceUrls"] = sorted(set(existing["sourceUrls"]) | set(product["sourceUrls"]))
+        existing["sourceTiers"] = sorted(set(existing["sourceTiers"]) | set(product["sourceTiers"]))
+        if not existing.get("priceText") and product.get("priceText"):
+            existing["priceText"] = product["priceText"]
+        if not existing.get("priceTextJa") and product.get("priceTextJa"):
+            existing["priceTextJa"] = product["priceTextJa"]
+        if not existing.get("category") and product.get("category"):
+            existing["category"] = product["category"]
+        if not existing.get("categoryJa") and product.get("categoryJa"):
+            existing["categoryJa"] = product["categoryJa"]
+        if not existing.get("imageUrl") and product.get("imageUrl"):
+            existing["imageUrl"] = product["imageUrl"]
+    for product in merged.values():
+        product["id"] = item_id(product["chain"], product["nameJa"], product.get("releaseDate"))
+    return list(merged.values())
+
+
+def build_intro(products: list[dict[str, Any]], week_label: str) -> str:
+    top = products[:5]
+    if not top:
+        return f"{week_label}: no products were parsed from the configured sources."
+    chain_leaders: list[dict[str, Any]] = []
+    for chain in ("7-Eleven", "FamilyMart", "Lawson"):
+        leader = next((product for product in products if product["chain"] == chain), None)
+        if leader:
+            chain_leaders.append(leader)
+    leaders_for_intro = chain_leaders or top[:3]
+    chains = sorted({product["chain"] for product in leaders_for_intro})
+    themes = []
+    for tag in ("collab", "limited", "seasonal", "regional", "merch"):
+        if any(tag in product["tags"] for product in top):
+            themes.append(tag)
+    leaders = ", ".join(f"{product['chain']} {product['name']}" for product in leaders_for_intro[:4])
+    theme_text = f" Themes: {', '.join(themes)}." if themes else ""
+    return f"{week_label}: the board is led by {leaders}. Coverage spans {', '.join(chains)}.{theme_text} Check limited and regional badges before planning a store run."
+
+
+def latest_draft_dir(draft_root: pathlib.Path) -> pathlib.Path:
+    candidates = [path for path in draft_root.iterdir() if path.is_dir()]
+    if not candidates:
+        raise SystemExit(f"No draft folders found under {draft_root}")
+    return sorted(candidates)[-1]
+
+
+def main() -> int:
+    arg_parser = argparse.ArgumentParser(description=__doc__)
+    arg_parser.add_argument("--config", default=str(CONFIG_PATH))
+    arg_parser.add_argument("--date", help="Draft date folder to build from.")
+    arg_parser.add_argument("--publish", action="store_true", help="Write the public utility feed.")
+    args = arg_parser.parse_args()
+
+    config_path = pathlib.Path(args.config)
+    config = json.loads(config_path.read_text(encoding="utf-8"))
+    draft_root = ROOT / config.get("draftRoot", "private/konbini-radar")
+    draft_dir = draft_root / args.date if args.date else latest_draft_dir(draft_root)
+    manifest_path = draft_dir / "fetch-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    source_by_id = {source["id"]: source for source in config["sources"]}
+    today = dt.date.today()
+    products: list[dict[str, Any]] = []
+    context_sources: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    source_summaries: list[dict[str, Any]] = []
+
+    for fetched in manifest["sources"]:
+        source = source_by_id[fetched["id"]]
+        raw_path = ROOT / fetched["rawPath"]
+        parser = parse_source(raw_path)
+        source_summaries.append(
+            {
+                "id": source["id"],
+                "name": english_source_name(source["name"]),
+                "nameJa": source["name"],
+                "tier": source["tier"],
+                "chain": source.get("chain"),
+                "url": source["url"],
+                "ok": fetched["ok"],
+                "status": fetched["status"],
+                "title": translate_japanese_text(parser.title, "source page"),
+                "titleJa": parser.title,
+            }
+        )
+        if not fetched["ok"]:
+            warnings.append(f"{source['id']} fetch status {fetched['status']}; skipped parser confidence.")
+            continue
+
+        if source["parser"] == "seven_weekly":
+            parsed, parser_warnings = parse_seven(parser.events, source, today)
+            products.extend(parsed)
+            warnings.extend(parser_warnings)
+        elif source["parser"] == "familymart_weekly":
+            parsed, parser_warnings = parse_familymart(parser.events, source, today)
+            products.extend(parsed)
+            warnings.extend(parser_warnings)
+        elif source["parser"] == "lawson_weekly":
+            parsed, parser_warnings = parse_lawson(parser.events, source, today)
+            products.extend(parsed)
+            warnings.extend(parser_warnings)
+        elif source["parser"] == "lawson_lab_weekly":
+            lawson_html = decode_html(raw_path)
+            parsed, parser_warnings = parse_lawson_lab(lawson_html, parser.events, source, today)
+            products.extend(parsed)
+            warnings.extend(parser_warnings)
+        else:
+            context_sources.append(
+                {
+                    "id": source["id"],
+                    "name": source["name"],
+                    "tier": source["tier"],
+                    "language": source.get("language", "ja"),
+                    "url": source["url"],
+                    "text": visible_text(parser),
+                }
+            )
+
+    products = merge_products(products)
+
+    seven_html = ""
+    family_html = ""
+    for fetched in manifest["sources"]:
+        if not fetched["ok"]:
+            continue
+        if fetched["id"] == "seven_this_week":
+            seven_html = decode_html(ROOT / fetched["rawPath"])
+        elif fetched["id"] == "familymart_newgoods":
+            family_html = decode_html(ROOT / fetched["rawPath"])
+    enrich_product_thumbnails(products, seven_html, family_html)
+
+    add_local_signals(products, context_sources)
+    for product in products:
+        tag_product(product, config.get("keywordContexts", {}))
+        score_product(product, today)
+        finalize_product_copy(product)
+
+    products.sort(key=lambda item: (-item["score"], item.get("releaseDate") or "", item["chain"], item["nameJa"]))
+    week_label = f"Week of {today.isoformat()}"
+    feed = {
+        "schemaVersion": 1,
+        "generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "weekLabel": week_label,
+        "intro": build_intro(products, week_label),
+        "sources": source_summaries,
+        "products": products,
+        "warnings": warnings,
+    }
+
+    draft_feed = draft_dir / "feed.draft.json"
+    draft_feed.write_text(json.dumps(feed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {draft_feed.relative_to(ROOT)} with {len(products)} products")
+    if warnings:
+        print("Warnings:")
+        for warning in warnings:
+            print(f"- {warning}")
+
+    if args.publish:
+        public_path = ROOT / config["publicFeedPath"]
+        public_path.parent.mkdir(parents=True, exist_ok=True)
+        public_path.write_text(json.dumps(feed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Published {public_path.relative_to(ROOT)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

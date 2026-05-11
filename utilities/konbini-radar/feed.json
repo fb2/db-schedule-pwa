@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-11T14:12:57.545822+00:00",
+  "generatedAt": "2026-05-11T14:29:32.977618+00:00",
   "weekLabel": "Week of 2026-05-11",
-  "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Shaved ice vanilla ice cream shaved ice. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, regional, merch. Check limited and regional badges before planning a store run.",
+  "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Hokkaido azuki bean matcha shaved ice 175ml. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, regional, merch. Check limited and regional badges before planning a store run.",
   "sources": [
     {
       "id": "seven_this_week",
@@ -453,46 +453,6 @@
       "localSignals": []
     },
     {
-      "id": "lawson-144cdab26e",
-      "chain": "Lawson",
-      "name": "Shaved ice vanilla ice cream shaved ice",
-      "nameJa": "かき氷とバニラアイスの相性が素敵な和風かき氷",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "246 yen(tax incl.)",
-      "priceTextJa": "246円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new",
-        "seasonal"
-      ],
-      "timeGate": null,
-      "score": 72,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "seasonal flavor or format",
-        "national availability"
-      ],
-      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
       "id": "lawson-ed309f7a59",
       "chain": "Lawson",
       "name": "Hokkaido azuki bean matcha shaved ice 175ml",
@@ -702,158 +662,6 @@
       "localSignals": []
     },
     {
-      "id": "lawson-9e03f70a74",
-      "chain": "Lawson",
-      "name": "※",
-      "nameJa": "※ナチュラルローソンでは、お取り扱いがありません",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "279 yen(tax incl.)",
-      "priceTextJa": "279円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-d298856599",
-      "chain": "Lawson",
-      "name": "※ Okinawa",
-      "nameJa": "※ナチュラルローソン・沖縄エリアのローソンでは、お取り扱いがありません",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "354 yen(tax incl.)",
-      "priceTextJa": "354円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "featured",
-        "official"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-45914f7574",
-      "chain": "Lawson",
-      "name": "※ 、 Okinawa",
-      "nameJa": "※ナチュラルローソン・近畿エリア、沖縄エリアのローソンでは、お取り扱いがありません",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "246 yen(tax incl.)",
-      "priceTextJa": "246円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 246 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-957a8ba167",
-      "chain": "Lawson",
-      "name": "salted vanilla latte",
-      "nameJa": "まろやかな塩味と優しいバニラ",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "228 yen(tax incl.)",
-      "priceTextJa": "228円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 228 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
       "id": "lawson-6b12b27af9",
       "chain": "Lawson",
       "name": "Salad ROLL teriyaki chicken",
@@ -930,82 +738,6 @@
       "localSignals": []
     },
     {
-      "id": "lawson-62d9ae8d10",
-      "chain": "Lawson",
-      "name": "Sandwich",
-      "nameJa": "ワンハンドで楽しめる、トルティーヤ生地のラップサンド",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "354 yen(tax incl.)",
-      "priceTextJa": "354円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 354 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-195fc32432",
-      "chain": "Lawson",
-      "name": "Udon with soft-boiled egg and chilled dashi poured on top",
-      "nameJa": "半熟玉子ぶっかけうどん",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "538 yen(tax incl.)",
-      "priceTextJa": "538円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 538 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs.",
-      "localSignals": []
-    },
-    {
       "id": "lawson-7d8eba31bf",
       "chain": "Lawson",
       "name": "Hokkaido-grown melon 70ml",
@@ -1044,48 +776,10 @@
       "localSignals": []
     },
     {
-      "id": "lawson-b360d64dc0",
+      "id": "lawson-1d06a01bff",
       "chain": "Lawson",
-      "name": "Ice cream",
-      "nameJa": "日本のフルーツをアイスで味わう",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "279 yen(tax incl.)",
-      "priceTextJa": "279円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 279 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-0664d1f84a",
-      "chain": "Lawson",
-      "name": "「 」 「 」",
-      "nameJa": "気分次第で「ひや」でも「あつ」でも",
+      "name": "Hot or cold choose by mood! udon with soft-boiled egg and chilled dashi poured on top",
+      "nameJa": "温・冷 気分で選べる! 半熟玉子ぶっかけうどん",
       "category": "",
       "categoryJa": "",
       "priceText": "538 yen(tax incl.)",
@@ -1116,7 +810,7 @@
         "national availability"
       ],
       "summary": "Lawson · 538 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
+      "englishContext": "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs.",
       "localSignals": []
     },
     {
@@ -1124,44 +818,6 @@
       "chain": "Lawson",
       "name": "Bonito dashi aromatic soba",
       "nameJa": "麺大盛り 鰹だし香るそば",
-      "category": "",
-      "categoryJa": "",
-      "priceText": "198 yen(tax incl.)",
-      "priceTextJa": "198円(税込)",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Nationwide"
-      ],
-      "regionsJa": [
-        "全国"
-      ],
-      "sourceUrls": [
-        "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html"
-      ],
-      "sourceTiers": [
-        "official",
-        "featured"
-      ],
-      "imageUrl": "",
-      "tags": [
-        "new"
-      ],
-      "timeGate": null,
-      "score": 64,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "national availability"
-      ],
-      "summary": "Lawson · 198 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "",
-      "localSignals": []
-    },
-    {
-      "id": "lawson-89a7ced62c",
-      "chain": "Lawson",
-      "name": "Item",
-      "nameJa": "麺大盛りシリーズに和風フレーバー登場",
       "category": "",
       "categoryJa": "",
       "priceText": "198 yen(tax incl.)",

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "defaultRegion": "Tokyo/Kanto",
+  "publicFeedPath": "utilities/konbini-radar/feed.json",
+  "draftRoot": "private/konbini-radar",
+  "sources": [
+    {
+      "id": "seven_this_week",
+      "name": "7-Eleven Japan weekly new products",
+      "chain": "7-Eleven",
+      "tier": "official",
+      "url": "https://www.sej.co.jp/products/thisweek_recommend.html",
+      "parser": "seven_weekly",
+      "language": "ja"
+    },
+    {
+      "id": "familymart_newgoods",
+      "name": "FamilyMart weekly new products",
+      "chain": "FamilyMart",
+      "tier": "official",
+      "url": "https://www.family.co.jp/goods/newgoods.html",
+      "parser": "familymart_weekly",
+      "language": "ja"
+    },
+    {
+      "id": "lawson_new",
+      "name": "Lawson new products",
+      "chain": "Lawson",
+      "tier": "official",
+      "url": "https://www.lawson.co.jp/recommend/new/",
+      "parser": "context_page",
+      "language": "ja"
+    },
+    {
+      "id": "lawson_lab_this_week",
+      "name": "ローソン研究所 weekly featured products",
+      "chain": "Lawson",
+      "tier": "official",
+      "url": "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+      "parser": "lawson_lab_weekly",
+      "language": "ja"
+    },
+    {
+      "id": "entabe_konbini",
+      "name": "えん食べ konbini roundup",
+      "tier": "local_media",
+      "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+      "parser": "context_page",
+      "language": "ja"
+    },
+    {
+      "id": "conveni_check",
+      "name": "コンビニ チェッカー new items",
+      "tier": "local_media",
+      "url": "https://convenicheck.com/newitem/",
+      "parser": "context_page",
+      "language": "ja"
+    },
+    {
+      "id": "conveni_everyday",
+      "name": "コンビニエブリデイ new products",
+      "tier": "local_media",
+      "url": "https://convenieveryday.com/category/%E6%96%B0%E5%95%86%E5%93%81/",
+      "parser": "context_page",
+      "language": "ja"
+    },
+    {
+      "id": "mognavi_konbini_ranking",
+      "name": "もぐナビ konbini ranking",
+      "tier": "ranking",
+      "url": "https://s.mognavi.jp/konbini/ranking/1",
+      "parser": "context_page",
+      "language": "ja"
+    },
+    {
+      "id": "prtimes_konbini",
+      "name": "PR TIMES konbini releases",
+      "tier": "press",
+      "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
+      "parser": "context_page",
+      "language": "ja"
+    }
+  ],
+  "keywordContexts": {
+    "監修": "supervised by a named restaurant, chef, or brand",
+    "数量限定": "limited quantity and likely to disappear quickly",
+    "期間限定": "available for a limited period",
+    "地域限定": "regional-only availability",
+    "増量": "larger portion or bonus-size campaign",
+    "コラボ": "collaboration release",
+    "限定": "limited release",
+    "復刻": "returning or revival item",
+    "新発売": "new launch"
+  }
+}
