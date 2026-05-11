@@ -121,6 +121,8 @@ CATEGORY_TRANSLATIONS = {
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
+    ("1食分の野菜が摂れる パリパリ麺のサラダ", "crispy noodle salad (one vegetable serving)"),
+    ("ごまドレで食べるバンバンジー風サラダ", "bang bang chicken-style salad with sesame dressing"),
     ("雉虎亭キジ監修", "Kiji-supervised (Kijiko-tei)"),
     ("きじ監修", "Kiji-supervised"),
     ("ミルクたっぷり 塩バニララテ", "extra-milk salted vanilla latte"),
@@ -129,6 +131,22 @@ PRIORITY_JP_PHRASES = [
     ("温・冷　気分で選べる！ 半熟玉子ぶっかけうどん", "hot-or-cold udon with soft-boiled egg and chilled dashi poured on top"),
     ("玉子ぶっかけうどん", "udon with egg and chilled dashi poured on top"),
     ("ぶっかけうどん", "udon with chilled dashi poured on top"),
+    ("たんぱく質が摂れる！しそ入り鶏つくねのサラダ", "Chicken tsukune salad with shiso (high protein)"),
+    ("たんぱく質が摂れるチキンロール", "High protein chicken roll"),
+    ("1食分の野菜が摂れる", "one vegetable serving"),
+    ("パリパリ麺のサラダ", "crispy noodle salad"),
+    ("ハムとマカロニのサラダ", "ham and macaroni salad"),
+    # Onigiri / omusubi (long product-style strings first; parse uses regular spaces).
+    ("炭火で焼いた焼おにぎり(ひしほ醤油使用)", "charcoal-grilled yaki onigiri (Hishiho soy sauce)"),
+    ("味付のりおにぎり 山わさび(だし醤油仕立て)", "seasoned nori rice ball, mountain wasabi (dashi soy style)"),
+    ("味付のりおにぎり 梅おかか", "seasoned nori rice ball, ume and bonito flakes"),
+    ("おおきなおむすび すじこ(醤油麹仕立て)", "large rice ball, sujiko roe (soy sauce koji style)"),
+    ("おおきなおむすび 和風ツナマヨネーズ", "large rice ball, Japanese-style tuna mayo"),
+    ("だしむすび 焼しゃけ", "dashi-seasoned rice ball, grilled salmon"),
+    ("五目おこわおむすび あぶくまもち使用", "gomoku okowa rice ball (Abukuma mochi rice)"),
+    ("鶏ごぼう味めしおむすび 青森県産ごぼう使用", "chicken burdock seasoned rice ball (Aomori burdock)"),
+    ("手巻おにぎり ピリ辛高菜", "hand-wrapped rice ball, spicy takana greens"),
+    ("漬物おむすび 仙台味噌漬胡瓜", "pickle rice ball, Sendai miso pickled cucumber"),
 ]
 
 PHRASE_TRANSLATIONS = {
@@ -192,6 +210,8 @@ PHRASE_TRANSLATIONS = {
     "冷やし": "chilled",
     "おにぎり": "rice ball",
     "おむすび": "rice ball",
+    "むすび": "rice ball",
+    "御握り": "rice ball",
     "手巻": "hand-rolled",
     "寿司": "sushi",
     "弁当": "bento",
@@ -242,6 +262,50 @@ PHRASE_TRANSLATIONS = {
     "塩": "salt",
     "塩レモン": "salt lemon",
     "梅しそ": "plum and shiso",
+    "梅おかか": "ume plum and bonito flakes",
+    "おかか": "bonito flakes",
+    "うめ": "ume plum",
+    "梅干し": "pickled ume plum",
+    "佃煮": "tsukudani simmered preserve",
+    "のり佃煮": "nori tsukudani",
+    "海苔佃煮": "nori tsukudani",
+    "味付のり": "seasoned nori",
+    "味付けのり": "seasoned nori",
+    "おおきな": "large",
+    "ランチ": "lunch",
+    "和風": "Japanese-style",
+    "ツナマヨネーズ": "tuna mayo",
+    "ツナ": "tuna",
+    "マヨネーズ": "mayonnaise",
+    "すじこ": "sujiko salted salmon roe",
+    "醤油麹仕立て": "soy sauce koji-style",
+    "醤油麹": "soy sauce koji",
+    "スパイスキーマカレー": "spiced keema curry",
+    "キーマカレー": "keema curry",
+    "キーマ": "keema",
+    "五目おこわ": "five-ingredient okowa",
+    "五目": "five-ingredient",
+    "おこわ": "okowa glutinous rice",
+    "あぶくまもち": "Abukuma mochi rice",
+    "青森県産": "Aomori-grown",
+    "だしむすび": "dashi-seasoned rice ball",
+    "焼しゃけ": "grilled salmon",
+    "しゃけ": "salmon",
+    "焼おにぎり": "grilled rice ball",
+    "炭火で焼いた": "charcoal-grilled",
+    "ひしほ醤油": "Hishiho soy sauce",
+    "焼きめし": "grilled seasoned rice",
+    "舞茸": "maitake mushroom",
+    "菜めし": "vegetable rice",
+    "漬物": "pickles",
+    "仙台味噌漬胡瓜": "Sendai miso pickled cucumber",
+    "味噌漬": "miso-pickled",
+    "胡瓜": "cucumber",
+    "ピリ辛": "spicy",
+    "高菜": "takana mustard greens",
+    "山わさび": "mountain wasabi",
+    "仕立て": "style",
+    "味めし": "seasoned rice",
     "抹茶": "matcha",
     "ほうじ茶": "hojicha",
     "黒ごま": "black sesame",
@@ -272,6 +336,16 @@ PHRASE_TRANSLATIONS = {
     "ウエハース": "wafer snack",
     "わっふれーむ": "waffle-frame character snack",
     "おつまみ": "snack",
+    "ごまドレ": "sesame dressing",
+    "バンバンジー": "bang bang chicken",
+    "バンバンジー風": "bang bang chicken-style",
+    "ハム": "ham",
+    "マカロニ": "macaroni",
+    "パリパリ": "crispy",
+    "パリパリ麺": "crispy noodles",
+    "野菜": "vegetables",
+    "食分": "serving",
+    "で食べる": "to eat with",
 }
 
 
@@ -454,9 +528,11 @@ def translate_japanese_text(text: str, fallback: str = "item") -> str:
     value = value.replace("＆", " and ").replace("&", " and ").replace("　", " ")
     value = value.replace("（", " (").replace("）", ") ")
     for japanese, english in sorted(PRIORITY_JP_PHRASES, key=lambda item: len(item[0]), reverse=True):
-        value = re.sub(re.escape(japanese), f" {english} ", value)
+        jp_key = unicodedata.normalize("NFKC", japanese)
+        value = re.sub(re.escape(jp_key), f" {english} ", value)
     for japanese, english in sorted(PHRASE_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True):
-        value = re.sub(re.escape(japanese), f" {english} ", value)
+        jp_key = unicodedata.normalize("NFKC", japanese)
+        value = re.sub(re.escape(jp_key), f" {english} ", value)
     value = value.replace("・", " ")
     value = re.sub(r"[\u3040-\u30ff\u3400-\u9fff]+", " ", value)
     value = re.sub(r"\s+", " ", value)
@@ -503,9 +579,73 @@ def sanitize_english_output(text: str) -> str:
     return value
 
 
+MAX_PRODUCT_TITLE_CHARS = 60
+
+# Product names that are category-sized English tokens (misleading when JP title is specific).
+_GENERIC_TITLE_BODY_RE = re.compile(
+    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?)$",
+    re.IGNORECASE,
+)
+_GENERIC_TITLE_WITH_NUMBER_RE = re.compile(
+    r"^\d+\s+(?:salad|snack|desserts?|bread|item)$",
+    re.IGNORECASE,
+)
+
+
+def is_obviously_generic_product_title(name: str) -> bool:
+    t = sanitize_english_output(name).strip().lower()
+    if not t:
+        return True
+    if _GENERIC_TITLE_BODY_RE.fullmatch(t):
+        return True
+    if _GENERIC_TITLE_WITH_NUMBER_RE.fullmatch(t):
+        return True
+    return False
+
+
+def cap_english_product_title(text: str, max_len: int = MAX_PRODUCT_TITLE_CHARS) -> str:
+    t = sanitize_english_output(text)
+    if len(t) <= max_len:
+        return t
+    cut = t[:max_len].rsplit(" ", 1)[0].strip()
+    if len(cut) < 12:
+        cut = t[:max_len].strip()
+    return cut + "…"
+
+
+def enrich_generic_product_title(product: dict[str, Any]) -> None:
+    """Promote vague English names using JP title/category when glossary leaves only a category word."""
+    name = product.get("name") or ""
+    name_ja = (product.get("nameJa") or "").strip()
+    if not is_obviously_generic_product_title(name):
+        return
+    if len(name_ja) < 4:
+        return
+
+    candidate = sanitize_english_output(translate_japanese_text(name_ja))
+    if not candidate or candidate.lower() == name.lower():
+        candidate = ""
+
+    if not candidate or is_obviously_generic_product_title(candidate):
+        cat_ja = (product.get("categoryJa") or "").strip()
+        if cat_ja and cat_ja.replace(" ", "") != name_ja.replace(" ", ""):
+            alt = sanitize_english_output(translate_japanese_text(cat_ja))
+            if alt and not is_obviously_generic_product_title(alt):
+                candidate = alt
+
+    if not candidate or is_obviously_generic_product_title(candidate):
+        return
+
+    product["name"] = cap_english_product_title(candidate)
+
+
 def infer_english_context(product: dict[str, Any]) -> None:
     hints: list[str] = []
     ja = product.get("nameJa") or ""
+    if re.search(r"(おにぎり|おむすび|御握り|むすび)", ja):
+        hints.append(
+            "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them."
+        )
     if re.search(r"ラテ|カフェラテ|カフェオレ", ja):
         hints.append(
             "Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named."
@@ -532,6 +672,11 @@ def finalize_product_copy(product: dict[str, Any]) -> None:
     for key in ("name", "category"):
         if product.get(key):
             product[key] = sanitize_english_output(product[key])
+    enrich_generic_product_title(product)
+    if product.get("name"):
+        product["name"] = sanitize_english_output(product["name"])
+    if product.get("category"):
+        product["category"] = sanitize_english_output(product["category"])
     if product.get("englishContext"):
         product["englishContext"] = sanitize_english_output(product["englishContext"])
     infer_english_context(product)

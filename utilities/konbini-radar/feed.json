@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-11T14:43:25.343646+00:00",
+  "generatedAt": "2026-05-11T14:45:44.414602+00:00",
   "weekLabel": "Week of 2026-05-11",
   "intro": "Week of 2026-05-11: the board is led by 7-Eleven 5 chilled soy sauce ramen, FamilyMart Mofusand waffle-frame character snack, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, seasonal, regional, merch. Check limited and regional badges before planning a store run.",
   "sources": [
@@ -406,7 +406,7 @@
     {
       "id": "lawson-484df1db6d",
       "chain": "Lawson",
-      "name": "Tenkaippin supervised rice ball",
+      "name": "Tenkaippin supervised style rice ball",
       "nameJa": "天下一品監修 こってりスープ仕立ての炒飯おにぎり",
       "category": "",
       "categoryJa": "",
@@ -439,13 +439,13 @@
         "national availability"
       ],
       "summary": "Lawson · 203 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "englishContext": "supervised by a named restaurant, chef, or brand; おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "lawson-959a41db3e",
       "chain": "Lawson",
-      "name": "Tenkaippin supervised miso rice ball",
+      "name": "Tenkaippin supervised style miso mayonnaise rice ball",
       "nameJa": "天下一品監修 こってりスープ仕立ての辛味噌チャーシューマヨネーズおにぎり",
       "category": "",
       "categoryJa": "",
@@ -478,7 +478,7 @@
         "national availability"
       ],
       "summary": "Lawson · 214 yen(tax incl.) · Regions: Nationwide",
-      "englishContext": "supervised by a named restaurant, chef, or brand",
+      "englishContext": "supervised by a named restaurant, chef, or brand; おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -1106,7 +1106,7 @@
     {
       "id": "lawson-8f4fffff04",
       "chain": "Lawson",
-      "name": "1 salad",
+      "name": "Crispy noodle salad (one vegetable serving)",
       "nameJa": "1食分の野菜が摂れる パリパリ麺のサラダ",
       "category": "",
       "categoryJa": "",
@@ -1143,7 +1143,7 @@
     {
       "id": "lawson-8a1cb505dd",
       "chain": "Lawson",
-      "name": "Item",
+      "name": "Ume plum and bonito flakes",
       "nameJa": "おいなりさん 梅おかか",
       "category": "",
       "categoryJa": "",
@@ -1217,7 +1217,7 @@
     {
       "id": "lawson-f15654d01a",
       "chain": "Lawson",
-      "name": "Bread",
+      "name": "Mayonnaise bread",
       "nameJa": "つぶつぶコーンマヨネーズパン",
       "category": "",
       "categoryJa": "",
@@ -1666,7 +1666,7 @@
     {
       "id": "lawson-1d06a01bff",
       "chain": "Lawson",
-      "name": "Hot or cold choose by mood! udon with soft-boiled egg and chilled dashi poured on top",
+      "name": "Hot-or-cold udon with soft-boiled egg and chilled dashi poured on top",
       "nameJa": "温・冷 気分で選べる! 半熟玉子ぶっかけうどん",
       "category": "",
       "categoryJa": "",
@@ -1741,7 +1741,7 @@
     {
       "id": "lawson-76bb81f6c0",
       "chain": "Lawson",
-      "name": "Bread",
+      "name": "Mayonnaise bread",
       "nameJa": "素朴なてりやきマヨネーズパン",
       "category": "",
       "categoryJa": "",
@@ -1815,7 +1815,7 @@
     {
       "id": "lawson-6c970d498c",
       "chain": "Lawson",
-      "name": "Chicken",
+      "name": "Chicken vegetables",
       "nameJa": "鶏と野菜の黒酢あん",
       "category": "",
       "categoryJa": "",
@@ -2240,7 +2240,7 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "With barley rice",
           "matchedTextJa": "麦入りごはん",
-          "snippet": "】 rice ball bento 「 dashi soy sauce rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 5 12 regional",
+          "snippet": "】 rice ball bento 「 dashi soy sauce nori tsukudani rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce nori tsukudani rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 5 12 regional",
           "snippetJa": "発売】ファミリーマート 新商品おむすび・お弁当まとめ「だし醤油まぶし飯 海苔佃煮おむすび」や「照り焼きチキンごはん（もち麦入りごはん）」など ファミリーマートで5月5日に発売されるおむすび・お弁当の新商品をまとめてご紹介。「だし醤油まぶし飯 海苔佃煮おむすび」「照り焼きチキンごはん（もち麦入りごはん）」など6品。 おにぎり 【5月12日発売】ローソン 新商品"
         }
       ]
@@ -2308,7 +2308,7 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "Chocolate parfait ()",
           "matchedTextJa": "チョコレートパフェ（コーヒーゼリー入り）",
-          "snippet": "Chocolate parfait () :358 () :2026 05 05 () milk chocolate 、 chocolate 、 parfait 。 chocolate chocolate",
+          "snippet": "Chocolate parfait () :358 () :2026 05 05 () milk chocolate 、 chocolate 、 parfait 。 chocolate crispy chocolate",
           "snippetJa": "い甘さのクリームとメープルの風味が広がる味わい。ほどよいコクと軽やかな後味が特長です。 ファミリーマートの新作スイーツ チョコレートパフェ（コーヒーゼリー入り） 価格：358円（税込） 発売日：2026年05月05日（火）発売予定 ミルクチョコプリンにコーヒーゼリー、チョコムース、ココアスポンジを重ねたパフェです。チョコホイップとパリパリの線掛けチョコをトッ"
         }
       ]
@@ -2376,7 +2376,7 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "Large fluffy-chewy daifuku (azuki bean and condensed milk)",
           "matchedTextJa": "大きなふわもち生大福（あずきホイップ&練乳）",
-          "snippet": "Chocolate 。 chocolate 、 。 large fluffy-chewy daifuku (azuki bean and condensed milk) :198 () :2026 05 05 () fluffy-chewy daifuku 、 azuki bean condensed milk",
+          "snippet": "Crispy chocolate style 。 chocolate 、 。 large fluffy-chewy daifuku (azuki bean and condensed milk) :198 () :2026 05 05 () fluffy-chewy daifuku 、 azuki bean condensed milk",
           "snippetJa": "プとパリパリの線掛けチョコをトッピングした仕立て。さまざまな食感とチョコの味わいが重なり、ボリューム感のある一品です。 大きなふわもち生大福（あずきホイップ&練乳） 価格：198円（税込） 発売日：2026年05月05日（火）発売予定 ふわもち食感の大福で、あずきホイップと練乳を包み込んだ和スイーツです。やわらかな生地とコクのある甘みが広がる味わい。満足感の"
         }
       ]
@@ -2444,7 +2444,7 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "Teriyaki chicken rice (mochi barley rice)",
           "matchedTextJa": "照り焼きチキンごはん（もち麦入りごはん）",
-          "snippet": "5 5 regional rice ball bento 「 dashi soy sauce rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 【5 1",
+          "snippet": "5 5 regional rice ball bento 「 dashi soy sauce nori tsukudani rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce nori tsukudani rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6 。 rice ball 【5 1",
           "snippetJa": "食べの人気記事 【5月5日発売】ファミリーマート 新商品おむすび・お弁当まとめ「だし醤油まぶし飯 海苔佃煮おむすび」や「照り焼きチキンごはん（もち麦入りごはん）」など ファミリーマートで5月5日に発売されるおむすび・お弁当の新商品をまとめてご紹介。「だし醤油まぶし飯 海苔佃煮おむすび」「照り焼きチキンごはん（もち麦入りごはん）」など6品。 おにぎり 【5月1"
         }
       ]
@@ -2797,9 +2797,9 @@
     {
       "id": "familymart-0370be0419",
       "chain": "FamilyMart",
-      "name": "Salad",
+      "name": "Bang bang chicken-style salad with sesame dressing",
       "nameJa": "ごまドレで食べるバンバンジー風サラダ",
-      "category": "Side dish salad",
+      "category": "Side dish bang bang chicken-style salad with sesame dressing",
       "categoryJa": "チルド惣菜 ごまドレで食べるバンバンジー風サラダ",
       "priceText": "304 yen (tax incl. 328 yen)",
       "priceTextJa": "304円（税込328円）",
@@ -2847,16 +2847,16 @@
         "released this week",
         "regional availability makes it harder to find"
       ],
-      "summary": "FamilyMart · Side dish salad · 304 yen (tax incl. 328 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "summary": "FamilyMart · Side dish bang bang chicken-style salad with sesame dressing · 304 yen (tax incl. 328 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
       "englishContext": "",
       "localSignals": []
     },
     {
       "id": "familymart-acc584c657",
       "chain": "FamilyMart",
-      "name": "! chicken salad",
+      "name": "Chicken tsukune salad with shiso (high protein)",
       "nameJa": "たんぱく質が摂れる！しそ入り鶏つくねのサラダ",
-      "category": "Salad! chicken salad",
+      "category": "Salad Chicken tsukune salad with shiso (high protein)",
       "categoryJa": "サラダ たんぱく質が摂れる！しそ入り鶏つくねのサラダ",
       "priceText": "415 yen (tax incl. 448 yen)",
       "priceTextJa": "415円（税込448円）",
@@ -2898,7 +2898,7 @@
         "released this week",
         "regional availability makes it harder to find"
       ],
-      "summary": "FamilyMart · Salad! chicken salad · 415 yen (tax incl. 448 yen) · Regions: Kanto, Tokai, Hokuriku, Kansai",
+      "summary": "FamilyMart · Salad Chicken tsukune salad with shiso (high protein) · 415 yen (tax incl. 448 yen) · Regions: Kanto, Tokai, Hokuriku, Kansai",
       "englishContext": "",
       "localSignals": []
     },
@@ -3341,7 +3341,7 @@
     {
       "id": "familymart-c05870484f",
       "chain": "FamilyMart",
-      "name": "Bread",
+      "name": "Bread bread",
       "nameJa": "ソフトなチーズクリームパン",
       "category": "Bread bread",
       "categoryJa": "パン ソフトなチーズクリームパン",
@@ -3449,9 +3449,9 @@
     {
       "id": "familymart-07610bb8c0",
       "chain": "FamilyMart",
-      "name": "Salad",
+      "name": "Ham and macaroni salad",
       "nameJa": "ハムとマカロニのサラダ",
-      "category": "Salad salad",
+      "category": "Salad ham and macaroni salad",
       "categoryJa": "サラダ ハムとマカロニのサラダ",
       "priceText": "239 yen (tax incl. 258 yen)",
       "priceTextJa": "239円（税込258円）",
@@ -3495,14 +3495,14 @@
         "released this week",
         "regional availability makes it harder to find"
       ],
-      "summary": "FamilyMart · Salad salad · 239 yen (tax incl. 258 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
+      "summary": "FamilyMart · Salad ham and macaroni salad · 239 yen (tax incl. 258 yen) · Regions: Tohoku, Kanto, Tokai, Hokuriku",
       "englishContext": "",
       "localSignals": []
     },
     {
       "id": "familymart-fd1242b1e1",
       "chain": "FamilyMart",
-      "name": "Bread",
+      "name": "Bread bread",
       "nameJa": "プリンみたいなパン",
       "category": "Bread bread",
       "categoryJa": "パン プリンみたいなパン",
@@ -3830,7 +3830,7 @@
     {
       "id": "7-eleven-89a4760fb0",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Large rice ball, Japanese-style tuna mayo",
       "nameJa": "おおきなおむすび 和風ツナマヨネーズ",
       "category": "",
       "categoryJa": "",
@@ -3857,7 +3857,7 @@
         "mentioned by Japanese local/context source"
       ],
       "summary": "7-Eleven · 298 yen (tax incl. 321.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": [
         {
           "sourceId": "mognavi_konbini_ranking",
@@ -3865,9 +3865,9 @@
           "tier": "ranking",
           "language": "ja",
           "url": "https://s.mognavi.jp/konbini/ranking/1",
-          "matchedText": "Item",
+          "matchedText": "Japanese-style tuna mayo",
           "matchedTextJa": "和風ツナマヨネーズ",
-          "snippet": "Pasta rice ball hand-rolled sushi 4.5 70 79 - soy sauce rice ball 5.0 1 5 tuna rice ball soy sauce 5.0 1 10 rice ball hand-rolled sushi",
+          "snippet": "Pasta rice ball hand-rolled sushi Japanese-style tuna mayo 4.5 70 79 - soy sauce rice ball salmon 5.0 1 5 tuna rice ball soy sauce 5.0 1 10 rice ball hand-rolled sushi",
           "snippetJa": "パスタのおすすめランキングをもっと見る コンビニおにぎり・コンビニ手巻寿司のおすすめランキング ファミリーマート 直巻 和風ツナマヨネーズ 4.5 70 79 セブン-イレブン 醤油まぶしおむすび しゃけ 麦めし入り 5.0 1 5 ファミリーマート 漬けまぐろおむすび わさび醤油たれ 5.0 1 10 コンビニおにぎり・コンビニ手巻寿司のおすすめランキング"
         }
       ]
@@ -3920,7 +3920,7 @@
     {
       "id": "7-eleven-fd3ee7630c",
       "chain": "7-Eleven",
-      "name": "Rice ball (soy sauce)",
+      "name": "Large rice ball, sujiko roe (soy sauce koji style)",
       "nameJa": "おおきなおむすび すじこ（醤油麹仕立て）",
       "category": "",
       "categoryJa": "",
@@ -3946,13 +3946,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-2eee819e16",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Rice ball lunch",
       "nameJa": "おにぎりランチ",
       "category": "",
       "categoryJa": "",
@@ -3985,13 +3985,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-d88f83510f",
       "chain": "7-Eleven",
-      "name": "Chicken roll",
+      "name": "High protein chicken roll",
       "nameJa": "たんぱく質が摂れるチキンロール",
       "category": "",
       "categoryJa": "",
@@ -4024,7 +4024,7 @@
     {
       "id": "7-eleven-b7d479a966",
       "chain": "7-Eleven",
-      "name": "Dashi",
+      "name": "Dashi-seasoned rice ball, grilled salmon",
       "nameJa": "だしむすび 焼しゃけ",
       "category": "",
       "categoryJa": "",
@@ -4055,7 +4055,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 178 yen (tax incl. 192.24 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4126,7 +4126,7 @@
     {
       "id": "7-eleven-d7489a39a6",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Spiced keema curry rice ball",
       "nameJa": "スパイスキーマカレーおむすび",
       "category": "",
       "categoryJa": "",
@@ -4152,7 +4152,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4190,7 +4190,7 @@
     {
       "id": "7-eleven-b40a5e3c70",
       "chain": "7-Eleven",
-      "name": "Chicken and chicken bento",
+      "name": "Spicy chicken and chicken bento",
       "nameJa": "ピリ辛チキン＆鶏そぼろ弁当",
       "category": "",
       "categoryJa": "",
@@ -4254,7 +4254,7 @@
     {
       "id": "7-eleven-3c995accdb",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Five-ingredient okowa rice ball",
       "nameJa": "五目おこわおむすび",
       "category": "",
       "categoryJa": "",
@@ -4280,13 +4280,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-1e3d48df65",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Gomoku okowa rice ball (Abukuma mochi rice)",
       "nameJa": "五目おこわおむすび あぶくまもち使用",
       "category": "",
       "categoryJa": "",
@@ -4312,13 +4312,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-02e969b467",
       "chain": "7-Eleven",
-      "name": "Rice ball (dashi soy sauce)",
+      "name": "Seasoned nori rice ball, mountain wasabi (dashi soy style)",
       "nameJa": "味付のりおにぎり 山わさび（だし醤油仕立て）",
       "category": "",
       "categoryJa": "",
@@ -4344,13 +4344,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 195 yen (tax incl. 210.60 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-4575086d39",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Seasoned nori rice ball, ume and bonito flakes",
       "nameJa": "味付のりおにぎり 梅おかか",
       "category": "",
       "categoryJa": "",
@@ -4376,13 +4376,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 208 yen (tax incl. 224.64 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-92c78231e4",
       "chain": "7-Eleven",
-      "name": "Hand-rolled rice ball",
+      "name": "Hand-wrapped rice ball, spicy takana greens",
       "nameJa": "手巻おにぎり ピリ辛高菜",
       "category": "",
       "categoryJa": "",
@@ -4408,13 +4408,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 198 yen (tax incl. 213.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-9d3f10c2d3",
       "chain": "7-Eleven",
-      "name": "Beef rice bowl",
+      "name": "Beef vegetables rice bowl",
       "nameJa": "旨辛ジャンの牛野菜スタミナ丼",
       "category": "",
       "categoryJa": "",
@@ -4542,7 +4542,7 @@
     {
       "id": "7-eleven-34e52a72b5",
       "chain": "7-Eleven",
-      "name": "Rice ball miso",
+      "name": "Pickle rice ball, Sendai miso pickled cucumber",
       "nameJa": "漬物おむすび 仙台味噌漬胡瓜",
       "category": "",
       "categoryJa": "",
@@ -4568,7 +4568,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4606,7 +4606,7 @@
     {
       "id": "7-eleven-1625e46de1",
       "chain": "7-Eleven",
-      "name": "Rice ball (soy sauce)",
+      "name": "Charcoal-grilled yaki onigiri (Hishiho soy sauce)",
       "nameJa": "炭火で焼いた焼おにぎり（ひしほ醤油使用）",
       "category": "",
       "categoryJa": "",
@@ -4632,13 +4632,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 168 yen (tax incl. 181.44 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-78f69c34e5",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Grilled seasoned rice rice ball",
       "nameJa": "焼きめしおむすび",
       "category": "",
       "categoryJa": "",
@@ -4664,7 +4664,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 158 yen (tax incl. 170.64 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4702,7 +4702,7 @@
     {
       "id": "7-eleven-0141923991",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Maitake mushroom rice ball",
       "nameJa": "舞茸ご飯おむすび",
       "category": "",
       "categoryJa": "",
@@ -4728,13 +4728,13 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
       "id": "7-eleven-f19256f758",
       "chain": "7-Eleven",
-      "name": "Rice ball",
+      "name": "Vegetable rice rice ball tuna mayo",
       "nameJa": "菜めしおむすびツナマヨネーズ",
       "category": "",
       "categoryJa": "",
@@ -4761,7 +4761,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4803,7 +4803,7 @@
     {
       "id": "7-eleven-01b2cd72b6",
       "chain": "7-Eleven",
-      "name": "Chicken burdock rice ball burdock",
+      "name": "Chicken burdock seasoned rice ball (Aomori burdock)",
       "nameJa": "鶏ごぼう味めしおむすび 青森県産ごぼう使用",
       "category": "",
       "categoryJa": "",
@@ -4829,7 +4829,7 @@
         "released this week"
       ],
       "summary": "7-Eleven · 170 yen (tax incl. 183.60 yen)",
-      "englishContext": "",
+      "englishContext": "おにぎり / おむすび lines name the wrap, filling, and style (e.g. 梅 + おかか, 味付のり, 佃煮); English keeps those cues when the JP source names them.",
       "localSignals": []
     },
     {
@@ -4995,7 +4995,7 @@
     {
       "id": "7-eleven-df30f8ef31",
       "chain": "7-Eleven",
-      "name": "Roll",
+      "name": "Style roll",
       "nameJa": "フィリーチーズステーキ仕立てロール",
       "category": "",
       "categoryJa": "",
@@ -5059,7 +5059,7 @@
     {
       "id": "7-eleven-da8dcbc00b",
       "chain": "7-Eleven",
-      "name": "Pork pasta",
+      "name": "Pork Japanese-style pasta",
       "nameJa": "豚しゃぶと胡麻ぽん酢の和風おろし冷製パスタ",
       "category": "",
       "categoryJa": "",
