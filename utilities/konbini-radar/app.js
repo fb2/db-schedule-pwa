@@ -120,12 +120,18 @@ function renderProduct(product) {
   const card = fragment.querySelector(".product-card");
   const thumbHost = card.querySelector(".product-thumb");
   card.dataset.chain = product.chain;
-  if (product.imageUrl) {
+  const imageUrl = (product.imageUrl || "").trim();
+  if (imageUrl) {
     const img = document.createElement("img");
-    img.src = product.imageUrl;
+    img.src = imageUrl;
     img.alt = "";
     img.loading = "lazy";
     img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    img.addEventListener("error", () => {
+      thumbHost.remove();
+      card.classList.add("product-card-no-thumb");
+    });
     thumbHost.append(img);
   } else {
     thumbHost.remove();
