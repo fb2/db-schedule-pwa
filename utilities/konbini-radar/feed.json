@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-12T04:51:33.582594+00:00",
+  "generatedAt": "2026-05-12T05:08:15.883876+00:00",
   "weekLabel": "Week of 2026-05-12",
   "intro": "Week of 2026-05-12: the board is led by 7-Eleven Dashi-seasoned rice ball nori tsukudani, FamilyMart Supervised 「 、 。」 chilled regional supervised chilled soba, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
   "sources": [
@@ -11,10 +11,14 @@
       "tier": "official",
       "chain": "7-Eleven",
       "url": "https://www.sej.co.jp/products/a/thisweek/",
+      "resolvedUrl": "https://www.sej.co.jp/products/a/thisweek/",
+      "parser": "seven_weekly",
       "ok": true,
       "status": 200,
+      "bytes": 142379,
       "title": "| ‐",
-      "titleJa": "今週の新商品｜セブン‐イレブン"
+      "titleJa": "今週の新商品｜セブン‐イレブン",
+      "productCount": 66
     },
     {
       "id": "familymart_newgoods",
@@ -23,10 +27,14 @@
       "tier": "official",
       "chain": "FamilyMart",
       "url": "https://www.family.co.jp/goods/newgoods.html",
+      "resolvedUrl": "https://www.family.co.jp/goods/newgoods.html",
+      "parser": "familymart_weekly",
       "ok": true,
       "status": 200,
+      "bytes": 145826,
       "title": "| |",
-      "titleJa": "今週の新商品｜商品情報｜ファミリーマート"
+      "titleJa": "今週の新商品｜商品情報｜ファミリーマート",
+      "productCount": 65
     },
     {
       "id": "lawson_new",
@@ -35,10 +43,14 @@
       "tier": "official",
       "chain": "Lawson",
       "url": "https://www.lawson.co.jp/recommend/new/",
+      "resolvedUrl": "https://www.lawson.co.jp/recommend/new/list/1527486_5162.html",
+      "parser": "lawson_weekly",
       "ok": true,
       "status": 200,
+      "bytes": 60204,
       "title": "5 12 () |",
-      "titleJa": "5月12日（火）発売の新商品｜ローソン公式サイト"
+      "titleJa": "5月12日（火）発売の新商品｜ローソン公式サイト",
+      "productCount": 29
     },
     {
       "id": "lawson_lab_this_week",
@@ -47,10 +59,14 @@
       "tier": "official",
       "chain": "Lawson",
       "url": "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+      "resolvedUrl": "https://mldata.lawson.co.jp/lab/tsuushin/art/1521383_4659.html",
+      "parser": "lawson_lab_weekly",
       "ok": true,
       "status": 200,
+      "bytes": 38955,
       "title": "2026 5 12 ()! 「 」|",
-      "titleJa": "2026年5月12日(火)発売！ローソン研究所おすすめ「今週の注目商品」｜ローソン公式サイト"
+      "titleJa": "2026年5月12日(火)発売！ローソン研究所おすすめ「今週の注目商品」｜ローソン公式サイト",
+      "productCount": 7
     },
     {
       "id": "entabe_konbini",
@@ -59,10 +75,14 @@
       "tier": "local_media",
       "chain": null,
       "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+      "resolvedUrl": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+      "parser": "context_page",
       "ok": true,
       "status": 200,
+      "bytes": 86907,
       "title": "Twitter",
-      "titleJa": "Twitter"
+      "titleJa": "Twitter",
+      "productCount": 0
     },
     {
       "id": "conveni_check",
@@ -71,10 +91,14 @@
       "tier": "local_media",
       "chain": null,
       "url": "https://convenicheck.com/newitem/",
+      "resolvedUrl": "https://convenicheck.com/newitem/",
+      "parser": "context_page",
       "ok": true,
       "status": 200,
+      "bytes": 89646,
       "title": "–",
-      "titleJa": "新商品情報 – コンビニ チェッカー"
+      "titleJa": "新商品情報 – コンビニ チェッカー",
+      "productCount": 0
     },
     {
       "id": "conveni_everyday",
@@ -83,10 +107,14 @@
       "tier": "local_media",
       "chain": null,
       "url": "https://convenieveryday.com/category/%E6%96%B0%E5%95%86%E5%93%81/",
+      "resolvedUrl": "https://convenieveryday.com/category/%E6%96%B0%E5%95%86%E5%93%81/",
+      "parser": "context_page",
       "ok": true,
       "status": 200,
+      "bytes": 64747,
       "title": "|",
-      "titleJa": "新商品 | コンビニエブリデイ"
+      "titleJa": "新商品 | コンビニエブリデイ",
+      "productCount": 0
     },
     {
       "id": "setusoku_bogo",
@@ -95,10 +123,14 @@
       "tier": "local_media",
       "chain": null,
       "url": "https://setusoku.com/sale/142006/",
+      "resolvedUrl": "https://setusoku.com/sale/142006/",
+      "parser": "setusoku_bogo",
       "ok": true,
       "status": 200,
+      "bytes": 447424,
       "title": "Region regional 1 1 。 |",
-      "titleJa": "【プライチ】本日始まるコンビニで1本買うと1本無料キャンペーンまとめ。 | 節約速報"
+      "titleJa": "【プライチ】本日始まるコンビニで1本買うと1本無料キャンペーンまとめ。 | 節約速報",
+      "productCount": 0
     },
     {
       "id": "mognavi_konbini_ranking",
@@ -107,10 +139,14 @@
       "tier": "ranking",
       "chain": null,
       "url": "https://s.mognavi.jp/konbini/ranking/1",
+      "resolvedUrl": "https://s.mognavi.jp/konbini/ranking/1",
+      "parser": "context_page",
       "ok": true,
       "status": 200,
+      "bytes": 88872,
       "title": "2026 5 8 regional 「 (、 、 、 、 、)」 Region regional",
-      "titleJa": "【2026年5月8日更新】「コンビニオリジナル(セブンイレブン、ローソン、ナチュラルローソン、ファミリーマート、ファミマ、ミニストップなど)」のおすすめランキング【もぐナビ】"
+      "titleJa": "【2026年5月8日更新】「コンビニオリジナル(セブンイレブン、ローソン、ナチュラルローソン、ファミリーマート、ファミマ、ミニストップなど)」のおすすめランキング【もぐナビ】",
+      "productCount": 0
     },
     {
       "id": "prtimes_konbini",
@@ -119,10 +155,14 @@
       "tier": "press",
       "chain": null,
       "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
+      "resolvedUrl": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
+      "parser": "context_page",
       "ok": true,
       "status": 200,
+      "bytes": 134257,
       "title": "PR TIMES",
-      "titleJa": "コンビニに関するプレスリリース・ニュースリリースのPR TIMES"
+      "titleJa": "コンビニに関するプレスリリース・ニュースリリースのPR TIMES",
+      "productCount": 0
     }
   ],
   "products": [
@@ -1550,8 +1590,8 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "Strawberry chocolate",
           "matchedTextJa": "いちごチョコミント",
-          "snippet": "! 4 5 12 regional ice cream 「 milk 」「 strawberry chocolate 」 5 2026 5! 「 」 「 matcha chocolate 」 ⇒1 ~20 googletag.cmd.push(",
-          "snippetJa": "！ スイーツ 4 【5月12日発売】コンビニアイス新商品まとめ「ハーゲンダッツ クリーミーコーン 鉄観音ミルクティー」「いちごチョコミント」など スイーツ 5 2026年5月に食べたいドーナツ新商品まとめ！ミスタードーナツ「サクぽふん」・コエ ドーナツ京都「抹茶ホワイトチョコレート」など ファストフード ⇒1位～20位 googletag.cmd.push("
+          "snippet": "4 5 12 regional ice cream 「 milk 」「 strawberry chocolate 」 5 Region regional 5 12 ~! 8 。! ⇒1 ~20 googletag.cmd.push(function(",
+          "snippetJa": "ァストフード 4 【5月12日発売】コンビニアイス新商品まとめ「ハーゲンダッツ クリーミーコーン 鉄観音ミルクティー」「いちごチョコミント」など スイーツ 5 【セブン-イレブン】5月12日~発売！後味スッキリなお菓子8選。柑橘やミントを使用した爽やかなお菓子をピックアップ！ スイーツ ⇒1位～20位 googletag.cmd.push(function("
         }
       ]
     },

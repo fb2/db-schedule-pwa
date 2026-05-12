@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import datetime as dt
 from html import unescape
 from html.parser import HTMLParser
@@ -11,12 +12,14 @@ import hashlib
 import json
 import pathlib
 import re
+import sys
 import unicodedata
 from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "scripts" / "konbini_sources.json"
+PRODUCT_SOURCE_PARSERS = {"seven_weekly", "familymart_weekly", "lawson_weekly", "lawson_lab_weekly"}
 REGION_NAMES = {
     "全国",
     "北海道",
@@ -1515,11 +1518,89 @@ def latest_draft_dir(draft_root: pathlib.Path) -> pathlib.Path:
     return sorted(candidates)[-1]
 
 
+def int_config_value(value: Any, *, field_name: str, source_id: str = "") -> int:
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError) as error:
+        label = f"{source_id} {field_name}".strip()
+        raise SystemExit(f"Invalid sanity config for {label}: expected integer, got {value!r}") from error
+    if parsed < 0:
+        label = f"{source_id} {field_name}".strip()
+        raise SystemExit(f"Invalid sanity config for {label}: expected non-negative integer, got {parsed}")
+    return parsed
+
+
+def format_source_sanity_failure(summary: dict[str, Any], min_products: int) -> str:
+    return (
+        f"Required source {summary['id']} parsed {summary.get('productCount', 0)} products "
+        f"(minimum {min_products}). "
+        f"parser={summary.get('parser')}; ok={summary.get('ok')}; status={summary.get('status')}; "
+        f"bytes={summary.get('bytes')}; resolvedUrl={summary.get('resolvedUrl')}. "
+        "Suggested action: inspect the fetched raw HTML and update the parser or source URL. "
+        "Use --allow-empty-required-source or --skip-source-sanity only after manually verifying the source."
+    )
+
+
+def collect_source_sanity_failures(source_summaries: list[dict[str, Any]], source_by_id: dict[str, dict[str, Any]]) -> list[str]:
+    failures: list[str] = []
+    for summary in source_summaries:
+        source = source_by_id[summary["id"]]
+        sanity = source.get("sanity") or {}
+        if not sanity.get("required") and "minProducts" not in sanity:
+            continue
+        if source.get("parser") not in PRODUCT_SOURCE_PARSERS:
+            continue
+        min_products = int_config_value(sanity.get("minProducts", 1), field_name="sanity.minProducts", source_id=source["id"])
+        if int(summary.get("productCount", 0)) < min_products:
+            failures.append(format_source_sanity_failure(summary, min_products))
+    return failures
+
+
+def collect_feed_sanity_failures(config: dict[str, Any], products: list[dict[str, Any]]) -> list[str]:
+    sanity = config.get("feedSanity") or {}
+    failures: list[str] = []
+    if "minTotalProducts" in sanity:
+        min_total = int_config_value(sanity["minTotalProducts"], field_name="feedSanity.minTotalProducts")
+        if len(products) < min_total:
+            failures.append(
+                f"Generated feed has {len(products)} products (minimum {min_total}). "
+                "Suggested action: inspect source sanity failures and fetched raw HTML before publishing."
+            )
+    chain_minimums = sanity.get("minChainProducts") or {}
+    if chain_minimums:
+        counts = Counter(product.get("chain") for product in products)
+        for chain, raw_minimum in chain_minimums.items():
+            min_count = int_config_value(raw_minimum, field_name=f"feedSanity.minChainProducts.{chain}")
+            if counts.get(chain, 0) < min_count:
+                failures.append(
+                    f"Generated feed has {counts.get(chain, 0)} {chain} products (minimum {min_count}). "
+                    "Suggested action: inspect that chain's official source parser and fetched raw HTML before publishing."
+                )
+    return failures
+
+
+def fail_sanity(failures: list[str]) -> int:
+    print("Konbini feed sanity check failed:", file=sys.stderr)
+    for failure in failures:
+        print(f"- {failure}", file=sys.stderr)
+    return 2
+
+
 def main() -> int:
     arg_parser = argparse.ArgumentParser(description=__doc__)
     arg_parser.add_argument("--config", default=str(CONFIG_PATH))
     arg_parser.add_argument("--date", help="Draft date folder to build from.")
     arg_parser.add_argument("--publish", action="store_true", help="Write the public utility feed.")
+    arg_parser.add_argument(
+        "--allow-empty-required-source",
+        action="store_true",
+        help="Bypass required source product-count sanity failures after manual verification.",
+    )
+    arg_parser.add_argument(
+        "--skip-source-sanity",
+        action="store_true",
+        help="Bypass source and generated feed product-count sanity checks.",
+    )
     args = arg_parser.parse_args()
 
     config_path = pathlib.Path(args.config)
@@ -1540,40 +1621,47 @@ def main() -> int:
         source = source_by_id[fetched["id"]]
         raw_path = ROOT / fetched["rawPath"]
         parser = parse_source(raw_path)
-        source_summaries.append(
-            {
-                "id": source["id"],
-                "name": english_source_name(source["name"]),
-                "nameJa": source["name"],
-                "tier": source["tier"],
-                "chain": source.get("chain"),
-                "url": source["url"],
-                "ok": fetched["ok"],
-                "status": fetched["status"],
-                "title": translate_japanese_text(parser.title, "source page"),
-                "titleJa": parser.title,
-            }
-        )
+        source_summary = {
+            "id": source["id"],
+            "name": english_source_name(source["name"]),
+            "nameJa": source["name"],
+            "tier": source["tier"],
+            "chain": source.get("chain"),
+            "url": source["url"],
+            "resolvedUrl": fetched.get("resolvedUrl") or source["url"],
+            "parser": source["parser"],
+            "ok": fetched["ok"],
+            "status": fetched["status"],
+            "bytes": fetched.get("bytes", 0),
+            "title": translate_japanese_text(parser.title, "source page"),
+            "titleJa": parser.title,
+            "productCount": 0,
+        }
+        source_summaries.append(source_summary)
         if not fetched["ok"]:
             warnings.append(f"{source['id']} fetch status {fetched['status']}; skipped parser confidence.")
             continue
 
         if source["parser"] == "seven_weekly":
             parsed, parser_warnings = parse_seven(parser.events, source, today)
+            source_summary["productCount"] = len(parsed)
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "familymart_weekly":
             parsed, parser_warnings = parse_familymart(parser.events, source, today)
+            source_summary["productCount"] = len(parsed)
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "lawson_weekly":
             lawson_weekly_html = decode_html(raw_path)
             parsed, parser_warnings = parse_lawson(lawson_weekly_html, parser.events, source, today)
+            source_summary["productCount"] = len(parsed)
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "lawson_lab_weekly":
             lawson_html = decode_html(raw_path)
             parsed, parser_warnings = parse_lawson_lab(lawson_html, parser.events, source, today)
+            source_summary["productCount"] = len(parsed)
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "setusoku_bogo":
@@ -1594,6 +1682,11 @@ def main() -> int:
             )
 
     products = merge_products(products)
+
+    if not (args.allow_empty_required_source or args.skip_source_sanity):
+        source_sanity_failures = collect_source_sanity_failures(source_summaries, source_by_id)
+        if source_sanity_failures:
+            return fail_sanity(source_sanity_failures)
 
     enrich_lawson_from_detail_snapshots(products, manifest.get("lawsonDetailSnapshots") or [])
     seven_html = ""
@@ -1616,6 +1709,12 @@ def main() -> int:
         finalize_product_copy(product)
 
     products.sort(key=lambda item: (-item["score"], item.get("releaseDate") or "", item["chain"], item["nameJa"]))
+
+    if not args.skip_source_sanity:
+        feed_sanity_failures = collect_feed_sanity_failures(config, products)
+        if feed_sanity_failures:
+            return fail_sanity(feed_sanity_failures)
+
     week_label = f"Week of {today.isoformat()}"
     feed = {
         "schemaVersion": 1,

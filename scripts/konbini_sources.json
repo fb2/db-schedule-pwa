@@ -11,7 +11,11 @@
       "tier": "official",
       "url": "https://www.sej.co.jp/products/a/thisweek/",
       "parser": "seven_weekly",
-      "language": "ja"
+      "language": "ja",
+      "sanity": {
+        "required": true,
+        "minProducts": 10
+      }
     },
     {
       "id": "familymart_newgoods",
@@ -20,7 +24,11 @@
       "tier": "official",
       "url": "https://www.family.co.jp/goods/newgoods.html",
       "parser": "familymart_weekly",
-      "language": "ja"
+      "language": "ja",
+      "sanity": {
+        "required": true,
+        "minProducts": 10
+      }
     },
     {
       "id": "lawson_new",
@@ -29,7 +37,11 @@
       "tier": "official",
       "url": "https://www.lawson.co.jp/recommend/new/",
       "parser": "lawson_weekly",
-      "language": "ja"
+      "language": "ja",
+      "sanity": {
+        "required": true,
+        "minProducts": 10
+      }
     },
     {
       "id": "lawson_lab_this_week",
@@ -89,6 +101,14 @@
       "language": "ja"
     }
   ],
+  "feedSanity": {
+    "minTotalProducts": 50,
+    "minChainProducts": {
+      "7-Eleven": 10,
+      "FamilyMart": 10,
+      "Lawson": 10
+    }
+  },
   "keywordContexts": {
     "監修": "supervised by a named restaurant, chef, or brand",
     "数量限定": "limited quantity and likely to disappear quickly",
