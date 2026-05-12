@@ -80,8 +80,22 @@ SOURCE_NAME_TRANSLATIONS = {
     "えん食べ konbini roundup": "Entabe konbini roundup",
     "コンビニ チェッカー new items": "Conveni Checker new items",
     "コンビニエブリデイ new products": "Conveni Everyday new products",
+    "節約速報 buy-one-get-one campaign roundup": "Setusoku BOGO campaign roundup",
     "もぐナビ konbini ranking": "Mognavi konbini ranking",
     "ローソン研究所 weekly featured products": "Lawson Lab weekly featured products",
+}
+SETUSOKU_CHAIN_HEADINGS = {
+    "セブン-イレブン": "7-Eleven",
+    "セブン‐イレブン": "7-Eleven",
+    "セブンイレブン": "7-Eleven",
+    "ファミリーマート": "FamilyMart",
+    "ローソン": "Lawson",
+    "ミニストップ": "Ministop",
+    "ニューデイズ": "NewDays",
+    "ローソンストア100": "Lawson Store 100",
+    "デイリーヤマザキ": "Daily Yamazaki",
+    "ポプラ": "Poplar",
+    "セイコーマート": "Seicomart",
 }
 REGION_TRANSLATIONS = {
     "全国": "Nationwide",
@@ -121,6 +135,11 @@ CATEGORY_TRANSLATIONS = {
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
+    ("ほろにがコーヒーゼリードリンク", "bittersweet coffee jelly drink"),
+    ("クリート もちまろグミもちしゅわアソート", "Cleat Mochimaro gummy fizzy assortment"),
+    ("ドルチェ とろむに巨峰味", "Dolce Toromuni Kyoho grape flavor"),
+    ("冷たいコーンポタージュ", "chilled corn potage"),
+    ("モカショコラ", "mocha chocolate"),
     ("1食分の野菜が摂れる パリパリ麺のサラダ", "crispy noodle salad (one vegetable serving)"),
     ("ごまドレで食べるバンバンジー風サラダ", "bang bang chicken-style salad with sesame dressing"),
     ("雉虎亭キジ監修", "Kiji-supervised (Kijiko-tei)"),
@@ -1050,6 +1069,52 @@ def visible_text(parser: SourceParser) -> str:
     return clean_text(" ".join(piece for piece in pieces if piece))
 
 
+def parse_setusoku_bogo_context(
+    events: list[dict[str, str]], source: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Extract only the chain-scoped BOGO offer bullets from Setusoku's broad sale page."""
+    offers_by_chain: dict[str, list[str]] = {}
+    current_chain = ""
+    for event in events:
+        text = clean_text(event.get("text", "")).strip("：:；;")
+        if not text:
+            continue
+        if event.get("type") == "heading":
+            normalized = text.replace(" ", "")
+            current_chain = SETUSOKU_CHAIN_HEADINGS.get(normalized, "")
+            continue
+        if not current_chain:
+            continue
+        if "買うと" not in text or "無料" not in text:
+            continue
+        offer = clean_text(text.lstrip("・-● "))
+        if len(offer) < 8:
+            continue
+        offers_by_chain.setdefault(current_chain, []).append(offer)
+
+    context_entries: list[dict[str, Any]] = []
+    for chain, offers in offers_by_chain.items():
+        aliases = " ".join(CHAIN_NAMES.get(chain, [chain]))
+        context_entries.append(
+            {
+                "id": source["id"],
+                "name": source["name"],
+                "tier": source["tier"],
+                "language": source.get("language", "ja"),
+                "url": source["url"],
+                "chain": chain,
+                "dealTag": "bogo",
+                "dealLabel": "buy-one-get-one/free-item offer",
+                "text": clean_text(f"{chain} {aliases} " + " ".join(offers)),
+            }
+        )
+
+    warnings = []
+    if not context_entries:
+        warnings.append("Setusoku BOGO source fetched but no chain-scoped offer bullets matched.")
+    return context_entries, warnings
+
+
 def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> None:
     text = f"{product['nameJa']} {product.get('categoryJa', '')} {' '.join(product.get('regionsJa', []))}"
     tags = set(product.get("tags", []))
@@ -1067,8 +1132,13 @@ def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> No
         tags.add("merch")
     if product.get("regionsJa") and "全国" not in product["regionsJa"]:
         tags.add("regional")
+    for signal in product.get("localSignals", []):
+        if signal.get("dealTag"):
+            tags.add(signal["dealTag"])
 
     context_bits = [english for keyword, english in keyword_contexts.items() if keyword in text]
+    if any(signal.get("dealTag") == "bogo" for signal in product.get("localSignals", [])):
+        context_bits.append("matched a buy-one-get-one/free-item campaign source")
     if JP_CHAR_RE.search(product["name"]):
         context_bits.append(
             "English names use a glossary; verify wording on the Japanese official source link."
@@ -1096,7 +1166,7 @@ def add_local_signals(products: list[dict[str, Any]], context_sources: list[dict
             position = body.find(matched)
             snippet = clean_text(body[max(0, position - 60) : position + 120])
             product["localSignals"].append(
-                {
+                signal := {
                     "sourceId": source["id"],
                     "sourceName": english_source_name(source["name"]),
                     "tier": source["tier"],
@@ -1108,6 +1178,9 @@ def add_local_signals(products: list[dict[str, Any]], context_sources: list[dict
                     "snippetJa": snippet,
                 }
             )
+            if source.get("dealTag"):
+                signal["dealTag"] = source["dealTag"]
+                signal["dealLabel"] = source.get("dealLabel", "")
 
 
 def score_product(product: dict[str, Any], today: dt.date) -> None:
@@ -1138,6 +1211,7 @@ def score_product(product: dict[str, Any], today: dt.date) -> None:
         ("regional", 5, "regional availability makes it harder to find"),
         ("merch", 5, "character goods or merch-adjacent item"),
         ("returning", 4, "returning item"),
+        ("bogo", 10, "matched buy-one-get-one/free-item campaign source"),
     ):
         if tag in product["tags"]:
             score += points
@@ -1392,6 +1466,10 @@ def main() -> int:
             lawson_html = decode_html(raw_path)
             parsed, parser_warnings = parse_lawson_lab(lawson_html, parser.events, source, today)
             products.extend(parsed)
+            warnings.extend(parser_warnings)
+        elif source["parser"] == "setusoku_bogo":
+            parsed_contexts, parser_warnings = parse_setusoku_bogo_context(parser.events, source)
+            context_sources.extend(parsed_contexts)
             warnings.extend(parser_warnings)
         else:
             context_sources.append(

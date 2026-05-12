@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icon.svg" />
-    <link rel="stylesheet" href="./styles.css?v=9" />
+    <link rel="stylesheet" href="./styles.css?v=10" />
     <title>Konbini Radar</title>
   </head>
   <body>
@@ -84,6 +84,13 @@
           </select>
         </label>
         <label>
+          Stars
+          <select id="starFilter">
+            <option value="all">All items</option>
+            <option value="starred">Starred only</option>
+          </select>
+        </label>
+        <label>
           Sort
           <select id="sortSelect">
             <option value="recommended">Recommended</option>
@@ -117,24 +124,25 @@
       <article class="product-card">
         <div class="product-thumb" aria-hidden="true"></div>
         <div class="product-body">
-        <div class="card-topline">
-          <span class="chain-pill"></span>
-          <span class="score-pill"></span>
-        </div>
-        <h2></h2>
-        <p class="summary"></p>
-        <div class="badges"></div>
-        <p class="context"></p>
-        <details>
-          <summary>Why it ranks</summary>
-          <ul class="reasons"></ul>
-        </details>
-        <div class="local-signals"></div>
-        <div class="source-links"></div>
+          <div class="card-topline">
+            <span class="chain-pill"></span>
+            <span class="score-pill"></span>
+            <button class="star-button" type="button"></button>
+          </div>
+          <h2></h2>
+          <p class="summary"></p>
+          <div class="badges"></div>
+          <p class="context"></p>
+          <details>
+            <summary>Why it ranks</summary>
+            <ul class="reasons"></ul>
+          </details>
+          <div class="local-signals"></div>
+          <div class="source-links"></div>
         </div>
       </article>
     </template>
 
-    <script type="module" src="./app.js?v=9"></script>
+    <script type="module" src="./app.js?v=10"></script>
   </body>
 </html>

@@ -8,6 +8,7 @@ const els = {
   sourceCount: document.querySelector("#sourceCount"),
   chainFilter: document.querySelector("#chainFilter"),
   tagFilter: document.querySelector("#tagFilter"),
+  starFilter: document.querySelector("#starFilter"),
   sortSelect: document.querySelector("#sortSelect"),
   productList: document.querySelector("#productList"),
   sourceList: document.querySelector("#sourceList"),
@@ -18,9 +19,14 @@ const els = {
 const state = {
   feed: null,
   section: "all",
+  starred: new Set(),
 };
 
+const STAR_COOKIE_NAME = "konbiniRadarStars";
+const STAR_COOKIE_DAYS = 365;
+
 const TAG_LABELS = {
+  bogo: "BOGO",
   collab: "Collab",
   limited: "Limited",
   merch: "Merch",
@@ -68,6 +74,56 @@ function populateSelect(select, values, labeler = (value) => value) {
   }
 }
 
+function readCookie(name) {
+  const prefix = `${encodeURIComponent(name)}=`;
+  const cookie = document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix));
+  return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : "";
+}
+
+function writeCookie(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  const path = window.location.pathname.replace(/[^/]*$/, "") || "/";
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=${path}; SameSite=Lax`;
+}
+
+function loadStarredIds() {
+  const raw = readCookie(STAR_COOKIE_NAME);
+  if (!raw) return new Set();
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return new Set(parsed.filter((item) => typeof item === "string"));
+    }
+  } catch {
+    return new Set(raw.split("|").filter(Boolean));
+  }
+  return new Set();
+}
+
+function saveStarredIds() {
+  let values = [...state.starred];
+  let payload = JSON.stringify(values);
+  if (encodeURIComponent(payload).length > 3500) {
+    values = values.slice(-120);
+    state.starred = new Set(values);
+    payload = JSON.stringify(values);
+  }
+  writeCookie(STAR_COOKIE_NAME, payload, STAR_COOKIE_DAYS);
+}
+
+function setStarButtonState(button, product, starred) {
+  button.textContent = starred ? "★" : "☆";
+  button.setAttribute("aria-pressed", String(starred));
+  button.setAttribute(
+    "aria-label",
+    `${starred ? "Remove star from" : "Star"} ${product.name || product.nameJa}`
+  );
+  button.title = starred ? "Remove star" : "Star this item";
+}
+
 /** Cached SW can serve an older index without .product-thumb; repair so image append never targets null. */
 function ensureProductThumbHost(card) {
   let thumbHost = card.querySelector(".product-thumb");
@@ -91,11 +147,13 @@ function productMatchesSection(product) {
 function filteredProducts() {
   const chain = els.chainFilter?.value ?? "all";
   const tag = els.tagFilter?.value ?? "all";
+  const star = els.starFilter?.value ?? "all";
   const sort = els.sortSelect?.value ?? "recommended";
   const products = state.feed.products.filter((product) => {
     const tags = product.tags || [];
     if (chain !== "all" && product.chain !== chain) return false;
     if (tag !== "all" && !tags.includes(tag)) return false;
+    if (star === "starred" && !state.starred.has(product.id)) return false;
     return productMatchesSection({ ...product, tags });
   });
 
@@ -138,8 +196,10 @@ function renderProduct(product) {
   const thumbHost = ensureProductThumbHost(card);
   const tags = product.tags || [];
   const sourceUrls = Array.isArray(product.sourceUrls) ? product.sourceUrls : [];
+  const isStarred = state.starred.has(product.id);
 
   card.dataset.chain = product.chain;
+  card.classList.toggle("is-starred", isStarred);
   const imageUrl = (product.imageUrl || "").trim();
   if (imageUrl) {
     const img = document.createElement("img");
@@ -160,6 +220,19 @@ function renderProduct(product) {
 
   card.querySelector(".chain-pill").textContent = product.chain;
   card.querySelector(".score-pill").textContent = `${product.score} radar score`;
+  const starButton = card.querySelector(".star-button");
+  if (starButton) {
+    setStarButtonState(starButton, product, isStarred);
+    starButton.addEventListener("click", () => {
+      if (state.starred.has(product.id)) {
+        state.starred.delete(product.id);
+      } else {
+        state.starred.add(product.id);
+      }
+      saveStarredIds();
+      renderProducts();
+    });
+  }
   card.querySelector("h2").textContent = product.name || product.nameJa;
   card.querySelector(".summary").textContent = [
     formatDate(product.releaseDate),
@@ -196,7 +269,8 @@ function renderProduct(product) {
   if (product.localSignals?.length) {
     const signal = product.localSignals[0];
     if (localSignals) {
-      localSignals.textContent = `Local signal: ${signal.sourceName} matched "${signal.matchedText}".`;
+      const prefix = signal.dealLabel ? "Deal signal" : "Local signal";
+      localSignals.textContent = `${prefix}: ${signal.sourceName} matched "${signal.matchedText}".`;
     }
   } else if (localSignals) {
     localSignals.remove();
@@ -270,7 +344,7 @@ function setupControls() {
     (value) => TAG_LABELS[value] || value
   );
 
-  [els.chainFilter, els.tagFilter, els.sortSelect].forEach((control) => {
+  [els.chainFilter, els.tagFilter, els.starFilter, els.sortSelect].forEach((control) => {
     if (control) control.addEventListener("change", renderProducts);
   });
 
@@ -290,6 +364,7 @@ async function loadFeed() {
   const response = await fetch("./feed.json", { cache: "no-store" });
   if (!response.ok) throw new Error(`Feed request failed with ${response.status}`);
   state.feed = await response.json();
+  state.starred = loadStarredIds();
   setupControls();
   render();
 }

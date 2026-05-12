@@ -65,6 +65,14 @@
       "language": "ja"
     },
     {
+      "id": "setusoku_bogo",
+      "name": "節約速報 buy-one-get-one campaign roundup",
+      "tier": "local_media",
+      "url": "https://setusoku.com/sale/142006/",
+      "parser": "setusoku_bogo",
+      "language": "ja"
+    },
+    {
       "id": "mognavi_konbini_ranking",
       "name": "もぐナビ konbini ranking",
       "tier": "ranking",
