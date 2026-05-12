@@ -9,7 +9,7 @@
       "name": "7-Eleven Japan weekly new products",
       "chain": "7-Eleven",
       "tier": "official",
-      "url": "https://www.sej.co.jp/products/thisweek_recommend.html",
+      "url": "https://www.sej.co.jp/products/a/thisweek/",
       "parser": "seven_weekly",
       "language": "ja"
     },

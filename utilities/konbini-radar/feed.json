@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-12T03:35:36.626726+00:00",
+  "generatedAt": "2026-05-12T04:51:33.582594+00:00",
   "weekLabel": "Week of 2026-05-12",
-  "intro": "Week of 2026-05-12: the board is led by 7-Eleven 50g 1 、 30g 1, FamilyMart Supervised 「 、 。」 chilled regional supervised chilled soba, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
+  "intro": "Week of 2026-05-12: the board is led by 7-Eleven Dashi-seasoned rice ball nori tsukudani, FamilyMart Supervised 「 、 。」 chilled regional supervised chilled soba, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
   "sources": [
     {
       "id": "seven_this_week",
@@ -10,11 +10,11 @@
       "nameJa": "7-Eleven Japan weekly new products",
       "tier": "official",
       "chain": "7-Eleven",
-      "url": "https://www.sej.co.jp/products/thisweek_recommend.html",
+      "url": "https://www.sej.co.jp/products/a/thisweek/",
       "ok": true,
       "status": 200,
-      "title": "",
-      "titleJa": ""
+      "title": "| ‐",
+      "titleJa": "今週の新商品｜セブン‐イレブン"
     },
     {
       "id": "familymart_newgoods",
@@ -1550,8 +1550,8 @@
           "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
           "matchedText": "Strawberry chocolate",
           "matchedTextJa": "いちごチョコミント",
-          "snippet": "! 4 5 12 regional ice cream 「 milk 」「 strawberry chocolate 」 5 5 12 ~ regional - 「7P 1 」「 crepe style 」 ⇒1 ~20 googlet",
-          "snippetJa": "！ スイーツ 4 【5月12日発売】コンビニアイス新商品まとめ「ハーゲンダッツ クリーミーコーン 鉄観音ミルクティー」「いちごチョコミント」など スイーツ 5 【5月12日～発売】セブン-イレブン 新商品スイーツまとめ「7P 焦がしバターのむっちり食感タルト1個入」「もっちもち食感クレープ ショートケーキ仕立て」など スイーツ ⇒1位～20位 googlet"
+          "snippet": "! 4 5 12 regional ice cream 「 milk 」「 strawberry chocolate 」 5 2026 5! 「 」 「 matcha chocolate 」 ⇒1 ~20 googletag.cmd.push(",
+          "snippetJa": "！ スイーツ 4 【5月12日発売】コンビニアイス新商品まとめ「ハーゲンダッツ クリーミーコーン 鉄観音ミルクティー」「いちごチョコミント」など スイーツ 5 2026年5月に食べたいドーナツ新商品まとめ！ミスタードーナツ「サクぽふん」・コエ ドーナツ京都「抹茶ホワイトチョコレート」など ファストフード ⇒1位～20位 googletag.cmd.push("
         }
       ]
     },
@@ -1927,8 +1927,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
+          "snippet": "!「 、 、 」 、 3 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 3時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -1997,8 +1997,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
+          "snippet": "!「 、 、 」 、 3 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 3時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -2067,148 +2067,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
-        }
-      ]
-    },
-    {
-      "id": "familymart-bcc6d51337",
-      "chain": "FamilyMart",
-      "name": "(milk)",
-      "nameJa": "もちむにシュー（ミルククリーム）",
-      "category": "(milk)",
-      "categoryJa": "デザート もちむにシュー（ミルククリーム）",
-      "priceText": "198 yen (tax incl. 213 yen)",
-      "priceTextJa": "198円（税込213円）",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Hokkaido",
-        "Tohoku",
-        "Kanto",
-        "Tokai",
-        "Hokuriku",
-        "Kansai",
-        "Chugoku/Shikoku",
-        "Kyushu",
-        "Okinawa"
-      ],
-      "regionsJa": [
-        "北海道",
-        "東北",
-        "関東",
-        "東海",
-        "北陸",
-        "関西",
-        "中国・四国",
-        "九州",
-        "沖縄"
-      ],
-      "sourceUrls": [
-        "https://www.family.co.jp/goods/dessert/1944044.html"
-      ],
-      "sourceTiers": [
-        "official"
-      ],
-      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1944044.jpg",
-      "tags": [
-        "new",
-        "regional"
-      ],
-      "timeGate": {
-        "type": "regional",
-        "label": "Regional availability"
-      },
-      "score": 69,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "regional availability makes it harder to find",
-        "mentioned by Japanese local/context source"
-      ],
-      "summary": "FamilyMart · (milk) · 198 yen (tax incl. 213 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
-      "englishContext": "",
-      "localSignals": [
-        {
-          "sourceId": "conveni_check",
-          "sourceName": "Conveni Checker new items",
-          "tier": "local_media",
-          "language": "ja",
-          "url": "https://convenicheck.com/newitem/",
-          "matchedText": "Item",
-          "matchedTextJa": "もちむにシュー",
-          "snippet": "「 」「 」 「 (chocolate)」「 (milk)」 2026 5 12 、 / 。 No.1 「 extra! 」 renewed 2026 5 11 「 (",
-          "snippetJa": "用したトレーディング「アクリルスタンド」「缶バッジ」が登場 新商品情報 ファミマで「ザクほろシュー(チョコクリーム)」「もちむにシュー(ミルククリーム)」が2026年5月12日発売、ザクほろ / もちむにな新食感シュークリーム。売上No.1の「クリームたっぷり!ダブルシュー」もサイズアップしてリニューアル 2026年5月11日 ファミマで「ザクほろシュー(チ"
-        }
-      ]
-    },
-    {
-      "id": "familymart-e22195f1bc",
-      "chain": "FamilyMart",
-      "name": "(chocolate)",
-      "nameJa": "ザクほろシュー（チョコクリーム）",
-      "category": "(chocolate)",
-      "categoryJa": "デザート ザクほろシュー（チョコクリーム）",
-      "priceText": "221 yen (tax incl. 238 yen)",
-      "priceTextJa": "221円（税込238円）",
-      "releaseDate": "2026-05-12",
-      "regions": [
-        "Hokkaido",
-        "Tohoku",
-        "Kanto",
-        "Tokai",
-        "Hokuriku",
-        "Kansai",
-        "Chugoku/Shikoku",
-        "Kyushu",
-        "Okinawa"
-      ],
-      "regionsJa": [
-        "北海道",
-        "東北",
-        "関東",
-        "東海",
-        "北陸",
-        "関西",
-        "中国・四国",
-        "九州",
-        "沖縄"
-      ],
-      "sourceUrls": [
-        "https://www.family.co.jp/goods/dessert/1944099.html"
-      ],
-      "sourceTiers": [
-        "official"
-      ],
-      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1944099.jpg",
-      "tags": [
-        "new",
-        "regional"
-      ],
-      "timeGate": {
-        "type": "regional",
-        "label": "Regional availability"
-      },
-      "score": 69,
-      "scoreReasons": [
-        "official product listing",
-        "released in the last few days",
-        "regional availability makes it harder to find",
-        "mentioned by Japanese local/context source"
-      ],
-      "summary": "FamilyMart · (chocolate) · 221 yen (tax incl. 238 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
-      "englishContext": "",
-      "localSignals": [
-        {
-          "sourceId": "conveni_check",
-          "sourceName": "Conveni Checker new items",
-          "tier": "local_media",
-          "language": "ja",
-          "url": "https://convenicheck.com/newitem/",
-          "matchedText": "Item",
-          "matchedTextJa": "ザクほろシュー",
-          "snippet": "「 」「 」 「 (chocolate)」「 (milk)」 2026 5 12 、 / 。 No.1 「 extra! 」 renewed 2026 5 1",
-          "snippetJa": "発売、渡瀬悠宇さんの美麗イラストを使用したトレーディング「アクリルスタンド」「缶バッジ」が登場 新商品情報 ファミマで「ザクほろシュー(チョコクリーム)」「もちむにシュー(ミルククリーム)」が2026年5月12日発売、ザクほろ / もちむにな新食感シュークリーム。売上No.1の「クリームたっぷり!ダブルシュー」もサイズアップしてリニューアル 2026年5月1"
+          "snippet": "!「 、 、 」 、 3 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 3時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -3148,6 +3008,63 @@
       "localSignals": []
     },
     {
+      "id": "familymart-bcc6d51337",
+      "chain": "FamilyMart",
+      "name": "(milk)",
+      "nameJa": "もちむにシュー（ミルククリーム）",
+      "category": "(milk)",
+      "categoryJa": "デザート もちむにシュー（ミルククリーム）",
+      "priceText": "198 yen (tax incl. 213 yen)",
+      "priceTextJa": "198円（税込213円）",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/dessert/1944044.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1944044.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 65,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · (milk) · 198 yen (tax incl. 213 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
       "id": "familymart-bd1aed8c88",
       "chain": "FamilyMart",
       "name": "Tuna",
@@ -3311,6 +3228,63 @@
         "regional availability makes it harder to find"
       ],
       "summary": "FamilyMart · Side dish chicken · 332 yen (tax incl. 358 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "familymart-e22195f1bc",
+      "chain": "FamilyMart",
+      "name": "(chocolate)",
+      "nameJa": "ザクほろシュー（チョコクリーム）",
+      "category": "(chocolate)",
+      "categoryJa": "デザート ザクほろシュー（チョコクリーム）",
+      "priceText": "221 yen (tax incl. 238 yen)",
+      "priceTextJa": "221円（税込238円）",
+      "releaseDate": "2026-05-12",
+      "regions": [
+        "Hokkaido",
+        "Tohoku",
+        "Kanto",
+        "Tokai",
+        "Hokuriku",
+        "Kansai",
+        "Chugoku/Shikoku",
+        "Kyushu",
+        "Okinawa"
+      ],
+      "regionsJa": [
+        "北海道",
+        "東北",
+        "関東",
+        "東海",
+        "北陸",
+        "関西",
+        "中国・四国",
+        "九州",
+        "沖縄"
+      ],
+      "sourceUrls": [
+        "https://www.family.co.jp/goods/dessert/1944099.html"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://www.family.co.jp/content/dam/family/goods/1944099.jpg",
+      "tags": [
+        "new",
+        "regional"
+      ],
+      "timeGate": {
+        "type": "regional",
+        "label": "Regional availability"
+      },
+      "score": 65,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "regional availability makes it harder to find"
+      ],
+      "summary": "FamilyMart · (chocolate) · 221 yen (tax incl. 238 yen) · Regions: Hokkaido, Tohoku, Kanto, Tokai",
       "englishContext": "",
       "localSignals": []
     },
@@ -4152,6 +4126,51 @@
       "localSignals": []
     },
     {
+      "id": "7-eleven-e31716cbfb",
+      "chain": "7-Eleven",
+      "name": "Dashi-seasoned rice ball nori tsukudani",
+      "nameJa": "だしむすび 海苔佃煮",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "158 yen (tax incl. 170.64 yen)",
+      "priceTextJa": "158円（税込170.64円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041932/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041932/434A9DF767F304BA44737AD41C41582D.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · 158 yen (tax incl. 170.64 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Nori tsukudani",
+          "matchedTextJa": "海苔佃煮",
+          "snippet": "English 5 5 regional rice ball bento 「 dashi soy sauce nori tsukudani rice ball 」 「 teriyaki chicken rice (mochi barley rice)」 5 5 rice ball bento 。「 dashi soy sauce nori tsukudani rice ball 」「 teriyaki chicken rice (mochi barley rice)」 6",
+          "snippetJa": "English えん食べの人気記事 【5月5日発売】ファミリーマート 新商品おむすび・お弁当まとめ「だし醤油まぶし飯 海苔佃煮おむすび」や「照り焼きチキンごはん（もち麦入りごはん）」など ファミリーマートで5月5日に発売されるおむすび・お弁当の新商品をまとめてご紹介。「だし醤油まぶし飯 海苔佃煮おむすび」「照り焼きチキンごはん（もち麦入りごはん）」など6品"
+        }
+      ]
+    },
+    {
       "id": "lawson-8f4fffff04",
       "chain": "Lawson",
       "name": "Crispy noodle salad (one vegetable serving)",
@@ -4970,6 +4989,1014 @@
         "national availability"
       ],
       "summary": "Lawson · 198 yen(tax incl.) · Regions: Nationwide",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-82ccaa0c38",
+      "chain": "7-Eleven",
+      "name": "Pasta spicy cod roe chicken",
+      "nameJa": "冷製パスタ 明太子と蒸し鶏と大葉",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "530 yen (tax incl. 572.40 yen)",
+      "priceTextJa": "530円（税込572.40円）",
+      "releaseDate": "2026-05-13",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/090307/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/090307/25B3B844BB39BDF06E5D4F6094ADEEEA.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 64,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · 530 yen (tax incl. 572.40 yen)",
+      "englishContext": "",
+      "localSignals": [
+        {
+          "sourceId": "entabe_konbini",
+          "sourceName": "Entabe konbini roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://entabe.jp/60197/seven-eleven-familymart-lawson-new-sweets-may-2026",
+          "matchedText": "Pasta",
+          "matchedTextJa": "冷製パスタ",
+          "snippet": "With barley rice)」 6 。 rice ball Region regional 5 12 ~!500kcal pasta and 10 ~「 pasta tomato ham 」 ~ 5 12 - 、500kcal pasta 10 。 vegetables extra soba ham pasta",
+          "snippetJa": "ち麦入りごはん）」など6品。 おにぎり 【セブン-イレブン】5月12日～発売！500kcal以下のパスタ&麺類10選～「冷製パスタ トマトと生ハムとチーズ」ほか～ 5月12日以降に発売されるセブン-イレブンの新商品から、500kcal以下のパスタと麺類を10品ピックアップしました。野菜たっぷりのけんちんそばから生ハム入りの冷製パスタまで、バラエティ豊かです。"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-ba1538f530",
+      "chain": "7-Eleven",
+      "name": "Large rice ball",
+      "nameJa": "おおきなおむすび あさり炊き込みご飯",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "220 yen (tax incl. 237.60 yen)",
+      "priceTextJa": "220円（税込237.60円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042933/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042933/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/042933/kanto/",
+        "https://www.sej.co.jp/products/a/item/042933/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042933/kyushu/",
+        "https://www.sej.co.jp/products/a/item/042933/shikoku/",
+        "https://www.sej.co.jp/products/a/item/042933/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042933/DDE423390B6810CC1FA83D3E2D207EA4.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 220 yen (tax incl. 237.60 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-5eafb64907",
+      "chain": "7-Eleven",
+      "name": "Large rice ball takana mustard greens",
+      "nameJa": "おおきなおむすび 高菜",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "220 yen (tax incl. 237.60 yen)",
+      "priceTextJa": "220円（税込237.60円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042974/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042974/CD37725BFABEF269B47882E3C9D9B439.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 220 yen (tax incl. 237.60 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-d3706d79a0",
+      "chain": "7-Eleven",
+      "name": "Large rice ball salmon wakame",
+      "nameJa": "おおきなおむすびしゃけわかめ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "228 yen (tax incl. 246.24 yen)",
+      "priceTextJa": "228円（税込246.24円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/043000/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/043000/A4881B700D5AFAEE97D99185CD51B4FC.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 228 yen (tax incl. 246.24 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-eb2c3fb822",
+      "chain": "7-Eleven",
+      "name": "Rice ball lunch",
+      "nameJa": "おにぎりランチ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen (tax incl. 464.40 yen)",
+      "priceTextJa": "430円（税込464.40円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042899/hokuriku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042899/086DFDA83A2D81B48E9A0C2EF4792BEB.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-f4da10c7d1",
+      "chain": "7-Eleven",
+      "name": "Chicken and",
+      "nameJa": "たんぱく質が摂れるチキン＆チリ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053729/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053729/9C278B2D3ED9385406D983ED8F0B7B11.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-7c2963ffd8",
+      "chain": "7-Eleven",
+      "name": "Dashi-seasoned rice ball, grilled salmon",
+      "nameJa": "だしむすび 焼しゃけ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "178 yen (tax incl. 192.24 yen)",
+      "priceTextJa": "178円（税込192.24円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042623/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042623/kinki/",
+        "https://www.sej.co.jp/products/a/item/042623/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042623/E8028CA23B6BE818AC5051BCB24B9F10.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 178 yen (tax incl. 192.24 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-6718f7cd7b",
+      "chain": "7-Eleven",
+      "name": "! mochi barley rice ball salmon",
+      "nameJa": "ぷちもち食感！もち麦おむすび 紅しゃけ大葉",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "148 yen (tax incl. 159.84 yen)",
+      "priceTextJa": "148円（税込159.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042573/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042573/689A0FE878034E3A31B26A5747AA891D.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 148 yen (tax incl. 159.84 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-18113969d8",
+      "chain": "7-Eleven",
+      "name": "Bento mochi barley",
+      "nameJa": "ゴーヤーチャンプルー弁当もち麦入り",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/043003/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/043003/B9985C07A03E04FCF8D8FFEE5C6D2C53.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-3c0e4d65c3",
+      "chain": "7-Eleven",
+      "name": "Sandwich and",
+      "nameJa": "ホットサンド チーズ＆ベーコン",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "280 yen (tax incl. 302.40 yen)",
+      "priceTextJa": "280円（税込302.40円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053723/kyushu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053723/FFBB16B9090B7D36946FD2845F4CB68E.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 280 yen (tax incl. 302.40 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-32d47c7cd4",
+      "chain": "7-Eleven",
+      "name": "Rich miso ramen miso",
+      "nameJa": "冷たい濃厚味噌ラーメン 越後味噌使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "540 yen (tax incl. 583.20 yen)",
+      "priceTextJa": "540円（税込583.20円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/091092/hokuriku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/091092/7F3F21048C335D24910C4586BA17C107.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 540 yen (tax incl. 583.20 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-bd6ded741f",
+      "chain": "7-Eleven",
+      "name": "Japanese-style tuna mayo",
+      "nameJa": "和風ツナマヨネーズ御飯",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "398 yen (tax incl. 429.84 yen)",
+      "priceTextJa": "398円（税込429.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041862/kanto/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041862/1E17DF3BE75CA4975EF30D1EA438A032.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 398 yen (tax incl. 429.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-5bff2bda1e",
+      "chain": "7-Eleven",
+      "name": "Hand-rolled rice ball sujiko salted salmon roe (soy sauce koji-style)",
+      "nameJa": "手巻おにぎり すじこ（醤油麹仕立て）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "238 yen (tax incl. 257.04 yen)",
+      "priceTextJa": "238円（税込257.04円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042928/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042928/253A5EE61C763513A0DE19CC225A68BF.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 238 yen (tax incl. 257.04 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-6bd54182ec",
+      "chain": "7-Eleven",
+      "name": "Hand-rolled rice ball mayonnaise",
+      "nameJa": "手巻おにぎり アスパラベーコンマヨネーズ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "195 yen (tax incl. 210.60 yen)",
+      "priceTextJa": "195円（税込210.60円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042920/tohoku/",
+        "https://www.sej.co.jp/products/a/item/042921/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042920/42A96083C35AB41FCBA4A2EBB4662337.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 195 yen (tax incl. 210.60 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-631bedfe96",
+      "chain": "7-Eleven",
+      "name": "Hand-rolled rice ball mayonnaise",
+      "nameJa": "手巻おにぎりアスパラベーコンマヨネーズ",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "195 yen (tax incl. 210.60 yen)",
+      "priceTextJa": "195円（税込210.60円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042918/tohoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042918/F79ADFCFE8FC39A6FD6CD5F20EAC2E1C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 195 yen (tax incl. 210.60 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-a45bbbb280",
+      "chain": "7-Eleven",
+      "name": "Hand-rolled rice ball spicy salmon",
+      "nameJa": "手巻おにぎりピリ辛しゃけめんたい",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "200 yen (tax incl. 216 yen)",
+      "priceTextJa": "200円（税込216円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042022/kanto/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042022/3AE22DD98B8F736973931ABACFFBA8CF.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 200 yen (tax incl. 216 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-58848c4368",
+      "chain": "7-Eleven",
+      "name": "Rice ball salmon spicy cod roe",
+      "nameJa": "旨さ相盛おむすび 紅しゃけと明太子",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "298 yen (tax incl. 321.84 yen)",
+      "priceTextJa": "298円（税込321.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/043002/chugoku/",
+        "https://www.sej.co.jp/products/a/item/043002/hokkaido/",
+        "https://www.sej.co.jp/products/a/item/043002/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/043002/kanto/",
+        "https://www.sej.co.jp/products/a/item/043002/kinki/",
+        "https://www.sej.co.jp/products/a/item/043002/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/043002/kyushu/",
+        "https://www.sej.co.jp/products/a/item/043002/okinawa/",
+        "https://www.sej.co.jp/products/a/item/043002/shikoku/",
+        "https://www.sej.co.jp/products/a/item/043002/tohoku/",
+        "https://www.sej.co.jp/products/a/item/043002/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/043002/FF219C593BB12AC198DAD77BE1BA4F1C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 298 yen (tax incl. 321.84 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-10cd802957",
+      "chain": "7-Eleven",
+      "name": "Bento",
+      "nameJa": "洋食ミックス弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "698 yen (tax incl. 753.84 yen)",
+      "priceTextJa": "698円（税込753.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042108/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042108/5702536405C9594AD130721E322A363D.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 698 yen (tax incl. 753.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-124fd64201",
+      "chain": "7-Eleven",
+      "name": "Rich pork soy sauce rice ball",
+      "nameJa": "濃厚豚骨醤油ご飯 半熟煮玉子おむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "208 yen (tax incl. 224.64 yen)",
+      "priceTextJa": "208円（税込224.64円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041717/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041717/6B21C6371A3538ED8647170A5B4CCC05.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 208 yen (tax incl. 224.64 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-5ff230469c",
+      "chain": "7-Eleven",
+      "name": "Rice ball (mayonnaise)",
+      "nameJa": "炙りベーコンおむすび （チーズマヨネーズ入）",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "215 yen (tax incl. 232.20 yen)",
+      "priceTextJa": "215円（税込232.20円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042614/kanto/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042614/B132E854DBAE8F3750FB0789BF428DB3.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 215 yen (tax incl. 232.20 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-3c4a6805f7",
+      "chain": "7-Eleven",
+      "name": "Charcoal-grilled grilled rice ball",
+      "nameJa": "炭火で焼いた 焼おにぎり",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "168 yen (tax incl. 181.44 yen)",
+      "priceTextJa": "168円（税込181.44円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042995/koshinetsu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042995/53B544279008E5493F2F23C0180DAA12.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 168 yen (tax incl. 181.44 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-e8088e3e3c",
+      "chain": "7-Eleven",
+      "name": "Chicken",
+      "nameJa": "炭火焼き鳥と鶏つくね重",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "648 yen (tax incl. 699.84 yen)",
+      "priceTextJa": "648円（税込699.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042960/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042960/hokkaido/",
+        "https://www.sej.co.jp/products/a/item/042960/kanto/",
+        "https://www.sej.co.jp/products/a/item/042960/kinki/",
+        "https://www.sej.co.jp/products/a/item/042960/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042960/kyushu/",
+        "https://www.sej.co.jp/products/a/item/042960/tohoku/",
+        "https://www.sej.co.jp/products/a/item/042960/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042960/69BA65B8BA7580229E1654E9C32A71B7.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 648 yen (tax incl. 699.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-1135623918",
+      "chain": "7-Eleven",
+      "name": "And rice",
+      "nameJa": "焼肉＆唐揚げごはん",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen (tax incl. 464.40 yen)",
+      "priceTextJa": "430円（税込464.40円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/041262/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/041262/336D6CE0625DD916A5DC110BB563F004.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-317a376771",
+      "chain": "7-Eleven",
+      "name": "Beef burdock beef",
+      "nameJa": "牛ごぼう御飯 豊西牛使用",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "430 yen (tax incl. 464.40 yen)",
+      "priceTextJa": "430円（税込464.40円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042932/hokkaido/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042932/50AE99970C81F252C59AC2C7C5B63E71.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 430 yen (tax incl. 464.40 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-d23d65125b",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "直火焼ソーセージおむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "205 yen (tax incl. 221.40 yen)",
+      "priceTextJa": "205円（税込221.40円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042484/kinki/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042484/9AF51DFEDE902EE72B584B6861374150.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 205 yen (tax incl. 221.40 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-45b0fd3a35",
+      "chain": "7-Eleven",
+      "name": "Rice ball",
+      "nameJa": "紀州南高梅使用カリカリ梅おむすび",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "188 yen (tax incl. 203.04 yen)",
+      "priceTextJa": "188円（税込203.04円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042947/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042947/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/042947/koshinetsu/",
+        "https://www.sej.co.jp/products/a/item/042947/kyushu/",
+        "https://www.sej.co.jp/products/a/item/042947/tohoku/",
+        "https://www.sej.co.jp/products/a/item/042947/tokai/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042947/67AD7AC123D82C78B1C09A39F1B1CE9C.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 188 yen (tax incl. 203.04 yen)",
+      "englishContext": "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title.",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-9b5a99f858",
+      "chain": "7-Eleven",
+      "name": "4 bento",
+      "nameJa": "４種おかずの海苔弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042806/okinawa/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042806/20ED87F3347EAF1BE2B72E0BA4890308.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-79f04d4668",
+      "chain": "7-Eleven",
+      "name": "2",
+      "nameJa": "ブリトーウインナー２本入りスパイシーカレー",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "288 yen (tax incl. 311.04 yen)",
+      "priceTextJa": "288円（税込311.04円）",
+      "releaseDate": "2026-05-13",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/053718/hokuriku/",
+        "https://www.sej.co.jp/products/a/item/053718/kyushu/",
+        "https://www.sej.co.jp/products/a/item/053718/okinawa/",
+        "https://www.sej.co.jp/products/a/item/053718/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/053718/C5B2E41F13CCD6E33ECDB15AE9AACCA3.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 288 yen (tax incl. 311.04 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-04fb3ccc96",
+      "chain": "7-Eleven",
+      "name": "Bento 598",
+      "nameJa": "明太のり弁当５９８",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "598 yen (tax incl. 645.84 yen)",
+      "priceTextJa": "598円（税込645.84円）",
+      "releaseDate": "2026-05-13",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042986/chugoku/",
+        "https://www.sej.co.jp/products/a/item/042986/shikoku/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042986/F4421E4C861507E1D34594AFA734BCD4.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 598 yen (tax incl. 645.84 yen)",
+      "englishContext": "",
+      "localSignals": []
+    },
+    {
+      "id": "7-eleven-5b3335383a",
+      "chain": "7-Eleven",
+      "name": "Chicken bento",
+      "nameJa": "ガーリックチキンステーキ弁当",
+      "category": "",
+      "categoryJa": "",
+      "priceText": "688 yen (tax incl. 743.04 yen)",
+      "priceTextJa": "688円（税込743.04円）",
+      "releaseDate": "2026-05-14",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://www.sej.co.jp/products/a/item/042970/koshinetsu/"
+      ],
+      "sourceTiers": [
+        "official"
+      ],
+      "imageUrl": "https://img-afd.7api-01.dp1.sej.co.jp/item-image/042970/E99618C2AB8E5EE922EE646356ADF3CF.jpg",
+      "tags": [
+        "new"
+      ],
+      "timeGate": null,
+      "score": 60,
+      "scoreReasons": [
+        "official product listing",
+        "released in the last few days"
+      ],
+      "summary": "7-Eleven · 688 yen (tax incl. 743.04 yen)",
       "englishContext": "",
       "localSignals": []
     },
@@ -6434,7 +7461,5 @@
       ]
     }
   ],
-  "warnings": [
-    "No 7-Eleven products parsed from official source."
-  ]
+  "warnings": []
 }
