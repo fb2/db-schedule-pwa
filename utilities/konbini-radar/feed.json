@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-12T03:27:49.644747+00:00",
+  "generatedAt": "2026-05-12T03:35:36.626726+00:00",
   "weekLabel": "Week of 2026-05-12",
-  "intro": "Week of 2026-05-12: the board is led by FamilyMart Supervised 「 、 。」 chilled regional supervised chilled soba, Lawson Uchi Café× Morihan matcha milk. Coverage spans FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
+  "intro": "Week of 2026-05-12: the board is led by 7-Eleven 50g 1 、 30g 1, FamilyMart Supervised 「 、 。」 chilled regional supervised chilled soba, Lawson Uchi Café× Morihan matcha milk. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
   "sources": [
     {
       "id": "seven_this_week",
@@ -1556,6 +1556,61 @@
       ]
     },
     {
+      "id": "daily-yamazaki-2f67b069a4",
+      "chain": "Daily Yamazaki",
+      "name": "Beef 200ml 1 、 milk 200ml/ milk 200ml 1",
+      "nameJa": "プライチキャンペーン: 明治 おいしい牛乳 200mlを1本買うと、明治 おいしいミルク紅茶 200ml/明治 おいしいミルクコーヒー 200mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": "2026-05-12",
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 74,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "released in the last few days",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Daily Yamazaki · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Beef 200ml 1 、 milk 200ml/ milk 200ml 1 。5/12~5/18",
+          "snippetJa": "明治 おいしい牛乳 200mlを1本買うと、明治 おいしいミルク紅茶 200ml/明治 おいしいミルクコーヒー 200mlが1本無料。5/12～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
       "id": "familymart-38db04315f",
       "chain": "FamilyMart",
       "name": "Melting peach",
@@ -1872,8 +1927,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 1 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 1時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
+          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -1942,8 +1997,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 1 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 1時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
+          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -2012,8 +2067,8 @@
           "url": "https://prtimes.jp/topics/keywords/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B",
           "matchedText": "Item",
           "matchedTextJa": "ファミマオンライン",
-          "snippet": "!「 、 、 」 、 1 ‐ bread 5!! limited new release 5!! limited",
-          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 1時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
+          "snippet": "!「 、 、 」 、 2 ‐ bread 5!! limited new release 5!! limited",
+          "snippetJa": "！「外はカリッ、中はじゅわっ、もちっ」焼きたてが生む、三重奏の食感 2時間前 株式会社セブン‐イレブン・ジャパン 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや新素材で涼しさを保つポンチョ・タオルを新発売 5月のファミマオンラインは早くも夏向け商品が登場！今話題！リカバリーサンダルのファミマ限定デザインや"
         }
       ]
     },
@@ -4917,6 +4972,1466 @@
       "summary": "Lawson · 198 yen(tax incl.) · Regions: Nationwide",
       "englishContext": "",
       "localSignals": []
+    },
+    {
+      "id": "lawson-629c6a7066",
+      "chain": "Lawson",
+      "name": "TEA latte and mango 1 、 ume plum 540ml 1",
+      "nameJa": "プライチキャンペーン: サントリー クラフトボス 世界のTEA チャイラテ・天然水きりっと果実 オレンジ＆マンゴーを1本買うと、サントリー 天然水うめソルティ 540mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new",
+        "seasonal"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 57,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "seasonal flavor or format",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named.; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "TEA latte and mango 1 、 ume plum 540ml 1 。~5/18",
+          "snippetJa": "サントリー クラフトボス 世界のTEA チャイラテ・天然水きりっと果実 オレンジ＆マンゴーを1本買うと、サントリー 天然水うめソルティ 540mlが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-c33e517768",
+      "chain": "7-Eleven",
+      "name": "50g 1 、 30g 1",
+      "nameJa": "プライチキャンペーン: きき湯 ファインヒート リセットナイト 50gを1個買うと、きき湯 マグネシウム炭酸湯 30gが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-14"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "50g 1 、 30g 1 。~5/14",
+          "snippetJa": "きき湯 ファインヒート リセットナイト 50gを1個買うと、きき湯 マグネシウム炭酸湯 30gが1個無料。～5/14。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-42769bbf3e",
+      "chain": "7-Eleven",
+      "name": "660ml 1 、 1",
+      "nameJa": "プライチキャンペーン: アサヒ 十六茶 660mlを1本買うと、同商品が1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "660ml 1 、 1 。~5/18",
+          "snippetJa": "アサヒ 十六茶 660mlを1本買うと、同商品が1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-860c326831",
+      "chain": "7-Eleven",
+      "name": "Α i 2 α 1 、 α i 100mL 1",
+      "nameJa": "プライチキャンペーン: キューピーコーワα・i・ゴールドドリンク2・αチャージを1個買うと、キューピーコーワα・i ドリンク 100mLいずれかが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Α i 2 α 1 、 α i 100mL 1 。~5/13",
+          "snippetJa": "キューピーコーワα・i・ゴールドドリンク2・αチャージを1個買うと、キューピーコーワα・i ドリンク 100mLいずれかが1本無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-e4f15cbd97",
+      "chain": "7-Eleven",
+      "name": "Café latte 500ml 1 、 1",
+      "nameJa": "プライチキャンペーン: ジョージア ブラック・カフェラテ 500mlを1本買うと、同商品が1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named.; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Café latte 500ml 1 、 1 。~5/18",
+          "snippetJa": "ジョージア ブラック・カフェラテ 500mlを1本買うと、同商品が1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-f18eb6babd",
+      "chain": "7-Eleven",
+      "name": "Vanilla 1 、 BIG 1",
+      "nameJa": "プライチキャンペーン: ロッテ 爽 バニラを1個買うと、ロッテ BIGスイカバー・雪見だいふくいずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Vanilla 1 、 BIG 1 。~5/13",
+          "snippetJa": "ロッテ 爽 バニラを1個買うと、ロッテ BIGスイカバー・雪見だいふくいずれかが1個無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-ee843d4f1c",
+      "chain": "7-Eleven",
+      "name": "Soy sauce 3 1 、 soy sauce 1",
+      "nameJa": "プライチキャンペーン: 日清ラ王 醤油 袋麺3食を1個買うと、日清ラ王 醤油 袋麺が1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Soy sauce 3 1 、 soy sauce 1 。~5/13",
+          "snippetJa": "日清ラ王 醤油 袋麺3食を1個買うと、日清ラ王 醤油 袋麺が1個無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-ef74f04df4",
+      "chain": "7-Eleven",
+      "name": "Milk milk 450ml 1 、 200ml 1",
+      "nameJa": "プライチキャンペーン: 明治 おいしいミルクコーヒー・ミルク紅茶 450mlを1本買うと、同200mlいずれかが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Milk milk 450ml 1 、 200ml 1 。~5/13",
+          "snippetJa": "明治 おいしいミルクコーヒー・ミルク紅茶 450mlを1本買うと、同200mlいずれかが1本無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-de2f2b6c57",
+      "chain": "7-Eleven",
+      "name": "Chocolate 1 、 1",
+      "nameJa": "プライチキャンペーン: 明治 アーモンド・マカダミア チョコレートを1個買うと、明治 ガルボ各種いずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Chocolate 1 、 1 。~5/13",
+          "snippetJa": "明治 アーモンド・マカダミア チョコレートを1個買うと、明治 ガルボ各種いずれかが1個無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "7-eleven-d0e452b48d",
+      "chain": "7-Eleven",
+      "name": "1 、 200 1",
+      "nameJa": "プライチキャンペーン: 森永 ビヒダス プレーンヨーグルト加糖・ざく盛りフルーツを1個買うと、ビヒダス・ラクトフェリン200・リプトン レモンティーいずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-13"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "7-Eleven · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "1 、 200 1 。~5/13",
+          "snippetJa": "森永 ビヒダス プレーンヨーグルト加糖・ざく盛りフルーツを1個買うと、ビヒダス・ラクトフェリン200・リプトン レモンティーいずれかが1個無料。～5/13。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-3edb029ba8",
+      "chain": "FamilyMart",
+      "name": "The 500ml 1 、 1",
+      "nameJa": "プライチキャンペーン: キリン 小岩井 Theカフェオレ 500mlを1本買うと、同商品が1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named.; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "The 500ml 1 、 1 。~5/18",
+          "snippetJa": "キリン 小岩井 Theカフェオレ 500mlを1本買うと、同商品が1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-c79e7a9d5c",
+      "chain": "FamilyMart",
+      "name": "DELI 1 、 DELI 1",
+      "nameJa": "プライチキャンペーン: クノール スープDELI クリーミーカルボナーラを1個買うと、クノール スープDELI各種いずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "DELI 1 、 DELI 1 。~5/18",
+          "snippetJa": "クノール スープDELI クリーミーカルボナーラを1個買うと、クノール スープDELI各種いずれかが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-cc687f83b2",
+      "chain": "FamilyMart",
+      "name": "Ume plum 540ml 1 、 600ml 1",
+      "nameJa": "プライチキャンペーン: サントリー天然水 うめソルティ 540mlを1本買うと、サントリー グリーンダカラ 600mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Ume plum 540ml 1 、 600ml 1 。~5/18",
+          "snippetJa": "サントリー天然水 うめソルティ 540mlを1本買うと、サントリー グリーンダカラ 600mlが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-959bc2e13d",
+      "chain": "FamilyMart",
+      "name": "Chocolate 1 、 chocolate 1",
+      "nameJa": "プライチキャンペーン: 不二家 カントリーマアム チビまみれ ザ・ワールド スイス編・チョコまみれを1個買うと、カントリーマアムチョコまみれが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Chocolate 1 、 chocolate 1 。~5/18",
+          "snippetJa": "不二家 カントリーマアム チビまみれ ザ・ワールド スイス編・チョコまみれを1個買うと、カントリーマアムチョコまみれが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-ba8c12169f",
+      "chain": "FamilyMart",
+      "name": "670ml 1 、 1",
+      "nameJa": "プライチキャンペーン: 伊藤園 健康ミネラルむぎ茶 670mlを1本買うと、同商品が1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "670ml 1 、 1 。~5/18",
+          "snippetJa": "伊藤園 健康ミネラルむぎ茶 670mlを1本買うと、同商品が1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-deb63ce618",
+      "chain": "FamilyMart",
+      "name": "1 、 36g 1",
+      "nameJa": "プライチキャンペーン: 日清 完全メシ カレーメシ各種・汁なしカップヌードルを1個買うと、日清 カップヌードル ミニ 36gが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "1 、 36g 1 。~5/18",
+          "snippetJa": "日清 完全メシ カレーメシ各種・汁なしカップヌードルを1個買うと、日清 カップヌードル ミニ 36gが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-de5c7fe080",
+      "chain": "FamilyMart",
+      "name": "Pickled ginger Special 180g 1 、 pickled ginger 0 180g 1",
+      "nameJa": "プライチキャンペーン: 明治 ブルガリアヨーグルト果実Special各種 180gを1個買うと、明治 ブルガリアヨーグルト脂肪0ジューシー果実各種 180gが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Pickled ginger Special 180g 1 、 pickled ginger 0 180g 1 。~5/18",
+          "snippetJa": "明治 ブルガリアヨーグルト果実Special各種 180gを1個買うと、明治 ブルガリアヨーグルト脂肪0ジューシー果実各種 180gが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "familymart-f09735bece",
+      "chain": "FamilyMart",
+      "name": "Tanuki toppings 1 、 1",
+      "nameJa": "プライチキャンペーン: 東洋水産 赤いきつね・緑のたぬき各種を1個買うと、東洋水産 ワンタン各種いずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "FamilyMart · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Tanuki toppings 1 、 1 。~5/18",
+          "snippetJa": "東洋水産 赤いきつね・緑のたぬき各種を1個買うと、東洋水産 ワンタン各種いずれかが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "lawson-dcc96be6f7",
+      "chain": "Lawson",
+      "name": "30g 1 、 30g 1",
+      "nameJa": "プライチキャンペーン: かむかむ シャインマスカット 30gを1個買うと、かむかむ レモン 30gが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "30g 1 、 30g 1 。~5/18",
+          "snippetJa": "かむかむ シャインマスカット 30gを1個買うと、かむかむ レモン 30gが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "lawson-2b247d6294",
+      "chain": "Lawson",
+      "name": "C1000 1 、C1000 140ml 1",
+      "nameJa": "プライチキャンペーン: ハウスウェルネスフーズ C1000 ビタミンレモン各種を1本買うと、C1000 ビタミングリーンアップル 140mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "C1000 1 、C1000 140ml 1 。~5/18",
+          "snippetJa": "ハウスウェルネスフーズ C1000 ビタミンレモン各種を1本買うと、C1000 ビタミングリーンアップル 140mlが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "lawson-168e07bb2f",
+      "chain": "Lawson",
+      "name": "10 1 、 1",
+      "nameJa": "プライチキャンペーン: 森永アロエヨーグルト・ビヒダスヨーグルト ざく盛り10種フルーツを1個買うと、森永アロエヨーグルト味フローズンカップが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "10 1 、 1 。~5/18",
+          "snippetJa": "森永アロエヨーグルト・ビヒダスヨーグルト ざく盛り10種フルーツを1個買うと、森永アロエヨーグルト味フローズンカップが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "lawson-dded56d7ad",
+      "chain": "Lawson",
+      "name": "Milk Fe 1 1 、 SP 1",
+      "nameJa": "プライチキャンペーン: 雪印メグミルク プルーンFe 1日分の鉄分 のむヨーグルトを1本買うと、恵 ガセリ菌SP株ヨーグルト各種いずれかが1個無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "Milk Fe 1 1 、 SP 1 。~5/18",
+          "snippetJa": "雪印メグミルク プルーンFe 1日分の鉄分 のむヨーグルトを1本買うと、恵 ガセリ菌SP株ヨーグルト各種いずれかが1個無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "lawson-store-100-a8ed4c08be",
+      "chain": "Lawson Store 100",
+      "name": "620ml 1 、 660ml 1",
+      "nameJa": "プライチキャンペーン: アサヒ飲料 颯 620mlを1本買うと、アサヒ飲料 十六茶 660mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-12"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Lawson Store 100 · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "620ml 1 、 660ml 1 。~5/12",
+          "snippetJa": "アサヒ飲料 颯 620mlを1本買うと、アサヒ飲料 十六茶 660mlが1本無料。～5/12。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "ministop-0a4ae8b5a1",
+      "chain": "Ministop",
+      "name": "660ml 1 、 1",
+      "nameJa": "プライチキャンペーン: アサヒ飲料 十六茶 660mlを1本買うと、同商品が1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Ministop · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "660ml 1 、 1 。~5/18",
+          "snippetJa": "アサヒ飲料 十六茶 660mlを1本買うと、同商品が1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "ministop-1eda39a732",
+      "chain": "Ministop",
+      "name": "And 590ml 1 、 WATER 1000 1",
+      "nameJa": "プライチキャンペーン: サントリー 天然水きりっとヨグ 朝摘みレモン＆ヨーグルト 590mlを1本買うと、サントリー ロコモアWATER・セサミン1000いずれかが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Ministop · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "And 590ml 1 、 WATER 1000 1 。~5/18",
+          "snippetJa": "サントリー 天然水きりっとヨグ 朝摘みレモン＆ヨーグルト 590mlを1本買うと、サントリー ロコモアWATER・セサミン1000いずれかが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "ministop-f657a32180",
+      "chain": "Ministop",
+      "name": "650ml 1 、 ~ rich 1",
+      "nameJa": "プライチキャンペーン: 伊藤園 黒豆茶 650mlを1本買うと、伊藤園 お～いお茶 緑茶・濃い茶いずれかが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Ministop · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "650ml 1 、 ~ rich 1 。~5/18",
+          "snippetJa": "伊藤園 黒豆茶 650mlを1本買うと、伊藤園 お～いお茶 緑茶・濃い茶いずれかが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
+    },
+    {
+      "id": "poplar-04b5b0f1c2",
+      "chain": "Poplar",
+      "name": "600ml 1 、 rich 650ml 1",
+      "nameJa": "プライチキャンペーン: コカ・コーラ やかんの濃麦茶 600mlを1本買うと、コカ・コーラ 綾鷹 濃い緑茶 650mlが1本無料",
+      "category": "Deal",
+      "categoryJa": "キャンペーン",
+      "priceText": "",
+      "priceTextJa": "",
+      "releaseDate": null,
+      "regions": [],
+      "regionsJa": [],
+      "sourceUrls": [
+        "https://setusoku.com/sale/142006/"
+      ],
+      "sourceTiers": [
+        "local_media",
+        "deal"
+      ],
+      "imageUrl": "",
+      "tags": [
+        "bogo",
+        "deal",
+        "new"
+      ],
+      "timeGate": {
+        "type": "deal",
+        "label": "Deal through 2026-05-18"
+      },
+      "score": 49,
+      "scoreReasons": [
+        "Setusoku campaign listing",
+        "matched buy-one-get-one/free-item campaign source",
+        "deal/campaign item",
+        "mentioned by Japanese local/context source"
+      ],
+      "summary": "Poplar · Deal",
+      "englishContext": "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad; matched a buy-one-get-one/free-item campaign source; deal/campaign item, not an official new-product SKU; Milliliters on pack shots reflect Japanese retail labeling.",
+      "localSignals": [
+        {
+          "sourceId": "setusoku_bogo",
+          "sourceName": "Setusoku BOGO campaign roundup",
+          "tier": "local_media",
+          "language": "ja",
+          "url": "https://setusoku.com/sale/142006/",
+          "matchedText": "BOGO campaign",
+          "matchedTextJa": "プライチキャンペーン",
+          "snippet": "600ml 1 、 rich 650ml 1 。~5/18",
+          "snippetJa": "コカ・コーラ やかんの濃麦茶 600mlを1本買うと、コカ・コーラ 綾鷹 濃い緑茶 650mlが1本無料。～5/18。",
+          "dealTag": "bogo",
+          "dealLabel": "buy-one-get-one/free-item offer"
+        }
+      ]
     }
   ],
   "warnings": [

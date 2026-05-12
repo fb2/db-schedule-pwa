@@ -1069,11 +1069,39 @@ def visible_text(parser: SourceParser) -> str:
     return clean_text(" ".join(piece for piece in pieces if piece))
 
 
+def setusoku_offer_window(text: str, today: dt.date) -> tuple[str | None, str | None]:
+    explicit = re.search(r"(\d{1,2}/\d{1,2})\s*[～〜~-]\s*(\d{1,2}/\d{1,2})", text)
+    if explicit:
+        start_month, start_day = (int(part) for part in explicit.group(1).split("/"))
+        end_month, end_day = (int(part) for part in explicit.group(2).split("/"))
+        try:
+            return (
+                dt.date(today.year, start_month, start_day).isoformat(),
+                dt.date(today.year, end_month, end_day).isoformat(),
+            )
+        except ValueError:
+            return None, None
+
+    end_only = re.search(r"[～〜~-]\s*(\d{1,2})/(\d{1,2})", text)
+    if end_only:
+        try:
+            return None, dt.date(today.year, int(end_only.group(1)), int(end_only.group(2))).isoformat()
+        except ValueError:
+            return None, None
+    return None, None
+
+
+def setusoku_offer_name(offer: str) -> str:
+    text = clean_text(offer.lstrip("・-● "))
+    text = re.sub(r"。?\s*(?:\d{1,2}/\d{1,2}\s*)?[～〜~-]\s*\d{1,2}/\d{1,2}。?$", "", text).strip()
+    return f"プライチキャンペーン: {text}"
+
+
 def parse_setusoku_bogo_context(
-    events: list[dict[str, str]], source: dict[str, Any]
-) -> tuple[list[dict[str, Any]], list[str]]:
+    events: list[dict[str, str]], source: dict[str, Any], today: dt.date
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[str]]:
     """Extract only the chain-scoped BOGO offer bullets from Setusoku's broad sale page."""
-    offers_by_chain: dict[str, list[str]] = {}
+    offers_by_chain: dict[str, list[dict[str, Any]]] = {}
     current_chain = ""
     for event in events:
         text = clean_text(event.get("text", "")).strip("：:；;")
@@ -1087,14 +1115,29 @@ def parse_setusoku_bogo_context(
             continue
         if "買うと" not in text or "無料" not in text:
             continue
+        if event.get("type") != "text" or not text.startswith("・"):
+            continue
         offer = clean_text(text.lstrip("・-● "))
         if len(offer) < 8:
             continue
-        offers_by_chain.setdefault(current_chain, []).append(offer)
+        start_date, end_date = setusoku_offer_window(offer, today)
+        offers_by_chain.setdefault(current_chain, []).append(
+            {
+                "chain": current_chain,
+                "text": offer,
+                "nameJa": setusoku_offer_name(offer),
+                "releaseDate": start_date,
+                "endDate": end_date,
+                "source": source,
+            }
+        )
 
     context_entries: list[dict[str, Any]] = []
+    offer_entries: list[dict[str, Any]] = []
     for chain, offers in offers_by_chain.items():
         aliases = " ".join(CHAIN_NAMES.get(chain, [chain]))
+        offer_texts = [offer["text"] for offer in offers]
+        offer_entries.extend(offers)
         context_entries.append(
             {
                 "id": source["id"],
@@ -1105,14 +1148,14 @@ def parse_setusoku_bogo_context(
                 "chain": chain,
                 "dealTag": "bogo",
                 "dealLabel": "buy-one-get-one/free-item offer",
-                "text": clean_text(f"{chain} {aliases} " + " ".join(offers)),
+                "text": clean_text(f"{chain} {aliases} " + " ".join(offer_texts)),
             }
         )
 
     warnings = []
     if not context_entries:
         warnings.append("Setusoku BOGO source fetched but no chain-scoped offer bullets matched.")
-    return context_entries, warnings
+    return context_entries, offer_entries, warnings
 
 
 def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> None:
@@ -1136,9 +1179,14 @@ def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> No
         if signal.get("dealTag"):
             tags.add(signal["dealTag"])
 
-    context_bits = [english for keyword, english in keyword_contexts.items() if keyword in text]
+    context_bits = []
+    if product.get("englishContext"):
+        context_bits.append(product["englishContext"])
+    context_bits.extend(english for keyword, english in keyword_contexts.items() if keyword in text)
     if any(signal.get("dealTag") == "bogo" for signal in product.get("localSignals", [])):
         context_bits.append("matched a buy-one-get-one/free-item campaign source")
+    if "deal" in tags and "bogo" in tags:
+        context_bits.append("deal/campaign item, not an official new-product SKU")
     if JP_CHAR_RE.search(product["name"]):
         context_bits.append(
             "English names use a glossary; verify wording on the Japanese official source link."
@@ -1183,9 +1231,66 @@ def add_local_signals(products: list[dict[str, Any]], context_sources: list[dict
                 signal["dealLabel"] = source.get("dealLabel", "")
 
 
+def official_product_matches_offer(product: dict[str, Any], offer: dict[str, Any]) -> bool:
+    if product["chain"] != offer["chain"]:
+        return False
+    product_name = product["nameJa"]
+    candidates = [product_name]
+    if len(product_name) > 8:
+        candidates.extend(re.split(r"[ 　（）()【】]", product_name)[:2])
+    candidates = [candidate for candidate in candidates if len(candidate) >= 4]
+    return any(candidate in offer["text"] for candidate in candidates)
+
+
+def deal_product_from_setusoku_offer(offer: dict[str, Any]) -> dict[str, Any]:
+    source = offer["source"]
+    product = new_product(offer["chain"], offer["nameJa"], source, source["url"])
+    product["category"] = "Deal"
+    product["categoryJa"] = "キャンペーン"
+    product["releaseDate"] = offer.get("releaseDate")
+    product["sourceTiers"] = [source["tier"], "deal"]
+    product["tags"] = ["bogo", "deal", "new"]
+    product["englishContext"] = "buy-one-get-one/free-item campaign listed by Setusoku; exact SKU detail may be broad"
+    if offer.get("endDate"):
+        product["timeGate"] = {"type": "deal", "label": f"Deal through {offer['endDate']}"}
+    product["localSignals"] = [
+        {
+            "sourceId": source["id"],
+            "sourceName": english_source_name(source["name"]),
+            "tier": source["tier"],
+            "language": source.get("language", "ja"),
+            "url": source["url"],
+            "matchedText": "BOGO campaign",
+            "matchedTextJa": "プライチキャンペーン",
+            "snippet": translate_japanese_text(offer["text"], "BOGO campaign"),
+            "snippetJa": offer["text"],
+            "dealTag": "bogo",
+            "dealLabel": "buy-one-get-one/free-item offer",
+        }
+    ]
+    return product
+
+
+def create_unmatched_setusoku_deal_products(
+    products: list[dict[str, Any]], offers: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    deal_products = []
+    seen: set[tuple[str, str]] = set()
+    for offer in offers:
+        key = (offer["chain"], offer["text"])
+        if key in seen:
+            continue
+        seen.add(key)
+        if any(official_product_matches_offer(product, offer) for product in products):
+            continue
+        deal_products.append(deal_product_from_setusoku_offer(offer))
+    return deal_products
+
+
 def score_product(product: dict[str, Any], today: dt.date) -> None:
-    score = 35
-    reasons: list[str] = ["official product listing"]
+    is_deal_item = "deal" in product.get("tags", [])
+    score = 30 if is_deal_item else 35
+    reasons: list[str] = ["Setusoku campaign listing"] if is_deal_item else ["official product listing"]
     release_date = None
     if product.get("releaseDate"):
         try:
@@ -1212,6 +1317,7 @@ def score_product(product: dict[str, Any], today: dt.date) -> None:
         ("merch", 5, "character goods or merch-adjacent item"),
         ("returning", 4, "returning item"),
         ("bogo", 10, "matched buy-one-get-one/free-item campaign source"),
+        ("deal", 5, "deal/campaign item"),
     ):
         if tag in product["tags"]:
             score += points
@@ -1229,6 +1335,8 @@ def score_product(product: dict[str, Any], today: dt.date) -> None:
     product["scoreReasons"] = reasons[:6]
     if "limited" in product["tags"]:
         product["timeGate"] = {"type": "limited", "label": "Limited or short-window release"}
+    elif "deal" in product["tags"]:
+        product["timeGate"] = product.get("timeGate") or {"type": "deal", "label": "Deal/campaign item"}
     elif "regional" in product["tags"]:
         product["timeGate"] = {"type": "regional", "label": "Regional availability"}
     else:
@@ -1424,6 +1532,7 @@ def main() -> int:
     today = dt.date.today()
     products: list[dict[str, Any]] = []
     context_sources: list[dict[str, Any]] = []
+    setusoku_bogo_offers: list[dict[str, Any]] = []
     warnings: list[str] = []
     source_summaries: list[dict[str, Any]] = []
 
@@ -1468,8 +1577,9 @@ def main() -> int:
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "setusoku_bogo":
-            parsed_contexts, parser_warnings = parse_setusoku_bogo_context(parser.events, source)
+            parsed_contexts, parsed_offers, parser_warnings = parse_setusoku_bogo_context(parser.events, source, today)
             context_sources.extend(parsed_contexts)
+            setusoku_bogo_offers.extend(parsed_offers)
             warnings.extend(parser_warnings)
         else:
             context_sources.append(
@@ -1486,8 +1596,6 @@ def main() -> int:
     products = merge_products(products)
 
     enrich_lawson_from_detail_snapshots(products, manifest.get("lawsonDetailSnapshots") or [])
-    assign_product_ids(products)
-
     seven_html = ""
     family_html = ""
     for fetched in manifest["sources"]:
@@ -1500,6 +1608,8 @@ def main() -> int:
     enrich_product_thumbnails(products, seven_html, family_html)
 
     add_local_signals(products, context_sources)
+    products.extend(create_unmatched_setusoku_deal_products(products, setusoku_bogo_offers))
+    assign_product_ids(products)
     for product in products:
         tag_product(product, config.get("keywordContexts", {}))
         score_product(product, today)

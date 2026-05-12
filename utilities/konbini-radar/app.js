@@ -28,6 +28,7 @@ const STAR_COOKIE_DAYS = 365;
 const TAG_LABELS = {
   bogo: "BOGO",
   collab: "Collab",
+  deal: "Deal",
   limited: "Limited",
   merch: "Merch",
   new: "New",
