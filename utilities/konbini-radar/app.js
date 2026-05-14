@@ -11,7 +11,6 @@ const els = {
   starFilter: document.querySelector("#starFilter"),
   sortSelect: document.querySelector("#sortSelect"),
   productList: document.querySelector("#productList"),
-  sourceList: document.querySelector("#sourceList"),
   productTemplate: document.querySelector("#productTemplate"),
   tabs: [...document.querySelectorAll(".tab")],
 };
@@ -302,25 +301,11 @@ function renderProducts() {
   els.productList.append(fragment);
 }
 
-function renderSources() {
-  if (!els.sourceList) return;
-  els.sourceList.innerHTML = "";
-  for (const source of state.feed.sources) {
-    const item = document.createElement("li");
-    const label = document.createElement("span");
-    const status = document.createElement("span");
-    label.textContent = `${source.name} (${source.tier})`;
-    status.textContent = source.ok ? `OK ${source.status}` : `Check ${source.status || "unknown"}`;
-    item.append(label, status);
-    els.sourceList.append(item);
-  }
-}
-
 function renderSummary() {
   const products = state.feed.products;
   const limited = products.filter((product) => {
     const tags = product.tags || [];
-    return product.timeGate || tags.includes("limited");
+    return product.timeGate || tags.includes("limited") || tags.includes("regional");
   }).length;
   els.weekLabel.textContent = state.feed.weekLabel;
   els.generatedAt.textContent = formatDateTime(state.feed.generatedAt);
@@ -334,7 +319,6 @@ function renderSummary() {
 function render() {
   renderSummary();
   renderProducts();
-  renderSources();
 }
 
 function setupControls() {
