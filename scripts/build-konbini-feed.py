@@ -20,6 +20,7 @@ from typing import Any
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "scripts" / "konbini_sources.json"
 PRODUCT_SOURCE_PARSERS = {"seven_weekly", "familymart_weekly", "lawson_weekly", "lawson_lab_weekly"}
+MAJOR_THREE_CHAINS = ("7-Eleven", "FamilyMart", "Lawson")
 REGION_NAMES = {
     "全国",
     "北海道",
@@ -1579,11 +1580,35 @@ def collect_feed_sanity_failures(config: dict[str, Any], products: list[dict[str
     return failures
 
 
-def fail_sanity(failures: list[str]) -> int:
+def format_major_three_counts(config: dict[str, Any], products: list[dict[str, Any]]) -> str:
+    sanity = config.get("feedSanity") or {}
+    chain_minimums = sanity.get("minChainProducts") or {}
+    counts = Counter(product.get("chain") for product in products)
+    pieces = []
+    for chain in MAJOR_THREE_CHAINS:
+        threshold = int_config_value(
+            chain_minimums.get(chain, 0),
+            field_name=f"feedSanity.minChainProducts.{chain}",
+        )
+        pieces.append(f"{chain} {counts.get(chain, 0)}/{threshold}")
+    total_threshold = int_config_value(sanity.get("minTotalProducts", 0), field_name="feedSanity.minTotalProducts")
+    return f"Major-three counts/thresholds: {', '.join(pieces)}; total {len(products)}/{total_threshold}."
+
+
+def fail_sanity(failures: list[str], *, config: dict[str, Any], products: list[dict[str, Any]], published: bool = False) -> int:
     print("Konbini feed sanity check failed:", file=sys.stderr)
+    print(format_major_three_counts(config, products), file=sys.stderr)
     for failure in failures:
         print(f"- {failure}", file=sys.stderr)
+    if not published:
+        print("Public feed was not modified.", file=sys.stderr)
     return 2
+
+
+def atomic_write_text(path: pathlib.Path, text: str) -> None:
+    tmp_path = path.with_name(f".{path.name}.tmp")
+    tmp_path.write_text(text, encoding="utf-8")
+    tmp_path.replace(path)
 
 
 def main() -> int:
@@ -1591,6 +1616,14 @@ def main() -> int:
     arg_parser.add_argument("--config", default=str(CONFIG_PATH))
     arg_parser.add_argument("--date", help="Draft date folder to build from.")
     arg_parser.add_argument("--publish", action="store_true", help="Write the public utility feed.")
+    arg_parser.add_argument(
+        "--force-publish",
+        action="store_true",
+        help=(
+            "Emergency override: publish even when source/feed sanity checks fail. "
+            "Use only after manual verification; the warning and failing counts will be printed."
+        ),
+    )
     arg_parser.add_argument(
         "--allow-empty-required-source",
         action="store_true",
@@ -1683,10 +1716,7 @@ def main() -> int:
 
     products = merge_products(products)
 
-    if not (args.allow_empty_required_source or args.skip_source_sanity):
-        source_sanity_failures = collect_source_sanity_failures(source_summaries, source_by_id)
-        if source_sanity_failures:
-            return fail_sanity(source_sanity_failures)
+    source_sanity_failures = collect_source_sanity_failures(source_summaries, source_by_id)
 
     enrich_lawson_from_detail_snapshots(products, manifest.get("lawsonDetailSnapshots") or [])
     seven_html = ""
@@ -1710,10 +1740,7 @@ def main() -> int:
 
     products.sort(key=lambda item: (-item["score"], item.get("releaseDate") or "", item["chain"], item["nameJa"]))
 
-    if not args.skip_source_sanity:
-        feed_sanity_failures = collect_feed_sanity_failures(config, products)
-        if feed_sanity_failures:
-            return fail_sanity(feed_sanity_failures)
+    feed_sanity_failures = collect_feed_sanity_failures(config, products)
 
     week_label = f"Week of {today.isoformat()}"
     feed = {
@@ -1727,17 +1754,35 @@ def main() -> int:
     }
 
     draft_feed = draft_dir / "feed.draft.json"
-    draft_feed.write_text(json.dumps(feed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    feed_json = json.dumps(feed, ensure_ascii=False, indent=2) + "\n"
+    draft_feed.write_text(feed_json, encoding="utf-8")
     print(f"Wrote {draft_feed.relative_to(ROOT)} with {len(products)} products")
     if warnings:
         print("Warnings:")
         for warning in warnings:
             print(f"- {warning}")
 
+    active_sanity_failures: list[str] = []
+    if not (args.allow_empty_required_source or args.skip_source_sanity):
+        active_sanity_failures.extend(source_sanity_failures)
+    if not args.skip_source_sanity:
+        active_sanity_failures.extend(feed_sanity_failures)
+
+    publish_blockers = source_sanity_failures + feed_sanity_failures
+    if active_sanity_failures and not args.publish:
+        return fail_sanity(active_sanity_failures, config=config, products=products)
+
     if args.publish:
+        if publish_blockers and not args.force_publish:
+            return fail_sanity(publish_blockers, config=config, products=products)
+        if publish_blockers and args.force_publish:
+            print("WARNING: --force-publish used despite sanity failures.", file=sys.stderr)
+            print(format_major_three_counts(config, products), file=sys.stderr)
+            for failure in publish_blockers:
+                print(f"- {failure}", file=sys.stderr)
         public_path = ROOT / config["publicFeedPath"]
         public_path.parent.mkdir(parents=True, exist_ok=True)
-        public_path.write_text(json.dumps(feed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        atomic_write_text(public_path, feed_json)
         print(f"Published {public_path.relative_to(ROOT)}")
     return 0
 
