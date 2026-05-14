@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "fb-personal-utilities"
-  }
+  },
+  "targets": {
+    "fb-personal-utilities": {
+      "hosting": {
+        "main": [
+          "fb-personal-utilities"
+        ],
+        "konbini-radar": [
+          "fb-konbini-radar"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
