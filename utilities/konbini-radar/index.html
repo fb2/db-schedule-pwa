@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icon.svg" />
-    <link rel="stylesheet" href="./styles.css?v=13" />
+    <link rel="stylesheet" href="./styles.css?v=14" />
     <title>Konbini Radar</title>
   </head>
   <body>
@@ -36,17 +36,26 @@
             <span><strong id="sourceCount">--</strong> sources checked</span>
           </div>
         </div>
+        <aside class="mascot-card" aria-label="Konbini Kowboy mascot">
+          <div class="krow" aria-hidden="true">
+            <div class="krow-head">
+              <span class="krow-eye"></span>
+              <span class="krow-eye"></span>
+              <span class="krow-beak"></span>
+            </div>
+            <div class="krow-body">
+              <span class="krow-bag">新</span>
+            </div>
+          </div>
+          <p class="mascot-name">Konbini Kowboy</p>
+          <p class="mascot-copy">Bringing shelf intel from Japan.</p>
+        </aside>
       </header>
 
       <section class="intro-card" aria-live="polite">
-        <div class="intro-heading">
-          <div class="kowboy-accent" aria-label="Konbini Kowboy">
-            <span aria-hidden="true">新</span>
-          </div>
-          <div>
-            <p class="section-kicker">This Week</p>
-            <h2 id="introTitle">Reading the shelves...</h2>
-          </div>
+        <div>
+          <p class="section-kicker">This Week</p>
+          <h2 id="introTitle">Reading the shelves...</h2>
         </div>
         <p id="weeklyIntro">Fetching the latest generated feed.</p>
       </section>
@@ -117,6 +126,6 @@
       </article>
     </template>
 
-    <script type="module" src="./app.js?v=13"></script>
+    <script type="module" src="./app.js?v=14"></script>
   </body>
 </html>

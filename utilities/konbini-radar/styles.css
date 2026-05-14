@@ -45,6 +45,10 @@ a {
 }
 
 .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  align-items: center;
+  gap: 24px;
   padding: 32px;
   border: 1px solid var(--line);
   border-radius: 32px;
@@ -112,6 +116,151 @@ h1 {
   text-decoration: none;
 }
 
+.mascot-card {
+  justify-self: end;
+  width: 196px;
+  border: 1px solid rgba(255, 204, 77, 0.26);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 204, 77, 0.2), transparent 76px),
+    rgba(255, 255, 255, 0.06);
+  padding: 18px;
+  text-align: center;
+}
+
+.krow {
+  position: relative;
+  width: 104px;
+  height: 116px;
+  margin: 0 auto 12px;
+}
+
+.krow-head,
+.krow-body {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0b1117;
+  border: 3px solid rgba(248, 244, 232, 0.92);
+}
+
+.krow-head {
+  top: 0;
+  width: 82px;
+  height: 70px;
+  border-radius: 46px 46px 38px 38px;
+}
+
+.krow-head::before,
+.krow-head::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  width: 28px;
+  height: 28px;
+  background: #0b1117;
+  border-left: 3px solid rgba(248, 244, 232, 0.92);
+  border-top: 3px solid rgba(248, 244, 232, 0.92);
+}
+
+.krow-head::before {
+  left: 8px;
+  transform: rotate(26deg);
+}
+
+.krow-head::after {
+  right: 8px;
+  transform: rotate(64deg);
+}
+
+.krow-eye {
+  position: absolute;
+  top: 30px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.krow-eye:first-child {
+  left: 24px;
+}
+
+.krow-eye:nth-child(2) {
+  right: 24px;
+}
+
+.krow-beak {
+  position: absolute;
+  left: 50%;
+  top: 41px;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 16px solid var(--accent);
+}
+
+.krow-body {
+  bottom: 0;
+  width: 92px;
+  height: 70px;
+  border-radius: 50px 50px 32px 32px;
+}
+
+.krow-body::before,
+.krow-body::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  width: 34px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0b1117;
+  border: 3px solid rgba(248, 244, 232, 0.82);
+}
+
+.krow-body::before {
+  left: -18px;
+  transform: rotate(-18deg);
+}
+
+.krow-body::after {
+  right: -18px;
+  transform: rotate(18deg);
+}
+
+.krow-bag {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  background: var(--accent-2);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.mascot-name {
+  margin-bottom: 4px;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.mascot-copy {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
 .feed-status {
   gap: 6px;
   margin-top: 12px;
@@ -163,73 +312,6 @@ h1 {
   gap: 24px;
   margin: 20px 0;
   padding: 24px;
-}
-
-.intro-heading {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.kowboy-accent {
-  display: grid;
-  flex: 0 0 auto;
-  position: relative;
-  place-items: end center;
-  width: 58px;
-  height: 62px;
-  margin-top: -4px;
-  border: 1px solid rgba(255, 204, 77, 0.4);
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(255, 204, 77, 0.28), transparent 26px),
-    linear-gradient(180deg, rgba(255, 204, 77, 0.1), rgba(255, 122, 89, 0.08)),
-    rgba(255, 255, 255, 0.07);
-  color: var(--accent);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.kowboy-accent::before,
-.kowboy-accent::after {
-  position: absolute;
-  content: "";
-}
-
-.kowboy-accent::before {
-  top: 11px;
-  left: 13px;
-  width: 32px;
-  height: 14px;
-  border-radius: 12px 12px 5px 5px;
-  background: var(--accent);
-  box-shadow:
-    -7px 12px 0 -5px var(--accent),
-    7px 12px 0 -5px var(--accent),
-    0 11px 0 -4px var(--accent);
-}
-
-.kowboy-accent::after {
-  right: 15px;
-  bottom: 11px;
-  width: 14px;
-  height: 8px;
-  border-radius: 0 0 10px 10px;
-  background: var(--accent-2);
-  transform: rotate(-10deg);
-}
-
-.kowboy-accent span {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  margin-bottom: 8px;
-  border-radius: 50%;
-  background: #f8f4e8;
-  color: #101820;
-  font-size: 0.88rem;
-  font-weight: 900;
-  line-height: 1;
 }
 
 .intro-card h2 {
@@ -428,6 +510,15 @@ summary {
   .intro-card {
     border-radius: 22px;
     padding: 20px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .mascot-card {
+    justify-self: start;
+    width: 100%;
   }
 
   .intro-card,
