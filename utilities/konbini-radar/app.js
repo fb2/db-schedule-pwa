@@ -124,6 +124,39 @@ function setStarButtonState(button, product, starred) {
   button.title = starred ? "Remove star" : "Star this item";
 }
 
+function emptyProductsMessage() {
+  const empty = document.createElement("p");
+  empty.className = "empty";
+  empty.textContent = "No products match these filters.";
+  return empty;
+}
+
+function showEmptyProductsMessageIfNeeded() {
+  if (!els.productList || els.productList.querySelector(".product-card, .empty")) return;
+  els.productList.append(emptyProductsMessage());
+}
+
+function updateRenderedStarState(card, button, product, starred) {
+  card.classList.toggle("is-starred", starred);
+  setStarButtonState(button, product, starred);
+}
+
+function toggleProductStar(product, card, button) {
+  const starred = !state.starred.has(product.id);
+  if (starred) {
+    state.starred.add(product.id);
+  } else {
+    state.starred.delete(product.id);
+  }
+  saveStarredIds();
+  updateRenderedStarState(card, button, product, starred);
+
+  if (!starred && els.starFilter?.value === "starred") {
+    card.remove();
+    showEmptyProductsMessageIfNeeded();
+  }
+}
+
 /** Cached SW can serve an older index without .product-thumb; repair so image append never targets null. */
 function ensureProductThumbHost(card) {
   let thumbHost = card.querySelector(".product-thumb");
@@ -223,15 +256,7 @@ function renderProduct(product) {
   const starButton = card.querySelector(".star-button");
   if (starButton) {
     setStarButtonState(starButton, product, isStarred);
-    starButton.addEventListener("click", () => {
-      if (state.starred.has(product.id)) {
-        state.starred.delete(product.id);
-      } else {
-        state.starred.add(product.id);
-      }
-      saveStarredIds();
-      renderProducts();
-    });
+    starButton.addEventListener("click", () => toggleProductStar(product, card, starButton));
   }
   card.querySelector("h2").textContent = product.name || product.nameJa;
   card.querySelector(".summary").textContent = [
@@ -289,10 +314,7 @@ function renderProducts() {
   const products = filteredProducts();
   els.productList.innerHTML = "";
   if (!products.length) {
-    const empty = document.createElement("p");
-    empty.className = "empty";
-    empty.textContent = "No products match these filters.";
-    els.productList.append(empty);
+    els.productList.append(emptyProductsMessage());
     return;
   }
 
