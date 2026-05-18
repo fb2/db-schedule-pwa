@@ -170,6 +170,8 @@ PRIORITY_JP_PHRASES = [
     ("鶏ごぼう味めしおむすび 青森県産ごぼう使用", "chicken burdock seasoned rice ball (Aomori burdock)"),
     ("手巻おにぎり ピリ辛高菜", "hand-wrapped rice ball, spicy takana greens"),
     ("漬物おむすび 仙台味噌漬胡瓜", "pickle rice ball, Sendai miso pickled cucumber"),
+    ("紀州南高梅使用カリカリ梅おむすび", "crunchy ume rice ball (Kishu Nanko ume)"),
+    ("おにぎり 紀州南高梅", "rice ball, Kishu Nanko ume"),
 ]
 
 PHRASE_TRANSLATIONS = {
@@ -327,6 +329,11 @@ PHRASE_TRANSLATIONS = {
     "ピリ辛": "spicy",
     "高菜": "takana mustard greens",
     "山わさび": "mountain wasabi",
+    "紀州南高梅": "Kishu Nanko ume",
+    "南高梅": "Nanko ume",
+    "カリカリ梅": "crunchy ume",
+    "直火焼": "open-flame grilled",
+    "ソーセージ": "sausage",
     "仕立て": "style",
     "味めし": "seasoned rice",
     "抹茶": "matcha",
