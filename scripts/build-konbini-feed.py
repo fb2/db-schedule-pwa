@@ -171,6 +171,13 @@ PRIORITY_JP_PHRASES = [
     ("手巻おにぎり ピリ辛高菜", "hand-wrapped rice ball, spicy takana greens"),
     ("漬物おむすび 仙台味噌漬胡瓜", "pickle rice ball, Sendai miso pickled cucumber"),
     ("紀州南高梅使用カリカリ梅おむすび", "crunchy ume rice ball (Kishu Nanko ume)"),
+    ("五穀米おむすび", "five-grain rice ball"),
+    ("アスパラベーコンおむすび", "asparagus bacon rice ball"),
+    ("佐賀県産さがびよりおむすび 柚子ちりめん", "Saga Sagabiyori rice ball, yuzu chirimen"),
+    ("山形県産つや姫おむすび 柚子ちりめん", "Yamagata Tsuyahime rice ball, yuzu chirimen"),
+    ("新潟県産コシヒカリおむすび 柚子ちりめん", "Niigata Koshihikari rice ball, yuzu chirimen"),
+    ("旨さ相盛おむすび 卵黄と肉そぼろ", "double-topping rice ball, egg yolk and minced meat"),
+    ("香ばし炒め玉子チャーハンおむすび", "aromatic fried-egg chahan rice ball"),
     ("おにぎり 紀州南高梅", "rice ball, Kishu Nanko ume"),
 ]
 
@@ -613,7 +620,7 @@ MAX_PRODUCT_TITLE_CHARS = 60
 
 # Product names that are category-sized English tokens (misleading when JP title is specific).
 _GENERIC_TITLE_BODY_RE = re.compile(
-    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?)$",
+    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?|rice ball)$",
     re.IGNORECASE,
 )
 _GENERIC_TITLE_WITH_NUMBER_RE = re.compile(
