@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#132238">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Expenses">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Expense Helper</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css?v=1">
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <div class="brand">
+        <strong>Expenses</strong>
+        <span id="status">Sign in to load private expense buckets.</span>
+      </div>
+      <div class="auth-actions">
+        <span id="userLabel" class="user-label">Signed out</span>
+        <button id="signInBtn" type="button">Sign in</button>
+        <button id="signOutBtn" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <div id="signedInControls" class="toolbar" hidden>
+      <button id="activeViewBtn" type="button" class="secondary active">Active</button>
+      <button id="archiveViewBtn" type="button" class="secondary">Archives</button>
+      <button id="refreshBtn" type="button" class="icon-button" aria-label="Refresh buckets">↻</button>
+      <button id="newBucketBtn" type="button">New bucket</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="bucketListPanel" class="bucket-panel">
+      <div id="bucketList" class="bucket-list" aria-live="polite"></div>
+      <p id="emptyBuckets" class="empty">Sign in with an allowed Google account to manage expenses.</p>
+    </section>
+
+    <section id="bucketDetailPanel" class="detail-panel" hidden>
+      <div class="detail-head">
+        <button id="backBtn" class="secondary mobile-only" type="button">Buckets</button>
+        <div>
+          <p class="eyebrow" id="detailModeLabel">Active bucket</p>
+          <h1 id="bucketTitle">Bucket</h1>
+          <p id="bucketMeta" class="muted"></p>
+        </div>
+        <div class="detail-actions">
+          <button id="downloadZipBtn" class="secondary" type="button">Download ZIP</button>
+          <button id="archiveBucketBtn" class="secondary" type="button">Archive</button>
+        </div>
+      </div>
+
+      <form id="itemForm" class="item-form">
+        <div class="form-grid">
+          <label>
+            <span>Date</span>
+            <input id="expenseDate" type="date" required>
+          </label>
+          <label>
+            <span>Item</span>
+            <input id="expenseName" type="text" placeholder="Client dinner, taxi..." autocomplete="off" required>
+          </label>
+        </div>
+        <label>
+          <span>Participants <small>optional</small></span>
+          <input id="participants" type="text" placeholder="Names or notes" autocomplete="off">
+        </label>
+        <label class="receipt-picker">
+          <span id="receiptLabel">Attach receipt photo</span>
+          <input id="receiptInput" type="file" accept="image/*">
+        </label>
+        <div class="form-actions">
+          <button id="saveItemBtn" type="submit">Save item</button>
+          <button id="clearFormBtn" class="secondary" type="button">Clear</button>
+        </div>
+      </form>
+
+      <div id="itemList" class="item-list" aria-live="polite"></div>
+      <p id="emptyItems" class="empty">No expenses in this bucket yet.</p>
+    </section>
+  </main>
+
+  <dialog id="bucketDialog">
+    <form id="bucketForm" method="dialog" class="dialog-card">
+      <h2>New bucket</h2>
+      <label>
+        <span>Bucket name</span>
+        <input id="bucketName" type="text" placeholder="Tokyo 2026 May Trip" autocomplete="off" required>
+      </label>
+      <div class="form-actions">
+        <button type="submit">Create</button>
+        <button id="cancelBucketBtn" class="secondary" value="cancel" type="button">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    }
+  </script>
+  <script type="module" src="./app.js?v=1"></script>
+</body>
+</html>

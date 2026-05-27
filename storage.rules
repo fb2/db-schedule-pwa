@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAllowedUser() {
+      return request.auth != null
+        && request.auth.token.email in [
+          'fbalazs@gmail.com',
+          'enyalux@gmail.com'
+        ];
+    }
+
+    match /expenseReceipts/{bucketId}/{fileName} {
+      allow read, write: if isAllowedUser();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
