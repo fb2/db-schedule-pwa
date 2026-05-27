@@ -130,18 +130,19 @@ def discover_episode(page_html: str) -> dict[str, object]:
 
     if not media_matches:
         raise ValueError("Could not find a public MP3 mediaUrl in the episode page.")
-    if not playlist_matches:
-        raise ValueError("Could not find a public tracklist apiUrl in the episode page.")
 
     token = date_token(byline_date)
     chosen_media = next(((pos, url) for pos, url in media_matches if token and token in url), media_matches[-1])
     media_pos, media_url = chosen_media
 
-    later_playlists = [(pos, url) for pos, url in playlist_matches if pos > media_pos]
-    playlist_pos, playlist_url = min(
-        later_playlists or playlist_matches,
-        key=lambda item: abs(item[0] - media_pos),
-    )
+    playlist_pos = None
+    playlist_url = ""
+    if playlist_matches:
+        later_playlists = [(pos, url) for pos, url in playlist_matches if pos > media_pos]
+        playlist_pos, playlist_url = min(
+            later_playlists or playlist_matches,
+            key=lambda item: abs(item[0] - media_pos),
+        )
 
     return {
         "title": title,
@@ -149,10 +150,70 @@ def discover_episode(page_html: str) -> dict[str, object]:
         "media_url": media_url,
         "duration": nearby_float(page_html, media_pos, "duration"),
         "playlist_url": playlist_url,
-        "playlist_id": playlist_url.rstrip("/").rsplit("/", 1)[-1],
+        "playlist_id": playlist_url.rstrip("/").rsplit("/", 1)[-1] if playlist_url else "",
         "playlist_position": playlist_pos,
         "image_url": extract_meta_image(page_html),
     }
+
+
+def parse_henry_article_tracklist(page_html: str, duration_seconds: float | None) -> list[dict]:
+    text = re.sub(r"</(?:p|h[1-6])>", "\n", page_html, flags=re.I)
+    text = clean_text(text)
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+    entries: list[tuple[str, str]] = []
+    in_tracklist = False
+    for line in lines:
+        if re.fullmatch(r"Hour\s+1", line, flags=re.I):
+            in_tracklist = True
+            continue
+        if re.fullmatch(r"Hour\s+2", line, flags=re.I):
+            if entries:
+                entries.append(("[BREAK]", "Hour 2"))
+            in_tracklist = True
+            continue
+        if not in_tracklist:
+            continue
+
+        match = re.match(r"^\d{1,2}\.\s+(.+?)\s+/\s+(.+)$", line)
+        if match:
+            entries.append((match.group(1).strip(), match.group(2).strip()))
+        elif entries:
+            break
+
+    if not entries:
+        return []
+
+    interval = int((duration_seconds or 7200) / max(len(entries), 1))
+    interval = max(120, min(interval, 240))
+    tracks = []
+    for index, (track_text, album) in enumerate(entries):
+        if track_text == "[BREAK]":
+            artist = "[BREAK]"
+            title = None
+        elif " - " in track_text:
+            artist, title = track_text.split(" - ", 1)
+        elif " – " in track_text:
+            artist, title = track_text.split(" – ", 1)
+        else:
+            artist, title = "", track_text
+
+        tracks.append(
+            {
+                "offset": index * interval,
+                "time": format_timestamp(index * interval),
+                "host": "Henry Rollins",
+                "artist": clean_text(artist),
+                "title": clean_text(title),
+                "album": clean_text(album),
+                "label": "",
+                "year": "",
+                "comments": "Parsed from article text; timestamp is synthesized.",
+                "play_id": None,
+            }
+        )
+
+    return tracks
 
 
 def normalize_tracks(raw_tracks: list[dict]) -> list[dict]:
@@ -227,8 +288,9 @@ def make_show_bundle(source_url: str, episode: dict[str, object], tracks: list[d
             "host": host,
             "sourceUrl": source_url,
             "mediaUrl": episode["media_url"],
-            "playlistUrl": episode["playlist_url"],
-            "playlistId": episode["playlist_id"],
+            "playlistUrl": episode.get("playlist_url") or "",
+            "playlistId": episode.get("playlist_id") or "",
+            "playlistSource": "kcrw-api" if episode.get("playlist_url") else "article-fallback",
             "duration": episode.get("duration"),
             "imageUrl": episode.get("image_url") or "",
             "trackCount": len(bundled_tracks),
@@ -246,7 +308,7 @@ def write_tracklists(base_path: Path, tracks: list[dict], episode: dict[str, obj
     lines = [
         str(episode["title"]),
         f"Date: {episode.get('date') or 'unknown'}",
-        f"Playlist: {episode['playlist_url']}",
+        f"Playlist: {episode['playlist_url'] or 'article fallback (timestamps synthesized)'}",
         "",
     ]
     for track in tracks:
@@ -475,14 +537,19 @@ def main() -> int:
     try:
         page_html = fetch_text(args.url)
         episode = discover_episode(page_html)
-        raw_tracks = fetch_json(str(episode["playlist_url"]))
-        if not isinstance(raw_tracks, list):
-            raise ValueError("Tracklist API did not return a list.")
+        if episode.get("playlist_url"):
+            raw_tracks = fetch_json(str(episode["playlist_url"]))
+            if not isinstance(raw_tracks, list):
+                raise ValueError("Tracklist API did not return a list.")
+            tracks = normalize_tracks(raw_tracks)
+        else:
+            tracks = parse_henry_article_tracklist(page_html, float(episode["duration"]) if episode.get("duration") else None)
+            if not tracks:
+                raise ValueError("Could not find a public tracklist apiUrl or parse an article tracklist fallback.")
     except (HTTPError, URLError, TimeoutError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
 
-    tracks = normalize_tracks(raw_tracks)
     base_name = f"{episode.get('date') or 'kcrw'}-{slugify(str(episode['title']))}"
     base_path = args.output_dir / base_name
     metadata_path = base_path.with_suffix(".episode.json")
@@ -495,7 +562,7 @@ def main() -> int:
 
     print(f"Episode: {episode['title']}")
     print(f"Audio URL: {episode['media_url']}")
-    print(f"Tracklist API: {episode['playlist_url']}")
+    print(f"Tracklist API: {episode['playlist_url'] or 'not available; used article fallback'}")
     print(f"Wrote: {metadata_path}")
     print(f"Wrote: {bundle_path}")
     print(f"Wrote: {tracklist_json}")
