@@ -139,6 +139,7 @@ CATEGORY_TRANSLATIONS = {
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
+    ("しいたけスナック うま塩味", "shiitake mushroom snack, savory salt flavor"),
     ("ほろにがコーヒーゼリードリンク", "bittersweet coffee jelly drink"),
     ("クリート もちまろグミもちしゅわアソート", "Cleat Mochimaro gummy fizzy assortment"),
     ("ドルチェ とろむに巨峰味", "Dolce Toromuni Kyoho grape flavor"),
@@ -287,10 +288,14 @@ PHRASE_TRANSLATIONS = {
     "ごぼう": "burdock",
     "キャベツ": "cabbage",
     "トマト": "tomato",
+    "しいたけ": "shiitake mushroom",
+    "椎茸": "shiitake mushroom",
     "味噌": "miso",
     "醤油": "soy sauce",
     "照焼": "teriyaki",
     "照り焼き": "teriyaki",
+    "うま塩味": "savory salt flavor",
+    "うま塩": "savory salt",
     "塩": "salt",
     "塩レモン": "salt lemon",
     "梅しそ": "plum and shiso",
@@ -368,6 +373,7 @@ PHRASE_TRANSLATIONS = {
     "ラテ": "latte",
     "ミルク": "milk",
     "バニラ": "vanilla",
+    "スナック": "snack",
     "一番くじ": "Ichiban Kuji lottery",
     "ソックス": "socks",
     "ウエハース": "wafer snack",
@@ -632,7 +638,7 @@ MAX_PRODUCT_TITLE_CHARS = 60
 
 # Product names that are category-sized English tokens (misleading when JP title is specific).
 _GENERIC_TITLE_BODY_RE = re.compile(
-    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?|rice ball)$",
+    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?|rice ball|salt)$",
     re.IGNORECASE,
 )
 _GENERIC_TITLE_WITH_NUMBER_RE = re.compile(
