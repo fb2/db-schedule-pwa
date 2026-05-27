@@ -22,6 +22,10 @@ service cloud.firestore {
       }
     }
 
+    match /travelPlans/{monthId} {
+      allow read, write: if isAllowedUser();
+    }
+
     match /expenseBuckets/{bucketId} {
       allow read, write: if isAllowedUser();
 
