@@ -45,6 +45,7 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
    - Confirm short-window or regional items have `timeGate` where appropriate.
    - Confirm `intro` summarizes the week without inventing claims.
    - Confirm UI-facing fields such as `name`, `category`, `regions`, `summary`, `englishContext`, and local signal display text are English.
+   - Confirm content-quality sanity passes: no `Region regional`, repeated words/phrases, repeated sentence fragments, or blocked generic product names before commit/deploy.
 
 4. If needed, adjust parsers or source config and rebuild the draft. Prefer parser/config fixes over manual feed edits.
 
@@ -54,7 +55,7 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
    python3 scripts/build-konbini-feed.py --publish
    ```
 
-   `--publish` is fail-closed: the script builds `private/konbini-radar/YYYY-MM-DD/feed.draft.json`, runs required source and feed sanity checks, then atomically replaces `utilities/konbini-radar/feed.json` only if validation passes. If validation fails, the public feed is not modified and the error output includes the 7-Eleven, FamilyMart, Lawson, and total product counts against their thresholds.
+   `--publish` is fail-closed: the script builds `private/konbini-radar/YYYY-MM-DD/feed.draft.json`, runs required source, feed, and content-quality sanity checks, then atomically replaces `utilities/konbini-radar/feed.json` only if validation passes. If validation fails, the public feed is not modified and the error output includes the 7-Eleven, FamilyMart, Lawson, and total product counts against their thresholds plus product/source details for content-quality failures.
 
    Emergency override:
 
@@ -62,7 +63,7 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
    python3 scripts/build-konbini-feed.py --publish --force-publish
    ```
 
-   Use `--force-publish` only after manually inspecting the fetched raw HTML and draft feed. Do not use older bypass flags to publish a broken weekly feed unless paired with this explicit emergency override.
+   Use `--force-publish` only after manually inspecting the fetched raw HTML and draft feed, including any content-quality failures. Do not use older bypass flags to publish a broken weekly feed unless paired with this explicit emergency override.
 
 6. Test locally:
 

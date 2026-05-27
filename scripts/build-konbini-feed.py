@@ -554,6 +554,16 @@ def translate_category(category: str) -> str:
     return CATEGORY_TRANSLATIONS.get(category, translate_japanese_text(category, "category"))
 
 
+def translate_qualifier_text(text: str) -> str:
+    """Translate bracketed qualifiers without creating "Region regional" tails."""
+    qualifier = translate_japanese_text(text, "region").strip()
+    if not qualifier or qualifier.lower() == "region":
+        return "regional"
+    if re.search(r"\bregional(?:-only)?\b", qualifier, re.IGNORECASE):
+        return qualifier
+    return f"{qualifier} regional"
+
+
 def translate_japanese_text(text: str, fallback: str = "item") -> str:
     """Best-effort glossary translation for public English feed fields."""
     if not text:
@@ -561,7 +571,7 @@ def translate_japanese_text(text: str, fallback: str = "item") -> str:
     value = clean_text(text)
     value = unicodedata.normalize("NFKC", value)
     value = value.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
-    value = re.sub(r"【([^】]+)】", lambda match: f"{translate_japanese_text(match.group(1), 'region')} regional ", value)
+    value = re.sub(r"【([^】]+)】", lambda match: f" {translate_qualifier_text(match.group(1))} ", value)
     value = value.replace("＆", " and ").replace("&", " and ").replace("　", " ")
     value = value.replace("（", " (").replace("）", ") ")
     for japanese, english in sorted(PRIORITY_JP_PHRASES, key=lambda item: len(item[0]), reverse=True):
@@ -600,6 +610,8 @@ SANITIZE_ENGLISH_PATTERNS = [
     (re.compile(r"\bbukkake\s+(udon|soba)\b", re.I), r"broth-poured \1"),
     (re.compile(r"\bbukkake\b", re.I), "broth-poured"),
     (re.compile(r"\bpork and egg and yakisoba\b", re.I), "pork and egg & yakisoba"),
+    (re.compile(r"\bregion\s+regional\b", re.I), "regional"),
+    (re.compile(r"\bregional\s+regional\b", re.I), "regional"),
     # Half-width / broken tokenizer cases where "latte" drops out.
     (re.compile(r"\bsalt vanilla\b(?!\s+latte\b)", re.I), "salted vanilla latte"),
     (re.compile(r"\bsalted vanilla\b(?!\s+latte\b)(?=\s|$|\d)", re.I), "salted vanilla latte"),
@@ -1594,6 +1606,142 @@ def collect_feed_sanity_failures(config: dict[str, Any], products: list[dict[str
     return failures
 
 
+CONTENT_QUALITY_PRODUCT_FIELDS = ("name", "summary", "englishContext", "category")
+CONTENT_QUALITY_SOURCE_FIELDS = ("title",)
+CONTENT_QUALITY_BLOCKED_PATTERNS = [
+    ("Region regional.Region regional", re.compile(r"\bregion\s+regional\s*\.\s*region\s+regional\b", re.I)),
+    ("Region regional", re.compile(r"\bregion\s+regional\b", re.I)),
+    ("regional regional", re.compile(r"\bregional\s+regional\b", re.I)),
+]
+CONTENT_QUALITY_REPEAT_TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9'-]*", re.I)
+
+
+def content_quality_excerpt(text: str, start: int = 0, end: int = 0, max_len: int = 120) -> str:
+    value = clean_text(text)
+    if not value:
+        return ""
+    if start or end:
+        pad = 36
+        left = max(0, start - pad)
+        right = min(len(value), max(end + pad, start + max_len))
+        excerpt = value[left:right].strip()
+        if left:
+            excerpt = f"...{excerpt}"
+        if right < len(value):
+            excerpt = f"{excerpt}..."
+        return excerpt
+    if len(value) <= max_len:
+        return value
+    return f"{value[: max_len - 3].rstrip()}..."
+
+
+def format_product_content_quality_failure(
+    product: dict[str, Any], index: int, field: str, reason: str, offending: str, text: str
+) -> str:
+    product_id = product.get("id") or "(missing id)"
+    chain = product.get("chain") or "(unknown chain)"
+    return (
+        f"Content quality failure in product index {index} id={product_id} chain={chain} "
+        f"field={field}: {reason}; offending={offending!r}; text={content_quality_excerpt(text)!r}."
+    )
+
+
+def format_source_content_quality_failure(summary: dict[str, Any], field: str, reason: str, offending: str, text: str) -> str:
+    return (
+        f"Content quality failure in source id={summary.get('id')} field={field}: "
+        f"{reason}; offending={offending!r}; text={content_quality_excerpt(text)!r}."
+    )
+
+
+def collect_text_quality_issues(text: str) -> list[tuple[str, str]]:
+    value = clean_text(text)
+    if not value:
+        return []
+    issues: list[tuple[str, str]] = []
+    for label, pattern in CONTENT_QUALITY_BLOCKED_PATTERNS:
+        match = pattern.search(value)
+        if match:
+            issues.append((f"blocked phrase/pattern {label}", content_quality_excerpt(value, match.start(), match.end())))
+
+    tokens = CONTENT_QUALITY_REPEAT_TOKEN_RE.findall(value.lower())
+    for index in range(len(tokens) - 1):
+        if tokens[index] == tokens[index + 1] and len(tokens[index]) >= 3:
+            issues.append(("adjacent repeated word", " ".join(tokens[index : index + 2])))
+            break
+
+    for phrase_len in range(2, 5):
+        for index in range(0, len(tokens) - (phrase_len * 2) + 1):
+            first = tokens[index : index + phrase_len]
+            second = tokens[index + phrase_len : index + (phrase_len * 2)]
+            if first == second:
+                phrase = " ".join(first)
+                issues.append(("adjacent repeated short phrase", f"{phrase} {phrase}"))
+                return issues
+
+    sentence_fragments = [
+        " ".join(CONTENT_QUALITY_REPEAT_TOKEN_RE.findall(fragment.lower()))
+        for fragment in re.split(r"[.!?。！？]+", value)
+    ]
+    sentence_fragments = [fragment for fragment in sentence_fragments if len(fragment) >= 12 or len(fragment.split()) >= 2]
+    fragment_counts = Counter(sentence_fragments)
+    repeated_fragment = next((fragment for fragment, count in fragment_counts.items() if count >= 2), "")
+    if repeated_fragment:
+        issues.append(("repeated sentence fragment", repeated_fragment))
+
+    shingle_counts: Counter[str] = Counter()
+    for phrase_len in range(2, 5):
+        for index in range(0, len(tokens) - phrase_len + 1):
+            shingle = " ".join(tokens[index : index + phrase_len])
+            shingle_counts[shingle] += 1
+    repeated_shingle = next(
+        (
+            shingle
+            for shingle, count in shingle_counts.items()
+            if count >= 3 and re.search(r"\bregion(?:al)?\b", shingle, re.I)
+        ),
+        "",
+    )
+    if not repeated_shingle:
+        repeated_shingle = next((shingle for shingle, count in shingle_counts.items() if count >= 4), "")
+    if repeated_shingle:
+        issues.append(("suspicious repeated phrase", repeated_shingle))
+
+    return issues
+
+
+def collect_content_quality_failures(
+    products: list[dict[str, Any]], source_summaries: list[dict[str, Any]] | None = None
+) -> list[str]:
+    failures: list[str] = []
+    for index, product in enumerate(products):
+        if is_obviously_generic_product_title(product.get("name") or ""):
+            failures.append(
+                format_product_content_quality_failure(
+                    product,
+                    index,
+                    "name",
+                    "generic product name",
+                    product.get("name") or "",
+                    product.get("name") or "",
+                )
+            )
+        for field in CONTENT_QUALITY_PRODUCT_FIELDS:
+            text = product.get(field)
+            if not isinstance(text, str) or not text:
+                continue
+            for reason, offending in collect_text_quality_issues(text):
+                failures.append(format_product_content_quality_failure(product, index, field, reason, offending, text))
+
+    for summary in source_summaries or []:
+        for field in CONTENT_QUALITY_SOURCE_FIELDS:
+            text = summary.get(field)
+            if not isinstance(text, str) or not text:
+                continue
+            for reason, offending in collect_text_quality_issues(text):
+                failures.append(format_source_content_quality_failure(summary, field, reason, offending, text))
+    return failures
+
+
 def format_major_three_counts(config: dict[str, Any], products: list[dict[str, Any]]) -> str:
     sanity = config.get("feedSanity") or {}
     chain_minimums = sanity.get("minChainProducts") or {}
@@ -1634,7 +1782,7 @@ def main() -> int:
         "--force-publish",
         action="store_true",
         help=(
-            "Emergency override: publish even when source/feed sanity checks fail. "
+            "Emergency override: publish even when source/feed/content sanity checks fail. "
             "Use only after manual verification; the warning and failing counts will be printed."
         ),
     )
@@ -1755,6 +1903,7 @@ def main() -> int:
     products.sort(key=lambda item: (-item["score"], item.get("releaseDate") or "", item["chain"], item["nameJa"]))
 
     feed_sanity_failures = collect_feed_sanity_failures(config, products)
+    content_quality_failures = collect_content_quality_failures(products, source_summaries)
 
     week_label = f"Week of {today.isoformat()}"
     feed = {
@@ -1781,8 +1930,9 @@ def main() -> int:
         active_sanity_failures.extend(source_sanity_failures)
     if not args.skip_source_sanity:
         active_sanity_failures.extend(feed_sanity_failures)
+    active_sanity_failures.extend(content_quality_failures)
 
-    publish_blockers = source_sanity_failures + feed_sanity_failures
+    publish_blockers = source_sanity_failures + feed_sanity_failures + content_quality_failures
     if active_sanity_failures and not args.publish:
         return fail_sanity(active_sanity_failures, config=config, products=products)
 
