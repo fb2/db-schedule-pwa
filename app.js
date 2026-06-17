@@ -14,6 +14,7 @@ const els = {
   nextTime: document.querySelector("#nextTime"),
   countdown: document.querySelector("#countdown"),
   departureMeta: document.querySelector("#departureMeta"),
+  actualNext: document.querySelector("#actualNext"),
   routeSelect: document.querySelector("#routeSelect"),
   directionSelect: document.querySelector("#directionSelect"),
   dayOverride: document.querySelector("#dayOverride"),
@@ -117,8 +118,8 @@ function upcomingCutoff(now) {
   return cutoff;
 }
 
-function collectDepartures(direction, now) {
-  const threshold = new Date(now.getTime() + state.walkBuffer * 60000);
+function collectDepartures(direction, now, bufferMinutes = state.walkBuffer) {
+  const threshold = new Date(now.getTime() + bufferMinutes * 60000);
   const departures = [];
 
   for (let dayOffset = 0; dayOffset < 10; dayOffset += 1) {
@@ -224,6 +225,18 @@ function renderUpcoming(departures, now) {
   }
 }
 
+function renderActualNext(actualNext, catchableNext, now) {
+  if (!actualNext || !catchableNext || actualNext.date.getTime() === catchableNext.date.getTime()) {
+    els.actualNext.classList.add("hidden");
+    els.actualNext.textContent = "";
+    return;
+  }
+
+  const noteText = actualNext.note ? ` · ${actualNext.note}` : "";
+  els.actualNext.classList.remove("hidden");
+  els.actualNext.textContent = `Actual next: ${formatTime(actualNext.date)} · departs in ${formatDuration(actualNext.date - now)}${noteText}`;
+}
+
 function render() {
   const now = new Date();
   resetExpiredDayOverride(now);
@@ -231,7 +244,9 @@ function render() {
   const route = selectedRoute();
   const direction = selectedDirection();
   const departures = collectDepartures(direction, now);
+  const actualDepartures = collectDepartures(direction, now, 0);
   const next = departures[0];
+  const actualNext = actualDepartures[0];
   const autoDayType = dayTypeFor(now);
 
   els.routeTitle.textContent = direction.label;
@@ -247,6 +262,7 @@ function render() {
     els.nextTime.textContent = "--:--";
     els.countdown.textContent = "No catchable ferry found.";
     els.departureMeta.textContent = "Try another route, direction, or day type.";
+    renderActualNext(actualNext, next, now);
     renderUpcoming(departures, now);
     return;
   }
@@ -262,6 +278,7 @@ function render() {
   els.countdown.textContent = `Departs in ${formatDuration(msUntilDeparture)}`;
   els.departureMeta.textContent = `${leaveText} with ${state.walkBuffer} min walk buffer · ${relativeDay(next.date, now)}${noteText}`;
 
+  renderActualNext(actualNext, next, now);
   renderUpcoming(departures, now);
 }
 

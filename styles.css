@@ -133,6 +133,21 @@ h2 {
   font-size: 0.95rem;
 }
 
+.actual-next {
+  margin-top: 0.8rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  color: var(--text);
+  background: rgba(7, 31, 51, 0.36);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+.hidden {
+  display: none;
+}
+
 .icon-button {
   display: grid;
   width: 3.2rem;
