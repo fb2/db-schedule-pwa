@@ -8,6 +8,7 @@ alwaysApply: true
 - This repo is a static site with utility PWAs under `utilities/`; there is no Node/Vite build step.
 - DB-backed utilities (`utilities/recipe-book/`, `utilities/kcrw-tracklists/`) must be deployed to Firebase Hosting because they load Firebase config from `/__/firebase/init.json`.
 - GitHub Pages deploys from `main`, but that does not replace Firebase Hosting for DB-backed utilities. After changes to those utilities, run `npx firebase-tools deploy --only hosting`.
+- For any new private or DB-backed utility, default to the existing Firebase project and existing Google Auth allowlist unless the user explicitly asks for a different project or access model.
 - Firestore access is controlled in `firestore.rules`. Keep allowlisted emails and authorization rules there, not in front-end JS.
 - Never commit or host `private/**`, downloaded media, generated tracklists, Firebase tokens, or secret keys. `firebase.json` ignores `private/**` and `scripts/**` for hosting.
 - Each installable PWA should have its own `icon.svg`, manifest icon entry, and if useful `favicon` / `apple-touch-icon` links.
