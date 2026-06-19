@@ -3,6 +3,9 @@
     {
       "target": "main",
       "public": ".",
+      "predeploy": [
+        "python3 scripts/check_firebase_hosting_surface.py"
+      ],
       "ignore": [
         "firebase.json",
         ".firebaserc",
@@ -30,6 +33,9 @@
     {
       "target": "konbini-radar",
       "public": "utilities/konbini-radar",
+      "predeploy": [
+        "python3 scripts/check_firebase_hosting_surface.py"
+      ],
       "ignore": [
         "firebase.json",
         ".firebaserc",
