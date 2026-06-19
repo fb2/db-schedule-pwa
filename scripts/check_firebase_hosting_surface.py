@@ -25,6 +25,9 @@ REQUIRED_PATHS = {
         "manifest.webmanifest",
         "icon.svg",
     ],
+    "Utilities index": [
+        "utilities/index.html",
+    ],
     "Travel Plans": [
         "travel/index.html",
         "travel/app.js",

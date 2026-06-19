@@ -1,9 +1,9 @@
-const CACHE_NAME = "db-ferry-v6";
+const CACHE_NAME = "db-ferry-v7";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
+  "./styles.css?v=7",
+  "./app.js?v=7",
   "./schedules.js",
   "./manifest.webmanifest",
   "./icon.svg",
