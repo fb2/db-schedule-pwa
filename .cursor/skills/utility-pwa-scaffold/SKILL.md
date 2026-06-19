@@ -88,4 +88,4 @@ Only deploy Firestore rules when rules changed.
 - KCRW Tracklists: `/utilities/kcrw-tracklists/`
 - Expense Helper: `/utilities/expense-helper/`
 - Reciprocity Timer: `/utilities/reciprocity-timer/`
-- Konbini Radar: `/utilities/konbini-radar/` and `https://fb-konbini-radar.web.app/`
+- Konbini Radar: `/utilities/konbini-radar/`, `https://konbiniradar.com/`, and `https://fb-konbini-radar.web.app/`
