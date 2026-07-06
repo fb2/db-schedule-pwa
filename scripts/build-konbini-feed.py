@@ -141,6 +141,34 @@ CATEGORY_TRANSLATIONS = {
 PRIORITY_JP_PHRASES = [
     ("プライチキャンペーン: カゴメ 私のフルーツこれ1本 マルチビタミン・1日分の鉄分いずれかを1本買うと、同商品いずれかが1本無料", "BOGO campaign: Kagome Watashi no Fruit Kore Ippon multivitamin or one-day iron, buy one get one free"),
     ("プライチキャンペーン: 三ツ矢サイダー クラシック 500mlを1本買うと、三ツ矢サイダー 500mlが1本無料", "BOGO campaign: Mitsuya Cider Classic 500ml, buy one get one Mitsuya Cider 500ml free"),
+    ("【極旨！冷し麺】さっぽろ純連監修 冷し味噌まぜそば", "Sapporo Junren-supervised chilled miso maze-soba"),
+    ("さっぽろ純連監修 冷し味噌まぜそば", "Sapporo Junren-supervised chilled miso maze-soba"),
+    ("【関東の一部】武蔵野風冷しつけ汁肉うどん", "Musashino-style chilled meat udon with dipping broth"),
+    ("【東京都の一部・神奈川県の一部】香り立つ しびれとコクの麻辣湯", "aromatic numbing rich malatang"),
+    ("【東海】大盛ごはん！デミハンバーグ&から揚げ弁当", "Tokai large-rice demi hamburger steak and karaage bento"),
+    ("【関西】だし巻き玉子&焼鳥重", "Kansai dashimaki egg and yakitori rice box"),
+    ("【北陸】香り箱 天津飯", "Hokuriku Kaoribako crab-stick tenshinhan"),
+    ("暴君ハバネロメンチカツバーガー", "Bokun Habanero menchi-katsu burger"),
+    ("デミグラスソースの鉄板焼ハンバーグ弁当", "teppan-grilled hamburger steak bento with demi-glace sauce"),
+    ("やわらかジューシーなグミを味わうグミショコラグレープ", "Gummy Chocolat grape with soft juicy gummies"),
+    ("しその香りと魚介の旨み冷や汁", "chilled hiyajiru soup with shiso aroma and seafood umami"),
+    ("しらす御飯 茨城県水揚げしらす使用", "shirasu rice with Ibaraki-landed whitebait"),
+    ("会津産コシヒカリおむすび 炭火焼鳥", "Aizu Koshihikari rice ball with charcoal-grilled chicken"),
+    ("山形県産つや姫おむすび 炭火焼鳥", "Yamagata Tsuyahime rice ball with charcoal-grilled chicken"),
+    ("銀河のしずくおむすび 炭火焼鳥", "Ginga no Shizuku rice ball with charcoal-grilled chicken"),
+    ("函館麺厨房あじさい 辛塩拉麺", "Hakodate Menchubo Ajisai spicy shio ramen"),
+    ("徳島産業 レモンスライス爽やかジュレ", "Tokushima Sangyo refreshing lemon-slice jelly"),
+    ("じゃがバター明太おむすび", "potato-butter mentaiko rice ball"),
+    ("かむほど旨いたこ燻製", "chewy smoked octopus snack"),
+    ("しかるねこぷっくりシール", "Shikaru Neko puffy stickers"),
+    ("鉄鍋炒め 肉玉チャーハン", "iron-wok meat-and-egg chahan"),
+    ("オールスター海苔弁当", "all-star nori bento"),
+    ("フタバ食品 サクレスイカ", "Futaba Foods Sacre watermelon ice"),
+    ("豚しゃぶカレー 県産豚使用", "pork shabu curry with local pork"),
+    ("シャキシャキレタスサンド", "crisp lettuce sandwich"),
+    ("ミックスサンド", "mixed sandwich"),
+    ("イカフライ弁当", "squid-fry bento"),
+    ("泡ピーチゼリー", "bubbly peach jelly"),
     ("とうもろこし御飯と梅御飯の焼き鯖弁当", "grilled mackerel bento with corn rice and ume rice"),
     ("丸永製菓 フルーツ盛りだくさん白くまバー", "Marunaga fruit-loaded Shirokuma ice bar"),
     ("混ぜ飯おむすびお茶漬け風ごはん 静岡茶使用", "ochazuke-style mixed-rice onigiri with Shizuoka tea"),
@@ -648,10 +676,14 @@ def translate_category(category: str) -> str:
 
 def translate_qualifier_text(text: str) -> str:
     """Translate bracketed qualifiers without creating "Region regional" tails."""
+    if "極旨" in text or "冷し麺" in text:
+        return "premium chilled noodle"
     qualifier = translate_japanese_text(text, "region").strip()
     if not qualifier or qualifier.lower() == "region":
         return "regional"
     if re.search(r"\bregional(?:-only)?\b", qualifier, re.IGNORECASE):
+        return qualifier
+    if "監修" in text:
         return qualifier
     return f"{qualifier} regional"
 
