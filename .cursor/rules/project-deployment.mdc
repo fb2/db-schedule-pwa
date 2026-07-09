@@ -18,6 +18,7 @@ alwaysApply: true
 - For normal static changes, edit files locally, test with `python3 -m http.server 5173`, commit to git, and push `main`.
 - A push to `main` automatically triggers the GitHub Pages deployment workflow.
 - For DB-backed utilities, also deploy Firebase Hosting with `npx firebase-tools deploy --only hosting`.
+- For Konbini Radar changes, GitHub Pages is not enough: after pushing `main`, deploy Firebase Hosting with `npx firebase-tools deploy --only hosting:konbini-radar` because `https://konbiniradar.com/` is served from that target.
 - For Firestore rule changes, deploy rules with `npx firebase-tools deploy --only firestore:rules`.
 - Do not create a separate deployment branch unless the user explicitly asks to change the Pages architecture.
 - When the user asks to save completed changes, use git commit and push unless they ask otherwise.

@@ -75,7 +75,28 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
 
 7. Commit/upload only the public app/feed and script changes. Do not commit `private/`.
 
-   Do not commit, push, or deploy a weekly refresh unless `--publish` succeeds and the major-three sanity checks pass. No Firebase deploy is needed for ordinary Konbini Radar static feed/script changes.
+   Do not commit, push, or deploy a weekly refresh unless `--publish` succeeds and the major-three sanity checks pass.
+
+8. Publish the production custom domain. GitHub Pages deploys `https://fb2.github.io/db-schedule-pwa/utilities/konbini-radar/`, but `https://konbiniradar.com/` and `https://fb-konbini-radar.web.app/` are served by Firebase Hosting target `konbini-radar`.
+
+   ```sh
+   npx firebase-tools deploy --only hosting:konbini-radar
+   ```
+
+9. Verify both live Firebase surfaces serve the new feed metadata:
+
+   ```sh
+   python3 - <<'PY'
+   import json, urllib.request
+   for url in [
+       "https://fb-konbini-radar.web.app/feed.json",
+       "https://konbiniradar.com/feed.json",
+   ]:
+       with urllib.request.urlopen(url, timeout=20) as resp:
+           feed = json.load(resp)
+       print(url, resp.status, feed["weekLabel"], feed["generatedAt"], len(feed["products"]))
+   PY
+   ```
 
 ## Editorial Checklist
 
