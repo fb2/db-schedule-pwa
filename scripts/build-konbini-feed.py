@@ -68,6 +68,10 @@ LAWSON_NEW_CARD_RE = re.compile(
     r'<a\s+href="(/recommend/(?:original|new)/detail/\d+_\d+\.html)"[^>]*>([\s\S]*?)</a>',
     re.IGNORECASE,
 )
+FAMILYMART_NEW_CARD_RE = re.compile(
+    r'<a\s+href="([^"]*family\.co\.jp/goods/[^"]+\.html)"\s+class="ly-mod-infoset3-link">([\s\S]*?)</a>\s*(?:<p class="ly-mod-infoset3-notes">\s*([\s\S]*?)\s*</p>)?',
+    re.IGNORECASE,
+)
 OG_TITLE_RE = re.compile(
     r'<meta\s+property=["\']og:title["\']\s+content=["\']([^"\']+)["\']',
     re.IGNORECASE,
@@ -131,6 +135,9 @@ CATEGORY_TRANSLATIONS = {
     "飲料": "Drink",
     "日用品": "Daily goods",
     "キャラクターくじ・エンタメ雑貨など": "Character lottery and entertainment goods",
+    "お菓子": "Sweets",
+    "コーヒー・フラッペ": "Coffee and frappe",
+    "焼き菓子・和菓子": "Baked and Japanese sweets",
     "関東限定 おむすび": "Kanto-only rice ball",
     "東北限定 おむすび": "Tohoku-only rice ball",
     "中国・四国限定 おむすび": "Chugoku/Shikoku-only rice ball",
@@ -248,6 +255,24 @@ PRIORITY_JP_PHRASES = [
     ("旨さ相盛おむすび 卵黄と肉そぼろ", "double-topping rice ball, egg yolk and minced meat"),
     ("香ばし炒め玉子チャーハンおむすび", "aromatic fried-egg chahan rice ball"),
     ("おにぎり 紀州南高梅", "rice ball, Kishu Nanko ume"),
+    ("焼きスフレサンド カスタードホイップ", "baked souffle sandwich with custard whipped cream"),
+    ("ドルチェ あの夏のラムネグミ", "Dolce That Summer Ramune gummy"),
+    ("かむかむ 南国フルーツソーダ", "Kamukamu tropical fruit soda"),
+    ("スケープグレース ジントニック", "Scapegrace gin and tonic"),
+    ("スケープグレース ブラックジンソーダ", "Scapegrace black gin soda"),
+    ("ニンニクまぜそば", "garlic maze-soba"),
+    ("はぴだんぶい アロハシャツキーホルダー", "Hapidanbui aloha shirt keychain"),
+    ("はぴだんぶい エコバッグ", "Hapidanbui eco bag"),
+    ("みんなのレモネード", "Minna no Lemonade"),
+    ("キラぷるステッカーしずくちゃん", "Kirapuru sticker Shizuku-chan"),
+    ("サンリオキャラクターズカードソフトクッキー", "Sanrio Characters card soft cookie"),
+    ("ストロベリーフラッペ", "strawberry frappe"),
+    ("レモンどら焼き", "lemon dorayaki"),
+    ("井村屋 アンナミラーズアイス ダッチアップルパイ", "Imuraya Annamillers Dutch apple pie ice cream"),
+    ("井村屋 アンナミラーズアイス ブルーベリーチーズケーキ", "Imuraya Annamillers blueberry cheesecake ice cream"),
+    ("海老の寿司", "shrimp sushi"),
+    ("天タレまぶしおむすび", "tempura sauce tossed rice ball"),
+    ("直巻おむすび 広島菜", "hand-rolled omusubi with Hiroshima greens"),
 ]
 
 PHRASE_TRANSLATIONS = {
@@ -736,6 +761,7 @@ SANITIZE_ENGLISH_PATTERNS = [
     (re.compile(r"\bpork and egg and yakisoba\b", re.I), "pork and egg & yakisoba"),
     (re.compile(r"\bbread\s+bread\b", re.I), "bread"),
     (re.compile(r"\bsushi\s+sushi\b", re.I), "sushi"),
+    (re.compile(r"\bice cream\s+ice cream\b", re.I), "ice cream"),
     (re.compile(r"\brice\s+rice ball\b", re.I), "rice ball"),
     (re.compile(r"\bregion\s+regional\b", re.I), "regional"),
     (re.compile(r"\bregional\s+regional\b", re.I), "regional"),
@@ -924,6 +950,28 @@ def parse_lawson_list_date(text: str, fallback_year: int | None = None) -> str |
     return parse_japanese_date(t, fallback_year)
 
 
+def extract_familymart_new_list_rows(html: str) -> list[tuple[str, str, str, str, str]]:
+    """FamilyMart weekly cards: category, title, price, and region notes are separate nodes."""
+    rows: list[tuple[str, str, str, str, str]] = []
+    for match in FAMILYMART_NEW_CARD_RE.finditer(html or ""):
+        href, block, notes = match.group(1), match.group(2), match.group(3) or ""
+        cate_match = re.search(r'ly-mod-infoset3-cate">([^<]+)', block, flags=re.IGNORECASE)
+        ttl_match = re.search(r'ly-mod-infoset3-ttl">([^<]+)', block, flags=re.IGNORECASE)
+        txt_match = re.search(r'ly-mod-infoset3-txt">\s*([\s\S]*?)\s*</p>', block, flags=re.IGNORECASE)
+        if not ttl_match:
+            continue
+        rows.append(
+            (
+                href,
+                clean_text(unescape(cate_match.group(1))) if cate_match else "",
+                clean_text(unescape(ttl_match.group(1))),
+                clean_text(unescape(txt_match.group(1))) if txt_match else "",
+                clean_text(unescape(re.sub(r"<[^>]+>", " ", notes))),
+            )
+        )
+    return rows
+
+
 def extract_lawson_new_list_rows(html: str) -> list[tuple[str, str, str, str | None]]:
     """Lawson weekly new list: title from p.ttl, price/date from card HTML (not anchor text noise)."""
     rows: list[tuple[str, str, str, str | None]] = []
@@ -1038,10 +1086,31 @@ def parse_seven(events: list[dict[str, str]], source: dict[str, Any], today: dt.
     return products, warnings
 
 
-def parse_familymart(events: list[dict[str, str]], source: dict[str, Any], today: dt.date) -> tuple[list[dict[str, Any]], list[str]]:
+def parse_familymart(
+    html: str, events: list[dict[str, str]], source: dict[str, Any], today: dt.date
+) -> tuple[list[dict[str, Any]], list[str]]:
     products: list[dict[str, Any]] = []
     warnings: list[str] = []
     week_start = week_start_from_familymart(events, today)
+    card_rows = extract_familymart_new_list_rows(html)
+    if card_rows:
+        for href, category_ja, name, price_text_ja, notes_text in card_rows:
+            if len(name) < 2:
+                continue
+            product = new_product("FamilyMart", name, source, href)
+            if category_ja:
+                product["categoryJa"] = category_ja
+                product["category"] = translate_category(category_ja)
+            if price_text_ja:
+                product["priceTextJa"] = price_text_ja
+                product["priceText"] = translate_price(price_text_ja)
+            product["releaseDate"] = week_start
+            product["regionsJa"] = parse_regions([notes_text])
+            product["regions"] = translate_regions(product["regionsJa"])
+            products.append(product)
+        if products:
+            return products, warnings
+
     ignored_headings = {"今週のおすすめ情報", "セール商品・価格について", "商品情報"}
 
     for index, event in enumerate(events):
@@ -1971,7 +2040,8 @@ def main() -> int:
             products.extend(parsed)
             warnings.extend(parser_warnings)
         elif source["parser"] == "familymart_weekly":
-            parsed, parser_warnings = parse_familymart(parser.events, source, today)
+            familymart_html = decode_html(raw_path)
+            parsed, parser_warnings = parse_familymart(familymart_html, parser.events, source, today)
             source_summary["productCount"] = len(parsed)
             products.extend(parsed)
             warnings.extend(parser_warnings)
