@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Home with Guides (wireframe)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../wireframe.css" />
+    <link rel="stylesheet" href="./guides.css" />
+    <style>
+      .page {
+        width: 100%;
+        padding: 18px 0 36px;
+        max-width: 42rem;
+        margin: 0 auto;
+      }
+
+      .brand {
+        font-size: 1.85rem;
+      }
+
+      .section {
+        margin-top: 24px;
+      }
+
+      .story + .story {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .story img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        max-height: 200px;
+        object-fit: cover;
+        background: #ddd;
+      }
+
+      .story .title {
+        margin-top: 12px;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.22rem;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+      }
+
+      .story-head {
+        margin-top: 12px;
+      }
+
+      .story-head .title {
+        margin-top: 0;
+      }
+
+      .approved {
+        margin: 12px 0 0;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .approved strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .alt-link {
+        margin: 6px 0 0;
+        font-size: 0.8rem;
+      }
+
+      .alt-link a {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .alt-link a:hover {
+        color: var(--accent);
+      }
+
+      .guide-feature[hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="pad">
+        <div class="header-top">
+          <h1 class="brand">Penang Pulse</h1>
+          <div class="view-switch" role="group" aria-label="Feed view">
+            <button type="button" aria-pressed="true">All</button>
+            <button type="button" aria-pressed="false">Starred</button>
+          </div>
+        </div>
+        <p class="week">Week of 13 Jul</p>
+        <p class="lede">What’s on in Penang — events and new food this week.</p>
+        <p class="approved">Approved: <strong>A · Quiet Guides strip</strong></p>
+        <p class="alt-link">
+          <a href="./home-with-guides-desktop.html">Desktop layout →</a>
+          ·
+          <a href="#compare-b" id="showB">Compare B (not chosen)</a>
+        </p>
+      </header>
+
+      <!-- Approved: quiet Guides strip -->
+      <section class="guides-strip pad" id="treatmentA" aria-labelledby="guides-label">
+        <h2 class="section-label" id="guides-label">Guides</h2>
+        <ul class="guides-list">
+          <li>
+            <a href="./guide-text.html">
+              <span class="g-title">Hawker lunch near Common Ground</span>
+              <span class="g-type">Text</span>
+            </a>
+          </li>
+          <li>
+            <a href="./guide-photo.html">
+              <span class="g-title">Morning at Pulau Tikus Market</span>
+              <span class="g-type">Photos</span>
+            </a>
+          </li>
+          <li>
+            <a href="./guide-video.html">
+              <span class="g-title">Penang street food walk</span>
+              <span class="g-type">Video</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- B kept only for reference -->
+      <section class="guide-feature pad" id="treatmentB" hidden aria-labelledby="feature-label">
+        <p class="section-label feature-label" id="feature-label">Guide (option B — not chosen)</p>
+        <a href="./guide-text.html">
+          <h2 class="feature-title">Hawker lunch near Common Ground</h2>
+          <p class="feature-dek">
+            Walkable noodle picks in Pulau Tikus — Hokkien mee, curry mee, and when to arrive.
+          </p>
+          <span class="feature-link">Read guide →</span>
+        </a>
+      </section>
+
+      <section class="section" aria-labelledby="events-label">
+        <h2 class="section-label pad" id="events-label">Happening soon · Next 14 days</h2>
+
+        <article class="story">
+          <img
+            src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=900&q=80&auto=format&fit=crop"
+            alt=""
+            referrerpolicy="no-referrer"
+          />
+          <div class="pad">
+            <div class="story-head">
+              <h2 class="title">George Town Festival 2026</h2>
+              <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+            </div>
+            <p class="meta">1–9 Aug · George Town</p>
+            <p class="blurb">Arts programmes across heritage venues — theatre, music, and street performances.</p>
+            <a class="source" href="../detail.html">More detail →</a>
+          </div>
+        </article>
+
+        <article class="story">
+          <img
+            src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=900&q=80&auto=format&fit=crop"
+            alt=""
+            referrerpolicy="no-referrer"
+          />
+          <div class="pad">
+            <div class="story-head">
+              <h2 class="title">Penang Bon Odori Festival</h2>
+              <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+            </div>
+            <p class="meta">19 Jul · Esplanade</p>
+            <p class="blurb">Taiko, folk dance, and food stalls fill Padang Kota Lama for the annual gathering.</p>
+            <a class="source" href="#">Source →</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="food-label">
+        <h2 class="section-label pad" id="food-label">Food &amp; popups</h2>
+        <article class="story">
+          <img
+            src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80&auto=format&fit=crop"
+            alt=""
+            referrerpolicy="no-referrer"
+          />
+          <div class="pad">
+            <div class="story-head">
+              <h2 class="title">Church St. Boys Baker</h2>
+              <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+            </div>
+            <p class="meta">Opened recently · Lebuh Gereja</p>
+            <p class="blurb">Heritage shophouse bakery drawing queues — pastries and coffee in George Town.</p>
+            <a class="source" href="#">Source →</a>
+          </div>
+        </article>
+      </section>
+
+      <p class="footer pad">
+        Guides are editorial · Stars apply to feed items only ·
+        <a href="./index.html" style="color: var(--accent); font-weight: 600">Proposal hub</a>
+      </p>
+    </div>
+    <script>
+      document.getElementById("showB").addEventListener("click", (e) => {
+        e.preventDefault();
+        const b = document.getElementById("treatmentB");
+        b.hidden = !b.hidden;
+      });
+    </script>
+  </body>
+</html>

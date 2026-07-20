@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Desktop wireframe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./wireframe.css" />
+    <style>
+      .page {
+        width: min(1120px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 36px 0 64px;
+      }
+
+      .header-row {
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        font-size: 2.6rem;
+        line-height: 1.05;
+      }
+
+      .header-row .week {
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+      }
+
+      .header-row .lede {
+        max-width: 52ch;
+      }
+
+      .columns {
+        display: grid;
+        grid-template-columns: 1.55fr 1fr;
+        gap: 48px;
+        margin-top: 28px;
+      }
+
+      .event-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 24px;
+      }
+
+      .food-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .story img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        background: #ddd;
+      }
+
+      .story .title {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .story-head {
+        margin-top: 10px;
+      }
+
+      .upcoming {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .upcoming ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .upcoming li {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .upcoming li span:first-child {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .empty-state {
+        margin: 40px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header-row">
+        <div class="header-top">
+          <h1 class="brand">Penang Pulse</h1>
+          <div class="view-switch" data-view-switch role="group" aria-label="Feed view">
+            <button type="button" data-view="all" aria-pressed="true">All</button>
+            <button type="button" data-view="starred" aria-pressed="false">Starred</button>
+          </div>
+        </div>
+        <p class="week">Week of 13 Jul</p>
+        <p class="lede">What’s on in Penang — events and new food this week.</p>
+      </header>
+
+      <div data-empty-state class="empty-state" hidden>
+        <h2>No starred items yet</h2>
+        <p>Click ☆ on an event or food spot to save it here. Stars stay on this device.</p>
+        <p class="hint">Switch back to All to browse</p>
+      </div>
+
+      <div data-feed>
+        <div class="columns">
+          <section aria-labelledby="events-label">
+            <h2 class="section-label" id="events-label">Happening soon · Next 14 days</h2>
+            <div class="event-grid">
+              <article class="story" data-item-id="evt-gtf-2026" data-item-label="George Town Festival 2026">
+                <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">George Town Festival 2026</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="evt-gtf-2026" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">1–9 Aug · George Town</p>
+                <p class="blurb">Arts across heritage venues — theatre, music, street performances.</p>
+                <a class="source" href="./detail.html">More detail →</a>
+              </article>
+              <article class="story" data-item-id="evt-bon-odori" data-item-label="Penang Bon Odori Festival">
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">Penang Bon Odori Festival</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="evt-bon-odori" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">19 Jul · Esplanade</p>
+                <p class="blurb">Taiko, folk dance, and food stalls at Padang Kota Lama.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+              <article class="story" data-item-id="evt-hin-markets" data-item-label="Hin Weekend Markets">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">Hin Weekend Markets</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="evt-hin-markets" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">Fri–Sun · Hin Bus Depot</p>
+                <p class="blurb">Makers, collectors, and pasar stalls — free entry.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+              <article class="story" data-item-id="evt-kata" data-item-label="Kata & Co. Literary Pop-Up">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">Kata &amp; Co. Literary Pop-Up</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="evt-kata" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">24–26 Jul · Hin Gallery</p>
+                <p class="blurb">Books and readings in the gallery space over the weekend.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+            </div>
+          </section>
+
+          <section aria-labelledby="food-label">
+            <h2 class="section-label" id="food-label">Food &amp; popups</h2>
+            <div class="food-stack">
+              <article class="story" data-item-id="food-church-st" data-item-label="Church St. Boys Baker">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">Church St. Boys Baker</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="food-church-st" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">Opened recently · Lebuh Gereja</p>
+                <p class="blurb">Heritage shophouse bakery drawing queues in George Town.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+              <article class="story" data-item-id="food-cafes-july" data-item-label="New cafés roundup — July">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">New cafés roundup — July</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="food-cafes-july" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">This month · Island-wide</p>
+                <p class="blurb">Fresh openings from the monthly Penang cafe list.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+              <article class="story" data-item-id="food-rembar" data-item-label="Rembar on Beach Street">
+                <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80&auto=format&fit=crop" alt="" />
+                <div class="story-head">
+                  <h3 class="title">Rembar on Beach Street</h3>
+                  <button type="button" class="star-btn" data-star data-item-id="food-rembar" aria-pressed="false">☆</button>
+                </div>
+                <p class="meta">Modern SEA · Lebuh Pantai</p>
+                <p class="blurb">Dinner and cocktails in The Courtyard godowns.</p>
+                <a class="source" href="#">Source →</a>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <section class="upcoming" aria-labelledby="upcoming-label">
+          <h2 class="section-label" id="upcoming-label">Upcoming later</h2>
+          <ul>
+            <li><span>Berbunga: Penang Puppet Festival</span><span>12–23 Aug</span></li>
+            <li><span>Penang Bridge International Marathon</span><span>Nov</span></li>
+            <li><span>George Town Literary Festival</span><span>Nov</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <script src="./wireframe-stars.js"></script>
+  </body>
+</html>

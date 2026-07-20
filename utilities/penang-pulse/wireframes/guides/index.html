@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Guides wireframes</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #e8e8e4;
+        color: #222;
+        padding: 28px 20px 48px;
+        line-height: 1.45;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 1.35rem;
+      }
+      h2 {
+        margin: 28px 0 8px;
+        font-size: 1rem;
+      }
+      p,
+      li {
+        color: #444;
+        max-width: 62ch;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin: 16px 0 8px;
+      }
+      .links a {
+        color: #0f6e6e;
+        font-weight: 600;
+      }
+      ul {
+        padding-left: 1.2em;
+      }
+      code {
+        font-size: 0.9em;
+        background: #fff;
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+      .note {
+        margin-top: 24px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+      .choice {
+        margin: 12px 0;
+        padding: 12px 14px;
+        background: #fff;
+        border-radius: 8px;
+        max-width: 62ch;
+      }
+      .choice strong {
+        color: #222;
+      }
+      .choice.approved {
+        border-left: 3px solid #0f6e6e;
+      }
+      .choice.dim {
+        opacity: 0.72;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Penang Pulse — Editorial guides (wireframes)</h1>
+    <p>
+      Plan-only HTML review. No production <code>app.js</code> changes.
+      <strong>Home treatment A locked</strong> (quiet Guides strip).
+    </p>
+
+    <h2>UX / IA (approved)</h2>
+    <ul>
+      <li>
+        <strong>Home:</strong> Quiet “Guides” strip between header and “Happening soon” — 2–3
+        titles with type labels. On desktop, titles sit in a horizontal row across content width,
+        then the two-column feed.
+      </li>
+      <li>
+        <strong>Open:</strong> Dedicated article page (back → feed). Types: text, photo essay,
+        YouTube embed.
+      </li>
+      <li>
+        <strong>vs feed:</strong> Guides are editorial; stars stay on events / food / revisit only.
+      </li>
+      <li>
+        <strong>Later content model (not built):</strong>
+        <code>guides/*.md</code> or <code>guides.json</code> — separate from weekly
+        <code>feed.json</code>.
+      </li>
+    </ul>
+
+    <h2>Home treatment</h2>
+    <div class="choice approved">
+      <strong>A — Quiet Guides strip</strong> (approved): section label + 2–3 titles. Mobile =
+      stacked rows; desktop = horizontal row.
+    </div>
+    <div class="choice dim">
+      <strong>B — Single featured guide</strong> (not chosen): kept as a compare link on the mobile
+      home wireframe only.
+    </div>
+
+    <h2>Review links</h2>
+    <div class="links">
+      <a href="./home-with-guides-desktop.html">Desktop home (A)</a>
+      <a href="./home-with-guides.html">Mobile home (A)</a>
+      <a href="./guide-text.html">Text guide</a>
+      <a href="./guide-photo.html">Photo article</a>
+      <a href="./guide-video.html">YouTube embed</a>
+      <a href="../index.html">← Feed wireframes hub</a>
+    </div>
+
+    <p class="note">Sign off on desktop strip before any production build.</p>
+  </body>
+</html>

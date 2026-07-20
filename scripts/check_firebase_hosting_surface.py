@@ -75,6 +75,17 @@ REQUIRED_PATHS = {
         "utilities/konbini-radar/icon.svg",
         "utilities/konbini-radar/feed.json",
     ],
+    "Penang Pulse": [
+        "utilities/penang-pulse/index.html",
+        "utilities/penang-pulse/app.js",
+        "utilities/penang-pulse/styles.css",
+        "utilities/penang-pulse/sw.js",
+        "utilities/penang-pulse/manifest.webmanifest",
+        "utilities/penang-pulse/icon.svg",
+        "utilities/penang-pulse/feed.json",
+        "utilities/penang-pulse/guides/index.json",
+        "utilities/penang-pulse/guides/article.css",
+    ],
 }
 
 
@@ -115,12 +126,15 @@ def read_json(path: Path, errors: list[str]) -> dict:
 def check_hosting_config(firebase_json: dict, errors: list[str]) -> None:
     hosting = firebase_json.get("hosting")
     if not isinstance(hosting, list):
-        errors.append("firebase.json: hosting must be a list with main and konbini-radar targets")
+        errors.append(
+            "firebase.json: hosting must be a list with main, konbini-radar, and penang-pulse targets"
+        )
         return
 
     targets = {entry.get("target"): entry for entry in hosting if isinstance(entry, dict)}
     main = targets.get("main")
     konbini = targets.get("konbini-radar")
+    penang = targets.get("penang-pulse")
 
     if not main:
         errors.append("firebase.json: missing hosting target 'main'")
@@ -128,13 +142,28 @@ def check_hosting_config(firebase_json: dict, errors: list[str]) -> None:
         errors.append("firebase.json: hosting target 'main' must publish '.'")
     else:
         ignored = main.get("ignore", [])
-        if any(pattern.startswith("travel") or pattern.startswith("utilities") for pattern in ignored):
-            errors.append("firebase.json: main hosting ignore list must not exclude travel/ or utilities/")
+        blocked = {
+            "travel",
+            "travel/",
+            "travel/**",
+            "utilities",
+            "utilities/",
+            "utilities/**",
+        }
+        if any(pattern in blocked for pattern in ignored):
+            errors.append(
+                "firebase.json: main hosting ignore list must not exclude travel/ or utilities/ wholesale"
+            )
 
     if not konbini:
         errors.append("firebase.json: missing hosting target 'konbini-radar'")
     elif konbini.get("public") != "utilities/konbini-radar":
         errors.append("firebase.json: konbini-radar target must publish utilities/konbini-radar")
+
+    if not penang:
+        errors.append("firebase.json: missing hosting target 'penang-pulse'")
+    elif penang.get("public") != "utilities/penang-pulse":
+        errors.append("firebase.json: penang-pulse target must publish utilities/penang-pulse")
 
 
 def check_targets(firebaserc: dict, errors: list[str]) -> None:
@@ -147,6 +176,8 @@ def check_targets(firebaserc: dict, errors: list[str]) -> None:
         errors.append(".firebaserc: target 'main' must map to fb-personal-utilities")
     if hosting.get("konbini-radar") != ["fb-konbini-radar"]:
         errors.append(".firebaserc: target 'konbini-radar' must map to fb-konbini-radar")
+    if hosting.get("penang-pulse") != ["fb-penang-pulse"]:
+        errors.append(".firebaserc: target 'penang-pulse' must map to fb-penang-pulse")
 
 
 if __name__ == "__main__":

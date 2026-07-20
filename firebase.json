@@ -16,7 +16,9 @@
         "scripts/**",
         "**/*.private.json",
         "GITHUB_PAGES_MAINTENANCE.md",
-        "README.md"
+        "README.md",
+        "utilities/penang-pulse/guides/posts/**",
+        "**/media/orig/**"
       ],
       "headers": [
         {
@@ -45,6 +47,36 @@
         "private/**",
         "scripts/**",
         "**/*.private.json"
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(html|webmanifest|js|json|css|svg)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "penang-pulse",
+      "public": "utilities/penang-pulse",
+      "predeploy": [
+        "python3 scripts/check_firebase_hosting_surface.py"
+      ],
+      "ignore": [
+        "firebase.json",
+        ".firebaserc",
+        "firestore.rules",
+        "**/.*",
+        "**/node_modules/**",
+        "private/**",
+        "scripts/**",
+        "**/*.private.json",
+        "guides/posts/**",
+        "**/media/orig/**"
       ],
       "headers": [
         {

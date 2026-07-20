@@ -89,3 +89,4 @@ Only deploy Firestore rules when rules changed.
 - Expense Helper: `/utilities/expense-helper/`
 - Reciprocity Timer: `/utilities/reciprocity-timer/`
 - Konbini Radar: `/utilities/konbini-radar/`, `https://konbiniradar.com/`, and `https://fb-konbini-radar.web.app/`
+- Penang Pulse: `/utilities/penang-pulse/`, `https://penangpulse.com/`, and `https://fb-penang-pulse.web.app/`

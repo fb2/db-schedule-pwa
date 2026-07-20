@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Home with Guides (desktop wireframe)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../wireframe.css" />
+    <link rel="stylesheet" href="./guides.css" />
+    <style>
+      /* Force desktop presentation for review (~1200px) */
+      .page {
+        width: min(1120px, calc(100% - 48px));
+        margin: 0 auto;
+        padding: 36px 0 64px;
+      }
+
+      .header-row {
+        padding-bottom: 4px;
+      }
+
+      .brand {
+        font-size: 2.6rem;
+        line-height: 1.05;
+      }
+
+      .header-row .week {
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--text);
+      }
+
+      .header-row .lede {
+        max-width: 52ch;
+      }
+
+      .approved {
+        margin: 12px 0 0;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .approved strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .columns {
+        display: grid;
+        grid-template-columns: 1.55fr 1fr;
+        gap: 48px;
+        margin-top: 28px;
+      }
+
+      .event-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 24px;
+      }
+
+      .food-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .story img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        background: #ddd;
+      }
+
+      .story .title {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.15rem;
+        line-height: 1.2;
+      }
+
+      .story-head {
+        margin-top: 10px;
+      }
+
+      .upcoming {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+      }
+
+      .upcoming ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .upcoming li {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .upcoming li span:first-child {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* Always show horizontal strip on this desktop review page */
+      .guides-strip--row {
+        margin-top: 22px;
+        padding-top: 18px;
+        padding-bottom: 4px;
+        border-top: 1px solid var(--line);
+      }
+
+      .guides-strip--row .guides-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 32px;
+      }
+
+      .guides-strip--row .guides-list li + li {
+        border-top: 0;
+        border-left: 1px solid var(--line);
+        padding-left: 32px;
+      }
+
+      .guides-strip--row .guides-list a {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 4px 0 8px;
+      }
+
+      .guides-strip--row .g-type {
+        order: -1;
+      }
+
+      .guides-strip--row .g-title {
+        font-size: 1.18rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header-row">
+        <div class="header-top">
+          <h1 class="brand">Penang Pulse</h1>
+          <div class="view-switch" role="group" aria-label="Feed view">
+            <button type="button" aria-pressed="true">All</button>
+            <button type="button" aria-pressed="false">Starred</button>
+          </div>
+        </div>
+        <p class="week">Week of 13 Jul</p>
+        <p class="lede">What’s on in Penang — events and new food this week.</p>
+        <p class="approved">Approved home treatment: <strong>A · Quiet Guides strip</strong></p>
+      </header>
+
+      <!-- Treatment A: horizontal strip under header, full content width -->
+      <section class="guides-strip guides-strip--row is-desktop" aria-labelledby="guides-label">
+        <h2 class="section-label" id="guides-label">Guides</h2>
+        <ul class="guides-list">
+          <li>
+            <a href="./guide-text.html">
+              <span class="g-title">Hawker lunch near Common Ground</span>
+              <span class="g-type">Text</span>
+            </a>
+          </li>
+          <li>
+            <a href="./guide-photo.html">
+              <span class="g-title">Morning at Pulau Tikus Market</span>
+              <span class="g-type">Photos</span>
+            </a>
+          </li>
+          <li>
+            <a href="./guide-video.html">
+              <span class="g-title">Penang street food walk</span>
+              <span class="g-type">Video</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <div class="columns">
+        <section aria-labelledby="events-label">
+          <h2 class="section-label" id="events-label">Happening soon · Next 14 days</h2>
+          <div class="event-grid">
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">George Town Festival 2026</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">1–9 Aug · George Town</p>
+              <p class="blurb">Arts across heritage venues — theatre, music, street performances.</p>
+              <a class="source" href="../detail.html">More detail →</a>
+            </article>
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">Penang Bon Odori Festival</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">19 Jul · Esplanade</p>
+              <p class="blurb">Taiko, folk dance, and food stalls at Padang Kota Lama.</p>
+              <a class="source" href="#">Source →</a>
+            </article>
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">Hin Weekend Markets</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">Fri–Sun · Hin Bus Depot</p>
+              <p class="blurb">Makers, collectors, and pasar stalls — free entry.</p>
+              <a class="source" href="#">Source →</a>
+            </article>
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">Kata &amp; Co. Literary Pop-Up</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">24–26 Jul · Hin Gallery</p>
+              <p class="blurb">Books and readings in the gallery space over the weekend.</p>
+              <a class="source" href="#">Source →</a>
+            </article>
+          </div>
+        </section>
+
+        <section aria-labelledby="food-label">
+          <h2 class="section-label" id="food-label">Food &amp; popups</h2>
+          <div class="food-stack">
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">Church St. Boys Baker</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">Opened recently · Lebuh Gereja</p>
+              <p class="blurb">Heritage shophouse bakery drawing queues in George Town.</p>
+              <a class="source" href="#">Source →</a>
+            </article>
+            <article class="story">
+              <img
+                src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format&fit=crop"
+                alt=""
+                referrerpolicy="no-referrer"
+              />
+              <div class="story-head">
+                <h3 class="title">New cafés roundup — July</h3>
+                <button type="button" class="star-btn" aria-pressed="false" aria-label="Star">☆</button>
+              </div>
+              <p class="meta">This month · Island-wide</p>
+              <p class="blurb">Fresh openings from the monthly Penang cafe list.</p>
+              <a class="source" href="#">Source →</a>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <section class="upcoming" aria-labelledby="upcoming-label">
+        <h2 class="section-label" id="upcoming-label">Upcoming later</h2>
+        <ul>
+          <li><span>Berbunga: Penang Puppet Festival</span><span>12–23 Aug</span></li>
+          <li><span>Penang Bridge International Marathon</span><span>Nov</span></li>
+          <li><span>George Town Literary Festival</span><span>Nov</span></li>
+        </ul>
+      </section>
+
+      <p class="footer">
+        Treatment A locked ·
+        <a href="./home-with-guides.html" style="color: var(--accent); font-weight: 600">Mobile home</a>
+        ·
+        <a href="./index.html" style="color: var(--accent); font-weight: 600">Proposal hub</a>
+      </p>
+    </div>
+  </body>
+</html>

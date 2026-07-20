@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang street food walk — Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../wireframe.css" />
+    <link rel="stylesheet" href="./guides.css" />
+  </head>
+  <body>
+    <div class="guide-topbar">
+      <a class="back" href="./home-with-guides.html">← Home</a>
+      <a class="brand-mini" href="./home-with-guides.html">Penang Pulse</a>
+    </div>
+
+    <article class="guide-article">
+      <p class="guide-kicker">Guide · Video</p>
+      <h1>Penang street food walk</h1>
+      <p class="guide-dek">
+        A short orientation video for first weeks in town — embed sits under the dek, then a few
+        notes for what to look for.
+      </p>
+      <p class="guide-meta">YouTube embed · placeholder public video</p>
+
+      <div class="video-frame">
+        <!-- Public Penang street-food video (Mark Wiens — 5 must-eat foods in Penang) -->
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/iVsn8X5K7pw"
+          title="Penang street food — YouTube embed placeholder"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+        ></iframe>
+      </div>
+
+      <div class="guide-body">
+        <p>
+          Use embeds for orientation pieces you do not want to rewrite as text — neighbourhood
+          walks, stall tours, or a trusted creator’s overview. Keep the page short: dek, player,
+          then 2–4 practical bullets.
+        </p>
+
+        <h2>What to notice</h2>
+        <ul>
+          <li>Queue length often beats reviews — watch how locals order and sit.</li>
+          <li>Morning stalls and evening night markets are different menus; same street can flip.</li>
+          <li>Cash is still common at older hawker stalls; have small notes ready.</li>
+        </ul>
+
+        <p class="tip">
+          Production note: store <code>youtubeId</code> in guide metadata; render
+          <code>youtube-nocookie.com/embed/…</code>. If embed fails offline, show a labeled mock
+          box + open-on-YouTube link.
+        </p>
+      </div>
+    </article>
+  </body>
+</html>

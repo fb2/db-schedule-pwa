@@ -1,0 +1,109 @@
+{
+  "draftRoot": "private/penang-pulse",
+  "publicFeed": "utilities/penang-pulse/feed.json",
+  "userAgent": "Mozilla/5.0 (compatible; PenangPulse/0.2; +https://fb2.github.io/db-schedule-pwa/utilities/penang-pulse/) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "feedSanity": {
+    "minTotalItems": 3,
+    "minEvents": 1,
+    "minFood": 0
+  },
+  "sources": [
+    {
+      "id": "penangtoday_events",
+      "name": "PenangToday Events",
+      "tier": "A",
+      "kind": "event",
+      "parser": "rss_items",
+      "url": "https://penangtoday.my/topic/events/feed/"
+    },
+    {
+      "id": "penangtoday_food",
+      "name": "PenangToday Food",
+      "tier": "A",
+      "kind": "food",
+      "parser": "rss_items",
+      "url": "https://penangtoday.my/topic/food/feed/"
+    },
+    {
+      "id": "hin_bus_depot",
+      "name": "Hin Bus Depot",
+      "tier": "A",
+      "kind": "event",
+      "parser": "hin_events_html",
+      "url": "https://hinbusdepot.com/events"
+    },
+    {
+      "id": "smartlocal_cafes",
+      "name": "The Smart Local Penang Cafes",
+      "tier": "A",
+      "kind": "food",
+      "parser": "smartlocal_cafes_html",
+      "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/"
+    },
+    {
+      "id": "georgetown_festival",
+      "name": "George Town Festival",
+      "tier": "A",
+      "kind": "event",
+      "parser": "gtf_html",
+      "url": "https://georgetownfestival.com/",
+      "optional": true
+    },
+    {
+      "id": "smartdory",
+      "name": "SmartDory",
+      "tier": "B",
+      "kind": "revisit",
+      "parser": "wordpress_home_html",
+      "url": "https://smartdory.com/",
+      "optional": true
+    },
+    {
+      "id": "china_press_penang",
+      "name": "China Press Penang 吃喝玩乐",
+      "tier": "A",
+      "kind": "revisit",
+      "parser": "chinapress_category_html",
+      "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
+      "optional": true,
+      "notes": "Review/lifestyle food pieces → revisit; openings mapped to food in parser."
+    },
+    {
+      "id": "mypenang_events",
+      "name": "myPenang Events",
+      "tier": "A",
+      "kind": "event",
+      "parser": "mypenang_events_html",
+      "url": "https://mypenang.gov.my/events/all-events/?lg=en",
+      "optional": true
+    },
+    {
+      "id": "penang_hyperlocal",
+      "name": "Penang Hyperlocal",
+      "tier": "B",
+      "kind": "event",
+      "parser": "rss_items",
+      "url": "https://penanghyperlocal.com/feed/",
+      "optional": true
+    },
+    {
+      "id": "buletin_mutiara",
+      "name": "Buletin Mutiara",
+      "tier": "B",
+      "kind": "event",
+      "parser": "rss_items",
+      "url": "https://www.buletinmutiara.com/feed/",
+      "optional": true
+    },
+    {
+      "id": "penang_foodie",
+      "name": "Penang Foodie",
+      "tier": "A",
+      "kind": "revisit",
+      "parser": "penangfoodie_home_html",
+      "url": "https://penangfoodie.com/",
+      "optional": true,
+      "notes": "HTML home only — /feed/ often 403. Openings → food; guides/reviews → revisit."
+    }
+  ]
+}

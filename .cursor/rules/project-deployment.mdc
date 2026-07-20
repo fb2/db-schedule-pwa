@@ -19,6 +19,7 @@ alwaysApply: true
 - A push to `main` automatically triggers the GitHub Pages deployment workflow.
 - For DB-backed utilities, also deploy Firebase Hosting with `npx firebase-tools deploy --only hosting`.
 - For Konbini Radar changes, GitHub Pages is not enough: after pushing `main`, deploy Firebase Hosting with `npx firebase-tools deploy --only hosting:konbini-radar` because `https://konbiniradar.com/` is served from that target.
+- For Penang Pulse changes, GitHub Pages is not enough: after pushing `main`, deploy Firebase Hosting with `npx firebase-tools deploy --only hosting:penang-pulse` because `https://penangpulse.com/` is served from that target.
 - For Firestore rule changes, deploy rules with `npx firebase-tools deploy --only firestore:rules`.
 - Do not create a separate deployment branch unless the user explicitly asks to change the Pages architecture.
 - When the user asks to save completed changes, use git commit and push unless they ask otherwise.

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Wireframe review</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #e8e8e4;
+        color: #222;
+        padding: 28px 20px 48px;
+        line-height: 1.45;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 1.35rem;
+      }
+      h2 {
+        margin: 28px 0 8px;
+        font-size: 1rem;
+      }
+      p,
+      li {
+        color: #444;
+        max-width: 58ch;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin: 16px 0 8px;
+      }
+      .links a {
+        color: #0f6e6e;
+        font-weight: 600;
+      }
+      ul {
+        padding-left: 1.2em;
+      }
+      code {
+        font-size: 0.9em;
+        background: #fff;
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+      .note {
+        margin-top: 24px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Penang Pulse wireframes</h1>
+    <p>
+      HTML-only review surface (no PNG mocks). Interactive starring demo uses cookie
+      <code>penangPulseStars</code>.
+    </p>
+
+    <h2>UX choice: All | Starred</h2>
+    <ul>
+      <li>
+        Compact <strong>All | Starred</strong> on the title row (right-aligned) — one control,
+        not a Konbini-style filter form; week/lede sit below on narrow widths.
+      </li>
+      <li>☆ / ★ on each card (and detail) toggles save; state persists in a local cookie.</li>
+      <li>Starred view filters the feed; empty state when nothing is starred.</li>
+      <li>Chosen over chips/toggles because two modes map cleanly and stay editorial-minimal.</li>
+    </ul>
+
+    <h2>Review links</h2>
+    <div class="links">
+      <a href="./mobile.html">Mobile (All)</a>
+      <a href="./mobile.html?view=starred">Mobile (Starred filter)</a>
+      <a href="./starred.html">Starred empty state</a>
+      <a href="./desktop.html">Desktop</a>
+      <a href="./detail.html">Detail</a>
+      <a href="./guides/">Guides (editorial proposal)</a>
+    </div>
+
+    <p class="note">
+      Try starring a few items on Mobile, then switch to Starred. Sign off on this UX before any
+      app build.
+    </p>
+  </body>
+</html>

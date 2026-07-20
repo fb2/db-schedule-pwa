@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Penang Pulse — Detail wireframe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./wireframe.css" />
+    <style>
+      .shell {
+        width: 100%;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 8px 10px 16px;
+      }
+
+      .back {
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.92rem;
+        text-decoration: none;
+      }
+
+      .hero {
+        display: block;
+        width: 100%;
+        aspect-ratio: 2 / 1;
+        max-height: 220px;
+        object-fit: cover;
+        background: #ddd;
+      }
+
+      .body {
+        padding: 18px 16px 48px;
+      }
+
+      .title-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.75rem;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        flex: 1;
+      }
+
+      .date {
+        margin: 10px 0 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+
+      .place {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .cat {
+        margin: 12px 0 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .blurb {
+        margin: 14px 0 0;
+        color: var(--muted);
+      }
+
+      .more {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .more h2 {
+        margin: 0 0 8px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .more p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .links {
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .links a {
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.92rem;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="topbar">
+        <a class="back" href="./mobile.html">← Penang Pulse</a>
+        <button
+          type="button"
+          class="star-btn"
+          data-star
+          data-detail-star
+          data-item-id="evt-gtf-2026"
+          data-item-label="George Town Festival 2026"
+          aria-pressed="false"
+        >
+          ☆
+        </button>
+      </div>
+      <img
+        class="hero"
+        src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1000&q=80&auto=format&fit=crop"
+        alt=""
+      />
+      <div class="body">
+        <div class="title-row">
+          <h1>George Town Festival 2026</h1>
+        </div>
+        <p class="date">1–9 Aug 2026</p>
+        <p class="place">Multiple venues · George Town</p>
+        <p class="cat">Arts</p>
+        <p class="blurb">
+          The 17th George Town Festival brings more than 40 programmes from 10 countries —
+          theatre, music, dance, and visual arts across heritage spaces in the city.
+        </p>
+        <div class="more">
+          <h2>More detail</h2>
+          <p>
+            Programme spans indoor and outdoor venues. Tickets vary by show; some community
+            events are free. Check the original listing for showtimes and booking.
+          </p>
+          <div class="links">
+            <a href="#">Original post → penangtoday.my</a>
+            <a href="#">All sources</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./wireframe-stars.js"></script>
+  </body>
+</html>

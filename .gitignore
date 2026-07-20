@@ -3,3 +3,8 @@ __pycache__/
 private/
 firebase-debug.log
 .firebase/
+scripts/penang-guides-editor/.venv/
+utilities/penang-pulse/guides/posts/**/media/orig/
+utilities/penang-pulse/guides/posts/**/media/*.jpg
+utilities/penang-pulse/guides/posts/**/media/*.jpeg
+utilities/penang-pulse/guides/posts/**/media/*.webp
