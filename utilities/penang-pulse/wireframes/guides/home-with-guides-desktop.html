@@ -117,7 +117,7 @@
       }
 
       /* Always show horizontal strip on this desktop review page */
-      .guides-strip--row {
+      .guides-strip--row:not(.guides-strip--personal) {
         margin-top: 22px;
         padding-top: 18px;
         padding-bottom: 4px;
@@ -164,12 +164,18 @@
         </div>
         <p class="week">Week of 13 Jul</p>
         <p class="lede">What’s on in Penang — events and new food this week.</p>
-        <p class="approved">Approved home treatment: <strong>A · Quiet Guides strip</strong></p>
+        <p class="approved">
+          Approved: <strong>A · Quiet strip</strong> + <strong>Penang Pulse Says</strong> personality
+        </p>
       </header>
 
-      <!-- Treatment A: horizontal strip under header, full content width -->
-      <section class="guides-strip guides-strip--row is-desktop" aria-labelledby="guides-label">
-        <h2 class="section-label" id="guides-label">Guides</h2>
+      <!-- Treatment A + personalization: horizontal strip, soft highlight band -->
+      <section
+        class="guides-strip guides-strip--personal guides-strip--row is-desktop"
+        aria-labelledby="guides-kicker"
+      >
+        <h2 class="section-kicker" id="guides-kicker">Penang Pulse Says</h2>
+        <p class="guides-dek">Things I’ve walked, eaten, or bookmarked in Penang.</p>
         <ul class="guides-list">
           <li>
             <a href="./guide-text.html">
@@ -300,7 +306,7 @@
       </section>
 
       <p class="footer">
-        Treatment A locked ·
+        Personality treatment locked ·
         <a href="./home-with-guides.html" style="color: var(--accent); font-weight: 600">Mobile home</a>
         ·
         <a href="./index.html" style="color: var(--accent); font-weight: 600">Proposal hub</a>

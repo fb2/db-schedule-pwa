@@ -18,6 +18,12 @@ Items use a single `kind` field (no separate bucket/tag):
 
 Parsers map openings → `food` and review-like pieces → `revisit` via title/summary hints. Build drops stale `food` items older than ~62 days using `startDate` / `publishedAt` / date text; `revisit` is not age-gated. The app also safety-filters Food & popups the same way.
 
+### Event ranking (Happening soon)
+
+Build tags consumer `topics` / `interest` from title+summary keywords (EN + common MS/ZH): family, festival, fair, literary, food, music, culture, movies, books, gaming. Each event gets an `interestScore`; feed sort for `kind=event` is **score desc, then startDate, then title** so the app’s Happening soon list (feed order) surfaces those priorities first.
+
+Industry / trade / B2B / corporate expos (e.g. Halal industry, PIHEX, professional conferences) are **hard-dropped** from the public feed or **soft-demoted** (−45 score) when expo/summit language pairs with industry/trade context. Consumer travel/food/culture fairs are not demoted. Prefer tuning keyword rules in `build-penang-feed.py` over hand-editing `feed.json`.
+
 Header fields:
 
 - `weekLabel`: human date like `Week of 19 Jul` (not ISO)
@@ -123,24 +129,26 @@ Configured in `scripts/penang_sources.json` (`tier`: A/B). Optional sources may 
 
 ## Editorial Guides (separate from weekly feed)
 
-Guides are hand-written posts, not scrape output. They appear as a quiet strip under the home header and open at `/guides/<slug>/`.
+Guides are hand-written posts, not scrape output. They appear as a quiet strip under the home header and open at `/guides/<slug>/` on **https://penangpulse.com**.
+
+Full charter + URL scheme: `utilities/penang-pulse/EDITORIAL.md`.
 
 ### Layout
 
-- Source (not hosted): `utilities/penang-pulse/guides/posts/<slug>/post.md` + `media/orig/` (gitignored)
-- Built (deployed): `utilities/penang-pulse/guides/index.json`, `guides/<slug>/index.html`, `guides/<slug>/media/*.jpg`
+- Source (not hosted): `utilities/penang-pulse/guides/posts/<slug>/post.md` + `media/orig/` (gitignored) + `_series.json` registry
+- Built (deployed): `utilities/penang-pulse/guides/index.json`, `guides/<slug>/index.html`, `guides/series/<series-slug>/`
 
 ### Edit → build → deploy
 
-1. Local editor (not on Firebase):
+1. Local series-aware editor (not on Firebase):
 
    ```sh
    python3 scripts/penang-guides-editor/server.py
    ```
 
-   Open `http://127.0.0.1:8765/`. Setup notes: `scripts/penang-guides-editor/README.md` (Pillow venv).
+   Open `http://127.0.0.1:8765/` — Series desk → series detail → New episode. Setup: `scripts/penang-guides-editor/README.md` (Pillow venv).
 
-2. Build static pages + strip index:
+2. Build static pages + strip index (emits registered series even with 0 posts):
 
    ```sh
    scripts/penang-guides-editor/.venv/bin/python scripts/build-penang-guides.py
@@ -151,9 +159,9 @@ Guides are hand-written posts, not scrape output. They appear as a quiet strip u
 4. Deploy production custom domain:
 
    ```sh
-   npx firebase-tools deploy --only hosting:penang-pulse
+   npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
    ```
 
-   Firebase ignores `guides/posts/**`. Commit built `guides/<slug>/` + `guides/index.json` with the app when saving.
+   Firebase ignores `guides/posts/**`. Commit built `guides/<slug>/`, `guides/series/`, + `guides/index.json` with the app when saving.
 
 Stars stay on feed cards only — guide pages have no star toggle.

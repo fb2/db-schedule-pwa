@@ -82,6 +82,123 @@ EVENT_HINTS = re.compile(
     r"(嘉年华|活动|展览|市集)",
     re.I,
 )
+# Consumer-facing interests to surface near the top of Happening soon.
+# Each rule: (topic id, keyword regex, score boost).
+INTEREST_RULES: list[tuple[str, re.Pattern[str], int]] = [
+    (
+        "family",
+        re.compile(
+            r"\b(family|kids?|children|child[- ]friendly|all ages|toddler|亲子|家庭|"
+            r"keluarga|kanak[- ]kanak)\b",
+            re.I,
+        ),
+        22,
+    ),
+    (
+        "festival",
+        re.compile(
+            r"\b(festival|fiesta|carnival|嘉年华|节|pesta|perayaan)\b",
+            re.I,
+        ),
+        28,
+    ),
+    (
+        "fair",
+        re.compile(
+            r"\b(fair|bazaar|pasar malam|night market|flea|craft fair|travel fair|"
+            r"市集|夜市|bazaar)\b",
+            re.I,
+        ),
+        20,
+    ),
+    (
+        "literary",
+        re.compile(
+            r"\b(literary|literature|book\s*fair|bookstore|poetry|poet|author talk|"
+            r"reading\b|writers?|novel|书展|文学|buku|sastera)\b",
+            re.I,
+        ),
+        24,
+    ),
+    (
+        "food",
+        re.compile(
+            r"\b(food|culinary|gastronom|hawker|street food|makan|foodie|taste of|"
+            r"美食|小吃|makanan|jualan makanan)\b",
+            re.I,
+        ),
+        18,
+    ),
+    (
+        "music",
+        re.compile(
+            r"\b(music|concert|gig|orchestra|choir|jazz|live band|open mic|"
+            r"音乐会|演唱会|muzik|konsert)\b",
+            re.I,
+        ),
+        22,
+    ),
+    (
+        "culture",
+        re.compile(
+            r"\b(culture|cultural|heritage|museum|art\b|arts\b|theatre|theater|"
+            r"dance|exhibition|gallery|wayang|传统文化|文化|展览|budaya|warisan)\b",
+            re.I,
+        ),
+        18,
+    ),
+    (
+        "movies",
+        re.compile(
+            r"\b(movie|film|cinema|screening|film fest|电影|影展|filem|pameran filem)\b",
+            re.I,
+        ),
+        20,
+    ),
+    (
+        "books",
+        re.compile(
+            r"\b(books?|bookstore|bookshop|library|reading club|书|书局|perpustakaan)\b",
+            re.I,
+        ),
+        18,
+    ),
+    (
+        "gaming",
+        re.compile(
+            r"\b(gaming|game\s*night|board\s*game|tabletop|esports?|video\s*game|"
+            r"游戏|permainan)\b",
+            re.I,
+        ),
+        16,
+    ),
+]
+# Industry / trade / B2B — demote heavily or drop from consumer "Happening soon".
+INDUSTRY_HARD_RE = re.compile(
+    r"\b("
+    r"halal\s+industry|mihas|pharma(?:ceutical)?\s+expo|medical\s+device\s+expo|"
+    r"b2b|business[- ]to[- ]business|trade\s+only|trade\s+visitors?\s+only|"
+    r"industry\s+expo|industrial\s+expo|manufactur(?:ing|ers?)\s+expo|"
+    r"procurement\s+(?:forum|expo|summit)|supply\s+chain\s+(?:expo|summit)|"
+    r"investor\s+(?:forum|summit)|property\s+investment\s+(?:expo|fair)|"
+    r"conference\s+for\s+professionals|professional\s+conference|"
+    r"corporate\s+(?:summit|expo|convention)|"
+    r"pihex|penang\s+international\s+halal"
+    r")\b|"
+    r"(清真工业|工业展|贸易展)",
+    re.I,
+)
+INDUSTRY_FORM_RE = re.compile(
+    r"\b(expo|exhibition|convention|symposium|summit|trade\s+show|trade\s+fair|"
+    r"congress|business\s+forum)\b",
+    re.I,
+)
+INDUSTRY_CONTEXT_RE = re.compile(
+    r"\b(industry|industrial|trade|corporate|business|b2b|professional|"
+    r"manufactur|procurement|investor|halal\s+hub|export|wholesale|"
+    r"会议|峰会|展会)\b",
+    re.I,
+)
 JUNK_TITLES = {
     "cafe",
     "café",
@@ -847,6 +964,99 @@ def filter_stale_food_openings(
     return kept, dropped
 
 
+def item_text_blob(item: dict[str, Any]) -> str:
+    return " ".join(
+        part
+        for part in (
+            item.get("title") or "",
+            item.get("summary") or "",
+            item.get("detail") or "",
+            item.get("category") or "",
+        )
+        if part
+    )
+
+
+def classify_interests(blob: str) -> list[str]:
+    """Topic tags from title/summary keywords (EN + common MS/ZH)."""
+    topics: list[str] = []
+    for topic, pattern, _boost in INTEREST_RULES:
+        if pattern.search(blob) and topic not in topics:
+            topics.append(topic)
+    return topics
+
+
+def industry_demote_level(blob: str, topics: list[str]) -> str:
+    """Return 'hard', 'soft', or '' for industry/trade/B2B demotion."""
+    if INDUSTRY_HARD_RE.search(blob):
+        return "hard"
+    if not (INDUSTRY_FORM_RE.search(blob) and INDUSTRY_CONTEXT_RE.search(blob)):
+        return ""
+    # Consumer fairs/festivals (travel fair, food fest, art expo) stay promoted.
+    consumer_topics = {
+        "festival",
+        "fair",
+        "food",
+        "music",
+        "culture",
+        "family",
+        "literary",
+        "movies",
+        "books",
+        "gaming",
+    }
+    if set(topics) & consumer_topics and not re.search(
+        r"\b(food|halal)\s+industry\b", blob, re.I
+    ):
+        return ""
+    return "soft"
+
+
+def score_event_item(item: dict[str, Any]) -> tuple[int, list[str], str]:
+    """Score an event for Happening soon ranking. Higher = nearer the top."""
+    blob = item_text_blob(item)
+    topics = classify_interests(blob)
+    demote = industry_demote_level(blob, topics)
+    score = 40
+    for topic, _pattern, boost in INTEREST_RULES:
+        if topic in topics:
+            score += boost
+    if item.get("imageUrl"):
+        score += 4
+    if item.get("startDate"):
+        score += 6
+    if demote == "hard":
+        score -= 90
+    elif demote == "soft":
+        score -= 45
+    # Cap so boosts stay readable in draft inspection.
+    score = max(0, min(score, 100))
+    return score, topics, demote
+
+
+def annotate_event_ranking(
+    items: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], int]:
+    """Add interest/topics + interestScore; drop hard industry trade shows."""
+    kept: list[dict[str, Any]] = []
+    dropped = 0
+    for item in items:
+        if item.get("kind") != "event":
+            kept.append(item)
+            continue
+        score, topics, demote = score_event_item(item)
+        if demote == "hard":
+            dropped += 1
+            continue
+        item["topics"] = topics
+        item["interest"] = topics[:]  # alias for clients/docs
+        item["interestScore"] = score
+        if demote:
+            item["demote"] = demote
+        kept.append(item)
+    return kept, dropped
+
+
 def format_week_label(run_date: str) -> str:
     """Human week label, e.g. 'Week of 19 Jul'."""
     try:
@@ -1004,12 +1214,20 @@ def main() -> int:
     filled = enrich_missing_images(items, user_agent=user_agent)
     if filled:
         print(f"Enriched {filled} item image(s) from article og:image")
+    items, industry_dropped = annotate_event_ranking(items)
+    if industry_dropped:
+        warnings.append(
+            f"dropped {industry_dropped} industry/trade event(s) from consumer feed"
+        )
+        print(f"Dropped {industry_dropped} industry/trade event(s)")
 
     def sort_key(item: dict[str, Any]) -> tuple:
         start = item.get("startDate") or "9999-99-99"
         kind = item.get("kind") or "event"
         kind_rank = {"event": 0, "food": 1, "revisit": 2}.get(kind, 3)
-        return (kind_rank, start, item.get("title") or "")
+        # Events: interest score desc, then soonest date, then title.
+        score = int(item.get("interestScore") or 0)
+        return (kind_rank, -score, start, item.get("title") or "")
 
     items.sort(key=sort_key)
     run_date = manifest.get("runDate") or draft_dir.name

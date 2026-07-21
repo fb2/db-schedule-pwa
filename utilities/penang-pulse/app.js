@@ -180,12 +180,9 @@ function createItemCard(item) {
   meta.textContent = item.dateLabel || item.area || "";
   blurb.textContent = item.summary || "";
 
-  const emptyLabel =
-    item.kind === "food" ? "Food" : item.kind === "revisit" ? "Revisit" : "Event";
   const imageUrl = typeof item.imageUrl === "string" ? item.imageUrl.trim() : "";
   if (imageUrl) {
     thumb.textContent = "";
-    thumb.classList.remove("is-empty");
     const img = document.createElement("img");
     img.alt = "";
     img.loading = "lazy";
@@ -193,15 +190,14 @@ function createItemCard(item) {
     // Set before src so the first request omits Referer (hotlink-sensitive CDNs).
     img.referrerPolicy = "no-referrer";
     img.addEventListener("error", () => {
-      img.remove();
-      thumb.textContent = emptyLabel;
-      thumb.classList.add("is-empty");
+      // Broken remote image: drop the thumb entirely (no gray placeholder).
+      thumb.remove();
     });
     img.src = imageUrl;
     thumb.append(img);
   } else {
-    thumb.textContent = emptyLabel;
-    thumb.classList.add("is-empty");
+    // No imageUrl: omit the thumb block so title/meta lead the card.
+    thumb.remove();
   }
 
   if (item.sourceUrl) {
@@ -349,7 +345,8 @@ function renderGuides() {
     title.textContent = guide.title || guide.slug || "Guide";
     const type = document.createElement("span");
     type.className = "g-type";
-    type.textContent = guide.type || "Text";
+    // Prefer series title in the strip when present (e.g. Mee Myself and I)
+    type.textContent = guide.seriesTitle || guide.type || "Text";
     a.append(title, type);
     li.append(a);
     list.append(li);

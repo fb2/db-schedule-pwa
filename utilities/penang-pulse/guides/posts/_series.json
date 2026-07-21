@@ -1,0 +1,20 @@
+{
+  "series": [
+    {
+      "slug": "mee-myself-and-i",
+      "title": "Mee Myself and I",
+      "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
+      "status": "active",
+      "defaultType": "series-mee",
+      "template": "mee"
+    },
+    {
+      "slug": "family-matters",
+      "title": "Family Matters",
+      "dek": "Weekends and evenings with kids — practical planning notes, not parenting advice.",
+      "status": "active",
+      "defaultType": "text",
+      "template": "family"
+    }
+  ]
+}

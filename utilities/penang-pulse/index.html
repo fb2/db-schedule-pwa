@@ -21,7 +21,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=8" />
+    <link rel="stylesheet" href="./styles.css?v=10" />
     <title>Penang Pulse</title>
   </head>
   <body>
@@ -38,8 +38,14 @@
         <p class="lede" id="weeklyIntro">What’s on in Penang — events and new food this week.</p>
       </header>
 
-      <section class="guides-strip pad" id="guidesStrip" aria-labelledby="guides-label" hidden>
-        <h2 class="section-label" id="guides-label">Guides</h2>
+      <section
+        class="guides-strip guides-strip--personal pad"
+        id="guidesStrip"
+        aria-labelledby="guides-kicker"
+        hidden
+      >
+        <h2 class="section-kicker" id="guides-kicker">Penang Pulse Says</h2>
+        <p class="guides-dek">Things I’ve walked, eaten, or bookmarked in Penang.</p>
         <ul class="guides-list" id="guidesList"></ul>
       </section>
 
@@ -69,6 +75,6 @@
       </article>
     </template>
 
-    <script src="./app.js?v=8"></script>
+    <script src="./app.js?v=10"></script>
   </body>
 </html>

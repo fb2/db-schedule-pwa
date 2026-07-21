@@ -3,6 +3,7 @@ title: Hawker lunch near Common Ground
 dek: Walkable noodle picks in Pulau Tikus — for coworking days when you want real hawker food without a long ride.
 type: text
 neighbourhood: Pulau Tikus / Jalan Burma
+fieldNote: Field note · Pulau Tikus · Jul 2026
 updated: 2026-07-20
 ---
 

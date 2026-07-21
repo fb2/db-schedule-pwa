@@ -1,13 +1,52 @@
 {
-  "generatedAt": "2026-07-20T04:56:42.508514+00:00",
+  "generatedAt": "2026-07-21T09:33:26.041174+00:00",
   "guides": [
+    {
+      "slug": "lean-huat-hokkien-mee",
+      "title": "Lean Huat Hokkien Mee",
+      "dek": "First stop in Mee Myself and I — rich prawn-pork broth at Swee Kong Kopitiam, next to Pulau Tikus Market.",
+      "type": "Mee",
+      "href": "./guides/lean-huat-hokkien-mee/",
+      "updated": "2026-07-21",
+      "fieldNote": "Field note · Pulau Tikus · Jul 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 1,
+      "location": {
+        "name": "Lean Huat Hokkien Mee",
+        "mapsUrl": "https://maps.app.goo.gl/placeholderLeanHuat",
+        "address": "Swee Kong Kopitiam, Jalan Burma (opposite / next to Pulau Tikus Market)"
+      }
+    },
     {
       "slug": "hawker-lunch-common-ground",
       "title": "Hawker lunch near Common Ground",
       "dek": "Walkable noodle picks in Pulau Tikus — for coworking days when you want real hawker food without a long ride.",
       "type": "Text",
       "href": "./guides/hawker-lunch-common-ground/",
-      "updated": "2026-07-20"
+      "updated": "2026-07-20",
+      "fieldNote": "Field note · Pulau Tikus · Jul 2026",
+      "neighbourhood": "Pulau Tikus / Jalan Burma"
+    }
+  ],
+  "series": [
+    {
+      "slug": "family-matters",
+      "title": "Family Matters",
+      "href": "./guides/series/family-matters/",
+      "count": 0,
+      "status": "active",
+      "dek": "Weekends and evenings with kids — practical planning notes, not parenting advice."
+    },
+    {
+      "slug": "mee-myself-and-i",
+      "title": "Mee Myself and I",
+      "href": "./guides/series/mee-myself-and-i/",
+      "count": 1,
+      "status": "active",
+      "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated."
     }
   ]
 }

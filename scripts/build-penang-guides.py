@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """Build Penang Pulse editorial guides into static HTML + index.json.
 
-Reads source posts under utilities/penang-pulse/guides/posts/<slug>/post.md,
-resizes media/orig images to web JPEGs, and emits:
+Reads source posts under utilities/penang-pulse/guides/posts/<slug>/post.md
+and the series registry guides/posts/_series.json, resizes media/orig images
+to web JPEGs, and emits:
 
   utilities/penang-pulse/guides/index.json
   utilities/penang-pulse/guides/<slug>/index.html
   utilities/penang-pulse/guides/<slug>/media/*.jpg
+  utilities/penang-pulse/guides/series/<series-slug>/index.html
+
+Registered series get index pages even with 0–1 posts.
 
 Requires Pillow. Optional pillow-heif for HEIC/HEIF originals.
 """
@@ -21,12 +25,15 @@ import pathlib
 import re
 import shutil
 import sys
+import urllib.parse
 from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 GUIDES_DIR = ROOT / "utilities" / "penang-pulse" / "guides"
 POSTS_DIR = GUIDES_DIR / "posts"
+SERIES_REGISTRY = POSTS_DIR / "_series.json"
+SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
 
 MAX_WIDTH = 1400
@@ -41,6 +48,9 @@ ORIG_MEDIA_RE = re.compile(
     r"(?:\./)?media/orig/([^)\s\"']+)",
     re.I,
 )
+PLACE_PATH_RE = re.compile(r"/place/([^/@]+)", re.I)
+COORDS_AT_RE = re.compile(r"@(-?\d+\.?\d*),\s*(-?\d+\.?\d*)")
+COORDS_QUERY_RE = re.compile(r"^(-?\d+\.?\d*),\s*(-?\d+\.?\d*)$")
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".bmp"}
 HEIC_EXTS = {".heic", ".heif"}
@@ -50,7 +60,11 @@ TYPE_LABELS = {
     "photo": "Photos",
     "photos": "Photos",
     "video": "Video",
+    "series-mee": "Mee",
+    "mee": "Mee",
 }
+
+NESTED_KEYS = {"location"}
 
 
 def die(message: str, code: int = 1) -> None:
@@ -81,17 +95,39 @@ def try_register_heif() -> bool:
         return False
 
 
-def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
+def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
+    """Parse simple YAML front matter, including one-level nested maps (location)."""
     match = FRONTMATTER_RE.match(text)
     if not match:
         return {}, text
-    meta: dict[str, str] = {}
-    for line in match.group(1).splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or ":" not in line:
+    meta: dict[str, Any] = {}
+    current_nested: str | None = None
+    for raw_line in match.group(1).splitlines():
+        if not raw_line.strip() or raw_line.strip().startswith("#"):
+            continue
+        indented = bool(re.match(r"^[ \t]+", raw_line))
+        line = raw_line.strip()
+        if indented and current_nested:
+            if ":" not in line:
+                continue
+            key, value = line.split(":", 1)
+            nested = meta.setdefault(current_nested, {})
+            if not isinstance(nested, dict):
+                nested = {}
+                meta[current_nested] = nested
+            nested[key.strip().lower()] = value.strip().strip('"').strip("'")
+            continue
+        if ":" not in line:
             continue
         key, value = line.split(":", 1)
-        meta[key.strip().lower()] = value.strip().strip('"').strip("'")
+        key = key.strip().lower()
+        value = value.strip().strip('"').strip("'")
+        if key in NESTED_KEYS and not value:
+            current_nested = key
+            meta[key] = {}
+            continue
+        current_nested = None
+        meta[key] = value
     return meta, match.group(2).lstrip("\n")
 
 
@@ -104,6 +140,100 @@ def slugify(value: str) -> str:
 def type_label(raw: str) -> str:
     key = (raw or "text").strip().lower()
     return TYPE_LABELS.get(key, raw.strip().title() or "Text")
+
+
+def location_from_meta(meta: dict[str, Any]) -> dict[str, str]:
+    loc = meta.get("location")
+    out: dict[str, str] = {
+        "name": "",
+        "mapsurl": "",
+        "address": "",
+        "lat": "",
+        "lng": "",
+    }
+    if isinstance(loc, dict):
+        out["name"] = str(loc.get("name") or "").strip()
+        # Front matter lowercases mapsUrl → mapsurl
+        out["mapsurl"] = str(
+            loc.get("mapsurl") or loc.get("url") or ""
+        ).strip()
+        out["address"] = str(loc.get("address") or "").strip()
+        out["lat"] = str(loc.get("lat") or "").strip()
+        out["lng"] = str(loc.get("lng") or "").strip()
+    # Flat aliases from editor / older posts
+    if not out["name"]:
+        out["name"] = str(meta.get("locationname") or meta.get("location_name") or "").strip()
+    if not out["mapsurl"]:
+        out["mapsurl"] = str(
+            meta.get("mapsurl")
+            or meta.get("maps_url")
+            or meta.get("locationurl")
+            or ""
+        ).strip()
+    if not out["address"]:
+        out["address"] = str(meta.get("locationaddress") or meta.get("address") or "").strip()
+    return out
+
+
+def parse_maps_url(url: str) -> dict[str, str]:
+    """Client-side-style parse of Google Maps URLs (no network / API keys).
+
+    Short links (maps.app.goo.gl, goo.gl/maps) are kept as-is with no name/coords.
+    Full google.com/maps URLs may yield place name and/or lat/lng.
+    """
+    result = {
+        "mapsUrl": (url or "").strip(),
+        "name": "",
+        "lat": "",
+        "lng": "",
+        "address": "",
+    }
+    raw = result["mapsUrl"]
+    if not raw:
+        return result
+
+    lower = raw.lower()
+    if "maps.app.goo.gl" in lower or "goo.gl/maps" in lower:
+        return result
+
+    try:
+        parsed = urllib.parse.urlparse(raw)
+    except ValueError:
+        return result
+
+    host = (parsed.netloc or "").lower()
+    if "google." not in host and not host.endswith("maps.google.com"):
+        # Still store URL; only extract from known Google Maps hosts
+        if "maps" not in lower:
+            return result
+
+    path = urllib.parse.unquote(parsed.path or "")
+    place = PLACE_PATH_RE.search(path)
+    if place:
+        name = place.group(1).replace("+", " ").strip()
+        name = re.sub(r"\s+", " ", name)
+        if name and not COORDS_QUERY_RE.match(name.replace(" ", "")):
+            result["name"] = name
+
+    coords = COORDS_AT_RE.search(raw)
+    if coords:
+        result["lat"] = coords.group(1)
+        result["lng"] = coords.group(2)
+
+    qs = urllib.parse.parse_qs(parsed.query)
+    for key in ("query", "q", "destination"):
+        if key not in qs or not qs[key]:
+            continue
+        q = urllib.parse.unquote(qs[key][0]).strip()
+        coord_m = COORDS_QUERY_RE.match(q)
+        if coord_m:
+            result["lat"] = result["lat"] or coord_m.group(1)
+            result["lng"] = result["lng"] or coord_m.group(2)
+        elif q and not result["name"]:
+            result["name"] = q.replace("+", " ")
+        break
+
+    return result
 
 
 def inline_md(text: str) -> str:
@@ -283,10 +413,47 @@ def process_images(
 
         shutil.copy2(work_out, public_out)
         media_map[path.name] = out_name
-        # Also allow lookups without worrying about case
         media_map[path.name.lower()] = out_name
 
     return media_map
+
+
+def render_spot_widget(location: dict[str, str]) -> str:
+    name = (location.get("name") or "").strip()
+    maps_url = (location.get("mapsurl") or "").strip()
+    address = (location.get("address") or "").strip()
+    if not name and not maps_url:
+        return ""
+
+    name_html = html.escape(name) if name else "Location"
+    address_html = (
+        f'<p class="spot-address">{html.escape(address)}</p>' if address else ""
+    )
+    maps_html = ""
+    if maps_url:
+        maps_html = (
+            f'<a class="spot-maps" href="{html.escape(maps_url, quote=True)}" '
+            f'target="_blank" rel="noopener noreferrer">Open in Google Maps</a>'
+        )
+    return (
+        '<aside class="spot-widget">\n'
+        '  <p class="spot-label">Spot</p>\n'
+        f'  <p class="spot-name">{name_html}</p>\n'
+        f"  {address_html}\n"
+        f"  {maps_html}\n"
+        "</aside>"
+    )
+
+
+def insert_spot_widget(body_html: str, spot_html: str) -> str:
+    if not spot_html:
+        return body_html
+    if not body_html.strip():
+        return spot_html
+    idx = body_html.find("</p>")
+    if idx != -1:
+        return body_html[: idx + 4] + "\n" + spot_html + body_html[idx + 4 :]
+    return spot_html + "\n" + body_html
 
 
 def render_article(
@@ -295,8 +462,14 @@ def render_article(
     dek: str,
     type_name: str,
     neighbourhood: str,
+    field_note: str,
+    series_slug: str,
+    series_title: str,
     body_html: str,
     hero_src: str | None,
+    home_href: str = "../../",
+    css_href: str = f"../{ARTICLE_CSS}",
+    icon_href: str = "../../icon.svg",
 ) -> str:
     meta_bits = []
     if neighbourhood:
@@ -305,12 +478,33 @@ def render_article(
         f'<p class="guide-meta">{meta_bits[0]}</p>' if meta_bits else ""
     )
     dek_html = f'<p class="guide-dek">{html.escape(dek)}</p>' if dek else ""
+    field_html = (
+        f'<p class="guide-field-note">{html.escape(field_note)}</p>'
+        if field_note
+        else ""
+    )
+
+    series_html = ""
+    if series_slug and series_title:
+        series_href = f"../series/{html.escape(series_slug, quote=True)}/"
+        series_html = (
+            f'<p class="guide-series">'
+            f'<a href="{series_href}">{html.escape(series_title)}</a>'
+            f"</p>"
+        )
+    elif series_title:
+        series_html = f'<p class="guide-series"><span>{html.escape(series_title)}</span></p>'
+
     hero_html = ""
     if hero_src:
         hero_html = (
             f'<img class="guide-hero" src="{html.escape(hero_src, quote=True)}" alt="" '
             f'loading="eager" decoding="async" referrerpolicy="no-referrer" />\n'
         )
+
+    kicker = f"Guide · {html.escape(type_name)}"
+    if series_title and type_name == "Mee":
+        kicker = "Guide · Mee"
 
     return f"""<!doctype html>
 <html lang="en">
@@ -320,23 +514,25 @@ def render_article(
     <meta name="theme-color" content="#0f6e6e" />
     <meta name="description" content="{html.escape(dek or title)}" />
     <title>{html.escape(title)} — Penang Pulse</title>
-    <link rel="icon" href="../../icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="{html.escape(icon_href, quote=True)}" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../{ARTICLE_CSS}" />
+    <link rel="stylesheet" href="{html.escape(css_href, quote=True)}" />
   </head>
   <body>
     <div class="guide-topbar">
-      <a class="back" href="../../">← Home</a>
-      <a class="brand-mini" href="../../">Penang Pulse</a>
+      <a class="back" href="{html.escape(home_href, quote=True)}">← Home</a>
+      <a class="brand-mini" href="{html.escape(home_href, quote=True)}">Penang Pulse</a>
     </div>
 {hero_html}
     <article class="guide-article">
-      <p class="guide-kicker">Guide · {html.escape(type_name)}</p>
+      <p class="guide-kicker">{kicker}</p>
+      {series_html}
+      {field_html}
       <h1>{html.escape(title)}</h1>
       {dek_html}
       {meta_html}
@@ -347,6 +543,101 @@ def render_article(
   </body>
 </html>
 """
+
+
+def render_series_index(
+    *,
+    series_slug: str,
+    series_title: str,
+    series_dek: str,
+    posts: list[dict[str, Any]],
+) -> str:
+    items = []
+    for post in posts:
+        href = f"../../{html.escape(post['slug'], quote=True)}/"
+        type_name = html.escape(post.get("type") or "Text")
+        note = html.escape(post.get("fieldNote") or "")
+        note_html = f'<span class="series-note">{note}</span>' if note else ""
+        items.append(
+            "<li>"
+            f'<a href="{href}">'
+            f'<span class="g-title">{html.escape(post["title"])}</span>'
+            f'<span class="g-type">{type_name}</span>'
+            f"</a>"
+            f"{note_html}"
+            "</li>"
+        )
+    list_html = (
+        "\n".join(items)
+        if items
+        else '<li class="muted">No episodes yet — check back after the next field note.</li>'
+    )
+    dek = series_dek or f"Episodes in {series_title}."
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f6e6e" />
+    <meta name="description" content="{html.escape(dek)}" />
+    <title>{html.escape(series_title)} — Penang Pulse</title>
+    <link rel="icon" href="../../../icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../{ARTICLE_CSS}" />
+  </head>
+  <body>
+    <div class="guide-topbar">
+      <a class="back" href="../../../">← Home</a>
+      <a class="brand-mini" href="../../../">Penang Pulse</a>
+    </div>
+    <article class="guide-article">
+      <p class="guide-kicker">Series</p>
+      <h1>{html.escape(series_title)}</h1>
+      <p class="guide-dek">{html.escape(dek)}</p>
+      <ul class="series-list">
+{list_html}
+      </ul>
+    </article>
+  </body>
+</html>
+"""
+
+
+def load_series_registry(path: pathlib.Path = SERIES_REGISTRY) -> list[dict[str, Any]]:
+    """Load known series from guides/posts/_series.json (empty list if missing)."""
+    if not path.is_file():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"warning: could not read series registry: {exc}", file=sys.stderr)
+        return []
+    raw = data.get("series") if isinstance(data, dict) else data
+    if not isinstance(raw, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        slug = str(item.get("slug") or "").strip()
+        if not slug:
+            continue
+        out.append(
+            {
+                "slug": slug,
+                "title": str(item.get("title") or slug.replace("-", " ").title()).strip(),
+                "dek": str(item.get("dek") or "").strip(),
+                "status": str(item.get("status") or "active").strip() or "active",
+                "defaultType": str(item.get("defaultType") or item.get("default_type") or "text").strip(),
+                "template": str(item.get("template") or "blank").strip() or "blank",
+            }
+        )
+    return out
 
 
 def collect_posts(posts_dir: pathlib.Path) -> list[pathlib.Path]:
@@ -374,10 +665,32 @@ def build_one(
 
     title = meta.get("title") or slug.replace("-", " ").title()
     dek = meta.get("dek") or meta.get("description") or ""
-    type_name = type_label(meta.get("type", "text"))
+    type_raw = str(meta.get("type") or "text")
+    type_name = type_label(type_raw)
     neighbourhood = meta.get("neighbourhood") or meta.get("area") or ""
+    field_note = str(meta.get("fieldnote") or meta.get("field_note") or "").strip()
     updated = meta.get("updated") or meta.get("date") or dt.date.today().isoformat()
     hero = meta.get("hero") or ""
+
+    series_slug = str(meta.get("series") or "").strip()
+    series_title = str(meta.get("seriestitle") or meta.get("series_title") or "").strip()
+    series_order_raw = str(meta.get("seriesorder") or meta.get("series_order") or "").strip()
+    series_order: int | None = None
+    if series_order_raw.isdigit():
+        series_order = int(series_order_raw)
+    if series_slug and not series_title:
+        series_title = series_slug.replace("-", " ").title()
+
+    location = location_from_meta(meta)
+    # Fill name/coords from maps URL when present and fields empty
+    if location["mapsurl"]:
+        parsed = parse_maps_url(location["mapsurl"])
+        if not location["name"] and parsed["name"]:
+            location["name"] = parsed["name"]
+        if not location["lat"] and parsed["lat"]:
+            location["lat"] = parsed["lat"]
+        if not location["lng"] and parsed["lng"]:
+            location["lng"] = parsed["lng"]
 
     public_dir = GUIDES_DIR / slug
     public_media = public_dir / "media"
@@ -387,6 +700,8 @@ def build_one(
 
     media_map = process_images(post_dir, public_media, Image, heif_ok)
     body_html = md_to_html(body, media_map)
+    spot_html = render_spot_widget(location)
+    body_html = insert_spot_widget(body_html, spot_html)
 
     hero_src = None
     if hero:
@@ -400,16 +715,18 @@ def build_one(
         dek=dek,
         type_name=type_name,
         neighbourhood=neighbourhood,
+        field_note=field_note,
+        series_slug=series_slug,
+        series_title=series_title,
         body_html=body_html,
         hero_src=hero_src,
     )
     (public_dir / "index.html").write_text(html_out, encoding="utf-8")
 
-    # Drop empty media dir
     if public_media.is_dir() and not any(public_media.iterdir()):
         public_media.rmdir()
 
-    return {
+    entry: dict[str, Any] = {
         "slug": slug,
         "title": title,
         "dek": dek,
@@ -417,6 +734,29 @@ def build_one(
         "href": f"./guides/{slug}/",
         "updated": updated,
     }
+    if field_note:
+        entry["fieldNote"] = field_note
+    if neighbourhood:
+        entry["neighbourhood"] = neighbourhood
+    if series_slug:
+        entry["series"] = series_slug
+        entry["seriesTitle"] = series_title
+        entry["seriesHref"] = f"./guides/series/{series_slug}/"
+        if series_order is not None:
+            entry["seriesOrder"] = series_order
+    if location["name"] or location["mapsurl"]:
+        entry["location"] = {
+            k: v
+            for k, v in {
+                "name": location["name"],
+                "mapsUrl": location["mapsurl"],
+                "address": location["address"],
+                "lat": location["lat"],
+                "lng": location["lng"],
+            }.items()
+            if v
+        }
+    return entry
 
 
 def ensure_article_css() -> None:
@@ -425,10 +765,10 @@ def ensure_article_css() -> None:
         die(f"missing {css_path.relative_to(ROOT)} — commit guides/{ARTICLE_CSS}")
 
 
-def clean_stale_public(active_slugs: set[str]) -> None:
+def clean_stale_public(active_slugs: set[str], active_series: set[str]) -> None:
     if not GUIDES_DIR.is_dir():
         return
-    reserved = {"posts", ARTICLE_CSS, "index.json"}
+    reserved = {"posts", "series", ARTICLE_CSS, "index.json"}
     for path in GUIDES_DIR.iterdir():
         if not path.is_dir():
             continue
@@ -438,6 +778,90 @@ def clean_stale_public(active_slugs: set[str]) -> None:
             continue
         shutil.rmtree(path)
         print(f"removed stale guide output: {path.name}")
+
+    if SERIES_DIR.is_dir():
+        for path in list(SERIES_DIR.iterdir()):
+            if not path.is_dir():
+                continue
+            if path.name in active_series:
+                continue
+            shutil.rmtree(path)
+            print(f"removed stale series output: {path.name}")
+        if not active_series and SERIES_DIR.is_dir():
+            # Keep empty series dir only if we have no series; remove orphans above
+            if not any(SERIES_DIR.iterdir()):
+                SERIES_DIR.rmdir()
+
+
+def build_series_pages(
+    guides: list[dict[str, Any]],
+    registry: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    """Emit series index pages from registry + posts (0–N episodes OK)."""
+    registry = registry if registry is not None else load_series_registry()
+    by_series: dict[str, list[dict[str, Any]]] = {}
+    titles: dict[str, str] = {}
+    deks: dict[str, str] = {}
+    statuses: dict[str, str] = {}
+
+    for entry in registry:
+        slug = entry["slug"]
+        by_series.setdefault(slug, [])
+        titles[slug] = entry["title"]
+        deks[slug] = entry.get("dek") or ""
+        statuses[slug] = entry.get("status") or "active"
+
+    for guide in guides:
+        series = guide.get("series")
+        if not series:
+            continue
+        by_series.setdefault(series, []).append(guide)
+        # Post title wins only when series is not in the registry
+        if series not in titles:
+            titles[series] = guide.get("seriesTitle") or series.replace("-", " ").title()
+        elif guide.get("seriesTitle") and not deks.get(series):
+            # Keep registry title; ignore post override for registered series
+            pass
+        statuses.setdefault(series, "active")
+
+    series_index: list[dict[str, Any]] = []
+    if SERIES_DIR.exists():
+        shutil.rmtree(SERIES_DIR)
+
+    for series_slug in sorted(by_series.keys(), key=lambda s: titles.get(s, s).lower()):
+        posts = by_series[series_slug]
+        posts_sorted = sorted(
+            posts,
+            key=lambda g: (
+                g.get("seriesOrder") is None,
+                g.get("seriesOrder") if g.get("seriesOrder") is not None else 0,
+                g.get("updated") or "",
+            ),
+        )
+        series_title = titles.get(series_slug) or series_slug.replace("-", " ").title()
+        series_dek = deks.get(series_slug) or ""
+        out_dir = SERIES_DIR / series_slug
+        out_dir.mkdir(parents=True)
+        html_out = render_series_index(
+            series_slug=series_slug,
+            series_title=series_title,
+            series_dek=series_dek,
+            posts=posts_sorted,
+        )
+        (out_dir / "index.html").write_text(html_out, encoding="utf-8")
+        entry: dict[str, Any] = {
+            "slug": series_slug,
+            "title": series_title,
+            "href": f"./guides/series/{series_slug}/",
+            "count": len(posts_sorted),
+            "status": statuses.get(series_slug) or "active",
+        }
+        if series_dek:
+            entry["dek"] = series_dek
+        series_index.append(entry)
+        print(f"built series/{series_slug} ({len(posts_sorted)} post(s))")
+
+    return series_index
 
 
 def main() -> int:
@@ -459,35 +883,41 @@ def main() -> int:
     GUIDES_DIR.mkdir(parents=True, exist_ok=True)
     ensure_article_css()
 
+    registry = load_series_registry(
+        posts_dir / "_series.json" if posts_dir != POSTS_DIR else SERIES_REGISTRY
+    )
     posts = collect_posts(posts_dir)
-    if not posts:
-        print(f"no posts found under {posts_dir.relative_to(ROOT)}")
-        index = {"generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(), "guides": []}
-        (GUIDES_DIR / "index.json").write_text(
-            json.dumps(index, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
-        return 0
 
     guides: list[dict[str, Any]] = []
-    for post_dir in posts:
-        entry = build_one(post_dir, Image, heif_ok)
-        if entry:
-            guides.append(entry)
-            print(f"built {entry['slug']}")
+    if not posts:
+        print(f"no posts found under {posts_dir.relative_to(ROOT)}")
+    else:
+        for post_dir in posts:
+            entry = build_one(post_dir, Image, heif_ok)
+            if entry:
+                guides.append(entry)
+                print(f"built {entry['slug']}")
 
     guides.sort(key=lambda g: g.get("updated") or "", reverse=True)
-    clean_stale_public({g["slug"] for g in guides})
+    series_list = build_series_pages(guides, registry)
+    clean_stale_public(
+        {g["slug"] for g in guides},
+        {s["slug"] for s in series_list},
+    )
 
     index = {
         "generatedAt": dt.datetime.now(dt.timezone.utc).isoformat(),
         "guides": guides,
+        "series": series_list,
     }
     (GUIDES_DIR / "index.json").write_text(
         json.dumps(index, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    print(f"wrote {len(guides)} guide(s) → {GUIDES_DIR.relative_to(ROOT)}/index.json")
+    print(
+        f"wrote {len(guides)} guide(s), {len(series_list)} series → "
+        f"{GUIDES_DIR.relative_to(ROOT)}/index.json"
+    )
     return 0
 
 

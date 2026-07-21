@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T11:51:49.033103+00:00",
-  "weekLabel": "Week of 19 Jul",
-  "intro": "45 events, 10 food picks, and 15 worth revisiting.",
+  "generatedAt": "2026-07-21T09:06:20.365386+00:00",
+  "weekLabel": "Week of 21 Jul",
+  "intro": "44 events, 10 food picks, and 15 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,7 +12,7 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 65319,
+      "bytes": 66261,
       "itemCount": 10,
       "parser": "rss_items"
     },
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 581535,
+      "bytes": 591369,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -60,7 +60,7 @@
       "url": "https://georgetownfestival.com/",
       "ok": true,
       "status": 200,
-      "bytes": 138371,
+      "bytes": 141645,
       "itemCount": 3,
       "parser": "gtf_html"
     },
@@ -72,7 +72,7 @@
       "url": "https://smartdory.com/",
       "ok": true,
       "status": 200,
-      "bytes": 87378,
+      "bytes": 87576,
       "itemCount": 4,
       "parser": "wordpress_home_html"
     },
@@ -84,7 +84,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 72687,
+      "bytes": 72467,
       "itemCount": 4,
       "parser": "chinapress_category_html"
     },
@@ -96,7 +96,7 @@
       "url": "https://mypenang.gov.my/events/all-events/?lg=en",
       "ok": true,
       "status": 200,
-      "bytes": 47350,
+      "bytes": 47534,
       "itemCount": 9,
       "parser": "mypenang_events_html"
     },
@@ -108,7 +108,7 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 70289,
+      "bytes": 68904,
       "itemCount": 10,
       "parser": "rss_items"
     },
@@ -120,7 +120,7 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 21133,
+      "bytes": 31787,
       "itemCount": 6,
       "parser": "rss_items"
     },
@@ -132,271 +132,12 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 208570,
+      "bytes": 208677,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
   ],
   "items": [
-    {
-      "id": "event-penang-bon-odori-festival-2026-d1187ccc4f",
-      "kind": "event",
-      "title": "Penang Bon Odori Festival 2026 (槟城日本盆舞节)",
-      "summary": "Penang Bon Odori Festival on 18 July 2026.",
-      "detail": "Penang Bon Odori Festival on 18 July 2026.",
-      "startDate": "2026-07-18",
-      "endDate": "2026-07-18",
-      "dateLabel": "18 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/890/cover/BON-ODORI_POSTER.jpg.jpeg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/890/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-penang-mitm-travel-fair-brings-the-world-to-baya-504d2e4561",
-      "kind": "event",
-      "title": "Penang MITM Travel Fair Brings the World to Bayan Lepas",
-      "summary": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang…",
-      "detail": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang Tourism and Creative Economy Committee chairman Wong Hon Wai launched the two-day fair on 18 July, calling it one of the […]",
-      "startDate": "2026-07-18",
-      "endDate": "2026-07-18",
-      "dateLabel": "18 Jul",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/mitm-travel-fair-2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8744/penang-mitm-travel-fair-brings-the-world-to-bayan-lepas/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 05:58:24 +0000"
-    },
-    {
-      "id": "event-meow-meow-run-2026-500477bc92",
-      "kind": "event",
-      "title": "MEOW MEOW RUN 2026",
-      "summary": "MEOW MEOW RUN 2026 on 19 July 2026.",
-      "detail": "MEOW MEOW RUN 2026 on 19 July 2026.",
-      "startDate": "2026-07-19",
-      "endDate": "2026-07-19",
-      "dateLabel": "19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/907/cover/2.jpeg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/907/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-music-on-the-hill-east-meets-west-2026-2026-581340808f",
-      "kind": "event",
-      "title": "Music on the Hill - East meets West 2026 (2026年中西交汇的升旗山音乐飨宴)",
-      "summary": "Music on the Hill - East meets West 2026 on 19 July 2026.",
-      "detail": "Music on the Hill - East meets West 2026 on 19 July 2026.",
-      "startDate": "2026-07-19",
-      "endDate": "2026-07-19",
-      "dateLabel": "19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/809/cover/Music-on-the-Hill-East-meets-West-2026_Edited-Ng-Kim-Theng.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/809/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-2026-3rd-penang-taoist-cultural-festival-boundle-c37aa26201",
-      "kind": "event",
-      "title": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” (2026 第三届槟州道教文化节《大道无疆，德化人心》)",
-      "summary": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
-      "detail": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-26",
-      "dateLabel": "26–26 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/903/cover/1.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/903/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-feast-of-st-anne-2026-9306273bf5",
-      "kind": "event",
-      "title": "Feast of St. Anne 2026",
-      "summary": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
-      "detail": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-26",
-      "dateLabel": "26–26 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/905/cover/ST-ANNE-2026.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/905/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-mitm-travel-fair-be4fd25a9b",
-      "kind": "event",
-      "title": "MITM Travel Fair",
-      "summary": "MITM Travel Fair on 18 - 19 July 2026.",
-      "detail": "MITM Travel Fair on 18 - 19 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-19",
-      "dateLabel": "26–19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/899/cover/MITM-TRAVEL-FAIR-A4-01.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/899/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-penang-hill-festival-2026-2026-d66cbd5259",
-      "kind": "event",
-      "title": "Penang Hill Festival 2026 (2026年升旗山嘉年华)",
-      "summary": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
-      "detail": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-19",
-      "dateLabel": "26–19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/808/cover/1.jpeg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/808/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-penang-international-halal-expo-pihex-b71dae2ea4",
-      "kind": "event",
-      "title": "Penang International Halal Expo (PIHEX)",
-      "summary": "Penang International Halal Expo (PIHEX) on 24 - 26 July 2026.",
-      "detail": "Penang International Halal Expo (PIHEX) on 24 - 26 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-26",
-      "dateLabel": "26–26 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/904/cover/PIHEX.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/904/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-typechha-jioba-a-lettering-workshop-by-huruf-ins-9b6864dfd7",
-      "kind": "event",
-      "title": "TypeChha @JioBa (A lettering workshop by huruf inspired by chu-chha)",
-      "summary": "Friday 7 August 2026 Lawn, Hin Bus Depot 4:30pm - 7:30pm Fee: RM10 per person REGISTER HERE",
-      "detail": "Friday 7 August 2026 Lawn, Hin Bus Depot 4:30pm - 7:30pm Fee: RM10 per person REGISTER HERE",
-      "startDate": "2026-08-07",
-      "endDate": "2026-08-07",
-      "dateLabel": "7 Aug · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://docs.google.com/forms/u/2/d/14T54Zj9Swq7Zkz_y4zLD4gEdrfC3p4054adOv3IHX6g/edit",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
-    },
-    {
-      "id": "event-penang-art-open-2025-54b51cdf3c",
-      "kind": "event",
-      "title": "Penang Art Open 2025",
-      "summary": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
-      "detail": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
-      "startDate": "2026-09-25",
-      "endDate": "2026-09-30",
-      "dateLabel": "25–30 Sep · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/817/cover/Lembaga-Muzium-Negeri-Pulau-Pinang-LMNPP.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/817/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events"
-    },
-    {
-      "id": "event-120-industry-leaders-gather-in-penang-to-put-foo-fbdb525cfd",
-      "kind": "event",
-      "title": "120 Industry Leaders Gather in Penang to Put Food Safety at the Top of the Menu",
-      "summary": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronom…",
-      "detail": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronomy Day. Held at the Pelangi Ballroom in Shangri-La Rasa Sayang, the event drew 120 executives from across the food industry […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/Food-2.jpg",
-      "sourceUrl": "https://penangtoday.my/safety/8461/120-industry-leaders-gather-in-penang-to-put-food-safety-at-the-top-of-the-menu/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Tue, 23 Jun 2026 11:55:29 +0000"
-    },
-    {
-      "id": "event-23-floats-to-light-up-penang-wesak-celebration-2-0b62c02369",
-      "kind": "event",
-      "title": "23 floats to light up Penang Wesak Celebration 2026",
-      "summary": "Penang Wesak Celebration 2026 will feature 23 floats under the theme “Bridging through digital, cultivating wisdom together”, with the main procession set for 31 May. Organising committee chairman Datuk Dr Loh Hock Hun s…",
-      "detail": "Penang Wesak Celebration 2026 will feature 23 floats under the theme “Bridging through digital, cultivating wisdom together”, with the main procession set for 31 May. Organising committee chairman Datuk Dr Loh Hock Hun said the annual month-long celebration would include various events, activities and charitable causes leading up to the main day. “The main event […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/wesak-parade-2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8261/23-floats-to-light-up-penang-wesak-celebration-2026/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Mon, 25 May 2026 09:24:46 +0000"
-    },
-    {
-      "id": "event-a-children-s-art-exhibition-by-split-splat-in-co-bab109feed",
-      "kind": "event",
-      "title": "A Children's Art Exhibition by Split Splat, in conjunction with Heritage Celebrations",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
-    },
-    {
-      "id": "event-asian-board-games-festival-abgfmy-d9c3fba529",
-      "kind": "event",
-      "title": "Asian Board Games Festival (ABGFMY)",
-      "summary": "George Town Festival programme highlight.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2025/07/Hero-Homepage-1-1.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/asian-board-games-festival-abgfmy/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
-      "category": "Arts"
-    },
-    {
-      "id": "event-berbunga-the-penang-puppet-festival-2424d7d3aa",
-      "kind": "event",
-      "title": "Berbunga: The Penang Puppet Festival",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
-    },
     {
       "id": "event-bon-odori-festival-2026-celebrates-food-culture--0cf81cfb08",
       "kind": "event",
@@ -412,75 +153,18 @@
       "sourceName": "Penang Hyperlocal",
       "sourceId": "penang_hyperlocal",
       "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 01:33:23 +0000"
-    },
-    {
-      "id": "event-bon-odori-weaves-japanese-culture-into-penang-s--0a5c5ebe56",
-      "kind": "event",
-      "title": "Bon Odori Weaves Japanese Culture Into Penang’s Multicultural Fabric",
-      "summary": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Ha…",
-      "detail": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Hall backdrop. The annual celebration drew locals and visitors alike to George Town’s seafront promenade for a night of Japanese […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/bon-odori-2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8766/bon-odori-weaves-japanese-culture-into-penangs-multicultural-fabric/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 01:20:36 +0000"
-    },
-    {
-      "id": "event-dunlop-sets-course-for-long-term-growth-in-malay-ce46847f5e",
-      "kind": "event",
-      "title": "Dunlop Sets Course for Long-Term Growth in Malaysia",
-      "summary": "Dunlop is strengthening its long-term presence in Malaysia with a rapidly expanding dealer network, a broader range of tyre solutions and continued investment in products designed to meet thechanging needs of Malaysian m…",
-      "detail": "Dunlop is strengthening its long-term presence in Malaysia with a rapidly expanding dealer network, a broader range of tyre solutions and continued investment in products designed to meet thechanging needs of Malaysian motorists. In just a few months, Dunlop has expanded its nationwide dealer network by more than 30%, growing from approximately 150 to over 200 outlets […] The post Dunlop Sets Course for Long-Term Growth in Malaysia appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Dunlop-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/dunlop-sets-course-for-long-term-growth-in-malaysia/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 00:54:20 +0000"
-    },
-    {
-      "id": "event-e-o-bhd-strengthens-penang-s-waterfront-skyline--f44667fd5d",
-      "kind": "event",
-      "title": "E&O Bhd strengthens Penang’s waterfront skyline with launch of AVÉA at Andaman Island",
-      "summary": "Eastern & Oriental Berhad’s (E&O) latest marina-front residential development AVÉA at Andaman Island, sets a new benchmark for lifestyle-centric waterfront living in Penang’s first master-planned island township. Designe…",
-      "detail": "Eastern & Oriental Berhad’s (E&O) latest marina-front residential development AVÉA at Andaman Island, sets a new benchmark for lifestyle-centric waterfront living in Penang’s first master-planned island township. Designed around the concept of live, work and play, AVÉA offers residents an extensive collection of lifestyle facilities that elevate everyday living. At the heart of the development is […] The post E&O Bhd strengthens Penang’s waterfront skyline with launch of AVÉA at Andaman Island appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Avea-wetlands-5.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/eo-bhd-strengthens-penangs-waterfront-skyline-with-launch-of-avea-at-andaman-island/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Thu, 16 Jul 2026 22:30:28 +0000"
-    },
-    {
-      "id": "event-george-town-festival-2026-edition-is-back-from-a-5f997a072f",
-      "kind": "event",
-      "title": "George Town Festival 2026 edition is back from August 1 -9",
-      "summary": "By V. Sivaji The popular George Town Festival is back from August 1 to 9, 2026. This is the 17th edition of the festival. This year’s edition will feature talents from Spain, Taiwan, South Korea, Singapore among others. …",
-      "detail": "By V. Sivaji The popular George Town Festival is back from August 1 to 9, 2026. This is the 17th edition of the festival. This year’s edition will feature talents from Spain, Taiwan, South Korea, Singapore among others. For the benefit of the public, 80 percent of the shows and events are free of charge. […] The post George Town Festival 2026 edition is back from August 1 -9 appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/GTF-2-768x1024.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/george-town-festival-2026-edition-is-back-from-august-1-9/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Fri, 17 Jul 2026 06:06:43 +0000"
+      "publishedAt": "Sun, 19 Jul 2026 01:33:23 +0000",
+      "topics": [
+        "festival",
+        "food",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "food",
+        "culture"
+      ],
+      "interestScore": 100
     },
     {
       "id": "event-george-town-festival-2026-to-feature-artists-fro-890564c30a",
@@ -497,24 +181,20 @@
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 07:33:59 +0000"
-    },
-    {
-      "id": "event-iconic-marjorie-penang-brings-sanrio-character-t-71d3dbfc6b",
-      "kind": "event",
-      "title": "Iconic Marjorie Penang brings Sanrio character themed rooms – Hello Kitty, Kuromi and Cinnamoroll",
-      "summary": "By V. Sivaji In a first-of-its-kind collaboration in Penang, the Iconic Marjorie Penang, a Tribute Portfolio Hotel by Marriott International, has teamed up with Sanrio to introduce an exclusive collection of themed guest…",
-      "detail": "By V. Sivaji In a first-of-its-kind collaboration in Penang, the Iconic Marjorie Penang, a Tribute Portfolio Hotel by Marriott International, has teamed up with Sanrio to introduce an exclusive collection of themed guest rooms inspired by three of the Japanese brand’s most beloved characters – Hello Kitty, Kuromi and Cinnamoroll. The collaboration marks a significant […] The post Iconic Marjorie Penang brings Sanrio character themed rooms – Hello Kitty, Kuromi and Cinnamoroll appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Kitty-4.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/iconic-marjorie-penang-brings-sanrio-character-themed-rooms-hello-kitty-kuromi-and-cinnamoroll/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 00:40:13 +0000"
+      "publishedAt": "Sat, 18 Jul 2026 07:33:59 +0000",
+      "topics": [
+        "festival",
+        "music",
+        "culture",
+        "movies"
+      ],
+      "interest": [
+        "festival",
+        "music",
+        "culture",
+        "movies"
+      ],
+      "interestScore": 100
     },
     {
       "id": "event-junk-journal-fans-travel-the-world-for-penang-he-01bead4c79",
@@ -531,7 +211,94 @@
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Tue, 07 Jul 2026 03:11:33 +0000"
+      "publishedAt": "Tue, 07 Jul 2026 03:11:33 +0000",
+      "topics": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
+      "id": "event-2026-3rd-penang-taoist-cultural-festival-boundle-c37aa26201",
+      "kind": "event",
+      "title": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” (2026 第三届槟州道教文化节《大道无疆，德化人心》)",
+      "summary": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
+      "detail": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
+      "startDate": "2026-07-26",
+      "endDate": "2026-07-26",
+      "dateLabel": "26–26 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/903/cover/1.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/903/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 96
+    },
+    {
+      "id": "event-asian-board-games-festival-abgfmy-d9c3fba529",
+      "kind": "event",
+      "title": "Asian Board Games Festival (ABGFMY)",
+      "summary": "George Town Festival programme highlight.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2025/07/Hero-Homepage-1-1.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/asian-board-games-festival-abgfmy/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 90
+    },
+    {
+      "id": "event-bon-odori-weaves-japanese-culture-into-penang-s--0a5c5ebe56",
+      "kind": "event",
+      "title": "Bon Odori Weaves Japanese Culture Into Penang’s Multicultural Fabric",
+      "summary": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Ha…",
+      "detail": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Hall backdrop. The annual celebration drew locals and visitors alike to George Town’s seafront promenade for a night of Japanese […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/bon-odori-2026.jpeg",
+      "sourceUrl": "https://penangtoday.my/news/8766/bon-odori-weaves-japanese-culture-into-penangs-multicultural-fabric/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Sun, 19 Jul 2026 01:20:36 +0000",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 90
     },
     {
       "id": "event-matahari-9ac7836ef5",
@@ -547,176 +314,16 @@
       "sourceUrl": "https://georgetownfestival.com/programme/matahari-%e5%a4%aa%e9%98%b3/",
       "sourceName": "George Town Festival",
       "sourceId": "georgetown_festival",
-      "category": "Arts"
-    },
-    {
-      "id": "event-memorable-marqu-s-de-c-ceres-wine-dinner-at-pela-83a5a1bf2b",
-      "kind": "event",
-      "title": "Memorable Marqués de Cáceres wine dinner at Pelangi Beach Resort Langkawi",
-      "summary": "By V. Sivaji As Spain celebrates its place in the finals of the FIFA World Cup 2026, another Spanish icon took centre stage in Langkawi. Marqués de Cáceres, one of Spain’s most respected wineries, hosted an exclusive win…",
-      "detail": "By V. Sivaji As Spain celebrates its place in the finals of the FIFA World Cup 2026, another Spanish icon took centre stage in Langkawi. Marqués de Cáceres, one of Spain’s most respected wineries, hosted an exclusive wine dinner at Pelangi Beach Resort Langkawi. The gathering was presented by S.H. Maju Sdn Bhd in collaboration with Asiaeuro Wines […] The post Memorable Marqués de Cáceres wine dinner at Pelangi Beach Resort Langkawi appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Spain-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/memorable-marques-de-caceres-wine-dinner-at-pelangi-beach-resort-langkawi/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Wed, 15 Jul 2026 16:12:03 +0000"
-    },
-    {
-      "id": "event-messi-magic-or-yamal-brilliance-penang-fans-pred-8ee56e60e1",
-      "kind": "event",
-      "title": "Messi magic or Yamal brilliance? Penang fans predict World Cup final winner",
-      "summary": "By Edmund Lee & K.H. Ong WHAT a World Cup it has been so far — filled with goals, quality and drama. The newly introduced 48-team format has produced several major surprises, with smaller nations proving they can challen…",
-      "detail": "By Edmund Lee & K.H. Ong WHAT a World Cup it has been so far — filled with goals, quality and drama. The newly introduced 48-team format has produced several major surprises, with smaller nations proving they can challenge the traditional football powerhouses. Perhaps the biggest shock came when Cape Verde, a...",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/messi-magic-or-yamal-brilliance-penang-fans-predict-world-cup-final-winner/",
-      "sourceName": "Buletin Mutiara",
-      "sourceId": "buletin_mutiara",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 09:27:31 +0000"
-    },
-    {
-      "id": "event-minister-of-tourism-arts-and-culture-malaysia-wi-19cec49935",
-      "kind": "event",
-      "title": "Minister of Tourism, Arts and Culture Malaysia Witnesses MOU Signing Between StarCruises and Golden Destinations for Star Voyager December 2026 Charter",
-      "summary": "In conjunction with the official opening of CruiseWorld Malaysia 2026 in Kuala Lumpur, Dato Sri Tiong King Sing, Minister of Tourism, Arts and Culture Malaysia, today witnessed the signing of a Memorandum of Understandin…",
-      "detail": "In conjunction with the official opening of CruiseWorld Malaysia 2026 in Kuala Lumpur, Dato Sri Tiong King Sing, Minister of Tourism, Arts and Culture Malaysia, today witnessed the signing of a Memorandum of Understanding (MOU) between StarCruises and Golden Destinations Group Berhad, marking a significant collaboration to further strengthen Malaysia’s cruise tourism sector. Under the agreement, Golden Destinations will […] The post Minister of Tourism, Arts and Culture Malaysia Witnesses MOU Signing Between StarCruises and Golden Destinations for Star Voyager December 2026 Charter appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Charter-1-.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/minister-of-tourism-arts-and-culture-malaysia-witnesses-mou-signing-between-starcruises-and-golden-destinations-for-star-voyager-december-2026-charter/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Fri, 17 Jul 2026 21:35:04 +0000"
-    },
-    {
-      "id": "event-parkroyal-penang-resort-wedding-venue-guide-spac-f35dc9b23f",
-      "kind": "event",
-      "title": "PARKROYAL Penang Resort Wedding Venue Guide: Spaces, Packages & Planning Tips",
-      "summary": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Gr…",
-      "detail": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Group, the resort provides thoughtfully designed event spaces, professional support and memorable experiences for wedding celebrations of different styles and sizes. Whether you are […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/Room-561-view-v2.jpg",
-      "sourceUrl": "https://penangtoday.my/events/8736/parkroyal-penang-resort-wedding-venue-venues-packages-pricing-and-what-to-ask-before-you-book/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 03:55:53 +0000"
-    },
-    {
-      "id": "event-pdx-2026-at-setia-spice-convention-centre-b69d6286e3",
-      "kind": "event",
-      "title": "PDX 2026 at Setia SPICE Convention Centre",
-      "summary": "The PDX 2026 is underway at the Setia SPICE Convention Centre. Present to launch the gathering was Penang State Exco for Tourism and Creative Economy YB Wong Hon Wai. The event brings together businesses, policymakers, r…",
-      "detail": "The PDX 2026 is underway at the Setia SPICE Convention Centre. Present to launch the gathering was Penang State Exco for Tourism and Creative Economy YB Wong Hon Wai. The event brings together businesses, policymakers, researchers, entrepreneurs and young innovators from across Malaysia and beyond to exchange ideas on one of the most important transformations of our time. In his opening […] The post PDX 2026 at Setia SPICE Convention Centre appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Digital-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/pdx-2026-at-setia-spice-convention-centre/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Thu, 16 Jul 2026 22:37:35 +0000"
-    },
-    {
-      "id": "event-penang-hill-set-for-greater-appeal-as-cable-car--530bddcde8",
-      "kind": "event",
-      "title": "Penang Hill set for greater appeal as cable car project nears completion, says CM Chow",
-      "summary": "THE completion of the highly anticipated Penang Hill Cable Car project, expected in August next year, is set to make Penang Hill more accessible and further strengthen its position as one of the state’s premier tourism d…",
-      "detail": "THE completion of the highly anticipated Penang Hill Cable Car project, expected in August next year, is set to make Penang Hill more accessible and further strengthen its position as one of the state’s premier tourism destinations, Chief Minister Chow Kon Yeow said. Speaking at the ‘Music on the Hill – East Meets West’...",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/penang-hill-set-for-greater-appeal-as-cable-car-project-nears-completion-says-cm-chow/",
-      "sourceName": "Buletin Mutiara",
-      "sourceId": "buletin_mutiara",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 10:04:41 +0000"
-    },
-    {
-      "id": "event-penang-yosakoi-parade-goes-two-days-with-record--5509b104e8",
-      "kind": "event",
-      "title": "Penang Yosakoi Parade Goes Two Days With Record Local Teams and Japanese Guests",
-      "summary": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. …",
-      "detail": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. About 1,300 dancers across 25 teams from Johor, Perak, Kedah and a record seven to […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/s2p-img-12.jpg",
-      "sourceUrl": "https://penangtoday.my/news/8362/penang-yosakoi-parade-goes-two-days-with-record-local-teams-and-japanese-guests/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Wed, 10 Jun 2026 05:06:04 +0000"
-    },
-    {
-      "id": "event-penang-s-tourism-chief-takes-home-regional-honou-225bbac495",
-      "kind": "event",
-      "title": "Penang’s Tourism Chief Takes Home Regional Honour and He’s Not Keeping the Credit",
-      "summary": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the A…",
-      "detail": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the Asian Hospitality & Tourism Awards (ATH Awards) 2025–2026 gala dinner in Kuala Lumpur. He was the only elected representative honoured at this […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/img-20260622-wa0000173407730690026440.jpg",
-      "sourceUrl": "https://penangtoday.my/events/8468/penangs-tourism-chief-takes-home-regional-honour-and-hes-not-keeping-the-credit/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Wed, 24 Jun 2026 02:31:25 +0000"
-    },
-    {
-      "id": "event-power-lunch-at-mercure-langkawi-pantai-cenang-d9ed6cf708",
-      "kind": "event",
-      "title": "Power Lunch at Mercure Langkawi Pantai Cenang",
-      "summary": "Midday dining has never been more rewarding with the Power Lunch at Mercure Langkawi Pantai Cenang, where great flavours, exceptional value, and a relaxing resort atmosphere come together in the heart of Pantai Cenang. D…",
-      "detail": "Midday dining has never been more rewarding with the Power Lunch at Mercure Langkawi Pantai Cenang, where great flavours, exceptional value, and a relaxing resort atmosphere come together in the heart of Pantai Cenang. Designed for professionals, local residents, business travellers, and holidaymakers alike, the Power Lunch offers a satisfying midday dining experience that combines quality ingredients, generous […] The post Power Lunch at Mercure Langkawi Pantai Cenang appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Power-3-681x1024.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/power-lunch-at-mercure-langkawi-pantai-cenang/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Thu, 16 Jul 2026 22:17:04 +0000"
-    },
-    {
-      "id": "event-realms-a-solo-exhibition-by-annabell-ng-5085975f02",
-      "kind": "event",
-      "title": "REALMS: A solo exhibition by Annabell Ng",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 90
     },
     {
       "id": "event-six-to-eleven-cdea8f9b86",
@@ -732,45 +339,47 @@
       "sourceUrl": "https://georgetownfestival.com/programme/six-to-eleven/",
       "sourceName": "George Town Festival",
       "sourceId": "georgetown_festival",
-      "category": "Arts"
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 90
     },
     {
-      "id": "event-subscribe-to-our-mailing-list-3efe8863e8",
+      "id": "event-penang-mitm-travel-fair-brings-the-world-to-baya-504d2e4561",
       "kind": "event",
-      "title": "SUBSCRIBE TO OUR MAILING LIST",
-      "summary": "Get the first dibs on our programmes, promotions and event invitations! <a rel=\"noopener\" data-ux-btn=\"secondary\" data-ux=\"ContentCardButton\" shape=\"PILL\" decoration=\"NONE\" shadow=\"NONE\" color=\"HIGHCONTRAST\" fill=\"GHOST\"…",
-      "detail": "Get the first dibs on our programmes, promotions and event invitations! <a rel=\"noopener\" data-ux-btn=\"secondary\" data-ux=\"ContentCardButton\" shape=\"PILL\" decoration=\"NONE\" shadow=\"NONE\" color=\"HIGHCONTRAST\" fill=\"GHOST\" data-aid=\"CONTENT_CTA_BTN_RENDERED\" href=\"https://hinbusdepot.us12.list-manage.com/",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
-    },
-    {
-      "id": "event-st-giles-wembley-hotel-chef-fabian-ow-wins-gold--1018f10659",
-      "kind": "event",
-      "title": "St Giles Wembley Hotel Chef Fabian Ow Wins Gold at 2026 Hai Jiang Cup Imperial Chef Touring Championship",
-      "summary": "St Giles Wembley Hotel is proud to celebrate the outstanding achievement of its talented culinary team as Chef Fabian Ow Ho Wah Xiang clinched the Gold Award at the prestigious 2026 Hai Jiang Cup Imperial Chef Touring Ch…",
-      "detail": "St Giles Wembley Hotel is proud to celebrate the outstanding achievement of its talented culinary team as Chef Fabian Ow Ho Wah Xiang clinched the Gold Award at the prestigious 2026 Hai Jiang Cup Imperial Chef Touring Championship. Held in Kuala Lumpur, the 2026 championship was hosted by the Malaysia Gourmet Association in collaboration with HJ Seafood Treasure Restaurant, bringing together an exceptional […] The post St Giles Wembley Hotel Chef Fabian Ow Wins Gold at 2026 Hai Jiang Cup Imperial Chef Touring Championship appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
+      "title": "Penang MITM Travel Fair Brings the World to Bayan Lepas",
+      "summary": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang…",
+      "detail": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang Tourism and Creative Economy Committee chairman Wong Hon Wai launched the two-day fair on 18 July, calling it one of the […]",
+      "startDate": "2026-07-18",
+      "endDate": "2026-07-18",
+      "dateLabel": "18 Jul",
       "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Chef-3.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/st-giles-wembley-hotel-chef-fabian-ow-wins-gold-at-2026-hai-jiang-cup-imperial-chef-touring-championship/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
+      "imageUrl": "https://penangtoday.my/ipsostuh/mitm-travel-fair-2026.jpeg",
+      "sourceUrl": "https://penangtoday.my/news/8744/penang-mitm-travel-fair-brings-the-world-to-bayan-lepas/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Fri, 17 Jul 2026 21:29:36 +0000"
+      "publishedAt": "Sat, 18 Jul 2026 05:58:24 +0000",
+      "topics": [
+        "fair",
+        "culture"
+      ],
+      "interest": [
+        "fair",
+        "culture"
+      ],
+      "interestScore": 88
     },
     {
-      "id": "event-sticking-fragments-a-street-zine-workshop-63111289d6",
+      "id": "event-berbunga-the-penang-puppet-festival-2424d7d3aa",
       "kind": "event",
-      "title": "Sticking Fragments: A Street Zine Workshop (𝘔𝘢𝘱𝘱𝘪𝘯𝘨 𝘑𝘢𝘭𝘢𝘯 𝘎𝘶𝘳𝘥𝘸𝘢𝘳𝘢 𝘗𝘳𝘰𝘫𝘦𝘤𝘵)",
+      "title": "Berbunga: The Penang Puppet Festival",
       "summary": "",
       "detail": "",
       "startDate": null,
@@ -781,7 +390,41 @@
       "sourceUrl": "https://hinbusdepot.com/events",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
-      "category": "Arts"
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 86
+    },
+    {
+      "id": "event-a-children-s-art-exhibition-by-split-splat-in-co-bab109feed",
+      "kind": "event",
+      "title": "A Children's Art Exhibition by Split Splat, in conjunction with Heritage Celebrations",
+      "summary": "",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "family",
+        "culture"
+      ],
+      "interest": [
+        "family",
+        "culture"
+      ],
+      "interestScore": 80
     },
     {
       "id": "event-the-community-that-refused-to-let-penang-s-cultu-8d850d103f",
@@ -798,39 +441,275 @@
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Sun, 28 Jun 2026 03:23:47 +0000"
+      "publishedAt": "Sun, 28 Jun 2026 03:23:47 +0000",
+      "topics": [
+        "food",
+        "culture"
+      ],
+      "interest": [
+        "food",
+        "culture"
+      ],
+      "interestScore": 80
     },
     {
-      "id": "event-the-process-room-e9a893b13c",
+      "id": "event-penang-hill-festival-2026-2026-d66cbd5259",
       "kind": "event",
-      "title": "The Process Room",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts"
+      "title": "Penang Hill Festival 2026 (2026年升旗山嘉年华)",
+      "summary": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
+      "detail": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
+      "startDate": "2026-07-26",
+      "endDate": "2026-07-19",
+      "dateLabel": "26–19 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/808/cover/1.jpeg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/808/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [
+        "festival"
+      ],
+      "interest": [
+        "festival"
+      ],
+      "interestScore": 78
     },
     {
-      "id": "event-this-website-uses-cookies-c520c688c1",
+      "id": "event-music-on-the-hill-east-meets-west-2026-2026-581340808f",
       "kind": "event",
-      "title": "This website uses cookies.",
-      "summary": "We use cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data. Accept \"use strict\";Core.utils.onAllowCookieTracking…",
-      "detail": "We use cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data. Accept \"use strict\";Core.utils.onAllowCookieTracking(function () {const queryString = window.location.search;const urlParams = new URLSearchParams(queryString);const whiteList = ['gclid', 'fbclid', 'gdan_clid'];const belongToList = list => item => list.includes(item);const belongToWhiteList = belongToList(whiteList);Array.from(urlParams).forEach(param => {const [queryKey, queryResult] = param;if (!belongToWhiteList(queryKey)) return;localStorage.setItem(queryKey, queryResult);});}); \"use strict\";Core.utils.onAllowCookieTracking(() => {function u() {if (crypto.randomUUID) return crypto.randomUUID();const b = crypto.getRandomV",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
+      "title": "Music on the Hill - East meets West 2026 (2026年中西交汇的升旗山音乐飨宴)",
+      "summary": "Music on the Hill - East meets West 2026 on 19 July 2026.",
+      "detail": "Music on the Hill - East meets West 2026 on 19 July 2026.",
+      "startDate": "2026-07-19",
+      "endDate": "2026-07-19",
+      "dateLabel": "19 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/809/cover/Music-on-the-Hill-East-meets-West-2026_Edited-Ng-Kim-Theng.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/809/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [
+        "music"
+      ],
+      "interest": [
+        "music"
+      ],
+      "interestScore": 72
+    },
+    {
+      "id": "event-mitm-travel-fair-be4fd25a9b",
+      "kind": "event",
+      "title": "MITM Travel Fair",
+      "summary": "MITM Travel Fair on 18 - 19 July 2026.",
+      "detail": "MITM Travel Fair on 18 - 19 July 2026.",
+      "startDate": "2026-07-26",
+      "endDate": "2026-07-19",
+      "dateLabel": "26–19 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/899/cover/MITM-TRAVEL-FAIR-A4-01.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/899/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [
+        "fair"
+      ],
+      "interest": [
+        "fair"
+      ],
+      "interestScore": 70
+    },
+    {
+      "id": "event-penang-art-open-2025-54b51cdf3c",
+      "kind": "event",
+      "title": "Penang Art Open 2025",
+      "summary": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
+      "detail": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
+      "startDate": "2026-09-25",
+      "endDate": "2026-09-30",
+      "dateLabel": "25–30 Sep · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/817/cover/Lembaga-Muzium-Negeri-Pulau-Pinang-LMNPP.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/817/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 68
+    },
+    {
+      "id": "event-typechha-jioba-a-lettering-workshop-by-huruf-ins-9b6864dfd7",
+      "kind": "event",
+      "title": "TypeChha @JioBa (A lettering workshop by huruf inspired by chu-chha)",
+      "summary": "Friday 7 August 2026 Lawn, Hin Bus Depot 4:30pm - 7:30pm Fee: RM10 per person REGISTER HERE",
+      "detail": "Friday 7 August 2026 Lawn, Hin Bus Depot 4:30pm - 7:30pm Fee: RM10 per person REGISTER HERE",
+      "startDate": "2026-08-07",
+      "endDate": "2026-08-07",
+      "dateLabel": "7 Aug · Hin Bus Depot",
       "area": "George Town",
       "imageUrl": "",
-      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceUrl": "https://docs.google.com/forms/u/2/d/14T54Zj9Swq7Zkz_y4zLD4gEdrfC3p4054adOv3IHX6g/edit",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
-      "category": "Arts"
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 64
+    },
+    {
+      "id": "event-fine-wine-dinner-amid-the-tropical-elegance-of-p-40de68f660",
+      "kind": "event",
+      "title": "Fine Wine Dinner Amid the Tropical Elegance of Pelangi Beach Resort & Spa Langkawi",
+      "summary": "The timeless charm of Pelangi Beach Resort & Spa Langkawi provided the perfect setting for an unforgettable evening as guests gathered for an exclusive Marqués de Cáceres Spanish Wine Dinner recently. Against the backdro…",
+      "detail": "The timeless charm of Pelangi Beach Resort & Spa Langkawi provided the perfect setting for an unforgettable evening as guests gathered for an exclusive Marqués de Cáceres Spanish Wine Dinner recently. Against the backdrop of Pantai Cenang’s spectacular sunset, the event celebrated the heritage of one of Spain’s most acclaimed wineries, bringing together fine wines, […] The post Fine Wine Dinner Amid the Tropical Elegance of Pelangi Beach Resort & Spa Langkawi appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Horizon-1.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/fine-wine-dinner-amid-the-tropical-elegance-of-pelangi-beach-resort-langkawi/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Sun, 19 Jul 2026 20:48:43 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
+    },
+    {
+      "id": "event-minister-of-tourism-arts-and-culture-malaysia-wi-19cec49935",
+      "kind": "event",
+      "title": "Minister of Tourism, Arts and Culture Malaysia Witnesses MOU Signing Between StarCruises and Golden Destinations for Star Voyager December 2026 Charter",
+      "summary": "In conjunction with the official opening of CruiseWorld Malaysia 2026 in Kuala Lumpur, Dato Sri Tiong King Sing, Minister of Tourism, Arts and Culture Malaysia, today witnessed the signing of a Memorandum of Understandin…",
+      "detail": "In conjunction with the official opening of CruiseWorld Malaysia 2026 in Kuala Lumpur, Dato Sri Tiong King Sing, Minister of Tourism, Arts and Culture Malaysia, today witnessed the signing of a Memorandum of Understanding (MOU) between StarCruises and Golden Destinations Group Berhad, marking a significant collaboration to further strengthen Malaysia’s cruise tourism sector. Under the agreement, Golden Destinations will […] The post Minister of Tourism, Arts and Culture Malaysia Witnesses MOU Signing Between StarCruises and Golden Destinations for Star Voyager December 2026 Charter appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Charter-1-.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/minister-of-tourism-arts-and-culture-malaysia-witnesses-mou-signing-between-starcruises-and-golden-destinations-for-star-voyager-december-2026-charter/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Fri, 17 Jul 2026 21:35:04 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
+    },
+    {
+      "id": "event-pceb-s-decade-of-excellence-sets-benchmark-for-b-87d600608a",
+      "kind": "event",
+      "title": "PCEB’s Decade of Excellence Sets Benchmark for Business Events Industry",
+      "summary": "By V. Sivaji Penang State EXCO for Tourism and Creative Economy, YB Wong Hon Wai, commended the Penang Convention & Exhibition Bureau (PCEB) for its pivotal role in positioning Penang as a leading destination for busines…",
+      "detail": "By V. Sivaji Penang State EXCO for Tourism and Creative Economy, YB Wong Hon Wai, commended the Penang Convention & Exhibition Bureau (PCEB) for its pivotal role in positioning Penang as a leading destination for business events by actively attracting conventions, meetings and international events to the state. He noted that PCEB’s efforts are even […] The post PCEB’s Decade of Excellence Sets Benchmark for Business Events Industry appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/P-2.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/pcebs-decade-of-excellence-sets-benchmark-for-business-events-industry/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Tue, 21 Jul 2026 06:23:34 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
+    },
+    {
+      "id": "event-penang-yosakoi-parade-goes-two-days-with-record--5509b104e8",
+      "kind": "event",
+      "title": "Penang Yosakoi Parade Goes Two Days With Record Local Teams and Japanese Guests",
+      "summary": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. …",
+      "detail": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. About 1,300 dancers across 25 teams from Johor, Perak, Kedah and a record seven to […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/s2p-img-12.jpg",
+      "sourceUrl": "https://penangtoday.my/news/8362/penang-yosakoi-parade-goes-two-days-with-record-local-teams-and-japanese-guests/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Wed, 10 Jun 2026 05:06:04 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
+    },
+    {
+      "id": "event-solo-art-exhibition-by-artist-ma-knut-at-chinaho-ec797870ee",
+      "kind": "event",
+      "title": "Solo art exhibition by artist Ma Knut at ChinaHouse",
+      "summary": "ChinaHouse Penang is currently holding a solo art exhibition by German artist Ma Knut. The exhibition is on view until Sunday, July 26, 2026. She is a self-taught contemporary artist whose work bridges painting, mytholog…",
+      "detail": "ChinaHouse Penang is currently holding a solo art exhibition by German artist Ma Knut. The exhibition is on view until Sunday, July 26, 2026. She is a self-taught contemporary artist whose work bridges painting, mythology and the subconscious. She holds a BA (Hons) in Interior Architecture from London Metropolitan University and an MA in Performance Design […] The post Solo art exhibition by artist Ma Knut at ChinaHouse appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Art-3.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/solo-art-exhibition-by-artist-ma-knut-at-chinahouse/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Tue, 21 Jul 2026 00:33:12 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
+    },
+    {
+      "id": "event-st-giles-wembley-hotel-chef-fabian-ow-wins-gold--1018f10659",
+      "kind": "event",
+      "title": "St Giles Wembley Hotel Chef Fabian Ow Wins Gold at 2026 Hai Jiang Cup Imperial Chef Touring Championship",
+      "summary": "St Giles Wembley Hotel is proud to celebrate the outstanding achievement of its talented culinary team as Chef Fabian Ow Ho Wah Xiang clinched the Gold Award at the prestigious 2026 Hai Jiang Cup Imperial Chef Touring Ch…",
+      "detail": "St Giles Wembley Hotel is proud to celebrate the outstanding achievement of its talented culinary team as Chef Fabian Ow Ho Wah Xiang clinched the Gold Award at the prestigious 2026 Hai Jiang Cup Imperial Chef Touring Championship. Held in Kuala Lumpur, the 2026 championship was hosted by the Malaysia Gourmet Association in collaboration with HJ Seafood Treasure Restaurant, bringing together an exceptional […] The post St Giles Wembley Hotel Chef Fabian Ow Wins Gold at 2026 Hai Jiang Cup Imperial Chef Touring Championship appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Chef-3.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/st-giles-wembley-hotel-chef-fabian-ow-wins-gold-at-2026-hai-jiang-cup-imperial-chef-touring-championship/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Fri, 17 Jul 2026 21:29:36 +0000",
+      "topics": [
+        "food"
+      ],
+      "interest": [
+        "food"
+      ],
+      "interestScore": 62
     },
     {
       "id": "event-tracing-silence-a-research-exhibition-on-contemp-deb996046b",
@@ -846,41 +725,435 @@
       "sourceUrl": "https://hinbusdepot.com/events",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
-      "category": "Arts"
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
     },
     {
-      "id": "event-traditional-trades-2026-penang-s-living-heritage-925b8dfa3a",
+      "id": "event-realms-a-solo-exhibition-by-annabell-ng-5085975f02",
       "kind": "event",
-      "title": "Traditional Trades 2026: Penang’s living heritage shines again",
-      "summary": "PENANG’s cultural heartbeat resonated strongly at the launch of the Traditional Trades Campaign 2026, held at Citadines Connect Bertam Georgetown Hotel on July 16. The initiative, officiated by state Tourism and Creative…",
-      "detail": "PENANG’s cultural heartbeat resonated strongly at the launch of the Traditional Trades Campaign 2026, held at Citadines Connect Bertam Georgetown Hotel on July 16. The initiative, officiated by state Tourism and Creative Economy Committee chairman Wong Hon Wai, reaffirmed the state’s commitment to safeguarding traditional trades as vital elements of Penang’s identity. Wong...",
+      "title": "REALMS: A solo exhibition by Annabell Ng",
+      "summary": "",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
+      "id": "event-subscribe-to-our-mailing-list-3efe8863e8",
+      "kind": "event",
+      "title": "SUBSCRIBE TO OUR MAILING LIST",
+      "summary": "Get the first dibs on our programmes, promotions and event invitations! <a rel=\"noopener\" data-ux-btn=\"secondary\" data-ux=\"ContentCardButton\" shape=\"PILL\" decoration=\"NONE\" shadow=\"NONE\" color=\"HIGHCONTRAST\" fill=\"GHOST\"…",
+      "detail": "Get the first dibs on our programmes, promotions and event invitations! <a rel=\"noopener\" data-ux-btn=\"secondary\" data-ux=\"ContentCardButton\" shape=\"PILL\" decoration=\"NONE\" shadow=\"NONE\" color=\"HIGHCONTRAST\" fill=\"GHOST\" data-aid=\"CONTENT_CTA_BTN_RENDERED\" href=\"https://hinbusdepot.us12.list-manage.com/",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
+      "id": "event-sticking-fragments-a-street-zine-workshop-63111289d6",
+      "kind": "event",
+      "title": "Sticking Fragments: A Street Zine Workshop (𝘔𝘢𝘱𝘱𝘪𝘯𝘨 𝘑𝘢𝘭𝘢𝘯 𝘎𝘶𝘳𝘥𝘸𝘢𝘳𝘢 𝘗𝘳𝘰𝘫𝘦𝘤𝘵)",
+      "summary": "",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
+      "id": "event-the-process-room-e9a893b13c",
+      "kind": "event",
+      "title": "The Process Room",
+      "summary": "",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
+      "id": "event-this-website-uses-cookies-c520c688c1",
+      "kind": "event",
+      "title": "This website uses cookies.",
+      "summary": "We use cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data. Accept \"use strict\";Core.utils.onAllowCookieTracking…",
+      "detail": "We use cookies to analyze website traffic and optimize your website experience. By accepting our use of cookies, your data will be aggregated with all other user data. Accept \"use strict\";Core.utils.onAllowCookieTracking(function () {const queryString = window.location.search;const urlParams = new URLSearchParams(queryString);const whiteList = ['gclid', 'fbclid', 'gdan_clid'];const belongToList = list => item => list.includes(item);const belongToWhiteList = belongToList(whiteList);Array.from(urlParams).forEach(param => {const [queryKey, queryResult] = param;if (!belongToWhiteList(queryKey)) return;localStorage.setItem(queryKey, queryResult);});}); \"use strict\";Core.utils.onAllowCookieTracking(() => {function u() {if (crypto.randomUUID) return crypto.randomUUID();const b = crypto.getRandomV",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
+      "id": "event-youth-with-rhythm-2026-unveils-new-format-to-nur-baed9a5725",
+      "kind": "event",
+      "title": "Youth With Rhythm 2026 unveils new format to nurture Penang’s young talents",
+      "summary": "THE Penang state government continues its commitment to empowering youth talent development through Youth With Rhythm: Rentak Belia Talent Show 2026, a performing arts talent platform that provides youths with opportunit…",
+      "detail": "THE Penang state government continues its commitment to empowering youth talent development through Youth With Rhythm: Rentak Belia Talent Show 2026, a performing arts talent platform that provides youths with opportunities to nurture creativity, build self-confidence, and explore careers in the creative industry. The programme, organised by the Penang Youth Development Corporation (PYDC), was...",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/traditional-trades-2026-penangs-living-heritage-shines-again/",
+      "sourceUrl": "https://www.buletinmutiara.com/youth-with-rhythm-2026-unveils-new-format-to-nurture-penangs-young-talents/",
       "sourceName": "Buletin Mutiara",
       "sourceId": "buletin_mutiara",
       "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 04:32:32 +0000"
+      "publishedAt": "Mon, 20 Jul 2026 09:55:06 +0000",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
     },
     {
-      "id": "event-18-c0a483ee3e",
+      "id": "event-meow-meow-run-2026-500477bc92",
       "kind": "event",
-      "title": "首长：才能园持续发展 “为食街”小贩中心料18个月竣工",
-      "summary": "槟州首长曹观友表示，北赖才能园至今仍是区内重要的商业及住宅区域，而在他担任当地国会议员后，重视当地发展及民生议题，并推动多项计划优化当地居住环境。 他举例，才能园“为食街”小贩中心正是其中一项计划，有关项目目前正在建设中，预计将需时18个月竣工，方便当地居民用餐及采购等日常活动。 “当地的甘榜玛尼斯木屋区基础设施严重不足，因此，州政府已规划当地重新发展计划，并已经和各方达成协议，正式启动第一阶段规工程。” 他透露，上述工程首阶段会在北赖…",
-      "detail": "槟州首长曹观友表示，北赖才能园至今仍是区内重要的商业及住宅区域，而在他担任当地国会议员后，重视当地发展及民生议题，并推动多项计划优化当地居住环境。 他举例，才能园“为食街”小贩中心正是其中一项计划，有关项目目前正在建设中，预计将需时18个月竣工，方便当地居民用餐及采购等日常活动。 “当地的甘榜玛尼斯木屋区基础设施严重不足，因此，州政府已规划当地重新发展计划，并已经和各方达成协议，正式启动第一阶段规工程。” 他透露，上述工程首阶段会在北赖河畔兴建房屋，以安置原有居民，再搬迁完成后再开发有关地段，为当地重新注入活力。 “另一项城市更新计划则是甘榜大路（Kampung mainroad）木屋区，当地基设如沟渠和道路等仍不完善，因此，需要进行社区重建计划。” 他是于周六晚，出席北赖才能圆居民协会40周年纪念晚宴上，受邀致辞时这么表示。出席者包括槟州议长拿督斯里刘子健、槟州行政议员孙达拉祖及槟州议员彭心慈等。 他也在会上分享，今年同样是他从政40周年，担任首长一职后虽然非常忙碌，但在人民作为后盾前提下，他将秉持乐观态度履行职责与挑战，全心服务槟州和人民。 “政治从来不是口号，而是落实在每一天和民众的接触当中，从政者需要倾听民众心声，只有真正走进社区了解民众所需，才能获得民众的信任。” 他也赞扬该协会40年来一直保持活跃，秉持团结互助、服务居民的精神，主动联系居民和反映民众诉求，为社区发展付出了许多心力。 “除推进社区建设之外，协会长期关注教育、文化与公益事业，拉近邻里情谊，为社区增添温暖与活力，为此，我希望更多年轻人参与这份有意义的社区工作。” ///沈忠瑞：拔款予教育与慈善事业 筹委会主席沈忠瑞表示，该协会一直以来秉持服务社区精神，更肩负起居民和政府之间的桥梁，从基础建设、卫生和文化等和当局进行协调，造福当地居民。 “居协这些年来默默付出与坚守初心，也为当地社会在慈善、教育等方面略",
+      "title": "MEOW MEOW RUN 2026",
+      "summary": "MEOW MEOW RUN 2026 on 19 July 2026.",
+      "detail": "MEOW MEOW RUN 2026 on 19 July 2026.",
+      "startDate": "2026-07-19",
+      "endDate": "2026-07-19",
+      "dateLabel": "19 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/907/cover/2.jpeg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/907/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [],
+      "interest": [],
+      "interestScore": 50
+    },
+    {
+      "id": "event-the-45th-chinese-song-singing-competition-2026-4-7aa96612d7",
+      "kind": "event",
+      "title": "The 45th Chinese Song Singing Competition 2026 (\"金音绽放中元\"第45届街区歌王歌后争霸赛)",
+      "summary": "The 45th Chinese Song Singing Competition 2026 (\"金音绽放中元\"第45届街区歌王歌后争霸赛) on 25 July 2026.",
+      "detail": "The 45th Chinese Song Singing Competition 2026 (\"金音绽放中元\"第45届街区歌王歌后争霸赛) on 25 July 2026.",
+      "startDate": "2026-07-25",
+      "endDate": "2026-07-25",
+      "dateLabel": "25 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/897/cover/Poster-2026_page-0001.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/897/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [],
+      "interest": [],
+      "interestScore": 50
+    },
+    {
+      "id": "event-feast-of-st-anne-2026-9306273bf5",
+      "kind": "event",
+      "title": "Feast of St. Anne 2026",
+      "summary": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
+      "detail": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
+      "startDate": "2026-07-26",
+      "endDate": "2026-07-26",
+      "dateLabel": "26–26 Jul · myPenang",
+      "area": "Penang",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/905/cover/ST-ANNE-2026.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/905/",
+      "sourceName": "myPenang Events",
+      "sourceId": "mypenang_events",
+      "category": "Events",
+      "topics": [],
+      "interest": [],
+      "interestScore": 50
+    },
+    {
+      "id": "event-courtyard-by-marriott-arrives-on-mainland-penang-3b6c112dc8",
+      "kind": "event",
+      "title": "Courtyard by Marriott Arrives on Mainland Penang",
+      "summary": "Penang’s hospitality sector is set to receive another boost with the arrival of a new Marriott International brand on the mainland, reflecting growing confidence in the state’s business and tourism potential. The Iconic …",
+      "detail": "Penang’s hospitality sector is set to receive another boost with the arrival of a new Marriott International brand on the mainland, reflecting growing confidence in the state’s business and tourism potential. The Iconic Hotel will be rebranded as Courtyard by Marriott Penang Icon City, following the signing of a franchise agreement between Iconic Group and Marriott […] The post Courtyard by Marriott Arrives on Mainland Penang appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/C-3-1.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/courtyard-by-marriott-arrives-on-the-mainland-penang/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Mon, 20 Jul 2026 05:23:55 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-dunlop-sets-course-for-long-term-growth-in-malay-ce46847f5e",
+      "kind": "event",
+      "title": "Dunlop Sets Course for Long-Term Growth in Malaysia",
+      "summary": "Dunlop is strengthening its long-term presence in Malaysia with a rapidly expanding dealer network, a broader range of tyre solutions and continued investment in products designed to meet thechanging needs of Malaysian m…",
+      "detail": "Dunlop is strengthening its long-term presence in Malaysia with a rapidly expanding dealer network, a broader range of tyre solutions and continued investment in products designed to meet thechanging needs of Malaysian motorists. In just a few months, Dunlop has expanded its nationwide dealer network by more than 30%, growing from approximately 150 to over 200 outlets […] The post Dunlop Sets Course for Long-Term Growth in Malaysia appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Dunlop-2.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/dunlop-sets-course-for-long-term-growth-in-malaysia/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Sun, 19 Jul 2026 00:54:20 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-iconic-marjorie-penang-brings-sanrio-character-t-71d3dbfc6b",
+      "kind": "event",
+      "title": "Iconic Marjorie Penang brings Sanrio character themed rooms – Hello Kitty, Kuromi and Cinnamoroll",
+      "summary": "By V. Sivaji In a first-of-its-kind collaboration in Penang, the Iconic Marjorie Penang, a Tribute Portfolio Hotel by Marriott International, has teamed up with Sanrio to introduce an exclusive collection of themed guest…",
+      "detail": "By V. Sivaji In a first-of-its-kind collaboration in Penang, the Iconic Marjorie Penang, a Tribute Portfolio Hotel by Marriott International, has teamed up with Sanrio to introduce an exclusive collection of themed guest rooms inspired by three of the Japanese brand’s most beloved characters – Hello Kitty, Kuromi and Cinnamoroll. The collaboration marks a significant […] The post Iconic Marjorie Penang brings Sanrio character themed rooms – Hello Kitty, Kuromi and Cinnamoroll appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Kitty-4.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/iconic-marjorie-penang-brings-sanrio-character-themed-rooms-hello-kitty-kuromi-and-cinnamoroll/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Sun, 19 Jul 2026 00:40:13 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-malaysian-primary-school-using-data-to-tackle-ob-923709fb02",
+      "kind": "event",
+      "title": "Malaysian primary school using data to tackle obesity wins US$15,000 AIA Outstanding Active Lifestyles Award 2026",
+      "summary": "Sekolah Kebangsaan Manir – a primary school in Kuala Terengganu, Malaysia, which is tackling rising BMIs with a data-driven app and programme to cultivate sustainable healthy habits through daily self-monitoring, reflect…",
+      "detail": "Sekolah Kebangsaan Manir – a primary school in Kuala Terengganu, Malaysia, which is tackling rising BMIs with a data-driven app and programme to cultivate sustainable healthy habits through daily self-monitoring, reflection, and goal setting – has been awarded the US$15,000 AIA Outstanding Active Lifestyles Award 2026. Now in its fourth year, the competition is a flagship initiative of […] The post Malaysian primary school using data to tackle obesity wins US$15,000 AIA Outstanding Active Lifestyles Award 2026 appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Malaysia_SK-Manir_4.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/malaysian-primary-school-using-data-to-tackle-obesity-wins-us15000-aia-outstanding-active-lifestyles-award-2026/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Sun, 19 Jul 2026 20:54:52 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-parkroyal-penang-resort-wedding-venue-guide-spac-f35dc9b23f",
+      "kind": "event",
+      "title": "PARKROYAL Penang Resort Wedding Venue Guide: Spaces, Packages & Planning Tips",
+      "summary": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Gr…",
+      "detail": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Group, the resort provides thoughtfully designed event spaces, professional support and memorable experiences for wedding celebrations of different styles and sizes. Whether you are […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/Room-561-view-v2.jpg",
+      "sourceUrl": "https://penangtoday.my/events/8736/parkroyal-penang-resort-wedding-venue-venues-packages-pricing-and-what-to-ask-before-you-book/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Sat, 18 Jul 2026 03:55:53 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-penang-hill-cable-car-on-track-for-august-2027-c-a518078b43",
+      "kind": "event",
+      "title": "Penang Hill Cable Car On Track For August 2027 Completion, Says CM",
+      "summary": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Mini…",
+      "detail": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Minister Chow Kon Yeow said the project would make Penang Hill more accessible and cement its status as one of the state’s premier tourism […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/a2s-penang-hill-cable-car.jpg",
+      "sourceUrl": "https://penangtoday.my/news/8785/penang-hill-cable-car-on-track-for-august-2027-completion-says-cm/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Mon, 20 Jul 2026 00:25:42 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-penang-s-tourism-chief-takes-home-regional-honou-225bbac495",
+      "kind": "event",
+      "title": "Penang’s Tourism Chief Takes Home Regional Honour and He’s Not Keeping the Credit",
+      "summary": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the A…",
+      "detail": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the Asian Hospitality & Tourism Awards (ATH Awards) 2025–2026 gala dinner in Kuala Lumpur. He was the only elected representative honoured at this […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/img-20260622-wa0000173407730690026440.jpg",
+      "sourceUrl": "https://penangtoday.my/events/8468/penangs-tourism-chief-takes-home-regional-honour-and-hes-not-keeping-the-credit/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Wed, 24 Jun 2026 02:31:25 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-90-b879404603",
+      "kind": "event",
+      "title": "90高龄战斗机折纸达人余祖德 倾囊相授传承毕生技艺",
+      "summary": "1999年，一场在新加坡樟宜机场举行的飞机展览，意外开启了余祖德与战斗机折纸的不解之缘。27年来，他凭着自学与坚持，折出逾600架栩栩如生的战斗机模型，更凭借精湛手艺走遍我国、新加坡、泰国及澳洲等地分享交流。如今虽已90岁高龄，他对折纸的热爱依旧不减，并希望在有生之年，将这门技艺传承下去。 余祖德接受《珍珠快讯》访问时，娓娓道来自己与折纸艺术结缘的故事。来自柔佛永平的他，早年居住在新加坡，65岁时随着孩子定居槟城，也开启了他与折纸艺术相…",
+      "detail": "1999年，一场在新加坡樟宜机场举行的飞机展览，意外开启了余祖德与战斗机折纸的不解之缘。27年来，他凭着自学与坚持，折出逾600架栩栩如生的战斗机模型，更凭借精湛手艺走遍我国、新加坡、泰国及澳洲等地分享交流。如今虽已90岁高龄，他对折纸的热爱依旧不减，并希望在有生之年，将这门技艺传承下去。 余祖德接受《珍珠快讯》访问时，娓娓道来自己与折纸艺术结缘的故事。来自柔佛永平的他，早年居住在新加坡，65岁时随着孩子定居槟城，也开启了他与折纸艺术相伴的人生旅程。 “刚搬来槟城时，机缘巧合下到双溪里蒙光华小学担任中文代课老师。我经常折纸飞机送给学生和老师，看到大家开心，我自己也很满足。” 当时，学校老师见识到他的精湛手艺后，建议他尝试售卖折纸飞机，但他坦言自己并没有信心。后来受邀到义卖会及慈善活动摆档展示作品，才逐渐建立信心，也让他发现，原来简单的一张纸，也能为许多人带来欢乐。 随着口碑渐渐传开，余祖德开始受邀到各类活动摆档售卖折纸战斗机，并举办工作坊教导民众折纸技巧。他的作品和足迹不仅遍布我国各地，也远至新加坡、泰国及澳洲，让他结识许多志同道合的朋友。 谈起这些年来最引以为傲的作品，余祖德表示，自己曾利用瓦楞纸制作一架大型F-15战斗机模型，机身长度约一公尺，成为其代表作之一。 “以前住在武吉占姆时，旧居里摆满了折纸战斗机数代模型，数量超过600架。” 对他而言，无论是一张A4纸，还是随手可见的宣传单，只要经过他巧手折叠，都能摇身一变成为一架威风凛凛的战斗机。 …………………………………….. 折纸战斗机带来满满成就感 ……………………………………….. 尽管已届90高龄，但余祖德的双手依然灵活稳健。受访当天，他更亲自向记者示范折纸战斗机的制作过程，每一个步骤都一丝不苟，展现出多年累积的功力与经验。 “如今闲暇时，我就会折折战斗机过过日子，折纸飞机给我带来满满的成就感。” 他说，自己最",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/%e9%a6%96%e9%95%bf%ef%bc%9a%e6%89%8d%e8%83%bd%e5%9b%ad%e6%8c%81%e7%bb%ad%e5%8f%91%e5%b1%95/",
+      "sourceUrl": "https://www.buletinmutiara.com/90%e6%88%98%e6%96%97%e6%9c%ba%e6%8a%98%e7%ba%b8%e8%be%be%e4%ba%ba%e4%bd%99%e7%a5%96%e5%be%b7/",
       "sourceName": "Buletin Mutiara",
       "sourceId": "buletin_mutiara",
       "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 14:59:18 +0000"
+      "publishedAt": "Tue, 21 Jul 2026 02:47:48 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "event-batu-lanchang-public-market-chosen-to-represent--f2ab4dae06",
+      "kind": "event",
+      "title": "Batu Lanchang Public Market chosen to represent Penang in national clean market campaign",
+      "summary": "BATU Lanchang Public Market has been selected to represent Penang in the 2026 Local Authority (PBT) Clean Public Market Campaign, with the Penang Island City Council (MBPP) aiming to raise the market’s cleanliness rating…",
+      "detail": "BATU Lanchang Public Market has been selected to represent Penang in the 2026 Local Authority (PBT) Clean Public Market Campaign, with the Penang Island City Council (MBPP) aiming to raise the market’s cleanliness rating from Grade B to Grade A through a series of improvement works and community-driven initiatives. Launching the campaign today, MBPP...",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://www.buletinmutiara.com/batu-lanchang-public-market-chosen-to-represent-penang-in-national-clean-market-campaign/",
+      "sourceName": "Buletin Mutiara",
+      "sourceId": "buletin_mutiara",
+      "category": "Events",
+      "publishedAt": "Mon, 20 Jul 2026 09:18:22 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "event-6-08e27849ab",
+      "kind": "event",
+      "title": "槟会展局与6学府携手合作 为旅游及会展领域储备未来人才",
+      "summary": "槟城会展局今日与6所高等学府签署合作备忘录，携手推动商务会展人才培育计划，建立更完善的人才发展生态，为槟州旅游及会展产业储备未来人才，进一步提升槟城国际竞争力。 签署合作备忘录的院校包括槟城昇达学院、槟城立达学院、槟城英迪国际学院、槟城世纪学院、马来西亚伍伦贡伯乐槟城大学学院，以及泰莱大学。 槟州旅游及创意经济行政议员黄汉伟表示，这项合作不仅是一纸协议，更象征政府、产业界与高等教育机构携手合作，共同培育未来旅游及商务会展人才，为槟州旅游…",
+      "detail": "槟城会展局今日与6所高等学府签署合作备忘录，携手推动商务会展人才培育计划，建立更完善的人才发展生态，为槟州旅游及会展产业储备未来人才，进一步提升槟城国际竞争力。 签署合作备忘录的院校包括槟城昇达学院、槟城立达学院、槟城英迪国际学院、槟城世纪学院、马来西亚伍伦贡伯乐槟城大学学院，以及泰莱大学。 槟州旅游及创意经济行政议员黄汉伟表示，这项合作不仅是一纸协议，更象征政府、产业界与高等教育机构携手合作，共同培育未来旅游及商务会展人才，为槟州旅游业长远发展奠定基础。 他说，旅游业的成功不仅取决于游客人数、景点或国际活动，更重要的是人才。无论是举办国际会议、展览或提供优质旅游体验，真正塑造目的地品质和国际声誉的，始终都是人。 他指出，商务会展是旅游业最具价值的发展领域之一，不仅吸引高消费旅客，也能带动酒店、餐饮、交通、创意产业、活动策划及本地企业等多个领域发展，创造广泛经济效益。因此，随着产业不断成长，人才培育也必须同步加强。 黄汉伟说，此次合作将为学生提供更多接触真实产业环境、参与实习及累积实践经验的机会，培养他们的专业能力、解决问题能力及面对变化的韧性，以应对人工智能时代带来的挑战。 他强调，槟城未来的竞争力不仅在于争取更多国际活动落户，更在于培育更多优秀人才。完善的基础设施固然重要，但真正让旅客留下深刻印象，并愿意再次回到槟城的，始终是这里的人才与服务。 【让学生在求学时期接触产业】 槟城会展局首席执行员艾熙汶表示，该局推出商务会展学生伙伴计划（BE Associate Programme），希望让学生在求学期间便能接触产业，通过参与会议、论坛、工作坊、实习及业界交流，提早了解商务会展生态。 他说，商务会展产业涵盖活动策划、酒店、科技、市场营销、创意、销售及供应链等多个领域，希望透过与学府合作，为学生创造更多课堂以外的学习机会，并借助线上平台及业界导师交流，帮助他们探索未来职业方",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://www.buletinmutiara.com/%e6%a7%9f%e4%bc%9a%e5%b1%95%e5%b1%80%e4%b8%8e6%e5%ad%a6%e5%ba%9c%e5%90%88%e4%bd%9c/",
+      "sourceName": "Buletin Mutiara",
+      "sourceId": "buletin_mutiara",
+      "category": "Events",
+      "publishedAt": "Tue, 21 Jul 2026 06:59:44 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "event-120-industry-leaders-gather-in-penang-to-put-foo-fbdb525cfd",
+      "kind": "event",
+      "title": "120 Industry Leaders Gather in Penang to Put Food Safety at the Top of the Menu",
+      "summary": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronom…",
+      "detail": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronomy Day. Held at the Pelangi Ballroom in Shangri-La Rasa Sayang, the event drew 120 executives from across the food industry […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/Food-2.jpg",
+      "sourceUrl": "https://penangtoday.my/safety/8461/120-industry-leaders-gather-in-penang-to-put-food-safety-at-the-top-of-the-menu/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Tue, 23 Jun 2026 11:55:29 +0000",
+      "topics": [
+        "food"
+      ],
+      "interest": [
+        "food"
+      ],
+      "interestScore": 17,
+      "demote": "soft"
     },
     {
       "id": "food-buy-one-free-one-taiwan-buffet-hits-golden-sands-b518afa199",
@@ -1286,6 +1559,7 @@
     }
   ],
   "warnings": [
-    "dropped 6 food opening(s) older than ~2 months"
+    "dropped 6 food opening(s) older than ~2 months",
+    "dropped 1 industry/trade event(s) from consumer feed"
   ]
 }
