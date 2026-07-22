@@ -4,7 +4,7 @@ dek: Clear anchovy broth, hand-torn noodles, and sayur manis — a light Sabah-s
 type: series-mee
 neighbourhood: Pulau Tikus
 fieldNote: Field note · Pulau Tikus · Jul 2026
-updated: 2026-07-21
+updated: 2026-07-22
 series: mee-myself-and-i
 seriesTitle: Mee Myself and I
 seriesOrder: 1
@@ -53,6 +53,10 @@ Soup version (what you have): noodles and toppings swimming in the hot anchovy b
 In Penang, the soupy “Sabah Pan Mee” is a common breakfast or lunch hawker item. Stalls lean on the Sabah connection because the dish — and especially *sayur manis* — is strongly linked to Sabah’s Hakka community.
 
 I like this soup. The anchovies aren’t too fishy at all — very light — and it works great for breakfast on a hot morning. Broth-forward without being thin or boring; the greens give it that slightly mineral edge I kept calling seaweed. Good chew on the noodles, enough pork and crunchy bits to keep each spoonful interesting.
+
+And hey — the hawker cart literally says “SEAWEED NOODLES” in large letters. I think I got that one partly right.
+
+**C-Mee-PO:** Signage isn’t taxonomy. Still *sayur manis*.
 
 Finishing with a strong kopi. Cool enough to think, light enough to work — this is a keeper for scorcher mornings.
 
