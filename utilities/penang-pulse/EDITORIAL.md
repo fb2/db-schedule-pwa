@@ -136,6 +136,7 @@ Penang Pulse stays a **field note**. C-Mee-PO is the **lore track**, not the sta
 - Long lore dump only: optional `### C-Mee-PO briefs the bowl` (or similar) once per article
 - **Never** put C-Mee-PO lines in `>` blockquotes — in this pipeline `>` becomes a practical `.tip` (cash-only / go-early). Keep `>` for real caveats
 - First mention in a series episode may gloss once: “C-Mee-PO, my AI research assistant…” — then just the name
+- When he asks a question (“How are you finding it?”), keep the `**C-Mee-PO:**` label on that line, then answer in plain first person — no `Me:` label. The article voice is already you; only the assistant needs a name tag.
 
 **Examples**
 

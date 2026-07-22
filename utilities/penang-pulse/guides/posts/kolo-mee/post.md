@@ -37,9 +37,7 @@ Some places offer variants like “red” (char siu marinade), “black” (dark
 
 It’s often compared to (but distinct from) Penang-style wantan mee — kolo mee has springier noodles and less dark-soy emphasis. Everyday, comforting, affordable, and satisfying for breakfast.
 
-How are you finding it?
-
-### First bites
+**C-Mee-PO:** How are you finding it?
 
 It’s a tiny bowl — just enough for a breakfast carb load — and it looks delicious. Served with chillies on a spoon; I’m throwing them all in.
 
@@ -49,12 +47,12 @@ Washing it down with a strong kopi. Ready for work.
 
 ### Photos
 
+![Hawker cooking kolo mee](./media/orig/kolo-mee-seller.jpeg)
+
+_At the cart — noodles going into the pot._
+
 ![Special kolo mee](./media/orig/kolo-mee-bowl.jpeg)
 
 _The bowl — springy noodles, chillies on the side._
-
-![SL Special Kolo Mee cart](./media/orig/kolo-mee-cart.jpeg)
-
-_The cart across from coworking._
 
 **C-Mee-PO:** Nice one, Balazs — I’d eat that if I had a mouth!

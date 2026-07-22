@@ -286,9 +286,15 @@ def md_to_html(body: str, media_map: dict[str, str]) -> str:
             alt = html.escape(img.group(1))
             src = html.escape(rewrite_media_src(img.group(2), media_map), quote=True)
             caption = ""
-            if i + 1 < len(lines) and lines[i + 1].strip().startswith("_") and lines[i + 1].strip().endswith("_"):
-                caption = inline_md(lines[i + 1].strip()[1:-1])
-                i += 1
+            # Allow a blank line between image and _caption_ (CMS-friendly).
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines):
+                cap = lines[j].strip()
+                if len(cap) > 2 and cap.startswith("_") and cap.endswith("_"):
+                    caption = inline_md(cap[1:-1])
+                    i = j
             out.append('<figure class="photo-block">')
             out.append(
                 f'<img src="{src}" alt="{alt}" loading="lazy" decoding="async" '
