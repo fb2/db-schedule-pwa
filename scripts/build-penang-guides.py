@@ -35,7 +35,8 @@ POSTS_DIR = GUIDES_DIR / "posts"
 SERIES_REGISTRY = POSTS_DIR / "_series.json"
 SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
-ARTICLE_CSS_VER = "2"  # bump when article.css layout changes (cache bust)
+ARTICLE_CSS_VER = "3"  # bump when article.css layout changes (cache bust)
+MARKS_DIR = GUIDES_DIR / "marks"
 
 MAX_WIDTH = 1400
 JPEG_QUALITY = 82
@@ -475,6 +476,7 @@ def render_article(
     series_title: str,
     body_html: str,
     hero_src: str | None,
+    series_mark: str = "",
     home_href: str = "../../",
     css_href: str = f"../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}",
     icon_href: str = "../../icon.svg",
@@ -492,16 +494,22 @@ def render_article(
         else ""
     )
 
+    mark_html = series_mark_img(series_mark, prefix="../") if series_mark else ""
+
     series_html = ""
     if series_slug and series_title:
         series_href = f"../series/{html.escape(series_slug, quote=True)}/"
         series_html = (
             f'<p class="guide-series">'
+            f"{mark_html}"
             f'<a href="{series_href}">{html.escape(series_title)}</a>'
             f"</p>"
         )
     elif series_title:
-        series_html = f'<p class="guide-series"><span>{html.escape(series_title)}</span></p>'
+        series_html = (
+            f'<p class="guide-series">{mark_html}'
+            f"<span>{html.escape(series_title)}</span></p>"
+        )
 
     hero_html = ""
     if hero_src:
@@ -552,12 +560,27 @@ def render_article(
 """
 
 
+def series_mark_img(mark: str, *, prefix: str) -> str:
+    """Return <img> for a guides/marks filename, or empty if missing/unsafe."""
+    name = pathlib.Path(str(mark or "").strip()).name
+    if not name or name != mark.strip() or not name.endswith(".svg"):
+        return ""
+    if not (MARKS_DIR / name).is_file():
+        return ""
+    src = f"{prefix}marks/{html.escape(name, quote=True)}"
+    return (
+        f'<img class="series-mark" src="{src}" alt="" width="52" height="52" '
+        f'decoding="async" />'
+    )
+
+
 def render_series_index(
     *,
     series_slug: str,
     series_title: str,
     series_dek: str,
     posts: list[dict[str, Any]],
+    series_mark: str = "",
 ) -> str:
     items = []
     for post in posts:
@@ -579,6 +602,22 @@ def render_series_index(
         else '<li class="muted">No episodes yet — check back after the next field note.</li>'
     )
     dek = series_dek or f"Episodes in {series_title}."
+    mark_html = series_mark_img(series_mark, prefix="../../")
+    if mark_html:
+        heading_html = (
+            f'<div class="series-mast">\n'
+            f"        {mark_html}\n"
+            f'        <div class="series-mast-stack">\n'
+            f"          <h1>{html.escape(series_title)}</h1>\n"
+            f'          <p class="guide-dek">{html.escape(dek)}</p>\n'
+            f"        </div>\n"
+            f"      </div>"
+        )
+    else:
+        heading_html = (
+            f"<h1>{html.escape(series_title)}</h1>\n"
+            f'      <p class="guide-dek">{html.escape(dek)}</p>'
+        )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -603,8 +642,7 @@ def render_series_index(
     </div>
     <article class="guide-article">
       <p class="guide-kicker">Series</p>
-      <h1>{html.escape(series_title)}</h1>
-      <p class="guide-dek">{html.escape(dek)}</p>
+      {heading_html}
       <ul class="series-list">
 {list_html}
       </ul>
@@ -633,16 +671,18 @@ def load_series_registry(path: pathlib.Path = SERIES_REGISTRY) -> list[dict[str,
         slug = str(item.get("slug") or "").strip()
         if not slug:
             continue
-        out.append(
-            {
-                "slug": slug,
-                "title": str(item.get("title") or slug.replace("-", " ").title()).strip(),
-                "dek": str(item.get("dek") or "").strip(),
-                "status": str(item.get("status") or "active").strip() or "active",
-                "defaultType": str(item.get("defaultType") or item.get("default_type") or "text").strip(),
-                "template": str(item.get("template") or "blank").strip() or "blank",
-            }
-        )
+        entry: dict[str, Any] = {
+            "slug": slug,
+            "title": str(item.get("title") or slug.replace("-", " ").title()).strip(),
+            "dek": str(item.get("dek") or "").strip(),
+            "status": str(item.get("status") or "active").strip() or "active",
+            "defaultType": str(item.get("defaultType") or item.get("default_type") or "text").strip(),
+            "template": str(item.get("template") or "blank").strip() or "blank",
+        }
+        mark = str(item.get("mark") or item.get("icon") or "").strip()
+        if mark:
+            entry["mark"] = pathlib.Path(mark).name
+        out.append(entry)
     return out
 
 
@@ -660,6 +700,7 @@ def build_one(
     post_dir: pathlib.Path,
     Image: Any,
     heif_ok: bool,
+    series_marks: dict[str, str] | None = None,
 ) -> dict[str, Any] | None:
     slug = post_dir.name
     text = (post_dir / "post.md").read_text(encoding="utf-8")
@@ -686,6 +727,9 @@ def build_one(
         series_order = int(series_order_raw)
     if series_slug and not series_title:
         series_title = series_slug.replace("-", " ").title()
+    series_mark = ""
+    if series_slug and series_marks:
+        series_mark = series_marks.get(series_slug) or ""
 
     location = location_from_meta(meta)
     # Fill name/coords from maps URL when present and fields empty
@@ -726,6 +770,7 @@ def build_one(
         series_title=series_title,
         body_html=body_html,
         hero_src=hero_src,
+        series_mark=series_mark,
     )
     (public_dir / "index.html").write_text(html_out, encoding="utf-8")
 
@@ -774,7 +819,7 @@ def ensure_article_css() -> None:
 def clean_stale_public(active_slugs: set[str], active_series: set[str]) -> None:
     if not GUIDES_DIR.is_dir():
         return
-    reserved = {"posts", "series", ARTICLE_CSS, "index.json"}
+    reserved = {"posts", "series", "marks", ARTICLE_CSS, "index.json"}
     for path in GUIDES_DIR.iterdir():
         if not path.is_dir():
             continue
@@ -809,6 +854,7 @@ def build_series_pages(
     titles: dict[str, str] = {}
     deks: dict[str, str] = {}
     statuses: dict[str, str] = {}
+    marks: dict[str, str] = {}
 
     for entry in registry:
         slug = entry["slug"]
@@ -816,6 +862,8 @@ def build_series_pages(
         titles[slug] = entry["title"]
         deks[slug] = entry.get("dek") or ""
         statuses[slug] = entry.get("status") or "active"
+        if entry.get("mark"):
+            marks[slug] = str(entry["mark"])
 
     for guide in guides:
         series = guide.get("series")
@@ -846,6 +894,7 @@ def build_series_pages(
         )
         series_title = titles.get(series_slug) or series_slug.replace("-", " ").title()
         series_dek = deks.get(series_slug) or ""
+        series_mark = marks.get(series_slug) or ""
         out_dir = SERIES_DIR / series_slug
         out_dir.mkdir(parents=True)
         html_out = render_series_index(
@@ -853,6 +902,7 @@ def build_series_pages(
             series_title=series_title,
             series_dek=series_dek,
             posts=posts_sorted,
+            series_mark=series_mark,
         )
         (out_dir / "index.html").write_text(html_out, encoding="utf-8")
         entry: dict[str, Any] = {
@@ -864,6 +914,8 @@ def build_series_pages(
         }
         if series_dek:
             entry["dek"] = series_dek
+        if series_mark:
+            entry["mark"] = f"./guides/marks/{series_mark}"
         series_index.append(entry)
         print(f"built series/{series_slug} ({len(posts_sorted)} post(s))")
 
@@ -892,6 +944,11 @@ def main() -> int:
     registry = load_series_registry(
         posts_dir / "_series.json" if posts_dir != POSTS_DIR else SERIES_REGISTRY
     )
+    series_marks = {
+        e["slug"]: str(e["mark"])
+        for e in registry
+        if e.get("mark")
+    }
     posts = collect_posts(posts_dir)
 
     guides: list[dict[str, Any]] = []
@@ -899,7 +956,7 @@ def main() -> int:
         print(f"no posts found under {posts_dir.relative_to(ROOT)}")
     else:
         for post_dir in posts:
-            entry = build_one(post_dir, Image, heif_ok)
+            entry = build_one(post_dir, Image, heif_ok, series_marks)
             if entry:
                 guides.append(entry)
                 print(f"built {entry['slug']}")

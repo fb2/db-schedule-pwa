@@ -41,12 +41,8 @@ Feed ranking preferences (family, festival, fair, literary, food, music, culture
 
 ## Canonical URL scheme
 
-**Canonical host:** [https://penangpulse.com](https://penangpulse.com/)
-
-**Alternate host** (same Firebase target; use when corp filters block `.com`):  
-[https://fb-penang-pulse.web.app](https://fb-penang-pulse.web.app/)
-
-Pathnames are identical on both hosts. Prefer `.com` in writing, shares, and agent-facing citations.
+**Public host:** [https://penangpulse.com](https://penangpulse.com/)  
+Served by Firebase Hosting target `penang-pulse`. Use this host in writing, shares, Maps-adjacent copy, and agent-facing citations.
 
 | Path | What |
 | --- | --- |
@@ -74,8 +70,7 @@ Add more by editing `guides/posts/_series.json` and rebuilding. Room for future 
 | Home | https://penangpulse.com/ |
 | Mee series | https://penangpulse.com/guides/series/mee-myself-and-i/ |
 | Family Matters series | https://penangpulse.com/guides/series/family-matters/ |
-| fb- home fallback | https://fb-penang-pulse.web.app/ |
-| fb- Mee series fallback | https://fb-penang-pulse.web.app/guides/series/mee-myself-and-i/ |
+| Episode (example) | https://penangpulse.com/guides/kolo-mee/ |
 
 GitHub Pages also mirrors under `/db-schedule-pwa/utilities/penang-pulse/` — useful for repo browsing, not the public brand URL.
 
@@ -194,6 +189,19 @@ Proportional effort. No growth theater.
 
 **Don’t over-invest:** competing with Visit Penang on SEO, viral social as the core, newsletters before content exists, “the app everyone installs.”
 
+## Guides publish cycle (learnings)
+
+Idempotent checklist from the first Mee Myself and I episode (Kolo Mee / C-Mee-PO):
+
+1. **Write in the correct episode slug** — CMS Save always targets the open `/edit?slug=…`. Creating `kolo-mee` then editing another draft (e.g. a sample) pastes content into the wrong folder. Prefer one open editor tab per episode.
+2. **Draft → Build → Deploy are three steps** — CMS **Build** only regenerates local `guides/<slug>/` + `index.json`. It does **not** update `https://penangpulse.com`. After unchecking Draft: Save & build → commit → `npx firebase-tools deploy --only hosting:penang-pulse`.
+3. **Media filenames** — no spaces in `media/orig/` basenames (markdown links break otherwise). CMS uploads are kebab-cased on save. Prefer descriptive names (`kolo-mee-bowl.jpeg`, `kolo-mee-seller.jpeg`).
+4. **Captions** — put `_Caption text._` on the line after `![alt](./media/orig/…)`. A blank line between image and caption is OK (build skips it). Underscores are stripped into `<figcaption>`; if the caption is not detected, `_…_` can leak into body copy.
+5. **Photo aspect** — body photos keep natural aspect ratio (no forced landscape crop). Portrait stall shots need faces/menus intact; dish crops tolerate 3:2 less often. See `guides/article.css` `.photo-block img`.
+6. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:` and no extra `### First bites` heading unless the section truly needs one.
+7. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder`.
+8. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
+
 ## Tooling pointers
 
 | Need | Where |
@@ -203,3 +211,5 @@ Proportional effort. No growth theater.
 | Series registry | `utilities/penang-pulse/guides/posts/_series.json` |
 | Build Guides | `scripts/build-penang-guides.py` |
 | App README | `utilities/penang-pulse/README.md` |
+| Series mark wireframes | `utilities/penang-pulse/wireframes/guides/series-mark-mee.html` |
+| C-Mee-PO agent rule | `.cursor/rules/penang-pulse-mee-cmeepo.mdc` |

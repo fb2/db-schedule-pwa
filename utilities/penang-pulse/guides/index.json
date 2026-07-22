@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T03:31:51.255880+00:00",
+  "generatedAt": "2026-07-22T03:45:11.189373+00:00",
   "guides": [
     {
       "slug": "kolo-mee",
@@ -41,7 +41,8 @@
       "href": "./guides/series/mee-myself-and-i/",
       "count": 1,
       "status": "active",
-      "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated."
+      "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
+      "mark": "./guides/marks/mee-myself-and-i.svg"
     }
   ]
 }

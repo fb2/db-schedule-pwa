@@ -54,7 +54,7 @@ Optional HEIC: `pip install pillow-heif` in the same venv.
 
 ### Deploy
 
-GitHub Pages serves `/db-schedule-pwa/utilities/penang-pulse/`, but production custom domain `https://penangpulse.com/` and `https://fb-penang-pulse.web.app/` are Firebase Hosting target `penang-pulse`. After push to `main`:
+CMS **Build** only writes local files under `utilities/penang-pulse/`. Production is Firebase Hosting target `penang-pulse` → `https://penangpulse.com/`. After commit + push to `main`:
 
 ```sh
 npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
@@ -62,8 +62,8 @@ npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
 
 Verify:
 
-- `https://penangpulse.com/` / `https://fb-penang-pulse.web.app/`
+- `https://penangpulse.com/`
+- `https://penangpulse.com/feed.json`
 - `https://penangpulse.com/guides/series/mee-myself-and-i/`
 - `https://penangpulse.com/guides/series/family-matters/`
 - `https://penangpulse.com/guides/index.json`
-- `https://fb-penang-pulse.web.app/feed.json`

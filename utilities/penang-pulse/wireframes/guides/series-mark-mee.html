@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Series mark — Mee Myself and I (wireframes)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fafaf8;
+        --text: #1c1c1a;
+        --muted: #6b6b66;
+        --line: #e6e6e2;
+        --accent: #0f6e6e;
+        --wash: #eef6f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #e8e8e4;
+        color: var(--text);
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        line-height: 1.45;
+        padding: 28px 16px 56px;
+      }
+      .hub {
+        max-width: 42rem;
+        margin: 0 auto 20px;
+      }
+      .hub h1 {
+        margin: 0 0 8px;
+        font-size: 1.35rem;
+      }
+      .hub p,
+      .hub li {
+        color: #444;
+        max-width: 62ch;
+      }
+      .hub a {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .choice {
+        margin: 12px 0;
+        padding: 12px 14px;
+        background: #fff;
+        border-radius: 8px;
+      }
+      .choice.rec {
+        border-left: 3px solid var(--accent);
+      }
+      .frames {
+        display: grid;
+        gap: 20px;
+        max-width: 42rem;
+        margin: 0 auto;
+      }
+      .frame {
+        background: var(--bg);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+      }
+      .frame-label {
+        margin: 0;
+        padding: 10px 14px;
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .phone {
+        padding: 10px 16px 28px;
+        max-width: 24rem;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 4px 0 10px;
+        font-size: 0.92rem;
+      }
+      .topbar .back {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .topbar .brand {
+        font-family: Fraunces, Georgia, serif;
+        color: var(--muted);
+      }
+      .kicker {
+        margin: 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      h2.title {
+        margin: 8px 0 0;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.75rem;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+      .dek {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+      .field {
+        margin: 10px 0 0;
+        font-style: italic;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .meta {
+        margin: 14px 0 0;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+      .series-link {
+        margin: 10px 0 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .series-link a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .body-fade {
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      /* Mark asset — simple line bowl + noodles */
+      .bowl-mark {
+        display: inline-block;
+        flex: 0 0 auto;
+        color: var(--accent);
+      }
+      .bowl-mark svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      /* A — inline chip */
+      .a-series {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 10px 0 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .a-series a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .a-series .bowl-mark {
+        width: 22px;
+        height: 22px;
+      }
+      .a-title-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .a-title-row .bowl-mark {
+        width: 36px;
+        height: 36px;
+      }
+      .a-title-row h2 {
+        margin: 0;
+      }
+      /* B — masthead */
+      .b-mast {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-top: 10px;
+      }
+      .b-mast .bowl-mark {
+        width: 52px;
+        height: 52px;
+        margin-top: 2px;
+      }
+      .b-mast .stack {
+        min-width: 0;
+      }
+      .b-mast h2 {
+        margin: 0;
+      }
+      .b-ep-series {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 10px 0 0;
+      }
+      .b-ep-series .bowl-mark {
+        width: 20px;
+        height: 20px;
+      }
+      /* C — emblem */
+      .c-emblem {
+        display: flex;
+        justify-content: flex-start;
+        margin: 4px 0 2px;
+      }
+      .c-emblem .bowl-mark {
+        width: 44px;
+        height: 44px;
+        padding: 8px;
+        background: var(--wash);
+        border-radius: 50%;
+      }
+      .note {
+        margin: 20px auto 0;
+        max-width: 42rem;
+        font-size: 0.9rem;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hub">
+      <h1>Series mark — Mee Myself and I</h1>
+      <p>
+        Goal: a small line-drawn noodle bowl so series + episode tops feel less like a text stack.
+        Same SVG mark, three placements. <strong>B — Masthead</strong> is approved and live.
+      </p>
+      <div class="choice rec">
+        <strong>Approved: B — Masthead</strong> on the series index (icon left of title/dek),
+        plus the same mark at ~20–22px beside the series link on episode pages. Gives structure
+        without a floating badge or card.
+      </div>
+      <ul>
+        <li><strong>A — Inline chip</strong> — smallest change; mark rides with the series label only.</li>
+        <li><strong>B — Masthead</strong> — icon anchors the series H1; episode keeps a quiet series row.</li>
+        <li><strong>C — Emblem wash</strong> — soft circle above the kicker; more “brand object,” slightly louder.</li>
+      </ul>
+      <p><a href="./index.html">← Guides wireframes hub</a></p>
+    </div>
+
+    <!-- shared mark definition via duplicate SVG for portability -->
+    <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+      <symbol id="bowl-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 22h32c0 9-6 16-16 16S8 31 8 22z" />
+        <path d="M10 22c1-6 5-10 14-10s13 4 14 10" />
+        <path d="M18 14c.5-3 2-5 6-5" />
+        <path d="M24 14c.4-2.5 1.5-4 4-4.5" />
+        <path d="M16 26c2 2 5 3 8 3s6-1 8-3" />
+      </symbol>
+    </svg>
+
+    <div class="frames">
+      <!-- A series -->
+      <section class="frame">
+        <p class="frame-label">A — Inline chip · series index</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <p class="kicker">Series</p>
+          <div class="a-title-row">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+            <h2 class="title">Mee Myself and I</h2>
+          </div>
+          <p class="dek">Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.</p>
+          <p class="body-fade">Kolo Mee · Field note · Pulau Tikus…</p>
+        </div>
+      </section>
+
+      <!-- A episode -->
+      <section class="frame">
+        <p class="frame-label">A — Inline chip · episode</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <p class="kicker">Field guide</p>
+          <p class="a-series">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+            <a href="#">Mee Myself and I</a>
+          </p>
+          <p class="field">Field note · Pulau Tikus · Jul 2026</p>
+          <h2 class="title">Kolo Mee</h2>
+          <p class="dek">SL Special across from coworking — tiny springy breakfast bowl.</p>
+          <p class="body-fade">Article body…</p>
+        </div>
+      </section>
+
+      <!-- B series -->
+      <section class="frame">
+        <p class="frame-label">B — Masthead (approved) · series index</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <p class="kicker">Series</p>
+          <div class="b-mast">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+            <div class="stack">
+              <h2 class="title">Mee Myself and I</h2>
+              <p class="dek">Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.</p>
+            </div>
+          </div>
+          <p class="body-fade">Episode list below…</p>
+        </div>
+      </section>
+
+      <!-- B episode -->
+      <section class="frame">
+        <p class="frame-label">B — Masthead pair · episode</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <p class="kicker">Field guide</p>
+          <div class="b-ep-series">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+            <p class="series-link" style="margin: 0"><a href="#">Mee Myself and I</a></p>
+          </div>
+          <p class="field">Field note · Pulau Tikus · Jul 2026</p>
+          <h2 class="title">Kolo Mee</h2>
+          <p class="dek">SL Special across from coworking — tiny springy breakfast bowl.</p>
+          <p class="meta">Neighbourhood · Pulau Tikus</p>
+          <p class="body-fade">Article body…</p>
+        </div>
+      </section>
+
+      <!-- C series -->
+      <section class="frame">
+        <p class="frame-label">C — Emblem wash · series index</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <div class="c-emblem">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+          </div>
+          <p class="kicker">Series</p>
+          <h2 class="title">Mee Myself and I</h2>
+          <p class="dek">Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.</p>
+          <p class="body-fade">Episode list below…</p>
+        </div>
+      </section>
+
+      <!-- C episode -->
+      <section class="frame">
+        <p class="frame-label">C — Emblem wash · episode</p>
+        <div class="phone">
+          <div class="topbar"><span class="back">← Home</span><span class="brand">Penang Pulse</span></div>
+          <div class="c-emblem">
+            <span class="bowl-mark" aria-hidden="true"><svg><use href="#bowl-mark" /></svg></span>
+          </div>
+          <p class="kicker">Field guide</p>
+          <p class="series-link"><a href="#">Mee Myself and I</a></p>
+          <p class="field">Field note · Pulau Tikus · Jul 2026</p>
+          <h2 class="title">Kolo Mee</h2>
+          <p class="dek">SL Special across from coworking — tiny springy breakfast bowl.</p>
+          <p class="body-fade">Article body…</p>
+        </div>
+      </section>
+    </div>
+
+    <p class="note">
+      Live: SVG at <code>utilities/penang-pulse/guides/marks/mee-myself-and-i.svg</code>,
+      <code>mark</code> on the series registry, build injects on series index + episode series row.
+      Family Matters stays without a mark — don’t force a bowl on every series.
+    </p>
+  </body>
+</html>

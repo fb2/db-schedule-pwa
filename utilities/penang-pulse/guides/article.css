@@ -65,6 +65,9 @@ a {
 }
 
 .guide-series {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 10px 0 0;
   font-size: 0.82rem;
   font-weight: 600;
@@ -80,6 +83,39 @@ a {
 
 .guide-series a:hover {
   text-decoration: underline;
+}
+
+/* Optional series mark (registry-driven; Mee bowl, not every series) */
+.series-mark {
+  display: block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+.series-mast {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.series-mast .series-mark {
+  width: 52px;
+  height: 52px;
+  margin-top: 2px;
+}
+
+.series-mast-stack {
+  min-width: 0;
+}
+
+.series-mast-stack h1 {
+  margin: 0;
+}
+
+.series-mast-stack .guide-dek {
+  margin-top: 12px;
 }
 
 /* Personal voice: italic field note above the title */

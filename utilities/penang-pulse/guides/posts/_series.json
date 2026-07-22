@@ -6,7 +6,8 @@
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "status": "active",
       "defaultType": "series-mee",
-      "template": "mee"
+      "template": "mee",
+      "mark": "mee-myself-and-i.svg"
     },
     {
       "slug": "family-matters",
