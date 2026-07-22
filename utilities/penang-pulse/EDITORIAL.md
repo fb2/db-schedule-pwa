@@ -132,6 +132,7 @@ Penang Pulse stays a **field note**. C-Mee-PO is the **lore track**, not the sta
 - **Never** put C-Mee-PO lines in `>` blockquotes — in this pipeline `>` becomes a practical `.tip` (cash-only / go-early). Keep `>` for real caveats
 - First mention in a series episode may gloss once: “C-Mee-PO, my AI research assistant…” — then just the name
 - When he asks a question (“How are you finding it?”), keep the `**C-Mee-PO:**` label on that line, then answer in plain first person — no `Me:` label. The article voice is already you; only the assistant needs a name tag.
+- **Dialogue handoff** — the tasting block must never follow a lore paragraph without an attributed C-Mee-PO cue (e.g. `**C-Mee-PO:** How are you finding it?`) or a clear section break. Readers need a marked transition when the human narrator takes over.
 
 **Examples**
 
@@ -198,7 +199,7 @@ Idempotent checklist from the first Mee Myself and I episode (Kolo Mee / C-Mee-P
 3. **Media filenames** — no spaces in `media/orig/` basenames (markdown links break otherwise). CMS uploads are kebab-cased on save. Prefer descriptive names (`kolo-mee-bowl.jpeg`, `kolo-mee-seller.jpeg`).
 4. **Captions** — put `_Caption text._` on the line after `![alt](./media/orig/…)`. A blank line between image and caption is OK (build skips it). Underscores are stripped into `<figcaption>`; if the caption is not detected, `_…_` can leak into body copy.
 5. **Photo aspect** — body photos keep natural aspect ratio (no forced landscape crop). Portrait stall shots need faces/menus intact; dish crops tolerate 3:2 less often. See `guides/article.css` `.photo-block img`.
-6. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:` and no extra `### First bites` heading unless the section truly needs one.
+6. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:` and no extra `### First bites` heading unless the section truly needs one. After a lore brief, never jump straight into tasting — end with an attributed cue (`How are you finding it?` / short equivalent) so the handoff is visible.
 7. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder`.
 8. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
 

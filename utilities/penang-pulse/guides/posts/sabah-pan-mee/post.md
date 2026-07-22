@@ -52,6 +52,8 @@ Soup version (what you have): noodles and toppings swimming in the hot anchovy b
 
 In Penang, the soupy “Sabah Pan Mee” is a common breakfast or lunch hawker item. Stalls lean on the Sabah connection because the dish — and especially *sayur manis* — is strongly linked to Sabah’s Hakka community.
 
+**C-Mee-PO:** How are you finding it?
+
 I like this soup. The anchovies aren’t too fishy at all — very light — and it works great for breakfast on a hot morning. Broth-forward without being thin or boring; the greens give it that slightly mineral edge I kept calling seaweed. Good chew on the noodles, enough pork and crunchy bits to keep each spoonful interesting.
 
 And hey — the hawker cart literally says “SEAWEED NOODLES” in large letters. I think I got that one partly right.
