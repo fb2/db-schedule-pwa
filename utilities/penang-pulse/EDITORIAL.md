@@ -163,6 +163,7 @@ I’d eat that if I had a mouth!
 | *Texture confirmed: not a hallucination.* | After chew / springiness notes |
 | *Query complete. Now you chew.* | End of a research block |
 | *I have no mouth, and I must mee.* | Rare Easter egg — once a series at most |
+| *Hmm, intriguing — I wish I had taste buds to acquire this data.* | Taste-envy variant when the bowl is unusual / hard to map |
 
 Name alternatives considered and rejected for now: Mee-3PO, C-Mee, Protocol Mee. Prefer **C-Mee-PO**.
 

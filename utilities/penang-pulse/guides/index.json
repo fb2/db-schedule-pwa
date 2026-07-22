@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T04:44:22.613246+00:00",
+  "generatedAt": "2026-07-22T05:52:50.299427+00:00",
   "guides": [
     {
       "slug": "kolo-mee",
@@ -13,7 +13,7 @@
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
-      "seriesOrder": 2
+      "seriesOrder": 3
     },
     {
       "slug": "sabah-pan-mee",
@@ -27,7 +27,7 @@
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
-      "seriesOrder": 1,
+      "seriesOrder": 2,
       "location": {
         "name": "Sabah Pan Mee in Pulau Tikus",
         "mapsUrl": "https://maps.app.goo.gl/EHmrKmYpaJe13HoG7?g_st=ic"
@@ -42,6 +42,24 @@
       "updated": "2026-07-20",
       "fieldNote": "Field note · Pulau Tikus · Jul 2026",
       "neighbourhood": "Pulau Tikus / Jalan Burma"
+    },
+    {
+      "slug": "jawa-mee-33",
+      "title": "Jawa Mee at 33 Best Food Hub",
+      "dek": "Thick sweet-savoury tomato gravy, prawn fritters, and a Hungarian vadas echo — Monday evening Jawa Mee near the Airbnb.",
+      "type": "Mee",
+      "href": "./guides/jawa-mee-33/",
+      "updated": "2026-07-20",
+      "fieldNote": "Field note · Tanjung Tokong · 20 Jul 2026",
+      "neighbourhood": "Tanjung Tokong",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 1,
+      "location": {
+        "name": "Jawa Mee at 33 Best Food Hub",
+        "mapsUrl": "https://maps.app.goo.gl/9cmCvwiC5qqibbGi9"
+      }
     }
   ],
   "series": [
@@ -57,7 +75,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 2,
+      "count": 3,
       "status": "active",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "mark": "./guides/marks/mee-myself-and-i.svg"

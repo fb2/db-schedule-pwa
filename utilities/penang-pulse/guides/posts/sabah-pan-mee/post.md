@@ -7,7 +7,7 @@ fieldNote: Field note · Pulau Tikus · Jul 2026
 updated: 2026-07-22
 series: mee-myself-and-i
 seriesTitle: Mee Myself and I
-seriesOrder: 1
+seriesOrder: 2
 location:
   name: Sabah Pan Mee in Pulau Tikus
   mapsUrl: "https://maps.app.goo.gl/EHmrKmYpaJe13HoG7?g_st=ic"
