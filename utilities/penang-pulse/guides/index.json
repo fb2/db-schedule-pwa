@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T06:44:35.470209+00:00",
+  "generatedAt": "2026-07-22T06:59:25.322551+00:00",
   "guides": [
     {
       "slug": "kolo-mee",
@@ -13,7 +13,11 @@
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
-      "seriesOrder": 3
+      "seriesOrder": 3,
+      "location": {
+        "name": "Kolo Mee at Hock Beng 88 Food Court",
+        "mapsUrl": "https://maps.app.goo.gl/QbSSYu8P9ir4g5WL6"
+      }
     },
     {
       "slug": "lam-mee-88",
