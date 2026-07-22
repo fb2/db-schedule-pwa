@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-07-22T05:52:50.299427+00:00",
+  "generatedAt": "2026-07-22T06:44:35.470209+00:00",
   "guides": [
     {
       "slug": "kolo-mee",
-      "title": "Kolo Mee",
+      "title": "Kolo Mee at Hock Beng 88 Food Court",
       "dek": "SL Special Kolo Mee across from coworking — a tiny, springy breakfast bowl with C-Mee-PO on lore duty.",
       "type": "Mee",
       "href": "./guides/kolo-mee/",
@@ -14,6 +14,24 @@
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
       "seriesOrder": 3
+    },
+    {
+      "slug": "lam-mee-88",
+      "title": "Lam Mee at Hock Beng 88 Food Court",
+      "dek": "Bright greens and reds, prawn-sweet gravy, and birthday-noodle cheer — lunch Lam Mee across from coworking at Hock Beng 88.",
+      "type": "Mee",
+      "href": "./guides/lam-mee-88/",
+      "updated": "2026-07-22",
+      "fieldNote": "Field note · Pulau Tikus · 22 Jul 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 4,
+      "location": {
+        "name": "Lam Mee at Hock Beng 88 Food Court",
+        "mapsUrl": "https://maps.app.goo.gl/QbSSYu8P9ir4g5WL6"
+      }
     },
     {
       "slug": "sabah-pan-mee",
@@ -75,7 +93,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 3,
+      "count": 4,
       "status": "active",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "mark": "./guides/marks/mee-myself-and-i.svg"

@@ -1,5 +1,5 @@
 ---
-title: Kolo Mee
+title: Kolo Mee at Hock Beng 88 Food Court
 dek: SL Special Kolo Mee across from coworking — a tiny, springy breakfast bowl with C-Mee-PO on lore duty.
 type: series-mee
 neighbourhood: Pulau Tikus
