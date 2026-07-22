@@ -29,10 +29,11 @@ Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
 
 1. **Desk** (`/`) — registered series from `guides/posts/_series.json` with episode counts; open a series card.
 2. **Series page** (`/series?slug=…`) — episodes in `seriesOrder`; **New episode in this series** pre-fills series fields + template.
-3. **Editor** — series picker, field note, Maps paste + spot preview, media upload, sibling episodes in the sidebar.
-4. Set `seriesOrder` to reorder (lower first), then **Save & build**.
-5. Preview: `python3 -m http.server 5173` → `/utilities/penang-pulse/`.
-6. Deploy production (after commit/push — not done by the editor):
+3. **Create** — title derives a kebab slug preview (`guides/posts/<slug>/` → live `/guides/<slug>/`); edit the slug before Create.
+4. **Editor** — series picker, draft toggle, editable slug (rename), field note, Maps paste + spot preview, media upload, sibling episodes in the sidebar.
+5. Set `seriesOrder` to reorder (lower first), then **Save & build**.
+6. Preview: `python3 -m http.server 5173` → `/utilities/penang-pulse/`.
+7. Deploy production (after commit/push — not done by the editor):
 
    ```sh
    npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
@@ -45,6 +46,13 @@ Standalone guides: **New standalone guide** on the desk (series = None).
 Built output (safe to commit): `guides/index.json`, `guides/<slug>/`, `guides/series/<slug>/`, `guides/article.css`.
 
 Source posts under `guides/posts/` are ignored by Firebase Hosting (including `_series.json` — source only).
+
+## Drafts, rename, delete
+
+- **Draft** — check **Draft** on the editor (writes `draft: true` in front matter). `build-penang-guides.py` skips drafts: no `guides/<slug>/`, not in `index.json`, not on the public series page. CMS still lists them (with a draft badge) so you can copy structure or promote later.
+- **Reuse a draft as a writing basis** — open the draft in the CMS, keep it drafted, and create new episodes for real venues (set their slugs on create). Or rename the draft slug when you’re ready to publish that bowl under the correct URL, then uncheck Draft → Save & build.
+- **Rename slug** — edit the Slug field and Save. Moves `guides/posts/<old>/` → `guides/posts/<new>/` (lowercase kebab only). Run build to refresh public paths.
+- **Delete episode** — danger zone at the bottom of the editor; confirm removes `guides/posts/<slug>/`. Run build afterward to clear stale public HTML.
 
 ## Maps URL paste behaviour
 
@@ -65,9 +73,10 @@ series: mee-myself-and-i
 seriesTitle: Mee Myself and I
 seriesOrder: 1
 type: series-mee
+draft: true   # optional — CMS only until you uncheck Draft
 fieldNote: Field note · George Town · Jul 2026
 location:
-  name: Lean Huat Hokkien Mee
+  name: Venue name
   mapsUrl: https://maps.app.goo.gl/...
   address: optional
   lat: optional

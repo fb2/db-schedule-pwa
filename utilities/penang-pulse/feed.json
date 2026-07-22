@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-21T09:06:20.365386+00:00",
+  "generatedAt": "2026-07-21T09:48:56.616079+00:00",
   "weekLabel": "Week of 21 Jul",
-  "intro": "44 events, 10 food picks, and 15 worth revisiting.",
+  "intro": "37 events, 10 food picks, and 15 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -139,44 +139,16 @@
   ],
   "items": [
     {
-      "id": "event-bon-odori-festival-2026-celebrates-food-culture--0cf81cfb08",
-      "kind": "event",
-      "title": "Bon Odori Festival 2026 Celebrates Food, Culture and Community",
-      "summary": "By V. Sivaji The Bon Odori Festival 2026 was held at the Esplanade last night in a colourful and grandeur fashion. Joining the celebrations was State Exco for Tourism and Creative Economy YB Wong Hon Wai along with the C…",
-      "detail": "By V. Sivaji The Bon Odori Festival 2026 was held at the Esplanade last night in a colourful and grandeur fashion. Joining the celebrations was State Exco for Tourism and Creative Economy YB Wong Hon Wai along with the Consul General of Japan in Penang, HE Mr Shinya Machida, Penang City Council Mayor Dato A. Rajendran and […] The post Bon Odori Festival 2026 Celebrates Food, Culture and Community appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/07/Bon-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/bon-odori-festival-2026-celebrates-food-culture-and-community/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 01:33:23 +0000",
-      "topics": [
-        "festival",
-        "food",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "food",
-        "culture"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-george-town-festival-2026-to-feature-artists-fro-890564c30a",
+      "id": "event-george-town-festival-2026-to-feature-artists-fro-5d99b2bf37",
       "kind": "event",
       "title": "George Town Festival 2026 to Feature Artists From 10 Countries, Over 40 Programmes",
       "summary": "The 17th George Town Festival (GTF) will bring more than 40 programmes featuring artists from 10 countries when it runs from 1 to 9 August across George Town. Themed “Beyond Boundaries,” the nine-day festival spans visua…",
       "detail": "The 17th George Town Festival (GTF) will bring more than 40 programmes featuring artists from 10 countries when it runs from 1 to 9 August across George Town. Themed “Beyond Boundaries,” the nine-day festival spans visual arts, theatre, dance, music, film, public installations, workshops and community activities. According to Buletin Mutiara, State Tourism and Creative […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-09",
+      "dateLabel": "1–9 Aug",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/buletinmutiara-gtf2026.jpeg",
+      "imageUrl": "",
       "sourceUrl": "https://penangtoday.my/news/8746/george-town-festival-2026-to-feature-artists-from-10-countries-over-40-programmes/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -206,7 +178,7 @@
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/a2s-junk-journal-bg.jpg",
+      "imageUrl": "",
       "sourceUrl": "https://penangtoday.my/news/8608/junk-journal-fans-travel-the-world-for-penang-heritage-stamps/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -225,14 +197,14 @@
       "interestScore": 100
     },
     {
-      "id": "event-2026-3rd-penang-taoist-cultural-festival-boundle-c37aa26201",
+      "id": "event-2026-3rd-penang-taoist-cultural-festival-boundle-76bec3cdeb",
       "kind": "event",
       "title": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” (2026 第三届槟州道教文化节《大道无疆，德化人心》)",
       "summary": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
       "detail": "2026 3rd Penang Taoist Cultural Festival “Boundless Dao, Virtue Inspires Humanity” on 24 – 26 July 2026.",
-      "startDate": "2026-07-26",
+      "startDate": "2026-07-24",
       "endDate": "2026-07-26",
-      "dateLabel": "26–26 Jul · myPenang",
+      "dateLabel": "24–26 Jul · myPenang",
       "area": "Penang",
       "imageUrl": "https://mypenang.gov.my/uploads/event/903/cover/1.jpg",
       "sourceUrl": "https://mypenang.gov.my/events/all-events/903/",
@@ -264,32 +236,6 @@
       "sourceName": "George Town Festival",
       "sourceId": "georgetown_festival",
       "category": "Arts",
-      "topics": [
-        "festival",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "culture"
-      ],
-      "interestScore": 90
-    },
-    {
-      "id": "event-bon-odori-weaves-japanese-culture-into-penang-s--0a5c5ebe56",
-      "kind": "event",
-      "title": "Bon Odori Weaves Japanese Culture Into Penang’s Multicultural Fabric",
-      "summary": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Ha…",
-      "detail": "Thousands of revellers descended on Padang Kota Lama for the Penang Bon Odori Festival 2026, filling the Esplanade with taiko drums, traditional dances and the glow of fireworks against the colonial Town Hall and City Hall backdrop. The annual celebration drew locals and visitors alike to George Town’s seafront promenade for a night of Japanese […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/bon-odori-2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8766/bon-odori-weaves-japanese-culture-into-penangs-multicultural-fabric/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sun, 19 Jul 2026 01:20:36 +0000",
       "topics": [
         "festival",
         "culture"
@@ -351,32 +297,6 @@
       "interestScore": 90
     },
     {
-      "id": "event-penang-mitm-travel-fair-brings-the-world-to-baya-504d2e4561",
-      "kind": "event",
-      "title": "Penang MITM Travel Fair Brings the World to Bayan Lepas",
-      "summary": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang…",
-      "detail": "More than 200 exhibition booths have taken over Setia SPICE Arena this weekend as the Penang Malaysia International Travel Mart (MITM) Travel Fair 2026 opens its doors to holiday planners across northern Malaysia. Penang Tourism and Creative Economy Committee chairman Wong Hon Wai launched the two-day fair on 18 July, calling it one of the […]",
-      "startDate": "2026-07-18",
-      "endDate": "2026-07-18",
-      "dateLabel": "18 Jul",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/mitm-travel-fair-2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8744/penang-mitm-travel-fair-brings-the-world-to-bayan-lepas/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 05:58:24 +0000",
-      "topics": [
-        "fair",
-        "culture"
-      ],
-      "interest": [
-        "fair",
-        "culture"
-      ],
-      "interestScore": 88
-    },
-    {
       "id": "event-berbunga-the-penang-puppet-festival-2424d7d3aa",
       "kind": "event",
       "title": "Berbunga: The Penang Puppet Festival",
@@ -436,7 +356,7 @@
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/IMG-20260628-WA0000.jpg",
+      "imageUrl": "",
       "sourceUrl": "https://penangtoday.my/lifestyle/8515/the-community-that-refused-to-let-penangs-culture-fade-penanglang-community-day-2026/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -450,86 +370,17 @@
         "food",
         "culture"
       ],
-      "interestScore": 80
+      "interestScore": 76
     },
     {
-      "id": "event-penang-hill-festival-2026-2026-d66cbd5259",
-      "kind": "event",
-      "title": "Penang Hill Festival 2026 (2026年升旗山嘉年华)",
-      "summary": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
-      "detail": "Penang Hill Festival 2026 on 17 - 19 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-19",
-      "dateLabel": "26–19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/808/cover/1.jpeg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/808/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events",
-      "topics": [
-        "festival"
-      ],
-      "interest": [
-        "festival"
-      ],
-      "interestScore": 78
-    },
-    {
-      "id": "event-music-on-the-hill-east-meets-west-2026-2026-581340808f",
-      "kind": "event",
-      "title": "Music on the Hill - East meets West 2026 (2026年中西交汇的升旗山音乐飨宴)",
-      "summary": "Music on the Hill - East meets West 2026 on 19 July 2026.",
-      "detail": "Music on the Hill - East meets West 2026 on 19 July 2026.",
-      "startDate": "2026-07-19",
-      "endDate": "2026-07-19",
-      "dateLabel": "19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/809/cover/Music-on-the-Hill-East-meets-West-2026_Edited-Ng-Kim-Theng.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/809/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events",
-      "topics": [
-        "music"
-      ],
-      "interest": [
-        "music"
-      ],
-      "interestScore": 72
-    },
-    {
-      "id": "event-mitm-travel-fair-be4fd25a9b",
-      "kind": "event",
-      "title": "MITM Travel Fair",
-      "summary": "MITM Travel Fair on 18 - 19 July 2026.",
-      "detail": "MITM Travel Fair on 18 - 19 July 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-19",
-      "dateLabel": "26–19 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/899/cover/MITM-TRAVEL-FAIR-A4-01.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/899/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events",
-      "topics": [
-        "fair"
-      ],
-      "interest": [
-        "fair"
-      ],
-      "interestScore": 70
-    },
-    {
-      "id": "event-penang-art-open-2025-54b51cdf3c",
+      "id": "event-penang-art-open-2025-2400770491",
       "kind": "event",
       "title": "Penang Art Open 2025",
       "summary": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
       "detail": "Penang Art Open 2025 on 15 June 2025 - 30 September 2026.",
-      "startDate": "2026-09-25",
+      "startDate": "2025-06-15",
       "endDate": "2026-09-30",
-      "dateLabel": "25–30 Sep · myPenang",
+      "dateLabel": "Ongoing · until 30 Sep · myPenang",
       "area": "Penang",
       "imageUrl": "https://mypenang.gov.my/uploads/event/817/cover/Lembaga-Muzium-Negeri-Pulau-Pinang-LMNPP.jpg",
       "sourceUrl": "https://mypenang.gov.my/events/all-events/817/",
@@ -640,30 +491,6 @@
       "interestScore": 62
     },
     {
-      "id": "event-penang-yosakoi-parade-goes-two-days-with-record--5509b104e8",
-      "kind": "event",
-      "title": "Penang Yosakoi Parade Goes Two Days With Record Local Teams and Japanese Guests",
-      "summary": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. …",
-      "detail": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. About 1,300 dancers across 25 teams from Johor, Perak, Kedah and a record seven to […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/s2p-img-12.jpg",
-      "sourceUrl": "https://penangtoday.my/news/8362/penang-yosakoi-parade-goes-two-days-with-record-local-teams-and-japanese-guests/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Wed, 10 Jun 2026 05:06:04 +0000",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
       "id": "event-solo-art-exhibition-by-artist-ma-knut-at-chinaho-ec797870ee",
       "kind": "event",
       "title": "Solo art exhibition by artist Ma Knut at ChinaHouse",
@@ -712,27 +539,28 @@
       "interestScore": 62
     },
     {
-      "id": "event-tracing-silence-a-research-exhibition-on-contemp-deb996046b",
+      "id": "event-penang-yosakoi-parade-goes-two-days-with-record--5509b104e8",
       "kind": "event",
-      "title": "Tracing Silence: A Research Exhibition on Contemporary History of Okinawa",
-      "summary": "",
-      "detail": "",
+      "title": "Penang Yosakoi Parade Goes Two Days With Record Local Teams and Japanese Guests",
+      "summary": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. …",
+      "detail": "The Penang Yosakoi Parade is back at the Esplanade and bigger than ever. The Pink Hibiscus Club has expanded the event to two days, 27 and 28 June, with more dancers, more teams and a longer list of cultural activities. About 1,300 dancers across 25 teams from Johor, Perak, Kedah and a record seven to […]",
       "startDate": null,
       "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://penangtoday.my/news/8362/penang-yosakoi-parade-goes-two-days-with-record-local-teams-and-japanese-guests/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Wed, 10 Jun 2026 05:06:04 +0000",
       "topics": [
         "culture"
       ],
       "interest": [
         "culture"
       ],
-      "interestScore": 62
+      "interestScore": 58
     },
     {
       "id": "event-realms-a-solo-exhibition-by-annabell-ng-5085975f02",
@@ -850,6 +678,29 @@
       "interestScore": 58
     },
     {
+      "id": "event-tracing-silence-a-research-exhibition-on-contemp-deb996046b",
+      "kind": "event",
+      "title": "Tracing Silence: A Research Exhibition on Contemporary History of Okinawa",
+      "summary": "",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 58
+    },
+    {
       "id": "event-youth-with-rhythm-2026-unveils-new-format-to-nur-baed9a5725",
       "kind": "event",
       "title": "Youth With Rhythm 2026 unveils new format to nurture Penang’s young talents",
@@ -874,17 +725,17 @@
       "interestScore": 58
     },
     {
-      "id": "event-meow-meow-run-2026-500477bc92",
+      "id": "event-feast-of-st-anne-2026-ff175d4427",
       "kind": "event",
-      "title": "MEOW MEOW RUN 2026",
-      "summary": "MEOW MEOW RUN 2026 on 19 July 2026.",
-      "detail": "MEOW MEOW RUN 2026 on 19 July 2026.",
-      "startDate": "2026-07-19",
-      "endDate": "2026-07-19",
-      "dateLabel": "19 Jul · myPenang",
+      "title": "Feast of St. Anne 2026",
+      "summary": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
+      "detail": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
+      "startDate": "2026-07-17",
+      "endDate": "2026-07-26",
+      "dateLabel": "Ongoing · until 26 Jul · myPenang",
       "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/907/cover/2.jpeg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/907/",
+      "imageUrl": "https://mypenang.gov.my/uploads/event/905/cover/ST-ANNE-2026.jpg",
+      "sourceUrl": "https://mypenang.gov.my/events/all-events/905/",
       "sourceName": "myPenang Events",
       "sourceId": "mypenang_events",
       "category": "Events",
@@ -904,25 +755,6 @@
       "area": "Penang",
       "imageUrl": "https://mypenang.gov.my/uploads/event/897/cover/Poster-2026_page-0001.jpg",
       "sourceUrl": "https://mypenang.gov.my/events/all-events/897/",
-      "sourceName": "myPenang Events",
-      "sourceId": "mypenang_events",
-      "category": "Events",
-      "topics": [],
-      "interest": [],
-      "interestScore": 50
-    },
-    {
-      "id": "event-feast-of-st-anne-2026-9306273bf5",
-      "kind": "event",
-      "title": "Feast of St. Anne 2026",
-      "summary": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
-      "detail": "Feast of St. Anne 2026 on 17 Jul 2026 - 26 Jun 2026.",
-      "startDate": "2026-07-26",
-      "endDate": "2026-07-26",
-      "dateLabel": "26–26 Jul · myPenang",
-      "area": "Penang",
-      "imageUrl": "https://mypenang.gov.my/uploads/event/905/cover/ST-ANNE-2026.jpg",
-      "sourceUrl": "https://mypenang.gov.my/events/all-events/905/",
       "sourceName": "myPenang Events",
       "sourceId": "mypenang_events",
       "category": "Events",
@@ -1011,66 +843,6 @@
       "interestScore": 44
     },
     {
-      "id": "event-parkroyal-penang-resort-wedding-venue-guide-spac-f35dc9b23f",
-      "kind": "event",
-      "title": "PARKROYAL Penang Resort Wedding Venue Guide: Spaces, Packages & Planning Tips",
-      "summary": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Gr…",
-      "detail": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Group, the resort provides thoughtfully designed event spaces, professional support and memorable experiences for wedding celebrations of different styles and sizes. Whether you are […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/Room-561-view-v2.jpg",
-      "sourceUrl": "https://penangtoday.my/events/8736/parkroyal-penang-resort-wedding-venue-venues-packages-pricing-and-what-to-ask-before-you-book/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 03:55:53 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 44
-    },
-    {
-      "id": "event-penang-hill-cable-car-on-track-for-august-2027-c-a518078b43",
-      "kind": "event",
-      "title": "Penang Hill Cable Car On Track For August 2027 Completion, Says CM",
-      "summary": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Mini…",
-      "detail": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Minister Chow Kon Yeow said the project would make Penang Hill more accessible and cement its status as one of the state’s premier tourism […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/a2s-penang-hill-cable-car.jpg",
-      "sourceUrl": "https://penangtoday.my/news/8785/penang-hill-cable-car-on-track-for-august-2027-completion-says-cm/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Mon, 20 Jul 2026 00:25:42 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 44
-    },
-    {
-      "id": "event-penang-s-tourism-chief-takes-home-regional-honou-225bbac495",
-      "kind": "event",
-      "title": "Penang’s Tourism Chief Takes Home Regional Honour and He’s Not Keeping the Credit",
-      "summary": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the A…",
-      "detail": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the Asian Hospitality & Tourism Awards (ATH Awards) 2025–2026 gala dinner in Kuala Lumpur. He was the only elected representative honoured at this […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/img-20260622-wa0000173407730690026440.jpg",
-      "sourceUrl": "https://penangtoday.my/events/8468/penangs-tourism-chief-takes-home-regional-honour-and-hes-not-keeping-the-credit/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Wed, 24 Jun 2026 02:31:25 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 44
-    },
-    {
       "id": "event-90-b879404603",
       "kind": "event",
       "title": "90高龄战斗机折纸达人余祖德 倾囊相授传承毕生技艺",
@@ -1111,6 +883,66 @@
       "interestScore": 40
     },
     {
+      "id": "event-parkroyal-penang-resort-wedding-venue-guide-spac-f35dc9b23f",
+      "kind": "event",
+      "title": "PARKROYAL Penang Resort Wedding Venue Guide: Spaces, Packages & Planning Tips",
+      "summary": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Gr…",
+      "detail": "Located along Batu Ferringhi Beach, Penang, PARKROYAL Penang Resort is a five-star beachfront resort offering wedding venues and dedicated services for couples celebrating their special day. Part of Pan Pacific Hotels Group, the resort provides thoughtfully designed event spaces, professional support and memorable experiences for wedding celebrations of different styles and sizes. Whether you are […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://penangtoday.my/events/8736/parkroyal-penang-resort-wedding-venue-venues-packages-pricing-and-what-to-ask-before-you-book/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Sat, 18 Jul 2026 03:55:53 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "event-penang-hill-cable-car-on-track-for-august-2027-c-a518078b43",
+      "kind": "event",
+      "title": "Penang Hill Cable Car On Track For August 2027 Completion, Says CM",
+      "summary": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Mini…",
+      "detail": "Penang Hill’s cable car project remains on schedule for completion in August 2027, a development expected to significantly boost visitor numbers to the iconic hilltop destination, according to Buletin Mutiara. Chief Minister Chow Kon Yeow said the project would make Penang Hill more accessible and cement its status as one of the state’s premier tourism […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://penangtoday.my/news/8785/penang-hill-cable-car-on-track-for-august-2027-completion-says-cm/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Mon, 20 Jul 2026 00:25:42 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "event-penang-s-tourism-chief-takes-home-regional-honou-225bbac495",
+      "kind": "event",
+      "title": "Penang’s Tourism Chief Takes Home Regional Honour and He’s Not Keeping the Credit",
+      "summary": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the A…",
+      "detail": "Penang’s tourism sector picked up another accolade on the regional stage. YB Wong Hon Wai, the state’s Executive Councillor for Tourism and Creative Economy, received the “Outstanding State Tourism Leader” award at the Asian Hospitality & Tourism Awards (ATH Awards) 2025–2026 gala dinner in Kuala Lumpur. He was the only elected representative honoured at this […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://penangtoday.my/events/8468/penangs-tourism-chief-takes-home-regional-honour-and-hes-not-keeping-the-credit/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Wed, 24 Jun 2026 02:31:25 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
       "id": "event-6-08e27849ab",
       "kind": "event",
       "title": "槟会展局与6学府携手合作 为旅游及会展领域储备未来人才",
@@ -1140,7 +972,7 @@
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/Food-2.jpg",
+      "imageUrl": "",
       "sourceUrl": "https://penangtoday.my/safety/8461/120-industry-leaders-gather-in-penang-to-put-food-safety-at-the-top-of-the-menu/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -1152,20 +984,20 @@
       "interest": [
         "food"
       ],
-      "interestScore": 17,
+      "interestScore": 13,
       "demote": "soft"
     },
     {
-      "id": "food-buy-one-free-one-taiwan-buffet-hits-golden-sands-b518afa199",
+      "id": "food-buy-one-free-one-taiwan-buffet-hits-golden-sands-b25b012404",
       "kind": "food",
       "title": "Buy One, Free One: Taiwan Buffet Hits Golden Sands This July",
       "summary": "Penang diners keen on Taiwanese food have a new reason to head to Shangri-La Golden Sands this month. The hotel is running “The Essence of Taiwan” buffet from 16 to 25 July at Garden Café, bringing in two guest chefs fro…",
       "detail": "Penang diners keen on Taiwanese food have a new reason to head to Shangri-La Golden Sands this month. The hotel is running “The Essence of Taiwan” buffet from 16 to 25 July at Garden Café, bringing in two guest chefs from Shangri-La Far Eastern, Tainan, to cook up regional specialities not often seen on the […]",
-      "startDate": "2026-07-25",
+      "startDate": "2026-07-16",
       "endDate": "2026-07-25",
-      "dateLabel": "25 Jul",
+      "dateLabel": "16–25 Jul",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/IMG-20260715-WA00081-1.jpg",
+      "imageUrl": "",
       "sourceUrl": "https://penangtoday.my/news/8753/buy-one-free-one-taiwan-buffet-hits-golden-sands-this-july/",
       "sourceName": "PenangToday Food",
       "sourceId": "penangtoday_food",
@@ -1560,6 +1392,8 @@
   ],
   "warnings": [
     "dropped 6 food opening(s) older than ~2 months",
+    "dropped 2 past-tense event recap(s)",
+    "dropped 5 ended event(s) (endDate before today)",
     "dropped 1 industry/trade event(s) from consumer feed"
   ]
 }

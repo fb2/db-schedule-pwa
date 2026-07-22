@@ -24,6 +24,24 @@ Build tags consumer `topics` / `interest` from title+summary keywords (EN + comm
 
 Industry / trade / B2B / corporate expos (e.g. Halal industry, PIHEX, professional conferences) are **hard-dropped** from the public feed or **soft-demoted** (−45 score) when expo/summit language pairs with industry/trade context. Consumer travel/food/culture fairs are not demoted. Prefer tuning keyword rules in `build-penang-feed.py` over hand-editing `feed.json`.
 
+### Past-event recaps (drop from events)
+
+Build drops `kind=event` items that read as **after-the-fact recaps**, especially undated / Date TBA pieces. Heuristic: past-tense cues in title/summary/detail (`was held`, `last night`, `yesterday`, `took place`, `concluded`, `drew crowds` / `descended on`, etc.) **and** no future-facing language (`will be held`, `will feature`, `is scheduled`, …). Example: Bon Odori “was held … last night” with `Date TBA` → excluded (not Happening soon).
+
+Also drops events whose `endDate` (or `startDate` if no end) is already before today. Ongoing shows (`start < today <= end`) keep a label like `Ongoing · until 30 Sep`.
+
+Date parsing prefers full ranges (`15 June 2025 - 30 September 2026`) and same-month ranges with a digit lookbehind so `2025 - 30 September` is not misread as `25–30 Sep`.
+
+### App bucketing (events)
+
+| Rule | Section |
+| --- | --- |
+| `start <= today <= end` (ongoing) | Happening soon |
+| `today <= start <= today+14d` | Happening soon |
+| `start > today+14d` | Upcoming later |
+| `end < today` | Dropped at build (should not appear) |
+| Undated (no start/end), not a recap | Still listed under Happening soon (app appends undated) |
+
 Header fields:
 
 - `weekLabel`: human date like `Week of 19 Jul` (not ISO)

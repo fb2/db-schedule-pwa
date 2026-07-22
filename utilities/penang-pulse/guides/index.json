@@ -1,24 +1,19 @@
 {
-  "generatedAt": "2026-07-21T09:33:26.041174+00:00",
+  "generatedAt": "2026-07-22T03:10:42.346224+00:00",
   "guides": [
     {
-      "slug": "lean-huat-hokkien-mee",
-      "title": "Lean Huat Hokkien Mee",
-      "dek": "First stop in Mee Myself and I — rich prawn-pork broth at Swee Kong Kopitiam, next to Pulau Tikus Market.",
+      "slug": "kolo-mee",
+      "title": "Kolo Mee",
+      "dek": "SL Special Kolo Mee across from coworking — a tiny, springy breakfast bowl with C-Mee-PO on lore duty.",
       "type": "Mee",
-      "href": "./guides/lean-huat-hokkien-mee/",
-      "updated": "2026-07-21",
+      "href": "./guides/kolo-mee/",
+      "updated": "2026-07-22",
       "fieldNote": "Field note · Pulau Tikus · Jul 2026",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
-      "seriesOrder": 1,
-      "location": {
-        "name": "Lean Huat Hokkien Mee",
-        "mapsUrl": "https://maps.app.goo.gl/placeholderLeanHuat",
-        "address": "Swee Kong Kopitiam, Jalan Burma (opposite / next to Pulau Tikus Market)"
-      }
+      "seriesOrder": 1
     },
     {
       "slug": "hawker-lunch-common-ground",

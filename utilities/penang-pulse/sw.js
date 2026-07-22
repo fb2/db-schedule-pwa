@@ -1,9 +1,9 @@
-const CACHE_NAME = "penang-pulse-v10";
+const CACHE_NAME = "penang-pulse-v11";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=10",
-  "./app.js?v=10",
+  "./styles.css?v=11",
+  "./app.js?v=11",
   "./feed.json",
   "./guides/index.json",
   "./manifest.webmanifest",

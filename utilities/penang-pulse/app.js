@@ -72,23 +72,41 @@ function startOfToday() {
   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
+function soonHorizon(today) {
+  const horizon = new Date(today);
+  horizon.setDate(horizon.getDate() + SOON_DAYS);
+  return horizon;
+}
+
+/** start <= today <= end — currently running (e.g. long exhibitions). */
+function isOngoing(item, today) {
+  const start = parseDate(item.startDate);
+  const end = parseDate(item.endDate) || start;
+  if (!start || !end) return false;
+  return start <= today && end >= today;
+}
+
+/**
+ * Happening soon: ongoing now, or starts within the next SOON_DAYS.
+ * Ended events (end < today) are never soon.
+ */
 function isHappeningSoon(item, today) {
   const start = parseDate(item.startDate);
   const end = parseDate(item.endDate) || start;
   if (!start && !end) return false;
-  const horizon = new Date(today);
-  horizon.setDate(horizon.getDate() + SOON_DAYS);
-  const effectiveStart = start || end;
   const effectiveEnd = end || start;
-  return effectiveEnd >= today && effectiveStart <= horizon;
+  if (effectiveEnd < today) return false;
+  if (isOngoing(item, today)) return true;
+  const effectiveStart = start || end;
+  return effectiveStart >= today && effectiveStart <= soonHorizon(today);
 }
 
+/** Upcoming later: start is after the next-14-days window (not ongoing). */
 function isUpcomingLater(item, today) {
   const start = parseDate(item.startDate);
   if (!start) return false;
-  const horizon = new Date(today);
-  horizon.setDate(horizon.getDate() + SOON_DAYS);
-  return start > horizon;
+  if (isOngoing(item, today)) return false;
+  return start > soonHorizon(today);
 }
 
 function parseFlexibleDate(value) {
@@ -345,8 +363,8 @@ function renderGuides() {
     title.textContent = guide.title || guide.slug || "Guide";
     const type = document.createElement("span");
     type.className = "g-type";
-    // Prefer series title in the strip when present (e.g. Mee Myself and I)
-    type.textContent = guide.seriesTitle || guide.type || "Text";
+    // Format-agnostic label — no Text/Photos/Video on the home strip.
+    type.textContent = "Field guide";
     a.append(title, type);
     li.append(a);
     list.append(li);

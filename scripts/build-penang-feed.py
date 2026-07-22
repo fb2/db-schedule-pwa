@@ -24,12 +24,48 @@ CONFIG_PATH = ROOT / "scripts" / "penang_sources.json"
 
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
+# Full cross-month/year range: "15 June 2025 - 30 September 2026"
+FULL_DATE_RANGE_RE = re.compile(
+    r"\b(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\s*[–\-]\s*"
+    r"(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    re.I,
+)
+# Same-month day range: "25–30 Sep". (?<!\d) avoids "2025 - 30 Sep" → 25–30 Sep.
 DATE_RANGE_RE = re.compile(
-    r"(\d{1,2})\s*[–\-]\s*(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    r"(?<!\d)(\d{1,2})\s*[–\-]\s*(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    re.I,
+)
+# "from 1 to 9 August" / "1 to 9 August 2026"
+DATE_RANGE_TO_RE = re.compile(
+    r"\b(?:from\s+)?(\d{1,2})\s+to\s+(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
     re.I,
 )
 SINGLE_DATE_RE = re.compile(
     r"\b(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\b",
+    re.I,
+)
+# Past-tense / after-the-fact event write-ups (especially undated RSS recaps).
+PAST_EVENT_RECAP_RE = re.compile(
+    r"\b("
+    r"was held|were held|was staged|were staged|"
+    r"took place|has concluded|have concluded|concluded|"
+    r"last night|yesterday|over the weekend|"
+    r"drew crowds|drew locals|drew thousands|drew revellers|"
+    r"attracted (?:crowds|thousands|locals|visitors)|"
+    r"descended on|packed the|filled the|"
+    r"wrapped up|came to a close|kicked off yesterday"
+    r")\b",
+    re.I,
+)
+# Future/upcoming language that should keep an item despite weak past-ish verbs.
+FUTURE_EVENT_HINT_RE = re.compile(
+    r"\b("
+    r"will be held|will take place|is scheduled|are scheduled|"
+    r"to be held|set to|slated to|coming soon|"
+    r"this (?:weekend|coming)|next (?:week|month)|"
+    r"tickets? (?:are )?now|register (?:now|here)|"
+    r"will (?:bring|feature|host|run|open)|opens? on|starts? on"
+    r")\b",
     re.I,
 )
 MONTHS = {
@@ -423,10 +459,40 @@ def coerce_year(year: str | None, default_year: int) -> int:
     return int(year) if year else default_year
 
 
+def _fmt_day_month(day: int, month: int, year: int | None = None) -> str:
+    month_name = dt.date(2000, month, 1).strftime("%b")
+    if year is None:
+        return f"{day} {month_name}"
+    return f"{day} {month_name} {year}"
+
+
 def parse_dates_from_text(text: str, default_year: int) -> tuple[str | None, str | None, str]:
     text = clean_text(text)
-    range_match = DATE_RANGE_RE.search(text)
-    if range_match:
+    full = FULL_DATE_RANGE_RE.search(text)
+    if full:
+        d1, m1, y1, d2, m2, y2 = full.groups()
+        month1, month2 = month_num(m1), month_num(m2)
+        if month1 and month2:
+            year2 = coerce_year(y2, default_year)
+            if y1:
+                year1 = int(y1)
+            else:
+                year1 = year2
+                if month1 > month2 or (month1 == month2 and int(d1) > int(d2)):
+                    year1 = year2 - 1
+            start = f"{year1:04d}-{month1:02d}-{int(d1):02d}"
+            end = f"{year2:04d}-{month2:02d}-{int(d2):02d}"
+            if year1 != year2:
+                label = f"{_fmt_day_month(int(d1), month1, year1)} – {_fmt_day_month(int(d2), month2, year2)}"
+            elif month1 != month2:
+                label = f"{_fmt_day_month(int(d1), month1)} – {_fmt_day_month(int(d2), month2)}"
+            else:
+                label = f"{int(d1)}–{int(d2)} {m2[:3].title()}"
+            return start, end, label
+    for pattern in (DATE_RANGE_RE, DATE_RANGE_TO_RE):
+        range_match = pattern.search(text)
+        if not range_match:
+            continue
         d1, d2, month, year = range_match.groups()
         m = month_num(month)
         if m:
@@ -964,6 +1030,74 @@ def filter_stale_food_openings(
     return kept, dropped
 
 
+def _iso_date(value: Any) -> dt.date | None:
+    if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        try:
+            return dt.date.fromisoformat(value)
+        except ValueError:
+            return None
+    return None
+
+
+def is_past_event_recap(item: dict[str, Any]) -> bool:
+    """True for after-the-fact event write-ups that should not appear as upcoming.
+
+    Heuristic: past-tense cues ("was held", "last night", "drew crowds", …) and
+    no future-facing language. Undated (Date TBA) recaps always drop; dated
+    items drop only when the event window has already ended.
+    """
+    if item.get("kind") != "event":
+        return False
+    blob = item_text_blob(item)
+    if not PAST_EVENT_RECAP_RE.search(blob):
+        return False
+    if FUTURE_EVENT_HINT_RE.search(blob):
+        return False
+    start = _iso_date(item.get("startDate"))
+    end = _iso_date(item.get("endDate")) or start
+    if start is None:
+        return True
+    today = utc_now().date()
+    return end is not None and end < today
+
+
+def filter_event_window(
+    items: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], int, int]:
+    """Drop ended events + past-tense recaps; relabel ongoing shows.
+
+    Returns (items, ended_dropped, recap_dropped).
+    """
+    today = utc_now().date()
+    kept: list[dict[str, Any]] = []
+    ended_dropped = 0
+    recap_dropped = 0
+    for item in items:
+        if item.get("kind") != "event":
+            kept.append(item)
+            continue
+        if is_past_event_recap(item):
+            recap_dropped += 1
+            continue
+        start = _iso_date(item.get("startDate"))
+        end = _iso_date(item.get("endDate")) or start
+        if end is not None and end < today:
+            ended_dropped += 1
+            continue
+        if start is not None and end is not None and start < today <= end:
+            # Ongoing exhibition/run — prefer clear label over a wrong end fragment.
+            until = _fmt_day_month(end.day, end.month)
+            source_bit = ""
+            label = item.get("dateLabel") or ""
+            if "·" in label:
+                source_bit = " ·" + label.split("·", 1)[1]
+            elif label and not re.search(r"\d", label):
+                source_bit = f" · {label}"
+            item["dateLabel"] = f"Ongoing · until {until}{source_bit}"
+        kept.append(item)
+    return kept, ended_dropped, recap_dropped
+
+
 def item_text_blob(item: dict[str, Any]) -> str:
     return " ".join(
         part
@@ -1207,6 +1341,13 @@ def main() -> int:
     if stale_food_dropped:
         warnings.append(f"dropped {stale_food_dropped} food opening(s) older than ~2 months")
         print(f"Dropped {stale_food_dropped} stale food opening(s) (>~2 months)")
+    items, ended_dropped, recap_dropped = filter_event_window(items)
+    if recap_dropped:
+        warnings.append(f"dropped {recap_dropped} past-tense event recap(s)")
+        print(f"Dropped {recap_dropped} past-tense event recap(s)")
+    if ended_dropped:
+        warnings.append(f"dropped {ended_dropped} ended event(s) (endDate before today)")
+        print(f"Dropped {ended_dropped} ended event(s)")
     user_agent = config.get(
         "userAgent",
         "PenangPulse/0.1 (+https://fb2.github.io/db-schedule-pwa/utilities/penang-pulse/)",

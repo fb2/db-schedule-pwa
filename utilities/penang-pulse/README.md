@@ -65,6 +65,5 @@ Verify:
 - `https://penangpulse.com/` / `https://fb-penang-pulse.web.app/`
 - `https://penangpulse.com/guides/series/mee-myself-and-i/`
 - `https://penangpulse.com/guides/series/family-matters/`
-- `https://penangpulse.com/guides/lean-huat-hokkien-mee/`
 - `https://penangpulse.com/guides/index.json`
 - `https://fb-penang-pulse.web.app/feed.json`

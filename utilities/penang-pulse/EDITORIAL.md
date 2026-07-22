@@ -53,7 +53,7 @@ Pathnames are identical on both hosts. Prefer `.com` in writing, shares, and age
 | [`/`](https://penangpulse.com/) | Home — weekly pulse + Guides strip |
 | [`/feed.json`](https://penangpulse.com/feed.json) | Weekly feed data |
 | Guides strip on home | Links into posts (no separate public guides landing required) |
-| [`/guides/<slug>/`](https://penangpulse.com/guides/lean-huat-hokkien-mee/) | Single Guide post |
+| `/guides/<slug>/` | Single Guide post (published only; drafts skipped) |
 | [`/guides/series/<series-slug>/`](https://penangpulse.com/guides/series/mee-myself-and-i/) | Series index (episodes in order) |
 | [`/guides/index.json`](https://penangpulse.com/guides/index.json) | Machine index of guides + series |
 | [`/guides/article.css`](https://penangpulse.com/guides/article.css) | Shared Guide stylesheet |
@@ -74,7 +74,6 @@ Add more by editing `guides/posts/_series.json` and rebuilding. Room for future 
 | Home | https://penangpulse.com/ |
 | Mee series | https://penangpulse.com/guides/series/mee-myself-and-i/ |
 | Family Matters series | https://penangpulse.com/guides/series/family-matters/ |
-| Example episode | https://penangpulse.com/guides/lean-huat-hokkien-mee/ |
 | fb- home fallback | https://fb-penang-pulse.web.app/ |
 | fb- Mee series fallback | https://fb-penang-pulse.web.app/guides/series/mee-myself-and-i/ |
 
@@ -97,20 +96,78 @@ series: mee-myself-and-i          # kebab slug; must match registry when possibl
 seriesTitle: Mee Myself and I     # display title
 seriesOrder: 1                    # integer; sort ascending on series page
 type: series-mee                  # optional type hint (mee episodes)
+draft: true                       # optional — CMS only; build skips publishing
 fieldNote: Field note · Pulau Tikus · Jul 2026
 ```
+
+Posts with `draft: true` stay editable in the local guides CMS but are not emitted to public HTML, `index.json`, or series indexes.
 
 ### Naming conventions
 
 | Thing | Convention |
 | --- | --- |
 | Series slug | kebab-case, stable forever (`mee-myself-and-i`) |
-| Post slug | kebab-case from venue/topic (`lean-huat-hokkien-mee`) |
+| Post slug | kebab-case from venue/topic (set on create; rename in CMS if needed) |
 | Series title | Title Case, human voice |
 | Episode title | Venue or answer-shaped topic — not “Episode 3” |
 | `seriesOrder` | Dense integers starting at 1; reorder by editing the field |
 
 Standalone Guides omit `series` / `seriesTitle` / `seriesOrder`.
+
+### Mee Myself and I — C-Mee-PO voice
+
+**Mee Myself and I** episodes may feature **C-Mee-PO**, an AI research assistant character (C-3PO + *mee*). Use him to reuse strong dish/ingredient research (e.g. from Grok) almost as-is, framed as a briefing, with light conversational glue from the human narrator.
+
+**Role split**
+
+| Human narrator (you) | C-Mee-PO |
+| --- | --- |
+| Where, when, queue, cash, “would I go again” | Dish history, ingredients, regional names, “what am I eating” |
+| Taste opinion and venue judgment | Corrective / encyclopedic / dry wit |
+| Short setup questions in prose | Dense answer (mostly reused research), then at most one catchphrase |
+
+Penang Pulse stays a **field note**. C-Mee-PO is the **lore track**, not the stall review. Do not let him rate the venue or replace tasting notes.
+
+**Tone:** light pedantry + warmth — protocol droid at a hawker table. Accurate, slightly literal, amused by humans. One joke per beat, then useful fact. Avoid constant sci-fi gags, emoji-robot voice, or comedy-sketch density.
+
+**Attribution (markdown → Guides build)**
+
+- Default: prose setup, then a normal paragraph starting with `**C-Mee-PO:**`
+- Long lore dump only: optional `### C-Mee-PO briefs the bowl` (or similar) once per article
+- **Never** put C-Mee-PO lines in `>` blockquotes — in this pipeline `>` becomes a practical `.tip` (cash-only / go-early). Keep `>` for real caveats
+- First mention in a series episode may gloss once: “C-Mee-PO, my AI research assistant…” — then just the name
+
+**Examples**
+
+```markdown
+I asked C-Mee-PO what I was actually eating.
+
+**C-Mee-PO:** [research summary, mostly as-is]
+
+I’d eat that if I had a mouth!
+```
+
+```markdown
+“That green tasted like seaweed.”
+
+**C-Mee-PO:** You must be human-hallucinating. That’s *sayur manis*
+(mani cai / sweet leaf / Sabah vegetable) — …
+```
+
+**Catchphrase bank** (rotate; ~1 per article, 2 only if one is a correction beat)
+
+| Phrase | When |
+| --- | --- |
+| *I’d eat that if I had a mouth!* | Endorsement / envy after a strong bowl |
+| *You must be human-hallucinating.* | Soft correction (wrong ingredient guess, etc.) |
+| *Not a dinner bowl — unless you want to dream with the Singularity.* | Heavy / fatty / very spicy — **max every 4th–5th article** |
+| *My training data agrees.* | Confirming a classic take |
+| *Regional nomenclature incoming.* | Before a names dump (Hokkien / Malay / Mandarin) |
+| *Texture confirmed: not a hallucination.* | After chew / springiness notes |
+| *Query complete. Now you chew.* | End of a research block |
+| *I have no mouth, and I must mee.* | Rare Easter egg — once a series at most |
+
+Name alternatives considered and rejected for now: Mee-3PO, C-Mee, Protocol Mee. Prefer **C-Mee-PO**.
 
 ## AI / agent notes (GEO)
 

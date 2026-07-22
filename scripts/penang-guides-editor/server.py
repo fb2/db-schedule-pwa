@@ -19,6 +19,7 @@ import html
 import json
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import urllib.parse
@@ -55,6 +56,58 @@ def slugify(value: str) -> str:
     value = value.strip().lower()
     value = re.sub(r"[^a-z0-9]+", "-", value)
     return value.strip("-") or "guide"
+
+
+def safe_upload_name(filename: str) -> str:
+    """Basename with spaces/odd chars collapsed so markdown media links stay reliable."""
+    raw = pathlib.Path(filename).name
+    if not raw or raw.startswith("."):
+        return ""
+    stem = slugify(pathlib.Path(raw).stem) or "image"
+    ext = pathlib.Path(raw).suffix.lower()
+    if ext not in {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".bmp", ".heic", ".heif"}:
+        ext = ".jpg"
+    return f"{stem}{ext}"
+
+
+def is_valid_slug(value: str) -> bool:
+    return bool(value) and bool(SLUG_RE.match(value))
+
+
+def remove_public_slug(slug: str) -> None:
+    """Remove built guides/<slug>/ if present (posts/ is source of truth)."""
+    public = GUIDES_DIR / slug
+    if public.is_dir() and public.resolve().parent == GUIDES_DIR.resolve():
+        shutil.rmtree(public)
+
+
+def rename_post(old_slug: str, new_slug: str) -> str | None:
+    """Move posts/<old>/ → posts/<new>/. Returns error message or None on success."""
+    if not is_valid_slug(old_slug) or not is_valid_slug(new_slug):
+        return "Slug must be lowercase kebab-case (a-z, 0-9, hyphens)."
+    if old_slug == new_slug:
+        return None
+    old_dir = POSTS_DIR / old_slug
+    new_dir = POSTS_DIR / new_slug
+    if not old_dir.is_dir() or not (old_dir / "post.md").is_file():
+        return f"Unknown episode: {old_slug}"
+    if new_dir.exists():
+        return f"Slug already exists: {new_slug}"
+    old_dir.rename(new_dir)
+    remove_public_slug(old_slug)
+    return None
+
+
+def delete_post(slug: str) -> str | None:
+    """Remove posts/<slug>/ folder. Returns error message or None on success."""
+    if not is_valid_slug(slug):
+        return "Invalid slug."
+    post_dir = POSTS_DIR / slug
+    if not post_dir.is_dir() or not (post_dir / "post.md").is_file():
+        return f"Unknown episode: {slug}"
+    shutil.rmtree(post_dir)
+    remove_public_slug(slug)
+    return None
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
@@ -171,6 +224,10 @@ def yaml_quote(value: str) -> str:
     return value
 
 
+def is_draft_value(value: str) -> bool:
+    return str(value or "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def compose_post_md(fields: dict[str, str], body: str) -> str:
     """Compose post.md from structured editor fields + markdown body."""
     title = fields.get("title", "").strip() or "Untitled"
@@ -180,6 +237,8 @@ def compose_post_md(fields: dict[str, str], body: str) -> str:
         f"dek: {yaml_quote(fields.get('dek', '').strip())}",
         f"type: {yaml_quote(fields.get('type', 'text').strip() or 'text')}",
     ]
+    if is_draft_value(fields.get("draft", "")):
+        lines.append("draft: true")
     neighbourhood = fields.get("neighbourhood", "").strip()
     if neighbourhood:
         lines.append(f"neighbourhood: {yaml_quote(neighbourhood)}")
@@ -228,10 +287,12 @@ def compose_post_md(fields: dict[str, str], body: str) -> str:
 def fields_from_post(text: str) -> tuple[dict[str, str], str]:
     meta, body = parse_frontmatter(text)
     loc = meta.get("location") if isinstance(meta.get("location"), dict) else {}
+    draft_raw = str(meta.get("draft") or meta.get("status") or "")
     fields = {
         "title": str(meta.get("title") or ""),
         "dek": str(meta.get("dek") or meta.get("description") or ""),
         "type": str(meta.get("type") or "text"),
+        "draft": "true" if is_draft_value(draft_raw) or draft_raw.lower() == "draft" else "",
         "neighbourhood": str(meta.get("neighbourhood") or meta.get("area") or ""),
         "fieldNote": str(meta.get("fieldnote") or meta.get("field_note") or ""),
         "updated": str(meta.get("updated") or meta.get("date") or ""),
@@ -308,6 +369,7 @@ def list_posts_detailed() -> list[dict[str, Any]]:
                 "fieldNote": fields.get("fieldNote") or "",
                 "updated": fields.get("updated") or "",
                 "type": fields.get("type") or "text",
+                "draft": is_draft_value(fields.get("draft", "")),
             }
         )
     return items
@@ -441,7 +503,8 @@ def default_post_fields(
     body = (
         "Write the guide here. Use `##` headings and lists.\n\n"
         "Images: upload below, then reference as "
-        "`![caption](./media/orig/filename.jpg)`.\n"
+        "`![caption](./media/orig/filename.jpg)` "
+        "(uploads are renamed to kebab-case; avoid relying on spaces).\n"
     )
     return fields, body
 
@@ -471,8 +534,65 @@ def parse_multipart(content_type: str, body: bytes) -> tuple[dict[str, str], lis
     return fields, files
 
 
-EDITOR_JS = r"""
-(function () {
+SLUGIFY_JS = r"""
+  function slugify(value) {
+    return (value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "guide";
+  }
+  function isValidSlug(value) {
+    return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value || "");
+  }
+"""
+
+NEW_PAGE_JS = (
+    "(function () {\n"
+    + SLUGIFY_JS
+    + r"""
+  const titleInput = document.getElementById("title");
+  const slugInput = document.getElementById("slug");
+  const preview = document.getElementById("slugPreview");
+  const previewWarn = document.getElementById("slugPreviewWarn");
+  let slugTouched = false;
+
+  function updateSlugPreview() {
+    const derived = slugify(titleInput ? titleInput.value : "");
+    if (slugInput && !slugTouched) {
+      slugInput.value = derived;
+    }
+    const slug = (slugInput && slugInput.value.trim()) || derived || "…";
+    if (preview) {
+      preview.textContent = "guides/posts/" + slug + "/ → live /guides/" + slug + "/";
+    }
+    if (previewWarn) {
+      const ok = !slug || isValidSlug(slug);
+      previewWarn.hidden = ok;
+      previewWarn.textContent = ok
+        ? ""
+        : "Slug must be lowercase kebab-case (a-z, 0-9, hyphens).";
+    }
+  }
+
+  if (titleInput) {
+    titleInput.addEventListener("input", updateSlugPreview);
+  }
+  if (slugInput) {
+    slugInput.addEventListener("input", function () {
+      slugTouched = slugInput.value.trim().length > 0;
+      updateSlugPreview();
+    });
+  }
+  updateSlugPreview();
+})();
+"""
+)
+
+EDITOR_JS = (
+    "(function () {\n"
+    + SLUGIFY_JS
+    + r"""
   const mapsInput = document.getElementById("mapsUrl");
   const nameInput = document.getElementById("locationName");
   const latInput = document.getElementById("locationLat");
@@ -488,6 +608,8 @@ EDITOR_JS = r"""
   const seriesTitle = document.getElementById("seriesTitle");
   const seriesOrder = document.getElementById("seriesOrder");
   const typeSelect = document.getElementById("type");
+  const slugInput = document.getElementById("slug");
+  const slugHint = document.getElementById("slugRenameHint");
 
   function parseMapsUrl(url) {
     const result = { mapsUrl: (url || "").trim(), name: "", lat: "", lng: "", shortLink: false, hint: "" };
@@ -609,9 +731,28 @@ EDITOR_JS = r"""
     });
   }
 
+  if (slugInput && slugHint) {
+    const original = slugInput.getAttribute("data-original") || slugInput.value;
+    function updateSlugHint() {
+      const next = (slugInput.value || "").trim();
+      if (!next || next === original) {
+        slugHint.textContent = "Changing the slug renames the posts folder on save. Lowercase kebab only.";
+        return;
+      }
+      if (!isValidSlug(next)) {
+        slugHint.textContent = "Invalid slug — use lowercase a-z, 0-9, hyphens.";
+        return;
+      }
+      slugHint.textContent =
+        "Will rename posts/" + original + "/ → posts/" + next + "/ on save. Run build to refresh live URLs.";
+    }
+    slugInput.addEventListener("input", updateSlugHint);
+    updateSlugHint();
+  }
+
   updateSpotPreview();
 })();
-"""
+""")
 
 
 def page_shell(
@@ -708,6 +849,7 @@ def page_shell(
       color: var(--accent);
     }}
     .badge.quiet {{ background: #eee; color: var(--muted); }}
+    .badge.draft {{ background: #f3e6c8; color: #7a5a12; }}
     ul.posts, ul.episodes {{ list-style: none; margin: 12px 0; padding: 0; }}
     ul.posts li, ul.episodes li {{
       display: flex; justify-content: space-between; align-items: baseline;
@@ -754,6 +896,19 @@ def page_shell(
     button.secondary, a.btn.secondary {{
       background: #fff; color: var(--text); border: 1px solid var(--line);
     }}
+    button.danger, a.btn.danger {{
+      background: #8b2e2e; color: #fff;
+    }}
+    .danger-zone {{
+      margin-top: 22px; padding: 14px 16px; border: 1px dashed #d4a8a8;
+      border-radius: 12px; background: #fff8f8;
+    }}
+    .danger-zone h2 {{ margin-top: 0; color: #8b2e2e; font-size: 1.05rem; }}
+    .slug-preview {{
+      margin: 8px 0 0; padding: 10px 12px; border-radius: 8px;
+      background: var(--band); border: 1px solid #c5e0df; font-size: 0.9rem;
+    }}
+    .slug-preview code {{ font-size: 0.92em; }}
     .media {{ margin-top: 10px; font-size: 0.9rem; }}
     .media li {{ margin: 4px 0; }}
     pre.build {{
@@ -862,7 +1017,9 @@ def index_page(flash: str = "") -> bytes:
     standalone = [p for p in posts if not p.get("series")]
     stand_items = "".join(
         f'<li><span>{html.escape(p["title"])} '
-        f'<span class="muted">({html.escape(p["slug"])})</span></span>'
+        f'<span class="muted">({html.escape(p["slug"])})</span>'
+        f'{" <span class=\"badge draft\">draft</span>" if p.get("draft") else ""}'
+        f"</span>"
         f'<a href="/edit?slug={urllib.parse.quote(p["slug"])}">Edit</a></li>'
         for p in standalone
     ) or '<li class="muted">No standalone guides.</li>'
@@ -908,9 +1065,12 @@ def series_page(slug: str, flash: str = "") -> bytes:
         order = ep.get("seriesOrder")
         order_label = f"#{order}" if order is not None else "—"
         note = html.escape(ep.get("fieldNote") or "")
+        draft_badge = (
+            ' <span class="badge draft">draft</span>' if ep.get("draft") else ""
+        )
         items.append(
             "<li>"
-            f'<span><strong>{html.escape(ep["title"])}</strong> '
+            f'<span><strong>{html.escape(ep["title"])}</strong>{draft_badge} '
             f'<span class="ep-meta">{html.escape(order_label)} · '
             f'{html.escape(ep["slug"])}'
             f'{(" · " + note) if note else ""}</span></span>'
@@ -960,7 +1120,8 @@ def new_page(series_slug: str = "", flash: str = "") -> bytes:
         default_title = ""
 
     body = f"""
-    <p class="lede">Creates <code>guides/posts/&lt;slug&gt;/post.md</code> with a template skeleton.</p>
+    <p class="lede">Creates <code>guides/posts/&lt;slug&gt;/post.md</code> with a template skeleton.
+    Edit the slug before create — it becomes the live URL.</p>
     <form class="card" method="post" action="/create">
       <label for="series">Series</label>
       <select id="series" name="series">{"".join(options)}</select>
@@ -968,9 +1129,16 @@ def new_page(series_slug: str = "", flash: str = "") -> bytes:
       <label for="title">Title</label>
       <input id="title" name="title" type="text" required
         value="{html.escape(default_title)}"
-        placeholder="Lean Huat Hokkien Mee" />
-      <label for="slug">Slug (optional)</label>
-      <input id="slug" name="slug" type="text" placeholder="lean-huat-hokkien-mee" />
+        placeholder="Sister’s Curry Mee" autocomplete="off" />
+      <label for="slug">Slug</label>
+      <input id="slug" name="slug" type="text"
+        placeholder="sisters-curry-mee" autocomplete="off"
+        pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+        title="Lowercase kebab-case: a-z, 0-9, hyphens" />
+      <p class="slug-preview"><code id="slugPreview">guides/posts/…/</code></p>
+      <p class="hint" id="slugPreviewWarn" hidden></p>
+      <p class="hint">Derived from the title as you type; edit freely before Create.
+      Must be lowercase kebab-case. Live path: <code>/guides/&lt;slug&gt;/</code>.</p>
       <div class="row">
         <button type="submit">Create</button>
         <a class="btn secondary" href="{
@@ -979,7 +1147,7 @@ def new_page(series_slug: str = "", flash: str = "") -> bytes:
       </div>
     </form>
     """
-    return page_shell(heading, body, flash)
+    return page_shell(heading, body, flash, NEW_PAGE_JS)
 
 
 def edit_page(slug: str, flash: str = "") -> bytes:
@@ -1045,6 +1213,8 @@ def edit_page(slug: str, flash: str = "") -> bytes:
     for ep in siblings:
         order = ep.get("seriesOrder")
         label = f'{order}. {ep["title"]}' if order is not None else ep["title"]
+        if ep.get("draft"):
+            label = f"{label} (draft)"
         if ep["slug"] == slug:
             sib_items.append(
                 f'<li class="current"><strong>{html.escape(label)}</strong></li>'
@@ -1078,11 +1248,23 @@ def edit_page(slug: str, flash: str = "") -> bytes:
     loc_addr = fields.get("locationAddress", "")
     has_spot = bool(loc_name or maps_url)
 
+    is_draft = is_draft_value(fields.get("draft", ""))
+    draft_checked = " checked" if is_draft else ""
+    draft_badge = (
+        ' <span class="badge draft">draft — not published</span>' if is_draft else ""
+    )
+
     form = f"""
     <form class="card" method="post" action="/save" enctype="multipart/form-data">
-      <input type="hidden" name="slug" value="{html.escape(slug)}" />
+      <input type="hidden" name="old_slug" value="{html.escape(slug)}" />
       {_input("title", "Title", fields.get("title", ""))}
       {_input("dek", "Dek", fields.get("dek", ""), "One-line summary — answer-shaped if you can")}
+      <label for="slug">Slug</label>
+      <input id="slug" name="slug" type="text" required
+        value="{html.escape(slug)}" data-original="{html.escape(slug)}"
+        pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+        title="Lowercase kebab-case: a-z, 0-9, hyphens" autocomplete="off" />
+      <p class="hint" id="slugRenameHint">Changing the slug renames the posts folder on save. Lowercase kebab only.</p>
       <div class="grid2">
         <div>
           <label for="type">Type</label>
@@ -1092,6 +1274,12 @@ def edit_page(slug: str, flash: str = "") -> bytes:
           {_input("updated", "Updated (YYYY-MM-DD)", fields.get("updated", ""))}
         </div>
       </div>
+      <label style="display:flex;align-items:center;gap:8px;font-weight:600;margin-top:14px">
+        <input type="checkbox" name="draft" value="true"{draft_checked} />
+        Draft (skip public build — CMS only)
+      </label>
+      <p class="hint">Drafts stay in the CMS for reuse. Uncheck + Save &amp; build to publish at
+      <code>/guides/&lt;slug&gt;/</code>.</p>
       {_input("neighbourhood", "Neighbourhood", fields.get("neighbourhood", ""), "Pulau Tikus")}
       {_input("fieldNote", "Field note", fields.get("fieldNote", ""), "Field note · George Town · Jul 2026")}
 
@@ -1107,7 +1295,7 @@ def edit_page(slug: str, flash: str = "") -> bytes:
 
       <fieldset>
         <legend>Spot / Google Maps</legend>
-        {_input("locationName", "Venue name", loc_name, "Lean Huat Hokkien Mee", "locationName")}
+        {_input("locationName", "Venue name", loc_name, "Venue name", "locationName")}
         {_input("mapsUrl", "Maps URL", maps_url, "https://maps.app.goo.gl/… or google.com/maps/place/…", "mapsUrl")}
         <p class="hint" id="mapsHint">Paste a Maps link — short links stay as-is; full URLs may fill name/coords.</p>
         {_input("locationAddress", "Address (optional)", loc_addr, "", "locationAddress")}
@@ -1136,10 +1324,23 @@ def edit_page(slug: str, flash: str = "") -> bytes:
         <a class="btn secondary" href="/">Desk</a>
       </div>
     </form>
+
+    <div class="danger-zone">
+      <h2>Delete episode</h2>
+      <p class="hint">Removes <code>guides/posts/{html.escape(slug)}/</code> permanently
+      (and any built <code>guides/{html.escape(slug)}/</code>). This cannot be undone.</p>
+      <form method="post" action="/delete"
+        onsubmit="return confirm('Delete this episode permanently? This cannot be undone.');">
+        <input type="hidden" name="slug" value="{html.escape(slug)}" />
+        <div class="row">
+          <button class="danger" type="submit">Delete episode</button>
+        </div>
+      </form>
+    </div>
     """
 
     body = f"""
-    <p class="muted">Editing <code>{html.escape(slug)}</code></p>
+    <p class="muted">Editing <code>{html.escape(slug)}</code>{draft_badge}</p>
     <div class="layout">
       <div>{form}</div>
       {sidebar}
@@ -1264,11 +1465,23 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/save":
             fields, files = parse_multipart(ctype, body)
+            old_slug = fields.get("old_slug", "").strip() or fields.get("slug", "").strip()
             slug = fields.get("slug", "").strip()
             body_md = fields.get("body", "")
-            if not SLUG_RE.match(slug) or not body_md.strip():
-                self._send(400, page_shell("Error", "<p>Invalid save request.</p>"))
+            if not is_valid_slug(slug) or not body_md.strip():
+                self._send(
+                    400,
+                    edit_page(old_slug, "Need a valid kebab slug and a non-empty body.")
+                    if is_valid_slug(old_slug)
+                    else page_shell("Error", "<p>Invalid save request.</p>"),
+                )
                 return
+
+            if old_slug and old_slug != slug:
+                err = rename_post(old_slug, slug)
+                if err:
+                    self._send(400, edit_page(old_slug, err))
+                    return
 
             # Series picker → hidden fields (JS usually syncs; enforce server-side)
             pick = fields.get("seriesPick", "").strip()
@@ -1284,6 +1497,9 @@ class Handler(BaseHTTPRequestHandler):
                 fields["seriesTitle"] = ""
                 fields["seriesOrder"] = ""
 
+            # Checkbox omitted from multipart when unchecked
+            fields["draft"] = "true" if is_draft_value(fields.get("draft", "")) else ""
+
             maps_url = fields.get("mapsUrl", "").strip()
             if maps_url:
                 parsed_maps = parse_maps_url(maps_url)
@@ -1295,6 +1511,9 @@ class Handler(BaseHTTPRequestHandler):
                     fields["locationLng"] = parsed_maps["lng"]
 
             post_dir = POSTS_DIR / slug
+            if not (post_dir / "post.md").is_file() and old_slug == slug:
+                self._send(400, page_shell("Error", f"<p>Unknown episode: {html.escape(slug)}</p>"))
+                return
             post_dir.mkdir(parents=True, exist_ok=True)
             (post_dir / "post.md").write_text(
                 compose_post_md(fields, body_md),
@@ -1305,19 +1524,53 @@ class Handler(BaseHTTPRequestHandler):
 
             saved = 0
             for filename, data in files:
-                name = pathlib.Path(filename).name
-                if not name or name.startswith("."):
+                name = safe_upload_name(filename)
+                if not name:
                     continue
-                (orig / name).write_bytes(data)
+                dest = orig / name
+                if dest.exists():
+                    stem = pathlib.Path(name).stem
+                    suffix = pathlib.Path(name).suffix
+                    n = 2
+                    while dest.exists():
+                        dest = orig / f"{stem}-{n}{suffix}"
+                        n += 1
+                    name = dest.name
+                dest.write_bytes(data)
                 saved += 1
 
             flash = "Saved."
+            if old_slug and old_slug != slug:
+                flash = f"Renamed to {slug}. Saved."
             if saved:
                 flash += f" Uploaded {saved} file(s)."
+            if is_draft_value(fields.get("draft", "")):
+                flash += " Draft — skipped on public build."
             if fields.get("and_build"):
                 self._redirect("/build")
                 return
+            if old_slug and old_slug != slug:
+                self._redirect(f"/edit?slug={urllib.parse.quote(slug)}")
+                return
             self._send(200, edit_page(slug, flash))
+            return
+
+        if path == "/delete":
+            data = urllib.parse.parse_qs(body.decode("utf-8"))
+            slug = (data.get("slug") or [""])[0].strip()
+            err = delete_post(slug)
+            if err:
+                if is_valid_slug(slug) and (POSTS_DIR / slug / "post.md").is_file():
+                    self._send(400, edit_page(slug, err))
+                else:
+                    self._send(400, index_page(err))
+                return
+            self._send(
+                200,
+                index_page(
+                    f"Deleted {slug}. Run build to refresh public series/index output."
+                ),
+            )
             return
 
         self._send(404, page_shell("Not found", "<p>Not found.</p>"))

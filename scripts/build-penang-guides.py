@@ -44,8 +44,9 @@ IMG_MD_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 LINK_MD_RE = re.compile(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)")
 BOLD_RE = re.compile(r"\*\*(.+?)\*\*")
 ITALIC_RE = re.compile(r"(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)")
+# Capture full basename (spaces allowed); rewrite_media_src strips the match.
 ORIG_MEDIA_RE = re.compile(
-    r"(?:\./)?media/orig/([^)\s\"']+)",
+    r"(?:\./)?media/orig/([^)\"']+)",
     re.I,
 )
 PLACE_PATH_RE = re.compile(r"/place/([^/@]+)", re.I)
@@ -252,11 +253,11 @@ def rewrite_media_src(src: str, media_map: dict[str, str]) -> str:
     src = src.strip()
     match = ORIG_MEDIA_RE.search(src)
     if match:
-        name = match.group(1)
+        name = match.group(1).strip()
         if name in media_map:
             return f"./media/{media_map[name]}"
         stem = pathlib.Path(name).stem
-        return f"./media/{stem}.jpg"
+        return f"./media/{web_stem(name)}.jpg"
     if src.startswith("./media/") or src.startswith("media/"):
         name = pathlib.Path(src).name
         if name in media_map.values():
@@ -502,9 +503,8 @@ def render_article(
             f'loading="eager" decoding="async" referrerpolicy="no-referrer" />\n'
         )
 
-    kicker = f"Guide · {html.escape(type_name)}"
-    if series_title and type_name == "Mee":
-        kicker = "Guide · Mee"
+    # Calm format-agnostic kicker; field note + series carry the voice.
+    kicker = "Field guide"
 
     return f"""<!doctype html>
 <html lang="en">
@@ -555,14 +555,13 @@ def render_series_index(
     items = []
     for post in posts:
         href = f"../../{html.escape(post['slug'], quote=True)}/"
-        type_name = html.escape(post.get("type") or "Text")
         note = html.escape(post.get("fieldNote") or "")
         note_html = f'<span class="series-note">{note}</span>' if note else ""
         items.append(
             "<li>"
             f'<a href="{href}">'
             f'<span class="g-title">{html.escape(post["title"])}</span>'
-            f'<span class="g-type">{type_name}</span>'
+            f'<span class="g-type">Field guide</span>'
             f"</a>"
             f"{note_html}"
             "</li>"
