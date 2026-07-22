@@ -35,6 +35,7 @@ POSTS_DIR = GUIDES_DIR / "posts"
 SERIES_REGISTRY = POSTS_DIR / "_series.json"
 SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
+ARTICLE_CSS_VER = "2"  # bump when article.css layout changes (cache bust)
 
 MAX_WIDTH = 1400
 JPEG_QUALITY = 82
@@ -469,7 +470,7 @@ def render_article(
     body_html: str,
     hero_src: str | None,
     home_href: str = "../../",
-    css_href: str = f"../{ARTICLE_CSS}",
+    css_href: str = f"../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}",
     icon_href: str = "../../icon.svg",
 ) -> str:
     meta_bits = []
@@ -587,7 +588,7 @@ def render_series_index(
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../{ARTICLE_CSS}" />
+    <link rel="stylesheet" href="../../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}" />
   </head>
   <body>
     <div class="guide-topbar">

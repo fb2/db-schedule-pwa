@@ -280,11 +280,14 @@ a {
   margin: 1.5em 0;
 }
 
+/* Natural aspect — no forced landscape crop (phone portraits keep faces/menus). */
 .photo-block img {
   display: block;
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: min(70vh, 36rem);
+  margin-inline: auto;
   background: #ddd;
 }
 
