@@ -33,11 +33,13 @@ Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
 4. **Editor** — series picker, draft toggle, editable slug (rename), field note, Maps paste + spot preview, media upload, sibling episodes in the sidebar.
 5. Set `seriesOrder` to reorder (lower first), then **Save & build**.
 6. Preview: `python3 -m http.server 5173` → `/utilities/penang-pulse/`.
-7. Deploy production (after commit/push — not done by the editor):
+7. Deploy production (after commit/push — **not** done by Build):
 
    ```sh
    npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
    ```
+
+   Verify `https://penangpulse.com/guides/<slug>/`. See [`EDITORIAL.md` → Guides publish cycle](../../utilities/penang-pulse/EDITORIAL.md#guides-publish-cycle-learnings).
 
 Registered by default: **Mee Myself and I**, **Family Matters** (empty OK — build still emits the series index).
 
@@ -84,3 +86,9 @@ location:
 ```
 
 Add or edit series metadata in `utilities/penang-pulse/guides/posts/_series.json`.
+
+## Media tips
+
+- Uploads land in `guides/posts/<slug>/media/orig/` and are renamed to kebab-case (spaces removed).
+- In the body: `![Alt](./media/orig/filename.jpeg)` then optional `_Caption._` (blank line between is fine).
+- Body photos render at natural aspect ratio after build — shoot portrait when the scene needs it.

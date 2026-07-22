@@ -7,7 +7,7 @@ fieldNote: Field note · Pulau Tikus · Jul 2026
 updated: 2026-07-22
 series: mee-myself-and-i
 seriesTitle: Mee Myself and I
-seriesOrder: 1
+seriesOrder: 2
 ---
 
 This morning I’m trying another breakfast in the hawker area right across from my coworking space. The cart says “SL Special Kolo Mee” — well, I’m definitely ready for something special. While waiting, I asked C-Mee-PO, my AI research assistant, for a briefing on kolo mee.

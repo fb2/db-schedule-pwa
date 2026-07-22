@@ -100,24 +100,21 @@ Header fields:
 
 7. Commit public app/feed/script changes only (never `private/`). Push `main` for GitHub Pages.
 
-8. Publish the production custom domain. GitHub Pages deploys `https://fb2.github.io/db-schedule-pwa/utilities/penang-pulse/`, but `https://penangpulse.com/` and `https://fb-penang-pulse.web.app/` are served by Firebase Hosting target `penang-pulse`.
+8. Publish production. GitHub Pages deploys `https://fb2.github.io/db-schedule-pwa/utilities/penang-pulse/`, but `https://penangpulse.com/` is served by Firebase Hosting target `penang-pulse`.
 
    ```sh
    npx firebase-tools deploy --only hosting:penang-pulse
    ```
 
-9. Verify both live Firebase surfaces serve the new feed metadata:
+9. Verify the live feed:
 
    ```sh
    python3 - <<'PY'
    import json, urllib.request
-   for url in [
-       "https://fb-penang-pulse.web.app/feed.json",
-       "https://penangpulse.com/feed.json",
-   ]:
-       with urllib.request.urlopen(url, timeout=20) as resp:
-           feed = json.load(resp)
-       print(url, resp.status, feed["weekLabel"], feed["generatedAt"], len(feed["items"]))
+   url = "https://penangpulse.com/feed.json"
+   with urllib.request.urlopen(url, timeout=20) as resp:
+       feed = json.load(resp)
+   print(url, resp.status, feed["weekLabel"], feed["generatedAt"], len(feed["items"]))
    PY
    ```
 

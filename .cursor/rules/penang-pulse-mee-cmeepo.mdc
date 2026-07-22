@@ -6,15 +6,17 @@ alwaysApply: false
 
 # Mee Myself and I — C-Mee-PO
 
-When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter in `utilities/penang-pulse/EDITORIAL.md` → **Mee Myself and I — C-Mee-PO voice**.
+When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter in `utilities/penang-pulse/EDITORIAL.md` → **Mee Myself and I — C-Mee-PO voice** and **Guides publish cycle (learnings)**.
 
 ## Hard rules
 
 - Human narrator = venue, timing, taste, judgment. **C-Mee-PO** = dish/ingredient lore (reused research OK).
 - Attribute with `**C-Mee-PO:**` in normal body paragraphs after a short prose setup.
+- When he asks a question, keep `**C-Mee-PO:**` on that line; answer in plain first person (no `Me:`).
 - Optional once-per-article `###` for a long brief only.
 - Never put C-Mee-PO in `>` — that renders as a practical tip. Reserve `>` for cash/queue/caveats.
 - Catchphrases: ~1 per article. Singularity dinner line only for heavy/fatty/spicy, max every 4th–5th episode.
+- CMS Build ≠ live. Publish via Firebase: `npx firebase-tools deploy --only hosting:penang-pulse` → verify `https://penangpulse.com`.
 
 ## Pattern
 
