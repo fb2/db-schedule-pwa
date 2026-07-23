@@ -59,7 +59,7 @@ Daily guide publishes need freshness: Hosting headers revalidate HTML/JSON; `sw.
 
 ### Deploy
 
-CMS **Build** only writes local files under `utilities/penang-pulse/`. Production is Firebase Hosting target `penang-pulse` → `https://penangpulse.com/`. After commit + push to `main`:
+CMS **Build** only writes local files under `utilities/penang-pulse/`. Production is Firebase Hosting target `penang-pulse` → `https://penangpulse.com/` (cite that host only). After commit (push optional for live — Firebase deploy is what updates the custom domain):
 
 ```sh
 npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
@@ -72,3 +72,5 @@ Verify:
 - `https://penangpulse.com/guides/series/mee-myself-and-i/`
 - `https://penangpulse.com/guides/series/family-matters/`
 - `https://penangpulse.com/guides/index.json`
+
+Agent/editorial practices: [`EDITORIAL.md` → Agent handoff](./EDITORIAL.md#agent-handoff--session-practices).

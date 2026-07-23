@@ -31,15 +31,15 @@ Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
 2. **Series page** (`/series?slug=…`) — episodes in `seriesOrder`; **New episode in this series** pre-fills series fields + template.
 3. **Create** — title derives a kebab slug preview (`guides/posts/<slug>/` → live `/guides/<slug>/`); edit the slug before Create.
 4. **Editor** — series picker, draft toggle, editable slug (rename), field note, Maps paste + spot preview, media upload, sibling episodes in the sidebar.
-5. Set `seriesOrder` to reorder (lower first), then **Save & build**.
+5. Set `seriesOrder` by tasting date (lower = older first), then **Save & build**.
 6. Preview: `python3 -m http.server 5173` → `/utilities/penang-pulse/`.
-7. Deploy production (after commit/push — **not** done by Build):
+7. Deploy production (**not** done by Build). Firebase updates `penangpulse.com`; commit is for the repo. Agents: prefer skip `git push` if approval stalls — note `PUSH_SKIPPED`; never `git config` (author via env).
 
    ```sh
    npx firebase-tools deploy --only hosting:penang-pulse,hosting:main
    ```
 
-   Verify `https://penangpulse.com/guides/<slug>/`. See [`EDITORIAL.md` → Guides publish cycle](../../utilities/penang-pulse/EDITORIAL.md#guides-publish-cycle-learnings).
+   Verify `https://penangpulse.com/guides/<slug>/` only (not `*.web.app`). See [`EDITORIAL.md` → Guides publish cycle](../../utilities/penang-pulse/EDITORIAL.md#guides-publish-cycle-learnings) and [Agent handoff](../../utilities/penang-pulse/EDITORIAL.md#agent-handoff--session-practices).
 
 Registered by default: **Mee Myself and I**, **Family Matters** (empty OK — build still emits the series index).
 
@@ -89,6 +89,8 @@ Add or edit series metadata in `utilities/penang-pulse/guides/posts/_series.json
 
 ## Media tips
 
-- Uploads land in `guides/posts/<slug>/media/orig/` and are renamed to kebab-case (spaces removed).
+- Uploads land in `guides/posts/<slug>/media/orig/` and are renamed to kebab-case (spaces break markdown paths).
+- Prefer seller/stall shot first, then dish, when both exist.
 - In the body: `![Alt](./media/orig/filename.jpeg)` then optional `_Caption._` (blank line between is fine).
-- Body photos render at natural aspect ratio after build — shoot portrait when the scene needs it.
+- Body photos render at natural aspect ratio after build — no forced 3:2; shoot portrait when the scene needs it.
+- Confirm the open editor slug before pasting a full episode (Save writes to that folder only).

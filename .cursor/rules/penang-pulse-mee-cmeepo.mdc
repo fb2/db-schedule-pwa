@@ -6,17 +6,19 @@ alwaysApply: false
 
 # Mee Myself and I — C-Mee-PO
 
-When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter in `utilities/penang-pulse/EDITORIAL.md` → **Mee Myself and I — C-Mee-PO voice** and **Guides publish cycle (learnings)**.
+When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter in `utilities/penang-pulse/EDITORIAL.md` → **Mee Myself and I — C-Mee-PO voice**, **Guides publish cycle**, and **Agent handoff / session practices**.
 
 ## Hard rules
 
 - Human narrator = venue, timing, taste, judgment. **C-Mee-PO** = dish/ingredient lore (reused research OK).
-- Attribute with `**C-Mee-PO:**` in normal body paragraphs after a short prose setup.
-- When he asks a question, keep `**C-Mee-PO:**` on that line; answer in plain first person (no `Me:`).
+- Attribute with `**C-Mee-PO:**` in normal body paragraphs after a short prose setup. Never `>` for him (that’s a practical tip).
+- **Dialogue handoff required** before tasting: attributed question (`**C-Mee-PO:** How are you finding it?`), then plain first person — no `Me:`.
 - Optional once-per-article `###` for a long brief only.
-- Never put C-Mee-PO in `>` — that renders as a practical tip. Reserve `>` for cash/queue/caveats.
-- Catchphrases: ~1 per article. Singularity dinner line only for heavy/fatty/spicy, max every 4th–5th episode.
-- CMS Build ≠ live. Publish via Firebase: `npx firebase-tools deploy --only hosting:penang-pulse` → verify `https://penangpulse.com`.
+- Catchphrases: ~1 per article (bank or one-off dry-wit closer OK). Singularity dinner line only for heavy/fatty/spicy, max every 4th–5th episode. Tokens top-up = rare comic.
+- Strip multi-dish chat dumps when pasting research. Keep meal time consistent across dek + body.
+- Photos: kebab-case filenames; seller then dish; `_caption_` after image (blank line OK). Natural aspect — no forced 3:2.
+- Front matter: `location.name` + `location.mapsUrl` for spot widget; `seriesOrder` by tasting date.
+- CMS Build ≠ live. Publish: `npx firebase-tools deploy --only hosting:penang-pulse` → verify `https://penangpulse.com` only. Prefer skip agent `git push` if approval stalls; note `PUSH_SKIPPED`. Never `git config` — author via env when committing.
 
 ## Pattern
 
@@ -24,6 +26,10 @@ When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter
 I asked C-Mee-PO what I was actually eating.
 
 **C-Mee-PO:** [research summary]
+
+**C-Mee-PO:** How are you finding it?
+
+[First-person tasting — no Me: label]
 
 I’d eat that if I had a mouth!
 ```

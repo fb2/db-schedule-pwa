@@ -105,7 +105,8 @@ Posts with `draft: true` stay editable in the local guides CMS but are not emitt
 | Post slug | kebab-case from venue/topic (set on create; rename in CMS if needed) |
 | Series title | Title Case, human voice |
 | Episode title | Venue or answer-shaped topic — not “Episode 3” |
-| `seriesOrder` | Dense integers starting at 1; reorder by editing the field |
+| `seriesOrder` | Dense integers starting at 1, **by tasting date** (oldest first); reorder by editing the field |
+| `location` | Required for place Guides — `name` + `mapsUrl` power the spot widget |
 
 Standalone Guides omit `series` / `seriesTitle` / `seriesOrder`.
 
@@ -166,6 +167,8 @@ I’d eat that if I had a mouth!
 | *Hmm, intriguing — I wish I had taste buds to acquire this data.* | Taste-envy variant when the bowl is unusual / hard to map |
 | *Well, that sounds like a great lunch. Hey — can you top up my tokens? Thanks.* | Rare comic closer after a strong lunch endorsement — **use sparingly** |
 
+One-off custom closers in the same dry-wit register are fine (e.g. bib / grave-error style after a messy bowl). Still ~1 catchphrase beat per article; do not stack bank + custom.
+
 Name alternatives considered and rejected for now: Mee-3PO, C-Mee, Protocol Mee. Prefer **C-Mee-PO**.
 
 ## AI / agent notes (GEO)
@@ -194,18 +197,36 @@ Proportional effort. No growth theater.
 
 ## Guides publish cycle (learnings)
 
-Idempotent checklist from the first Mee Myself and I episode (Kolo Mee / C-Mee-PO):
+Idempotent checklist from Mee Myself and I episodes (C-Mee-PO):
 
 1. **Write in the correct episode slug** — CMS Save always targets the open `/edit?slug=…`. Creating `kolo-mee` then editing another draft (e.g. a sample) pastes content into the wrong folder. Prefer one open editor tab per episode.
-2. **Draft → Build → Deploy are three steps** — CMS **Build** only regenerates local `guides/<slug>/` + `index.json`. It does **not** update `https://penangpulse.com`. After unchecking Draft: Save & build → commit → `npx firebase-tools deploy --only hosting:penang-pulse`.
-3. **Media filenames** — no spaces in `media/orig/` basenames (markdown links break otherwise). CMS uploads are kebab-cased on save. Prefer descriptive names (`kolo-mee-bowl.jpeg`, `kolo-mee-seller.jpeg`).
-4. **Captions** — put `_Caption text._` on the line after `![alt](./media/orig/…)`. A blank line between image and caption is OK (build skips it). Underscores are stripped into `<figcaption>`; if the caption is not detected, `_…_` can leak into body copy.
-5. **Photo aspect** — body photos keep natural aspect ratio (no forced landscape crop). Portrait stall shots need faces/menus intact; dish crops tolerate 3:2 less often. See `guides/article.css` `.photo-block img`.
-6. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:` and no extra `### First bites` heading unless the section truly needs one. After a lore brief, never jump straight into tasting — end with an attributed cue (`How are you finding it?` / short equivalent) so the handoff is visible.
-7. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder`.
-8. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
-9. **Share previews (OG)** — Guide/series HTML gets Open Graph + Twitter Card tags from `scripts/build-penang-guides.py`. `og:image` prefers the first guide photo (absolute `https://penangpulse.com/guides/…/media/….jpg`); otherwise `https://penangpulse.com/og-default.jpg` (JPEG — WhatsApp won’t use SVG). Rebuild after photos change so crawlers see the new image URL.
-10. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, and `feed.json` (shell assets stay offline-capable). After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
+2. **Draft → Build → Deploy are three steps** — CMS **Build** only regenerates local `guides/<slug>/` + `index.json`. It does **not** update `https://penangpulse.com`. After unchecking Draft: Save & build → commit → `npx firebase-tools deploy --only hosting:penang-pulse` (see agent handoff for push).
+3. **`location` front matter** — set `name` + `mapsUrl` (CMS Maps paste) so the spot widget renders. Place Guides without `location` ship without the Spot block.
+4. **Media filenames** — no spaces in `media/orig/` basenames (markdown links break otherwise). CMS uploads are kebab-cased on save. Prefer descriptive names (`kolo-mee-bowl.jpeg`, `kolo-mee-seller.jpeg`).
+5. **Photo order & captions** — seller/stall first, then dish (when both exist). Put `_Caption text._` on the line after `![alt](./media/orig/…)`. A blank line between image and caption is OK (build skips it). Underscores become `<figcaption>`; if undetected, `_…_` can leak into body copy.
+6. **Photo aspect** — body photos keep natural aspect ratio (no forced 3:2 / landscape crop). Portrait stall shots need faces/menus intact. See `guides/article.css` `.photo-block img`.
+7. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:`. After a lore brief, **dialogue handoff is required** before tasting — attributed cue (`How are you finding it?` / short equivalent), never jump straight from research into first-person bites.
+8. **Meal time consistency** — dek, `fieldNote`, and body must agree (breakfast vs lunch vs evening). Don’t call it lunch in the dek and breakfast in the tasting.
+9. **Research paste hygiene** — strip accidental multi-dish / multi-venue chat dumps when pasting Grok (or similar) into C-Mee-PO. One dish, one brief.
+10. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder` by tasting date.
+11. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
+12. **Share previews (OG)** — Guide/series HTML gets Open Graph + Twitter Card tags from `scripts/build-penang-guides.py`. `og:image` prefers the first guide photo (absolute `https://penangpulse.com/guides/…/media/….jpg`); otherwise `https://penangpulse.com/og-default.jpg` (JPEG — WhatsApp won’t use SVG). Rebuild after photos change so crawlers see the new image URL.
+13. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, and `feed.json` (shell assets stay offline-capable). After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
+
+## Agent handoff / session practices
+
+Quick pickup for a fresh agent context working Mee / Guides:
+
+| Topic | Practice |
+| --- | --- |
+| **Canonical host** | Cite and verify **only** `https://penangpulse.com` — not the Firebase `*.web.app` fallback. |
+| **CMS Build ≠ live** | Local build regenerates files; production needs `npx firebase-tools deploy --only hosting:penang-pulse`. |
+| **Git push from agents** | Prefer **not** to `git push` when it stalls on approval (“Working…” / zombie). Firebase deploy alone updates production. If commit is done but push skipped, say **`PUSH_SKIPPED`** in the handoff. |
+| **Commit author** | Use env for that commit only: `GIT_AUTHOR_NAME='Balazs Fejes' GIT_AUTHOR_EMAIL='fbalazs@gmail.com'` (and matching `GIT_COMMITTER_*`). **Never** `git config`. |
+| **Wrong draft** | Confirm `/edit?slug=…` before pasting a full episode. |
+| **Stuck Working** | Orphaned approval card after a finished subagent — Stop does not clear it. Dismiss the approval, or archive the agent / start a new chat. |
+| **C-Mee-PO** | Full voice rules above; hard rules also in `.cursor/rules/penang-pulse-mee-cmeepo.mdc`. |
+| **Shell refresh** | Any `index.html` / `sw.js` / CSS/JS shell change → bump `CACHE_NAME` and `?v=` together. |
 
 ## Tooling pointers
 
