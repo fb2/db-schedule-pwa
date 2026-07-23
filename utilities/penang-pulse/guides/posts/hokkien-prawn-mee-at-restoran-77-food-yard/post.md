@@ -1,6 +1,6 @@
 ---
 title: Hokkien - Prawn Mee at Restoran 77 Food Yard
-dek: Hot, fiery Penang Hokkien Mee on a white-shirt Thursday — prawn-pork broth, dual noodles, and a careful lunch before presentations.
+dek: Hot, fiery Penang Hokkien Mee on a white-shirt Thursday — prawn-pork broth, dual noodles, and a careful breakfast before presentations.
 type: series-mee
 neighbourhood: Pulau Tikus
 fieldNote: Field note · Pulau Tikus · 23 Jul 2026
