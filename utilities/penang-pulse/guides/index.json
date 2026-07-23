@@ -1,6 +1,24 @@
 {
-  "generatedAt": "2026-07-22T06:59:25.322551+00:00",
+  "generatedAt": "2026-07-23T03:19:41.534020+00:00",
   "guides": [
+    {
+      "slug": "hokkien-prawn-mee-at-restoran-77-food-yard",
+      "title": "Hokkien - Prawn Mee at Restoran 77 Food Yard",
+      "dek": "Hot, fiery Penang Hokkien Mee on a white-shirt Thursday — prawn-pork broth, dual noodles, and a careful lunch before presentations.",
+      "type": "Mee",
+      "href": "./guides/hokkien-prawn-mee-at-restoran-77-food-yard/",
+      "updated": "2026-07-23",
+      "fieldNote": "Field note · Pulau Tikus · 23 Jul 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 5,
+      "location": {
+        "name": "Restoran 77 Food Yard",
+        "mapsUrl": "https://maps.app.goo.gl/mF7BdVxJ6iHYuMHt7"
+      }
+    },
     {
       "slug": "kolo-mee",
       "title": "Kolo Mee at Hock Beng 88 Food Court",
@@ -97,7 +115,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 4,
+      "count": 5,
       "status": "active",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "mark": "./guides/marks/mee-myself-and-i.svg"
