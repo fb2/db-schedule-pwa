@@ -402,7 +402,25 @@ async function loadFeed() {
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) return;
-  navigator.serviceWorker.register("./sw.js").catch(() => {});
+
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (refreshing) return;
+    refreshing = true;
+    window.location.reload();
+  });
+
+  navigator.serviceWorker
+    .register("./sw.js")
+    .then((reg) => {
+      const ping = () => reg.update().catch(() => {});
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") ping();
+      });
+      // Catch daily publishes without waiting for a hard refresh.
+      setInterval(ping, 60 * 60 * 1000);
+    })
+    .catch(() => {});
 }
 
 els.viewAll.addEventListener("click", () => setView("all"));

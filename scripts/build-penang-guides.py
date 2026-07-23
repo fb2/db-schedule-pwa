@@ -30,13 +30,19 @@ from typing import Any
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-GUIDES_DIR = ROOT / "utilities" / "penang-pulse" / "guides"
+PULSE_DIR = ROOT / "utilities" / "penang-pulse"
+GUIDES_DIR = PULSE_DIR / "guides"
 POSTS_DIR = GUIDES_DIR / "posts"
 SERIES_REGISTRY = POSTS_DIR / "_series.json"
 SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
 ARTICLE_CSS_VER = "3"  # bump when article.css layout changes (cache bust)
 MARKS_DIR = GUIDES_DIR / "marks"
+SITE_ORIGIN = "https://penangpulse.com"
+SITE_NAME = "Penang Pulse"
+OG_DEFAULT_PATH = "/og-default.jpg"
+APPLE_TOUCH = "apple-touch-icon.png"
+OG_DEFAULT_FILE = "og-default.jpg"
 
 MAX_WIDTH = 1400
 JPEG_QUALITY = 82
@@ -465,6 +471,141 @@ def insert_spot_widget(body_html: str, spot_html: str) -> str:
     return spot_html + "\n" + body_html
 
 
+def absolute_url(path: str) -> str:
+    """Build a canonical absolute HTTPS URL for share previews."""
+    if path.startswith("https://") or path.startswith("http://"):
+        return path
+    if not path.startswith("/"):
+        path = "/" + path
+    return f"{SITE_ORIGIN}{path}"
+
+
+def ensure_share_assets(Image: Any) -> None:
+    """Ensure raster share/home icons exist (WhatsApp needs JPEG/PNG, not SVG)."""
+    apple = PULSE_DIR / APPLE_TOUCH
+    og = PULSE_DIR / OG_DEFAULT_FILE
+    if apple.is_file() and og.is_file():
+        return
+
+    try:
+        from PIL import ImageDraw, ImageFont  # type: ignore
+    except ImportError:
+        die("Pillow ImageDraw required to generate share assets")
+
+    if not apple.is_file():
+        size = 180
+        icon = Image.new("RGB", (size, size), "#0f6e6e")
+        draw = ImageDraw.Draw(icon)
+        cx = cy = size // 2
+        r_outer = int(size * 34 / 128)
+        r_inner = int(size * 12 / 128)
+        sw = max(4, int(size * 8 / 128))
+        cross = max(3, int(size * 6 / 128))
+        draw.ellipse(
+            [cx - r_outer, cy - r_outer, cx + r_outer, cy + r_outer],
+            outline="#fafaf8",
+            width=sw,
+        )
+        draw.ellipse(
+            [cx - r_inner, cy - r_inner, cx + r_inner, cy + r_inner],
+            fill="#fafaf8",
+        )
+        outer = int(size * 42 / 128)
+        inner = int(size * 28 / 128)
+        for x1, y1, x2, y2 in [
+            (cx, cy - outer, cx, cy - inner),
+            (cx, cy + inner, cx, cy + outer),
+            (cx - outer, cy, cx - inner, cy),
+            (cx + inner, cy, cx + outer, cy),
+        ]:
+            draw.line([(x1, y1), (x2, y2)], fill="#fafaf8", width=cross)
+        icon.save(apple, "PNG", optimize=True)
+        print(f"wrote {apple.relative_to(ROOT)}")
+
+    if not og.is_file():
+        w, h = 1200, 630
+        canvas = Image.new("RGB", (w, h), "#0f6e6e")
+        draw = ImageDraw.Draw(canvas)
+        for i in range(h):
+            t = i / h
+            draw.line(
+                [(0, i), (w, i)],
+                fill=(int(15 + t * 8), int(110 + t * 12), int(110 + t * 8)),
+            )
+        cx, cy = w // 2, h // 2 - 40
+        draw.ellipse([cx - 90, cy - 90, cx + 90, cy + 90], outline="#fafaf8", width=14)
+        draw.ellipse([cx - 32, cy - 32, cx + 32, cy + 32], fill="#fafaf8")
+        for x1, y1, x2, y2 in [
+            (cx, cy - 110, cx, cy - 72),
+            (cx, cy + 72, cx, cy + 110),
+            (cx - 110, cy, cx - 72, cy),
+            (cx + 72, cy, cx + 110, cy),
+        ]:
+            draw.line([(x1, y1), (x2, y2)], fill="#fafaf8", width=10)
+        try:
+            font = ImageFont.truetype(
+                "/System/Library/Fonts/Supplemental/Georgia.ttf", 72
+            )
+            small = ImageFont.truetype(
+                "/System/Library/Fonts/Supplemental/Georgia.ttf", 36
+            )
+        except OSError:
+            font = ImageFont.load_default()
+            small = font
+        title = SITE_NAME
+        bbox = draw.textbbox((0, 0), title, font=font)
+        tw = bbox[2] - bbox[0]
+        draw.text(((w - tw) // 2, cy + 130), title, fill="#fafaf8", font=font)
+        sub = "Local guides & weekly happenings"
+        bbox = draw.textbbox((0, 0), sub, font=small)
+        sw_ = bbox[2] - bbox[0]
+        draw.text(((w - sw_) // 2, cy + 210), sub, fill="#d7ebea", font=small)
+        canvas.save(og, "JPEG", quality=88, optimize=True)
+        print(f"wrote {og.relative_to(ROOT)}")
+
+
+def social_head_tags(
+    *,
+    title: str,
+    description: str,
+    canonical_path: str,
+    image_url: str,
+    og_type: str = "article",
+    icon_href: str,
+    apple_touch_href: str,
+) -> str:
+    """Open Graph + Twitter Card tags for WhatsApp / Messenger share previews."""
+    canon = absolute_url(canonical_path)
+    desc = description or title
+    img = absolute_url(image_url) if image_url else absolute_url(OG_DEFAULT_PATH)
+    card = "summary_large_image"
+    return f"""    <link rel="canonical" href="{html.escape(canon, quote=True)}" />
+    <meta property="og:title" content="{html.escape(title)}" />
+    <meta property="og:description" content="{html.escape(desc)}" />
+    <meta property="og:url" content="{html.escape(canon, quote=True)}" />
+    <meta property="og:type" content="{html.escape(og_type)}" />
+    <meta property="og:site_name" content="{html.escape(SITE_NAME)}" />
+    <meta property="og:image" content="{html.escape(img, quote=True)}" />
+    <meta name="twitter:card" content="{card}" />
+    <meta name="twitter:title" content="{html.escape(title)}" />
+    <meta name="twitter:description" content="{html.escape(desc)}" />
+    <meta name="twitter:image" content="{html.escape(img, quote=True)}" />
+    <link rel="icon" href="{html.escape(icon_href, quote=True)}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{html.escape(apple_touch_href, quote=True)}" />"""
+
+
+def cover_path_for_guide(slug: str, hero_src: str | None, media_map: dict[str, str]) -> str:
+    """Site-absolute path to a raster cover image for OG previews."""
+    if hero_src:
+        name = pathlib.Path(hero_src).name
+        if name:
+            return f"/guides/{slug}/media/{name}"
+    if media_map:
+        first = next(iter(media_map.values()))
+        return f"/guides/{slug}/media/{first}"
+    return OG_DEFAULT_PATH
+
+
 def render_article(
     *,
     title: str,
@@ -480,6 +621,9 @@ def render_article(
     home_href: str = "../../",
     css_href: str = f"../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}",
     icon_href: str = "../../icon.svg",
+    apple_touch_href: str = "../../apple-touch-icon.png",
+    canonical_path: str = "/",
+    og_image: str = OG_DEFAULT_PATH,
 ) -> str:
     meta_bits = []
     if neighbourhood:
@@ -520,6 +664,15 @@ def render_article(
 
     # Calm format-agnostic kicker; field note + series carry the voice.
     kicker = "Field guide"
+    social = social_head_tags(
+        title=f"{title} — {SITE_NAME}",
+        description=dek or title,
+        canonical_path=canonical_path,
+        image_url=og_image,
+        og_type="article",
+        icon_href=icon_href,
+        apple_touch_href=apple_touch_href,
+    )
 
     return f"""<!doctype html>
 <html lang="en">
@@ -529,7 +682,7 @@ def render_article(
     <meta name="theme-color" content="#0f6e6e" />
     <meta name="description" content="{html.escape(dek or title)}" />
     <title>{html.escape(title)} — Penang Pulse</title>
-    <link rel="icon" href="{html.escape(icon_href, quote=True)}" type="image/svg+xml" />
+{social}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -581,6 +734,7 @@ def render_series_index(
     series_dek: str,
     posts: list[dict[str, Any]],
     series_mark: str = "",
+    og_image: str = OG_DEFAULT_PATH,
 ) -> str:
     items = []
     for post in posts:
@@ -618,6 +772,15 @@ def render_series_index(
             f"<h1>{html.escape(series_title)}</h1>\n"
             f'      <p class="guide-dek">{html.escape(dek)}</p>'
         )
+    social = social_head_tags(
+        title=f"{series_title} — {SITE_NAME}",
+        description=dek,
+        canonical_path=f"/guides/series/{series_slug}/",
+        image_url=og_image,
+        og_type="website",
+        icon_href="../../../icon.svg",
+        apple_touch_href="../../../apple-touch-icon.png",
+    )
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -626,7 +789,7 @@ def render_series_index(
     <meta name="theme-color" content="#0f6e6e" />
     <meta name="description" content="{html.escape(dek)}" />
     <title>{html.escape(series_title)} — Penang Pulse</title>
-    <link rel="icon" href="../../../icon.svg" type="image/svg+xml" />
+{social}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -760,6 +923,11 @@ def build_one(
         first = next(iter(media_map.values()))
         hero_src = f"./media/{first}"
 
+    og_image = cover_path_for_guide(slug, hero_src, media_map)
+    # Prefer first web photo for OG even when there is no in-page hero
+    if og_image == OG_DEFAULT_PATH and media_map:
+        og_image = cover_path_for_guide(slug, None, media_map)
+
     html_out = render_article(
         title=title,
         dek=dek,
@@ -771,6 +939,8 @@ def build_one(
         body_html=body_html,
         hero_src=hero_src,
         series_mark=series_mark,
+        canonical_path=f"/guides/{slug}/",
+        og_image=og_image,
     )
     (public_dir / "index.html").write_text(html_out, encoding="utf-8")
 
@@ -784,6 +954,7 @@ def build_one(
         "type": type_name,
         "href": f"./guides/{slug}/",
         "updated": updated,
+        "cover": og_image,
     }
     if field_note:
         entry["fieldNote"] = field_note
@@ -895,6 +1066,12 @@ def build_series_pages(
         series_title = titles.get(series_slug) or series_slug.replace("-", " ").title()
         series_dek = deks.get(series_slug) or ""
         series_mark = marks.get(series_slug) or ""
+        og_image = OG_DEFAULT_PATH
+        for post in posts_sorted:
+            cover = str(post.get("cover") or "").strip()
+            if cover and cover != OG_DEFAULT_PATH:
+                og_image = cover
+                break
         out_dir = SERIES_DIR / series_slug
         out_dir.mkdir(parents=True)
         html_out = render_series_index(
@@ -903,6 +1080,7 @@ def build_series_pages(
             series_dek=series_dek,
             posts=posts_sorted,
             series_mark=series_mark,
+            og_image=og_image,
         )
         (out_dir / "index.html").write_text(html_out, encoding="utf-8")
         entry: dict[str, Any] = {
@@ -911,6 +1089,7 @@ def build_series_pages(
             "href": f"./guides/series/{series_slug}/",
             "count": len(posts_sorted),
             "status": statuses.get(series_slug) or "active",
+            "cover": og_image,
         }
         if series_dek:
             entry["dek"] = series_dek
@@ -940,6 +1119,7 @@ def main() -> int:
 
     GUIDES_DIR.mkdir(parents=True, exist_ok=True)
     ensure_article_css()
+    ensure_share_assets(Image)
 
     registry = load_series_registry(
         posts_dir / "_series.json" if posts_dir != POSTS_DIR else SERIES_REGISTRY

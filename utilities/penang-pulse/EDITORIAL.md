@@ -204,6 +204,8 @@ Idempotent checklist from the first Mee Myself and I episode (Kolo Mee / C-Mee-P
 6. **C-Mee-PO dialogue** — label only the assistant (`**C-Mee-PO:**`). When he asks a question, keep that label on the question line, then answer in plain first person — no `Me:` and no extra `### First bites` heading unless the section truly needs one. After a lore brief, never jump straight into tasting — end with an attributed cue (`How are you finding it?` / short equivalent) so the handoff is visible.
 7. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder`.
 8. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
+9. **Share previews (OG)** — Guide/series HTML gets Open Graph + Twitter Card tags from `scripts/build-penang-guides.py`. `og:image` prefers the first guide photo (absolute `https://penangpulse.com/guides/…/media/….jpg`); otherwise `https://penangpulse.com/og-default.jpg` (JPEG — WhatsApp won’t use SVG). Rebuild after photos change so crawlers see the new image URL.
+10. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, and `feed.json` (shell assets stay offline-capable). After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
 
 ## Tooling pointers
 

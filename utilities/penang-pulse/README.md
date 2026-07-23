@@ -49,8 +49,13 @@ scripts/penang-guides-editor/.venv/bin/python scripts/build-penang-guides.py
 - Resizes `media/orig/` → web JPEGs (max width 1400, quality ~82)
 - Rewrites `./media/orig/…` links to `./media/….jpg`
 - Emits guide HTML (field note, series badge, spot widget), series index pages from registry + posts, and `guides/index.json`
+- Injects Open Graph / Twitter Card meta (`og:title`, `og:description`, `og:url`, `og:image`, etc.) for WhatsApp/Messenger previews — photo when available, else `og-default.jpg`
 
 Optional HEIC: `pip install pillow-heif` in the same venv.
+
+### Caching note
+
+Daily guide publishes need freshness: Hosting headers revalidate HTML/JSON; `sw.js` uses network-first for documents + `guides/index.json` / `feed.json`. Shell (`index.html`, versioned CSS/JS) still caches for offline home.
 
 ### Deploy
 

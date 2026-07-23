@@ -1,17 +1,16 @@
-const CACHE_NAME = "penang-pulse-v11";
-const ASSETS = [
+const CACHE_NAME = "penang-pulse-v12";
+const SHELL_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=11",
-  "./app.js?v=11",
-  "./feed.json",
-  "./guides/index.json",
+  "./styles.css?v=12",
+  "./app.js?v=12",
   "./manifest.webmanifest",
   "./icon.svg",
+  "./apple-touch-icon.png",
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_ASSETS)));
   self.skipWaiting();
 });
 
@@ -24,6 +23,42 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+function isFreshContent(request, url) {
+  // Daily guides + indexes must not stick in cache-first forever.
+  if (request.mode === "navigate") return true;
+  const path = url.pathname;
+  if (path.endsWith(".html") || path.endsWith("/")) return true;
+  if (path.endsWith("/feed.json") || path.endsWith("/guides/index.json")) return true;
+  if (path.endsWith("/index.json")) return true;
+  return false;
+}
+
+function networkFirst(request) {
+  return fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+      }
+      return response;
+    })
+    .catch(() => caches.match(request));
+}
+
+function cacheFirst(request) {
+  return caches.match(request).then(
+    (cached) =>
+      cached ||
+      fetch(request).then((response) => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        }
+        return response;
+      })
+  );
+}
+
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
@@ -32,28 +67,16 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (url.pathname.endsWith("/feed.json") || url.pathname.endsWith("/guides/index.json")) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
+  // Never let the SW pin sw.js itself — browser must see updates.
+  if (url.pathname.endsWith("/sw.js")) {
+    event.respondWith(fetch(event.request));
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then(
-      (cached) =>
-        cached ||
-        fetch(event.request).then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          return response;
-        })
-    )
-  );
+  if (isFreshContent(event.request, url)) {
+    event.respondWith(networkFirst(event.request));
+    return;
+  }
+
+  event.respondWith(cacheFirst(event.request));
 });

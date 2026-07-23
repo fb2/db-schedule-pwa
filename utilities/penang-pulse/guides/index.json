@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T03:24:20.538350+00:00",
+  "generatedAt": "2026-07-23T05:29:06.671261+00:00",
   "guides": [
     {
       "slug": "hokkien-prawn-mee-at-restoran-77-food-yard",
@@ -8,6 +8,7 @@
       "type": "Mee",
       "href": "./guides/hokkien-prawn-mee-at-restoran-77-food-yard/",
       "updated": "2026-07-23",
+      "cover": "/guides/hokkien-prawn-mee-at-restoran-77-food-yard/media/hokkien-mee-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 23 Jul 2026",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
@@ -26,6 +27,7 @@
       "type": "Mee",
       "href": "./guides/kolo-mee/",
       "updated": "2026-07-22",
+      "cover": "/guides/kolo-mee/media/kolo-mee-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · Jul 2026",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
@@ -44,6 +46,7 @@
       "type": "Mee",
       "href": "./guides/lam-mee-88/",
       "updated": "2026-07-22",
+      "cover": "/guides/lam-mee-88/media/lam-mee-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 22 Jul 2026",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
@@ -62,6 +65,7 @@
       "type": "Mee",
       "href": "./guides/sabah-pan-mee/",
       "updated": "2026-07-22",
+      "cover": "/guides/sabah-pan-mee/media/sabah-pan-mee-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · Jul 2026",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
@@ -80,6 +84,7 @@
       "type": "Text",
       "href": "./guides/hawker-lunch-common-ground/",
       "updated": "2026-07-20",
+      "cover": "/og-default.jpg",
       "fieldNote": "Field note · Pulau Tikus · Jul 2026",
       "neighbourhood": "Pulau Tikus / Jalan Burma"
     },
@@ -90,6 +95,7 @@
       "type": "Mee",
       "href": "./guides/jawa-mee-33/",
       "updated": "2026-07-20",
+      "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "fieldNote": "Field note · Tanjung Tokong · 20 Jul 2026",
       "neighbourhood": "Tanjung Tokong",
       "series": "mee-myself-and-i",
@@ -109,6 +115,7 @@
       "href": "./guides/series/family-matters/",
       "count": 0,
       "status": "active",
+      "cover": "/og-default.jpg",
       "dek": "Weekends and evenings with kids — practical planning notes, not parenting advice."
     },
     {
@@ -117,6 +124,7 @@
       "href": "./guides/series/mee-myself-and-i/",
       "count": 5,
       "status": "active",
+      "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "mark": "./guides/marks/mee-myself-and-i.svg"
     }
