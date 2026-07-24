@@ -17,6 +17,7 @@ import email
 import email.policy
 import html
 import json
+import os
 import pathlib
 import re
 import shutil
@@ -44,6 +45,57 @@ COORDS_AT_RE = re.compile(r"@(-?\d+\.?\d*),\s*(-?\d+\.?\d*)")
 COORDS_QUERY_RE = re.compile(r"^(-?\d+\.?\d*),\s*(-?\d+\.?\d*)$")
 
 NESTED_KEYS = {"location"}
+
+GIT_AUTHOR_NAME = "Balazs Fejes"
+GIT_AUTHOR_EMAIL = "fbalazs@gmail.com"
+LIVE_HOST = "https://penangpulse.com"
+
+MONTH_NAMES = {
+    "jan": 1,
+    "feb": 2,
+    "mar": 3,
+    "apr": 4,
+    "may": 5,
+    "jun": 6,
+    "jul": 7,
+    "aug": 8,
+    "sep": 9,
+    "oct": 10,
+    "nov": 11,
+    "dec": 12,
+}
+FIELD_NOTE_DAY_RE = re.compile(
+    r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b",
+    re.I,
+)
+FIELD_NOTE_MONTH_RE = re.compile(
+    r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b",
+    re.I,
+)
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+# Canonical filename role → editorial sort rank (seller/hawker first, then dish/bowl, author, other)
+PHOTO_ROLE_RANK = {
+    "seller": 0,
+    "hawker": 0,
+    "bowl": 1,
+    "dish": 1,
+    "author": 2,
+}
+PHOTO_ROLE_ALT = {
+    "seller": "Hawker",
+    "hawker": "Hawker",
+    "bowl": "Bowl",
+    "dish": "Dish",
+    "author": "Author",
+}
+PHOTO_ROLE_CANONICAL = {
+    "seller": "seller",
+    "hawker": "seller",
+    "bowl": "bowl",
+    "dish": "bowl",
+    "author": "author",
+}
 
 
 def python_for_build() -> str:
@@ -228,6 +280,278 @@ def is_draft_value(value: str) -> bool:
     return str(value or "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+def parse_iso_date(value: str) -> dt.date | None:
+    raw = (value or "").strip()
+    if not ISO_DATE_RE.match(raw):
+        return None
+    try:
+        return dt.date.fromisoformat(raw)
+    except ValueError:
+        return None
+
+
+def format_field_note_date(day: dt.date) -> str:
+    return f"{day.day} {day.strftime('%b %Y')}"
+
+
+def build_field_note(neighbourhood: str, tasted: dt.date | None) -> str:
+    if tasted:
+        date_part = format_field_note_date(tasted)
+    else:
+        date_part = dt.date.today().strftime("%b %Y")
+    neighbourhood = (neighbourhood or "").strip()
+    if neighbourhood:
+        return f"Field note · {neighbourhood} · {date_part}"
+    return f"Field note · {date_part}"
+
+
+def parse_tasted_from_field_note(field_note: str) -> str:
+    """Infer YYYY-MM-DD from fieldNote. Day+month preferred; month-only → day 1."""
+    note = field_note or ""
+    day_m = FIELD_NOTE_DAY_RE.search(note)
+    if day_m:
+        day = int(day_m.group(1))
+        month = MONTH_NAMES[day_m.group(2).lower()[:3]]
+        year = int(day_m.group(3))
+        try:
+            return dt.date(year, month, day).isoformat()
+        except ValueError:
+            pass
+    month_m = FIELD_NOTE_MONTH_RE.search(note)
+    if month_m:
+        month = MONTH_NAMES[month_m.group(1).lower()[:3]]
+        year = int(month_m.group(2))
+        try:
+            return dt.date(year, month, 1).isoformat()
+        except ValueError:
+            pass
+    return ""
+
+
+def infer_tasted(fields: dict[str, str]) -> str:
+    """Prefer tasted → day-precise fieldNote → updated → month-only fieldNote."""
+    tasted = (fields.get("tasted") or "").strip()
+    if parse_iso_date(tasted):
+        return tasted
+    note = fields.get("fieldNote") or ""
+    day_m = FIELD_NOTE_DAY_RE.search(note)
+    if day_m:
+        inferred = parse_tasted_from_field_note(note)
+        if inferred:
+            return inferred
+    updated = (fields.get("updated") or "").strip()
+    if parse_iso_date(updated):
+        return updated
+    return parse_tasted_from_field_note(note)
+
+
+def apply_tasting_fields(fields: dict[str, str]) -> None:
+    """Sync tasted / fieldNote / updated from the tasting date control."""
+    tasted_raw = (fields.get("tasted") or "").strip()
+    tasted_date = parse_iso_date(tasted_raw)
+    if not tasted_date:
+        inferred = infer_tasted(fields)
+        tasted_date = parse_iso_date(inferred)
+        if tasted_date:
+            fields["tasted"] = tasted_date.isoformat()
+    else:
+        fields["tasted"] = tasted_date.isoformat()
+    if tasted_date:
+        fields["updated"] = tasted_date.isoformat()
+        fields["fieldNote"] = build_field_note(
+            fields.get("neighbourhood", ""), tasted_date
+        )
+    elif not (fields.get("fieldNote") or "").strip():
+        fields["fieldNote"] = build_field_note(fields.get("neighbourhood", ""), None)
+    if not (fields.get("updated") or "").strip():
+        fields["updated"] = dt.date.today().isoformat()
+
+
+def write_post_fields(slug: str, fields: dict[str, str], body: str) -> None:
+    post_dir = POSTS_DIR / slug
+    post_dir.mkdir(parents=True, exist_ok=True)
+    (post_dir / "post.md").write_text(
+        compose_post_md(fields, body),
+        encoding="utf-8",
+    )
+
+
+def recompute_series_orders(series_slug: str) -> list[str]:
+    """Dense seriesOrder by tasting date ASC for all episodes in series.
+
+    Same-day tie-break: existing seriesOrder, then slug.
+    Returns slugs that were rewritten.
+    """
+    series_slug = (series_slug or "").strip()
+    if not series_slug or not POSTS_DIR.is_dir():
+        return []
+
+    episodes: list[dict[str, Any]] = []
+    for path in sorted(POSTS_DIR.iterdir()):
+        post = path / "post.md"
+        if not (path.is_dir() and post.is_file()):
+            continue
+        text = post.read_text(encoding="utf-8")
+        fields, body = fields_from_post(text)
+        if (fields.get("series") or "").strip() != series_slug:
+            continue
+        tasted = infer_tasted(fields)
+        if tasted and not (fields.get("tasted") or "").strip():
+            fields["tasted"] = tasted
+        order_raw = (fields.get("seriesOrder") or "").strip()
+        order = int(order_raw) if order_raw.isdigit() else 10**9
+        episodes.append(
+            {
+                "slug": path.name,
+                "fields": fields,
+                "body": body,
+                "tasted": tasted or "9999-99-99",
+                "order": order,
+            }
+        )
+
+    episodes.sort(key=lambda e: (e["tasted"], e["order"], e["slug"]))
+    changed: list[str] = []
+    for idx, ep in enumerate(episodes, start=1):
+        fields = ep["fields"]
+        new_order = str(idx)
+        prev_order = (fields.get("seriesOrder") or "").strip()
+        prev_tasted = (fields.get("tasted") or "").strip()
+        fields["seriesOrder"] = new_order
+        if not prev_tasted and ep["tasted"] != "9999-99-99":
+            fields["tasted"] = ep["tasted"]
+        if prev_order != new_order or prev_tasted != (fields.get("tasted") or "").strip():
+            write_post_fields(ep["slug"], fields, ep["body"])
+            changed.append(ep["slug"])
+    return changed
+
+
+def media_role_filename(slug: str, role: str, other_label: str, ext: str) -> str:
+    role = (role or "other").strip().lower()
+    if role == "other":
+        label = slugify(other_label) or "photo"
+        stem = f"{slug}-{label}"
+    else:
+        canon = PHOTO_ROLE_CANONICAL.get(role, slugify(role) or "photo")
+        stem = f"{slug}-{canon}"
+    if ext not in {".jpg", ".jpeg", ".png", ".webp", ".gif", ".tif", ".tiff", ".bmp", ".heic", ".heif"}:
+        ext = ".jpeg"
+    return f"{stem}{ext}"
+
+
+def unique_media_path(orig_dir: pathlib.Path, name: str) -> pathlib.Path:
+    dest = orig_dir / name
+    if not dest.exists():
+        return dest
+    stem = pathlib.Path(name).stem
+    suffix = pathlib.Path(name).suffix
+    n = 2
+    while dest.exists():
+        dest = orig_dir / f"{stem}-{n}{suffix}"
+        n += 1
+    return dest
+
+
+def append_photos_markdown(
+    body: str,
+    additions: list[tuple[str, str, str]],
+) -> str:
+    """Append photo blocks into ## Photos (or end). Skip if path already in body.
+
+    additions: list of (filename, role, alt) in desired editorial order.
+    """
+    if not additions:
+        return body
+    body = body.replace("\r\n", "\n")
+    blocks: list[str] = []
+    for filename, role, alt in additions:
+        link = f"./media/orig/{filename}"
+        if link in body:
+            continue
+        alt_text = alt or PHOTO_ROLE_ALT.get(role, "Photo")
+        blocks.append(f"![{alt_text}]({link})\n\n_Caption._\n")
+    if not blocks:
+        return body
+
+    insert = "\n".join(blocks)
+    photos_re = re.compile(r"(^## Photos[^\n]*\n)", re.M)
+    match = photos_re.search(body)
+    if match:
+        # Insert after heading, before next ## heading or EOF — append at end of section
+        start = match.end()
+        next_h = re.search(r"^## ", body[start:], re.M)
+        end = start + next_h.start() if next_h else len(body)
+        section = body[start:end]
+        # Trim trailing whitespace in section; keep one blank line before insert
+        section_core = section.rstrip()
+        spacer = "\n\n" if section_core else "\n"
+        new_section = section_core + spacer + insert
+        if not new_section.endswith("\n"):
+            new_section += "\n"
+        if next_h and not new_section.endswith("\n\n"):
+            new_section += "\n"
+        return body[:start] + new_section + body[end:]
+
+    # No Photos section — append one
+    body = body.rstrip() + "\n\n## Photos\n\n" + insert
+    if not body.endswith("\n"):
+        body += "\n"
+    return body
+
+
+def run_subprocess(
+    cmd: list[str],
+    *,
+    env: dict[str, str] | None = None,
+    timeout: int | None = None,
+) -> tuple[int, str]:
+    merged = {**os.environ, **(env or {})}
+    try:
+        proc = subprocess.run(
+            cmd,
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+            env=merged,
+            timeout=timeout,
+        )
+        out = (proc.stdout or "") + (proc.stderr or "")
+        return proc.returncode, out
+    except subprocess.TimeoutExpired as exc:
+        out = (exc.stdout or "") + (exc.stderr or "")
+        return 124, (out or "") + "\n(timeout)"
+    except OSError as exc:
+        return 1, str(exc)
+
+
+def publish_paths_for_slug(slug: str, series_slug: str, touched_slugs: list[str]) -> list[str]:
+    """Relative paths under repo root to stage for a guide publish."""
+    paths: list[str] = []
+    slugs = {slug, *touched_slugs}
+    for s in sorted(slugs):
+        if not is_valid_slug(s):
+            continue
+        paths.append(f"utilities/penang-pulse/guides/posts/{s}")
+        built = GUIDES_DIR / s
+        if built.is_dir():
+            paths.append(f"utilities/penang-pulse/guides/{s}")
+    paths.append("utilities/penang-pulse/guides/index.json")
+    if series_slug and is_valid_slug(series_slug):
+        series_dir = GUIDES_DIR / "series" / series_slug
+        if series_dir.is_dir():
+            paths.append(f"utilities/penang-pulse/guides/series/{series_slug}")
+    # Also stage any other series indexes that exist (cheap; avoids stale siblings)
+    series_root = GUIDES_DIR / "series"
+    if series_root.is_dir():
+        for path in series_root.iterdir():
+            if path.is_dir():
+                rel = f"utilities/penang-pulse/guides/series/{path.name}"
+                if rel not in paths:
+                    paths.append(rel)
+    return paths
+
+
 def compose_post_md(fields: dict[str, str], body: str) -> str:
     """Compose post.md from structured editor fields + markdown body."""
     title = fields.get("title", "").strip() or "Untitled"
@@ -242,6 +566,9 @@ def compose_post_md(fields: dict[str, str], body: str) -> str:
     neighbourhood = fields.get("neighbourhood", "").strip()
     if neighbourhood:
         lines.append(f"neighbourhood: {yaml_quote(neighbourhood)}")
+    tasted = fields.get("tasted", "").strip()
+    if tasted:
+        lines.append(f"tasted: {yaml_quote(tasted)}")
     field_note = fields.get("fieldNote", "").strip()
     if field_note:
         lines.append(f"fieldNote: {yaml_quote(field_note)}")
@@ -294,6 +621,7 @@ def fields_from_post(text: str) -> tuple[dict[str, str], str]:
         "type": str(meta.get("type") or "text"),
         "draft": "true" if is_draft_value(draft_raw) or draft_raw.lower() == "draft" else "",
         "neighbourhood": str(meta.get("neighbourhood") or meta.get("area") or ""),
+        "tasted": str(meta.get("tasted") or ""),
         "fieldNote": str(meta.get("fieldnote") or meta.get("field_note") or ""),
         "updated": str(meta.get("updated") or meta.get("date") or ""),
         "series": str(meta.get("series") or ""),
@@ -305,6 +633,8 @@ def fields_from_post(text: str) -> tuple[dict[str, str], str]:
         "locationLat": str(loc.get("lat") or ""),
         "locationLng": str(loc.get("lng") or ""),
     }
+    if not fields["tasted"]:
+        fields["tasted"] = infer_tasted(fields)
     return fields, body
 
 
@@ -366,10 +696,12 @@ def list_posts_detailed() -> list[dict[str, Any]]:
                 "series": fields.get("series") or "",
                 "seriesTitle": fields.get("seriesTitle") or "",
                 "seriesOrder": order,
+                "tasted": fields.get("tasted") or "",
                 "fieldNote": fields.get("fieldNote") or "",
                 "updated": fields.get("updated") or "",
                 "type": fields.get("type") or "text",
                 "draft": is_draft_value(fields.get("draft", "")),
+                "dek": fields.get("dek") or "",
             }
         )
     return items
@@ -381,13 +713,15 @@ def episodes_for_series(series_slug: str) -> list[dict[str, Any]]:
         key=lambda p: (
             p.get("seriesOrder") is None,
             p.get("seriesOrder") if p.get("seriesOrder") is not None else 0,
-            p.get("updated") or "",
+            p.get("tasted") or p.get("updated") or "",
+            p.get("slug") or "",
         )
     )
     return eps
 
 
 def next_series_order(series_slug: str) -> str:
+    """Hint only — real order is recomputed from tasting dates on save."""
     orders = [
         p["seriesOrder"]
         for p in episodes_for_series(series_slug)
@@ -402,9 +736,11 @@ def default_post_fields(
     title: str,
     template: str = "blank",
     series_entry: dict[str, Any] | None = None,
+    tasted: str = "",
 ) -> tuple[dict[str, str], str]:
     today = dt.date.today().isoformat()
-    month = dt.date.today().strftime("%b %Y")
+    tasted_date = parse_iso_date(tasted) or dt.date.today()
+    tasted_iso = tasted_date.isoformat()
 
     series_slug = ""
     series_title = ""
@@ -424,8 +760,9 @@ def default_post_fields(
             "dek": "",
             "type": type_val or "series-mee",
             "neighbourhood": "",
-            "fieldNote": f"Field note · George Town · {month}",
-            "updated": today,
+            "tasted": tasted_iso,
+            "fieldNote": build_field_note("", tasted_date),
+            "updated": tasted_iso,
             "series": series_slug or "mee-myself-and-i",
             "seriesTitle": series_title or "Mee Myself and I",
             "seriesOrder": series_order or next_series_order(series_slug or "mee-myself-and-i"),
@@ -443,10 +780,6 @@ def default_post_fields(
             "- **Toppings** — \n"
             "- **Timing / queue** — \n\n"
             "## Photos\n\n"
-            "![Bowl](./media/orig/bowl.jpg)\n\n"
-            "_Caption_\n\n"
-            "![Context](./media/orig/context.jpg)\n\n"
-            "_Caption_\n\n"
             "> Optional tip or caveat.\n"
         )
         return fields, body
@@ -457,8 +790,9 @@ def default_post_fields(
             "dek": "",
             "type": type_val or "text",
             "neighbourhood": "",
-            "fieldNote": f"Field note · Penang · {month}",
-            "updated": today,
+            "tasted": tasted_iso,
+            "fieldNote": build_field_note("", tasted_date),
+            "updated": tasted_iso,
             "series": series_slug or "family-matters",
             "seriesTitle": series_title or "Family Matters",
             "seriesOrder": series_order or next_series_order(series_slug or "family-matters"),
@@ -478,8 +812,6 @@ def default_post_fields(
             "- **Food nearby** — \n"
             "- **Kid friction** — \n\n"
             "## Photos\n\n"
-            "![Moment](./media/orig/moment.jpg)\n\n"
-            "_Caption_\n\n"
             "> Tip or caveat.\n"
         )
         return fields, body
@@ -489,8 +821,11 @@ def default_post_fields(
         "dek": "",
         "type": type_val or "text",
         "neighbourhood": "",
-        "fieldNote": f"Field note · Penang · {month}" if series_slug else "",
-        "updated": today,
+        "tasted": tasted_iso if (series_slug or tasted) else "",
+        "fieldNote": (
+            build_field_note("", tasted_date) if (series_slug or tasted) else ""
+        ),
+        "updated": tasted_iso if (series_slug or tasted) else today,
         "series": series_slug,
         "seriesTitle": series_title,
         "seriesOrder": series_order,
@@ -502,23 +837,28 @@ def default_post_fields(
     }
     body = (
         "Write the guide here. Use `##` headings and lists.\n\n"
-        "Images: upload below, then reference as "
-        "`![caption](./media/orig/filename.jpg)` "
-        "(uploads are renamed to kebab-case; avoid relying on spaces).\n"
+        "Images: upload below with a role (seller / bowl / author); "
+        "they land as `./media/orig/{slug}-{role}.jpeg` under ## Photos.\n"
     )
     return fields, body
 
 
-def parse_multipart(content_type: str, body: bytes) -> tuple[dict[str, str], list[tuple[str, bytes]]]:
-    """Return (fields, files) where files are (filename, data) tuples."""
+def parse_multipart(
+    content_type: str, body: bytes
+) -> tuple[dict[str, str], list[tuple[str, bytes]], dict[str, list[str]]]:
+    """Return (fields, files, multi) where files are (filename, data) tuples.
+
+    `multi` keeps all values for repeated field names (e.g. media_role).
+    """
     msg = email.message_from_bytes(
         b"Content-Type: " + content_type.encode("utf-8") + b"\r\n\r\n" + body,
         policy=email.policy.default,
     )
     fields: dict[str, str] = {}
+    multi: dict[str, list[str]] = {}
     files: list[tuple[str, bytes]] = []
     if not msg.is_multipart():
-        return fields, files
+        return fields, files, multi
     for part in msg.iter_parts():
         disposition = part.get_content_disposition()
         name = part.get_param("name", header="content-disposition")
@@ -530,8 +870,10 @@ def parse_multipart(content_type: str, body: bytes) -> tuple[dict[str, str], lis
             if filename:
                 files.append((filename, payload))
             continue
-        fields[name] = payload.decode("utf-8", errors="replace")
-    return fields, files
+        value = payload.decode("utf-8", errors="replace")
+        fields[name] = value
+        multi.setdefault(name, []).append(value)
+    return fields, files, multi
 
 
 SLUGIFY_JS = r"""
@@ -606,10 +948,85 @@ EDITOR_JS = (
   const seriesSelect = document.getElementById("seriesPick");
   const seriesSlug = document.getElementById("series");
   const seriesTitle = document.getElementById("seriesTitle");
-  const seriesOrder = document.getElementById("seriesOrder");
   const typeSelect = document.getElementById("type");
   const slugInput = document.getElementById("slug");
   const slugHint = document.getElementById("slugRenameHint");
+  const tastedInput = document.getElementById("tasted");
+  const neighbourhoodInput = document.getElementById("neighbourhood");
+  const fieldNotePreview = document.getElementById("fieldNotePreview");
+  const uploadList = document.getElementById("uploadRoleList");
+  const filesInput = document.getElementById("files");
+
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function formatFieldNoteDate(iso) {
+    if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "";
+    const parts = iso.split("-");
+    const y = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10);
+    const d = parseInt(parts[2], 10);
+    if (!y || !m || !d) return "";
+    return d + " " + MONTHS[m - 1] + " " + y;
+  }
+
+  function updateFieldNotePreview() {
+    if (!fieldNotePreview) return;
+    const tasted = tastedInput ? tastedInput.value : "";
+    const neigh = neighbourhoodInput ? neighbourhoodInput.value.trim() : "";
+    const datePart = formatFieldNoteDate(tasted);
+    if (!datePart) {
+      fieldNotePreview.textContent = "Set a tasting date to sync field note + updated.";
+      return;
+    }
+    fieldNotePreview.textContent = neigh
+      ? ("Field note · " + neigh + " · " + datePart)
+      : ("Field note · " + datePart);
+  }
+
+  if (tastedInput) tastedInput.addEventListener("input", updateFieldNotePreview);
+  if (neighbourhoodInput) neighbourhoodInput.addEventListener("input", updateFieldNotePreview);
+  updateFieldNotePreview();
+
+  function roleRowHtml(index, fileName) {
+    return (
+      '<div class="upload-role-row" data-idx="' + index + '">' +
+        '<span class="upload-file-name">' + (fileName || "file") + "</span>" +
+        '<select name="media_role" class="media-role">' +
+          '<option value="seller">Hawker / seller</option>' +
+          '<option value="bowl" selected>Dish / bowl</option>' +
+          '<option value="author">Author</option>' +
+          '<option value="other">Other (freeform)</option>' +
+        "</select>" +
+        '<input type="text" name="media_role_label" class="media-role-label" ' +
+          'placeholder="Label for Other" hidden />' +
+      "</div>"
+    );
+  }
+
+  function bindRoleRow(row) {
+    const sel = row.querySelector(".media-role");
+    const label = row.querySelector(".media-role-label");
+    if (!sel || !label) return;
+    function sync() {
+      const other = sel.value === "other";
+      label.hidden = !other;
+      if (other) label.required = true;
+      else { label.required = false; label.value = ""; }
+    }
+    sel.addEventListener("change", sync);
+    sync();
+  }
+
+  if (filesInput && uploadList) {
+    filesInput.addEventListener("change", function () {
+      uploadList.innerHTML = "";
+      const list = filesInput.files || [];
+      for (let i = 0; i < list.length; i++) {
+        uploadList.insertAdjacentHTML("beforeend", roleRowHtml(i, list[i].name));
+      }
+      uploadList.querySelectorAll(".upload-role-row").forEach(bindRoleRow);
+    });
+  }
 
   function parseMapsUrl(url) {
     const result = { mapsUrl: (url || "").trim(), name: "", lat: "", lng: "", shortLink: false, hint: "" };
@@ -723,10 +1140,6 @@ EDITOR_JS = (
         for (const o of typeSelect.options) {
           if (o.value === defType) { typeSelect.value = defType; break; }
         }
-      }
-      if (seriesOrder && !seriesOrder.value.trim()) {
-        const next = opt.getAttribute("data-next-order") || "";
-        if (next) seriesOrder.value = next;
       }
     });
   }
@@ -908,11 +1321,28 @@ def page_shell(
     button.danger, a.btn.danger {{
       background: #8b2e2e; color: #fff;
     }}
+    button.publish, a.btn.publish {{
+      background: #fff; color: var(--accent);
+      border: 1px solid var(--accent);
+      font-weight: 600;
+    }}
+    button.publish:hover, a.btn.publish:hover {{
+      background: var(--band); filter: none;
+    }}
     .danger-zone {{
       margin-top: 22px; padding: 14px 16px; border: 1px dashed #d4a8a8;
       border-radius: 12px; background: #fff8f8;
     }}
     .danger-zone h2 {{ margin-top: 0; color: #8b2e2e; font-size: 1.05rem; }}
+    .publish-zone {{
+      margin-top: 18px; padding: 12px 14px; border: 1px solid var(--line);
+      border-radius: 12px; background: #fff;
+    }}
+    .publish-zone h2 {{
+      margin: 0 0 6px; font-size: 0.95rem; font-family: inherit; font-weight: 600;
+      color: var(--muted);
+    }}
+    .actions-bar form {{ margin: 0; display: inline; }}
     .slug-preview {{
       margin: 8px 0 0; padding: 10px 12px; border-radius: 8px;
       background: var(--band); border: 1px solid #c5e0df; font-size: 0.9rem;
@@ -920,11 +1350,28 @@ def page_shell(
     .slug-preview code {{ font-size: 0.92em; }}
     .media {{ margin-top: 10px; font-size: 0.9rem; }}
     .media li {{ margin: 4px 0; }}
+    .upload-role-list {{ margin: 10px 0 0; display: grid; gap: 8px; }}
+    .upload-role-row {{
+      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px; align-items: center; padding: 8px 10px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fff;
+    }}
+    @media (max-width: 640px) {{
+      .upload-role-row {{ grid-template-columns: 1fr; }}
+    }}
+    .upload-file-name {{
+      font-size: 0.85rem; color: var(--muted); overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap;
+    }}
+    .upload-role-row select, .upload-role-row input[type=text] {{
+      margin: 0; padding: 8px 10px;
+    }}
     pre.build {{
       margin-top: 12px; padding: 12px; background: #1c1c1a; color: #eee;
       border-radius: 8px; overflow: auto; font-size: 0.82rem; white-space: pre-wrap;
     }}
     .hint {{ margin: 6px 0 0; font-size: 0.85rem; color: var(--muted); }}
+    .soft-warn {{ color: #7a5a12; }}
     fieldset {{
       margin: 16px 0 0; padding: 12px 14px 14px; border: 1px solid var(--line);
       border-radius: 10px; background: #fcfcfa;
@@ -947,6 +1394,10 @@ def page_shell(
     .actions-bar {{
       display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
       margin: 8px 0 18px;
+    }}
+    input[type=date] {{
+      width: 100%; padding: 10px 12px; border: 1px solid var(--line);
+      border-radius: 8px; font: inherit; background: #fff;
     }}
     code {{ font-size: 0.88em; }}
   </style>
@@ -1036,6 +1487,7 @@ def index_page(flash: str = "") -> bytes:
     body = f"""
     <p class="lede">Editorial desk for owned Guides. Series first — open a spine,
     then add episodes. Charter: <code>utilities/penang-pulse/EDITORIAL.md</code>.</p>
+    <p class="hint">Save &amp; build is local · Publish deploys all of penangpulse.com</p>
     <div class="actions-bar">
       <a class="btn" href="/new">New standalone guide</a>
       <a class="btn secondary" href="/build">Run build</a>
@@ -1070,19 +1522,24 @@ def series_page(slug: str, flash: str = "") -> bytes:
         )
 
     items = []
+    publish_anchor = ""
     for ep in episodes:
         order = ep.get("seriesOrder")
         order_label = f"#{order}" if order is not None else "—"
+        tasted = ep.get("tasted") or ""
         note = html.escape(ep.get("fieldNote") or "")
         draft_badge = (
             ' <span class="badge draft">draft</span>' if ep.get("draft") else ""
         )
+        if not publish_anchor and not ep.get("draft"):
+            publish_anchor = ep["slug"]
         items.append(
             "<li>"
             f'<div class="ep-main">'
             f'<span class="ep-title"><strong>{html.escape(ep["title"])}</strong>'
             f"{draft_badge}</span>"
             f'<span class="ep-meta">{html.escape(order_label)} · '
+            f'tasted {html.escape(tasted or "—")} · '
             f'{html.escape(ep["slug"])}'
             f'{(" · " + note) if note else ""}</span>'
             f"</div>"
@@ -1091,24 +1548,43 @@ def series_page(slug: str, flash: str = "") -> bytes:
         )
     list_html = "".join(items) or '<li class="muted">No episodes yet — create the first one.</li>'
 
+    if publish_anchor:
+        series_publish = (
+            f'<form method="post" action="/publish" '
+            f'onsubmit="return confirm('
+            f"'Publish pending guide changes to penangpulse.com? "
+            f"Commits guide paths and deploys the whole site.');\">"
+            f'<input type="hidden" name="slug" value="{html.escape(publish_anchor)}" />'
+            f'<input type="hidden" name="intent" value="series" />'
+            f'<button class="publish" type="submit">Publish to penangpulse.com</button>'
+            f"</form>"
+        )
+    else:
+        series_publish = (
+            '<span class="muted" style="font-size:0.9rem">'
+            "Publish available after a non-draft episode is saved."
+            "</span>"
+        )
+
     body = f"""
     <p class="lede">{html.escape(dek)}</p>
     <p class="muted">
       <span class="badge">{html.escape(status)}</span>
       <span class="badge quiet">{len(episodes)} episode{"s" if len(episodes) != 1 else ""}</span>
       · slug <code>{html.escape(slug)}</code>
-      · live <a href="https://penangpulse.com/guides/series/{html.escape(slug, quote=True)}/"
+      · live <a href="{LIVE_HOST}/guides/series/{html.escape(slug, quote=True)}/"
         target="_blank" rel="noopener">penangpulse.com/…</a>
     </p>
     <div class="actions-bar">
       <a class="btn" href="/new?series={urllib.parse.quote(slug)}">New episode in this series</a>
+      {series_publish}
       <a class="btn secondary" href="/">← Desk</a>
       <a class="btn secondary" href="/build">Run build</a>
     </div>
     <div class="card">
       <h2 style="margin-top:0">Episodes</h2>
-      <p class="hint">Order via each post’s <code>seriesOrder</code> field (lower first).
-      Reorder by editing that number, then Save &amp; build.</p>
+      <p class="hint">Save &amp; build is local · Publish deploys all of penangpulse.com
+      <span title="seriesOrder is recomputed on save from tasting date (oldest = #1). Same-day tie-break: previous order, then slug.">· order from tasting date</span></p>
       <ul class="episodes">{list_html}</ul>
     </div>
     """
@@ -1131,13 +1607,14 @@ def new_page(series_slug: str = "", flash: str = "") -> bytes:
         heading = f"New episode · {series_entry['title']}"
         default_title = ""
 
+    today = dt.date.today().isoformat()
     body = f"""
     <p class="lede">Creates <code>guides/posts/&lt;slug&gt;/post.md</code> with a template skeleton.
     Edit the slug before create — it becomes the live URL.</p>
     <form class="card" method="post" action="/create">
       <label for="series">Series</label>
       <select id="series" name="series">{"".join(options)}</select>
-      <p class="hint">Choosing a series pre-fills series fields, order, and template.</p>
+      <p class="hint">Choosing a series pre-fills series fields, template, and tasting-date order.</p>
       <label for="title">Title</label>
       <input id="title" name="title" type="text" required
         value="{html.escape(default_title)}"
@@ -1151,6 +1628,10 @@ def new_page(series_slug: str = "", flash: str = "") -> bytes:
       <p class="hint" id="slugPreviewWarn" hidden></p>
       <p class="hint">Derived from the title as you type; edit freely before Create.
       Must be lowercase kebab-case. Live path: <code>/guides/&lt;slug&gt;/</code>.</p>
+      <label for="tasted">Tasting date</label>
+      <input id="tasted" name="tasted" type="date" value="{html.escape(today)}" required />
+      <p class="hint">Sets <code>tasted</code>, syncs <code>fieldNote</code> / <code>updated</code>,
+      and places the episode in series order (oldest first).</p>
       <div class="row">
         <button type="submit">Create</button>
         <a class="btn secondary" href="{
@@ -1265,12 +1746,46 @@ def edit_page(slug: str, flash: str = "") -> bytes:
     draft_badge = (
         ' <span class="badge draft">draft — not published</span>' if is_draft else ""
     )
+    tasted_val = fields.get("tasted") or ""
+    order_val = fields.get("seriesOrder") or "—"
+    dek_hint = ""
+    if not (fields.get("dek") or "").strip():
+        dek_hint = (
+            '<p class="hint soft-warn">Dek is empty — fine for drafts; '
+            "worth filling before Publish (not blocked).</p>"
+        )
+    publish_block = ""
+    if is_draft:
+        publish_block = """
+        <div class="publish-zone">
+          <h2>Publish</h2>
+          <p class="hint">Uncheck Draft, Save, then Publish. Drafts cannot go live.</p>
+        </div>
+        """
+    else:
+        publish_block = f"""
+        <div class="publish-zone">
+          <h2>Publish</h2>
+          <p class="hint">Save &amp; build is local (rebuilds all guides) ·
+          Publish commits guide paths and deploys all of penangpulse.com</p>
+          <form method="post" action="/publish"
+            onsubmit="return confirm('Publish to penangpulse.com? Commits guide paths and deploys the whole site.');">
+            <input type="hidden" name="slug" value="{html.escape(slug)}" />
+            <div class="row">
+              <button class="publish" type="submit">Publish to penangpulse.com</button>
+              <a class="btn secondary" href="{LIVE_HOST}/guides/{html.escape(slug, quote=True)}/"
+                 target="_blank" rel="noopener">Open live</a>
+            </div>
+          </form>
+        </div>
+        """
 
     form = f"""
     <form class="card" method="post" action="/save" enctype="multipart/form-data">
       <input type="hidden" name="old_slug" value="{html.escape(slug)}" />
       {_input("title", "Title", fields.get("title", ""))}
       {_input("dek", "Dek", fields.get("dek", ""), "One-line summary — answer-shaped if you can")}
+      {dek_hint}
       <label for="slug">Slug</label>
       <input id="slug" name="slug" type="text" required
         value="{html.escape(slug)}" data-original="{html.escape(slug)}"
@@ -1283,17 +1798,19 @@ def edit_page(slug: str, flash: str = "") -> bytes:
           <select id="type" name="type">{type_html}</select>
         </div>
         <div>
-          {_input("updated", "Updated (YYYY-MM-DD)", fields.get("updated", ""))}
+          <label for="tasted">Tasting date</label>
+          <input id="tasted" name="tasted" type="date" value="{html.escape(tasted_val)}" />
+          <p class="hint" id="fieldNotePreview">Field note syncs from tasting date + neighbourhood.</p>
         </div>
       </div>
+      <input type="hidden" name="updated" value="{html.escape(fields.get("updated", ""))}" />
+      <input type="hidden" name="fieldNote" value="{html.escape(fields.get("fieldNote", ""))}" />
       <label style="display:flex;align-items:center;gap:8px;font-weight:600;margin-top:14px">
         <input type="checkbox" name="draft" value="true"{draft_checked} />
         Draft (skip public build — CMS only)
       </label>
-      <p class="hint">Drafts stay in the CMS for reuse. Uncheck + Save &amp; build to publish at
-      <code>/guides/&lt;slug&gt;/</code>.</p>
+      <p class="hint">Drafts stay in the CMS — uncheck before Publish.</p>
       {_input("neighbourhood", "Neighbourhood", fields.get("neighbourhood", ""), "Pulau Tikus")}
-      {_input("fieldNote", "Field note", fields.get("fieldNote", ""), "Field note · George Town · Jul 2026")}
 
       <fieldset>
         <legend>Series</legend>
@@ -1301,8 +1818,9 @@ def edit_page(slug: str, flash: str = "") -> bytes:
         <select id="seriesPick" name="seriesPick">{"".join(pick_options)}</select>
         <input type="hidden" id="series" name="series" value="{html.escape(fields.get("series", ""))}" />
         <input type="hidden" id="seriesTitle" name="seriesTitle" value="{html.escape(fields.get("seriesTitle", ""))}" />
-        {_input("seriesOrder", "Series order", fields.get("seriesOrder", ""), "1")}
-        <p class="hint">Lower numbers first on the series page. Leave empty for standalone.</p>
+        <input type="hidden" id="seriesOrder" name="seriesOrder" value="{html.escape(fields.get("seriesOrder", ""))}" />
+        <p class="hint">Computed order: <strong>#{html.escape(str(order_val))}</strong>
+        (auto from tasting date on save; oldest = 1). Same-day: keep prior order, then slug.</p>
       </fieldset>
 
       <fieldset>
@@ -1327,15 +1845,24 @@ def edit_page(slug: str, flash: str = "") -> bytes:
 
       <label for="body">Body (markdown)</label>
       <textarea id="body" name="body" required>{html.escape(body_md)}</textarea>
-      <label for="files">Upload to media/orig/</label>
-      <input id="files" name="files" type="file" multiple accept="image/*,.heic,.heif" />
-      {media_html}
+      <fieldset>
+        <legend>Photo intake</legend>
+        <label for="files">Upload to media/orig/</label>
+        <input id="files" name="files" type="file" multiple accept="image/*,.heic,.heif" />
+        <p class="hint">Pick a role per file — renamed to
+        <code>{{slug}}-seller.jpeg</code> / <code>-bowl</code> / <code>-author</code>
+        (or freeform). Appends into <code>## Photos</code> in editorial order if missing.</p>
+        <div id="uploadRoleList" class="upload-role-list"></div>
+        {media_html}
+      </fieldset>
       <div class="row">
         <button type="submit">Save</button>
         <button class="secondary" type="submit" name="and_build" value="1">Save &amp; build</button>
         <a class="btn secondary" href="/">Desk</a>
       </div>
     </form>
+
+    {publish_block}
 
     <div class="danger-zone">
       <h2>Delete episode</h2>
@@ -1362,31 +1889,198 @@ def edit_page(slug: str, flash: str = "") -> bytes:
 
 
 def build_page() -> bytes:
-    cmd = [python_for_build(), str(BUILD_SCRIPT)]
-    try:
-        proc = subprocess.run(
-            cmd,
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        output = (proc.stdout or "") + (proc.stderr or "")
-        status = "ok" if proc.returncode == 0 else "failed"
-        flash = f"Build {status} (exit {proc.returncode})"
-    except OSError as exc:
-        output = str(exc)
-        flash = "Build failed to start"
+    code, output = run_subprocess([python_for_build(), str(BUILD_SCRIPT)])
+    flash = f"Build {'ok' if code == 0 else 'failed'} (exit {code})"
     body = f"""
-    <p class="muted">Command: <code>{html.escape(" ".join(cmd))}</code></p>
+    <p class="muted">Command: <code>{html.escape(python_for_build() + " " + str(BUILD_SCRIPT))}</code></p>
     <pre class="build">{html.escape(output or "(no output)")}</pre>
     <div class="row"><a class="btn" href="/">Desk</a></div>
     """
     return page_shell("Build", body, flash)
 
 
+def publish_page(slug: str, result: dict[str, Any]) -> bytes:
+    live = f"{LIVE_HOST}/guides/{slug}/"
+    steps_html = []
+    for step in result.get("steps") or []:
+        name = html.escape(str(step.get("name") or ""))
+        ok = step.get("ok")
+        badge = "ok" if ok else ("skipped" if step.get("skipped") else "failed")
+        detail = html.escape(str(step.get("detail") or ""))
+        log = step.get("log") or ""
+        steps_html.append(
+            f"<h2>{name} · {badge}</h2>"
+            f'<p class="muted">{detail}</p>'
+            + (f'<pre class="build">{html.escape(log)}</pre>' if log else "")
+        )
+    flash = str(result.get("flash") or "")
+    body = f"""
+    <p class="lede">Publish handoff for <code>{html.escape(slug)}</code>.</p>
+    <p class="hint">Build rebuilt all guides · deploy covers all of penangpulse.com</p>
+    <p><a href="{html.escape(live)}" target="_blank" rel="noopener">{html.escape(live)}</a></p>
+    {"".join(steps_html) or '<p class="muted">No steps ran.</p>'}
+    <div class="row">
+      <a class="btn" href="/edit?slug={urllib.parse.quote(slug)}">← Editor</a>
+      <a class="btn secondary" href="/">Desk</a>
+    </div>
+    """
+    return page_shell(f"Publish · {slug}", body, flash)
+
+
+def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
+    """Build all guides → git add/commit → push (best-effort) → firebase deploy.
+
+    Build always runs the full guides builder. Deploy always targets the entire
+    hosting:penang-pulse surface (penangpulse.com), not a single article CDN path.
+    """
+    result: dict[str, Any] = {"steps": [], "flash": ""}
+    if not is_valid_slug(slug):
+        result["flash"] = "Invalid slug."
+        return result
+    post_path = POSTS_DIR / slug / "post.md"
+    if not post_path.is_file():
+        result["flash"] = f"Unknown episode: {slug}"
+        return result
+
+    fields, _ = fields_from_post(post_path.read_text(encoding="utf-8"))
+    if is_draft_value(fields.get("draft", "")):
+        result["flash"] = "Refused: draft:true — uncheck Draft and Save before Publish."
+        result["steps"].append(
+            {
+                "name": "Guard",
+                "ok": False,
+                "detail": "Publish blocked while draft is set.",
+            }
+        )
+        return result
+
+    title = (fields.get("title") or slug).strip()
+    series_slug = (fields.get("series") or "").strip()
+    series_title = (fields.get("seriesTitle") or series_slug).strip()
+
+    # Ensure tasting/order sync before build
+    apply_tasting_fields(fields)
+    body_md = fields_from_post(post_path.read_text(encoding="utf-8"))[1]
+    write_post_fields(slug, fields, body_md)
+    touched = [slug]
+    if series_slug:
+        touched = list({*touched, *recompute_series_orders(series_slug)})
+
+    code, log = run_subprocess([python_for_build(), str(BUILD_SCRIPT)], timeout=180)
+    result["steps"].append(
+        {
+            "name": "Build",
+            "ok": code == 0,
+            "detail": f"full guides builder · exit {code}",
+            "log": log,
+        }
+    )
+    if code != 0:
+        result["flash"] = "Publish stopped — build failed."
+        return result
+
+    paths = publish_paths_for_slug(slug, series_slug, touched)
+    existing = [p for p in paths if (ROOT / p).exists()]
+    if not existing:
+        result["flash"] = "Nothing to stage."
+        return result
+
+    add_code, add_log = run_subprocess(["git", "add", "--", *existing])
+    result["steps"].append(
+        {
+            "name": "git add",
+            "ok": add_code == 0,
+            "detail": ", ".join(existing),
+            "log": add_log,
+        }
+    )
+    if add_code != 0:
+        result["flash"] = "Publish stopped — git add failed."
+        return result
+
+    cached_code, cached_out = run_subprocess(
+        ["git", "diff", "--cached", "--name-only", "--", *existing]
+    )
+    has_cached = bool((cached_out or "").strip()) and cached_code == 0
+
+    commit_env = {
+        "GIT_AUTHOR_NAME": GIT_AUTHOR_NAME,
+        "GIT_AUTHOR_EMAIL": GIT_AUTHOR_EMAIL,
+        "GIT_COMMITTER_NAME": GIT_AUTHOR_NAME,
+        "GIT_COMMITTER_EMAIL": GIT_AUTHOR_EMAIL,
+    }
+    if has_cached:
+        if intent == "series" and series_title:
+            msg = f"Publish {series_title} series guides."
+        else:
+            msg = f"Publish {title} guide."
+        commit_code, commit_log = run_subprocess(
+            ["git", "commit", "-m", msg],
+            env=commit_env,
+        )
+        result["steps"].append(
+            {
+                "name": "git commit",
+                "ok": commit_code == 0,
+                "detail": msg,
+                "log": commit_log,
+            }
+        )
+        if commit_code != 0:
+            result["flash"] = "Publish stopped — commit failed."
+            return result
+    else:
+        result["steps"].append(
+            {
+                "name": "git commit",
+                "ok": True,
+                "skipped": True,
+                "detail": "Nothing new to commit (working tree already clean for these paths).",
+                "log": cached_out,
+            }
+        )
+
+    push_code, push_log = run_subprocess(
+        ["git", "push", "origin", "main"],
+        timeout=120,
+    )
+    push_ok = push_code == 0
+    result["steps"].append(
+        {
+            "name": "git push",
+            "ok": push_ok,
+            "skipped": not push_ok,
+            "detail": "origin main" if push_ok else "PUSH_SKIPPED — continuing to deploy",
+            "log": push_log,
+        }
+    )
+
+    deploy_code, deploy_log = run_subprocess(
+        ["npx", "firebase-tools", "deploy", "--only", "hosting:penang-pulse"],
+        timeout=600,
+    )
+    result["steps"].append(
+        {
+            "name": "firebase deploy",
+            "ok": deploy_code == 0,
+            "detail": "hosting:penang-pulse (entire penangpulse.com)",
+            "log": deploy_log,
+        }
+    )
+
+    live = f"{LIVE_HOST}/guides/{slug}/"
+    if deploy_code == 0:
+        bits = [f"Published → {live}"]
+        if not push_ok:
+            bits.append("PUSH_SKIPPED")
+        result["flash"] = " · ".join(bits)
+    else:
+        result["flash"] = "Deploy failed — see log below."
+    return result
+
+
 class Handler(BaseHTTPRequestHandler):
-    server_version = "PenangGuidesEditor/2.0"
+    server_version = "PenangGuidesEditor/3.0"
 
     def log_message(self, fmt: str, *args) -> None:  # noqa: A003
         sys.stderr.write("%s - %s\n" % (self.address_string(), fmt % args))
@@ -1445,6 +2139,7 @@ class Handler(BaseHTTPRequestHandler):
             title = (data.get("title") or [""])[0].strip()
             slug = (data.get("slug") or [""])[0].strip() or slugify(title)
             series_slug = (data.get("series") or [""])[0].strip()
+            tasted = (data.get("tasted") or [""])[0].strip()
             series_entry = series_by_slug(series_slug) if series_slug else None
             template = "blank"
             if series_entry:
@@ -1455,28 +2150,34 @@ class Handler(BaseHTTPRequestHandler):
                     new_page(series_slug, "Need a title and a simple slug (a-z, 0-9, hyphens)."),
                 )
                 return
+            if tasted and not parse_iso_date(tasted):
+                self._send(400, new_page(series_slug, "Tasting date must be YYYY-MM-DD."))
+                return
             post_dir = POSTS_DIR / slug
             if post_dir.exists():
                 self._send(400, new_page(series_slug, f"Slug already exists: {slug}"))
                 return
             (post_dir / "media" / "orig").mkdir(parents=True)
             fields, body_md = default_post_fields(
-                title, template=template, series_entry=series_entry
+                title,
+                template=template,
+                series_entry=series_entry,
+                tasted=tasted,
             )
             # Orphan series slug from form when not in registry
             if series_slug and not series_entry:
                 fields["series"] = series_slug
                 fields["seriesTitle"] = series_slug.replace("-", " ").title()
                 fields["seriesOrder"] = next_series_order(series_slug)
-            (post_dir / "post.md").write_text(
-                compose_post_md(fields, body_md),
-                encoding="utf-8",
-            )
+            apply_tasting_fields(fields)
+            write_post_fields(slug, fields, body_md)
+            if fields.get("series"):
+                recompute_series_orders(fields["series"])
             self._redirect(f"/edit?slug={urllib.parse.quote(slug)}")
             return
 
         if path == "/save":
-            fields, files = parse_multipart(ctype, body)
+            fields, files, multi = parse_multipart(ctype, body)
             old_slug = fields.get("old_slug", "").strip() or fields.get("slug", "").strip()
             slug = fields.get("slug", "").strip()
             body_md = fields.get("body", "")
@@ -1522,40 +2223,65 @@ class Handler(BaseHTTPRequestHandler):
                 if not fields.get("locationLng", "").strip() and parsed_maps["lng"]:
                     fields["locationLng"] = parsed_maps["lng"]
 
+            apply_tasting_fields(fields)
+
             post_dir = POSTS_DIR / slug
             if not (post_dir / "post.md").is_file() and old_slug == slug:
                 self._send(400, page_shell("Error", f"<p>Unknown episode: {html.escape(slug)}</p>"))
                 return
             post_dir.mkdir(parents=True, exist_ok=True)
-            (post_dir / "post.md").write_text(
-                compose_post_md(fields, body_md),
-                encoding="utf-8",
-            )
             orig = post_dir / "media" / "orig"
             orig.mkdir(parents=True, exist_ok=True)
 
+            roles = multi.get("media_role") or []
+            labels = multi.get("media_role_label") or []
             saved = 0
-            for filename, data in files:
-                name = safe_upload_name(filename)
-                if not name:
+            photo_additions: list[tuple[str, str, str, int]] = []
+            for i, (filename, data) in enumerate(files):
+                if not data:
                     continue
-                dest = orig / name
-                if dest.exists():
-                    stem = pathlib.Path(name).stem
-                    suffix = pathlib.Path(name).suffix
-                    n = 2
-                    while dest.exists():
-                        dest = orig / f"{stem}-{n}{suffix}"
-                        n += 1
-                    name = dest.name
+                role = (roles[i] if i < len(roles) else "bowl").strip().lower() or "bowl"
+                other_label = labels[i] if i < len(labels) else ""
+                if role == "other" and not slugify(other_label):
+                    other_label = pathlib.Path(filename).stem
+                ext = pathlib.Path(filename).suffix.lower() or ".jpeg"
+                name = media_role_filename(slug, role, other_label, ext)
+                dest = unique_media_path(orig, name)
                 dest.write_bytes(data)
                 saved += 1
+                canon = PHOTO_ROLE_CANONICAL.get(role, role)
+                if role == "other":
+                    canon = slugify(other_label) or "photo"
+                alt = PHOTO_ROLE_ALT.get(role) or (other_label.strip() or "Photo")
+                rank = PHOTO_ROLE_RANK.get(role, 50)
+                photo_additions.append((dest.name, canon, alt, rank))
+
+            photo_additions.sort(key=lambda item: (item[3], item[0]))
+            if photo_additions:
+                body_md = append_photos_markdown(
+                    body_md,
+                    [(name, role, alt) for name, role, alt, _ in photo_additions],
+                )
+
+            write_post_fields(slug, fields, body_md)
+
+            order_note = ""
+            if fields.get("series"):
+                changed = recompute_series_orders(fields["series"])
+                # Refresh seriesOrder display from recomputed file
+                refreshed, _ = fields_from_post(
+                    (POSTS_DIR / slug / "post.md").read_text(encoding="utf-8")
+                )
+                fields["seriesOrder"] = refreshed.get("seriesOrder", "")
+                if changed:
+                    order_note = f" Reordered series ({len(changed)} file(s))."
 
             flash = "Saved."
             if old_slug and old_slug != slug:
                 flash = f"Renamed to {slug}. Saved."
             if saved:
                 flash += f" Uploaded {saved} file(s)."
+            flash += order_note
             if is_draft_value(fields.get("draft", "")):
                 flash += " Draft — skipped on public build."
             if fields.get("and_build"):
@@ -1565,6 +2291,14 @@ class Handler(BaseHTTPRequestHandler):
                 self._redirect(f"/edit?slug={urllib.parse.quote(slug)}")
                 return
             self._send(200, edit_page(slug, flash))
+            return
+
+        if path == "/publish":
+            data = urllib.parse.parse_qs(body.decode("utf-8"))
+            slug = (data.get("slug") or [""])[0].strip()
+            intent = (data.get("intent") or [""])[0].strip()
+            result = run_publish(slug, intent=intent)
+            self._send(200, publish_page(slug if is_valid_slug(slug) else "?", result))
             return
 
         if path == "/delete":
