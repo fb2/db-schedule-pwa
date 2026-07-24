@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T04:38:55.767757+00:00",
+  "generatedAt": "2026-07-24T05:13:15.148580+00:00",
   "guides": [
     {
       "slug": "char-kway-teow-at-restoran-77-food-yard",
@@ -14,7 +14,7 @@
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
       "seriesHref": "./guides/series/mee-myself-and-i/",
-      "seriesOrder": 6,
+      "seriesOrder": 7,
       "location": {
         "name": "Restoran 77 Food Yard",
         "mapsUrl": "https://maps.app.goo.gl/em5N9qmAz4XTNmHs8"
@@ -37,6 +37,25 @@
       "location": {
         "name": "Restoran 77 Food Yard",
         "mapsUrl": "https://maps.app.goo.gl/mF7BdVxJ6iHYuMHt7"
+      }
+    },
+    {
+      "slug": "mee-suah-koh-at-33-best-food-hub",
+      "title": "Mee Suah Koh at 33 Best Food Hub",
+      "dek": "Rare Penang comfort — thick mee suah gruel at 33 Best Food Hub, congee-adjacent and very filling.",
+      "type": "Mee",
+      "href": "./guides/mee-suah-koh-at-33-best-food-hub/",
+      "updated": "2026-07-23",
+      "cover": "/guides/mee-suah-koh-at-33-best-food-hub/media/mee-suah-koh-author.jpg",
+      "fieldNote": "Field note · Tanjung Tokong · 23 Jul 2026",
+      "neighbourhood": "Tanjung Tokong",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 6,
+      "location": {
+        "name": "Mee Suah Koh at 33 Best Food Hub",
+        "mapsUrl": "https://maps.app.goo.gl/9cmCvwiC5qqibbGi9"
       }
     },
     {
@@ -141,7 +160,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 6,
+      "count": 7,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",

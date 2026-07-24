@@ -852,13 +852,22 @@ def page_shell(
     .badge.draft {{ background: #f3e6c8; color: #7a5a12; }}
     ul.posts, ul.episodes {{ list-style: none; margin: 12px 0; padding: 0; }}
     ul.posts li, ul.episodes li {{
-      display: flex; justify-content: space-between; align-items: baseline;
-      gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line);
     }}
-    ul.episodes li {{
-      flex-wrap: wrap;
+    ul.posts li > span, ul.episodes li > .ep-main {{
+      min-width: 0; flex: 1;
     }}
-    .ep-meta {{ color: var(--muted); font-size: 0.85rem; }}
+    ul.posts li > a, ul.episodes li > a.ep-edit {{
+      flex: 0 0 auto; margin-top: 2px; white-space: nowrap;
+      font-weight: 600; font-size: 0.9rem;
+    }}
+    .ep-main .ep-title {{ line-height: 1.35; }}
+    .ep-meta {{
+      display: block; margin-top: 4px;
+      color: var(--muted); font-size: 0.85rem; line-height: 1.4;
+      overflow-wrap: anywhere;
+    }}
     form.card, .card, .panel {{
       margin-top: 16px; padding: 16px 18px; background: var(--card);
       border: 1px solid var(--line); border-radius: 12px;
@@ -1070,11 +1079,14 @@ def series_page(slug: str, flash: str = "") -> bytes:
         )
         items.append(
             "<li>"
-            f'<span><strong>{html.escape(ep["title"])}</strong>{draft_badge} '
+            f'<div class="ep-main">'
+            f'<span class="ep-title"><strong>{html.escape(ep["title"])}</strong>'
+            f"{draft_badge}</span>"
             f'<span class="ep-meta">{html.escape(order_label)} · '
             f'{html.escape(ep["slug"])}'
-            f'{(" · " + note) if note else ""}</span></span>'
-            f'<a href="/edit?slug={urllib.parse.quote(ep["slug"])}">Edit</a>'
+            f'{(" · " + note) if note else ""}</span>'
+            f"</div>"
+            f'<a class="ep-edit" href="/edit?slug={urllib.parse.quote(ep["slug"])}">Edit</a>'
             "</li>"
         )
     list_html = "".join(items) or '<li class="muted">No episodes yet — create the first one.</li>'

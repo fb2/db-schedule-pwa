@@ -7,7 +7,7 @@ fieldNote: Field note · Pulau Tikus · 24 Jul 2026
 updated: 2026-07-24
 series: mee-myself-and-i
 seriesTitle: Mee Myself and I
-seriesOrder: 6
+seriesOrder: 7
 location:
   name: Restoran 77 Food Yard
   mapsUrl: "https://maps.app.goo.gl/em5N9qmAz4XTNmHs8"
