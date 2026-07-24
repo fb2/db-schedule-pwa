@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-07-23T05:29:06.671261+00:00",
+  "generatedAt": "2026-07-24T04:38:55.767757+00:00",
   "guides": [
+    {
+      "slug": "char-kway-teow-at-restoran-77-food-yard",
+      "title": "Char Kway Teow at Restoran 77 Food Yard",
+      "dek": "Friday breakfast, non-soupy — smoky Penang Char Kway Teow at Restoran 77, wok hei first, cockles optional.",
+      "type": "Mee",
+      "href": "./guides/char-kway-teow-at-restoran-77-food-yard/",
+      "updated": "2026-07-24",
+      "cover": "/guides/char-kway-teow-at-restoran-77-food-yard/media/char-kway-teow-bowl.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 24 Jul 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 6,
+      "location": {
+        "name": "Restoran 77 Food Yard",
+        "mapsUrl": "https://maps.app.goo.gl/em5N9qmAz4XTNmHs8"
+      }
+    },
     {
       "slug": "hokkien-prawn-mee-at-restoran-77-food-yard",
       "title": "Hokkien - Prawn Mee at Restoran 77 Food Yard",
@@ -122,7 +141,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 5,
+      "count": 6,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
