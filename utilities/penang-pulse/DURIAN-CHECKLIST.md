@@ -9,6 +9,7 @@ Sellers are often Chinese-speaking; keep the **Chinese name** handy at the stall
 Must-know clones — start here when the season is on.
 
 - [ ] **D15** (青尼 / D15) — Penang/Kedah stall name for Chanee (Thai); frequent workhorse up north; aka Penang 15 / Juara 90; DOA registration is usually **D123** — not the same as 青皮15/D165
+- [ ] **D5 Ibrahim** (易卜拉欣 / D05) — early DOA-registered clone (D5); stems often tagged **D05**; pale yellow, dessert-sweet, mild aroma; seen locally in Penang
 - [ ] **Musang King** (猫山王 / D197) — aka Raja Kunyit / 黄姜王 / Kunyit; bitter-sweet, sticky, the stall default “king”
 - [ ] **Black Thorn** (黑刺 / D200) — also Ochee; Penang / Sungai Bakap lineage; marshmallow + bitter finish
 - [ ] **Red Prawn** (红虾 / D175) — Penang classic (Udang Merah); orange-red flesh; ask for *Penang* red prawn if fakes are common
