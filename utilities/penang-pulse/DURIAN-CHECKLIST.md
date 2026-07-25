@@ -14,6 +14,7 @@ Must-know clones — start here when the season is on.
 - [ ] **Black Thorn** (黑刺 / D200) — also Ochee; Penang / Sungai Bakap lineage; marshmallow + bitter finish
 - [ ] **Red Prawn** (红虾 / D175) — Penang classic (Udang Merah); orange-red flesh; ask for *Penang* red prawn if fakes are common
 - [ ] **Susu / Su Su** (牛奶) — Malay *susu* = milk; pale creamy “milk” flesh; Penang stall / kampung nickname, not one fixed clone code (D124 “Durian Susu” exists on paper elsewhere — confirm what the uncle means)
+- [ ] **Ganja** (干尧 / D158) — verbal / stall nickname (also Ganyao, Kan Yao, Tangkai Panjang / 长柄); long stem; Thai-origin clone; Penang trade usually means **D158** — DOA paperwork also ties “Ganja/Kan Yau” to D105/D130, so confirm at the stall
 - [ ] **D24 / Sultan** (苏丹王 / D24) — workhorse creamy clone; often what gets passed off as “premium”
 - [ ] **Golden Phoenix** (金凤 / D198) — also 金凤凰; milder, pale flesh; easy crowd-pleaser
 - [ ] **XO** (XO) — brandy / wine-ish notes; often treated as a D24 relative, not a separate MARDI king
@@ -71,7 +72,7 @@ Island first, mainland when the fruit (or the drive) is better. **Venues TBD** �
 ## Notes
 
 - At the stall: lead with Chinese (猫山王、黑刺、红虾…) or the D-code; English alone often fails.
-- Watch label traps: **IOI ↔ “D101”**, **D13 ↔ 红虾**, **XO ↔ D24**, **D15 / 青尼 ↔ 青皮15 / D165**, **Raub** = place not a separate clone.
+- Watch label traps: **IOI ↔ “D101”**, **D13 ↔ 红虾**, **XO ↔ D24**, **D15 / 青尼 ↔ 青皮15 / D165**, **Ganja / 干尧 ↔ D158** (sometimes D105 talk), **Raub** = place not a separate clone.
 - How to tick: edit this file after a real tasting; don’t invent tries.
 - Series not in `_series.json` yet — this list is planning only. Register a slug / Guides only when you’re ready to publish.
 - Seasonality matters; empty stalls in off-months are normal, not a failure of the checklist.
