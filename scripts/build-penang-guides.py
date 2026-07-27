@@ -881,6 +881,8 @@ def build_one(
     field_note = str(meta.get("fieldnote") or meta.get("field_note") or "").strip()
     updated = meta.get("updated") or meta.get("date") or dt.date.today().isoformat()
     hero = meta.get("hero") or ""
+    # cover / ogImage: share preview only — does not render the in-page 16:9 hero banner
+    cover = meta.get("cover") or meta.get("ogimage") or meta.get("og_image") or ""
 
     series_slug = str(meta.get("series") or "").strip()
     series_title = str(meta.get("seriestitle") or meta.get("series_title") or "").strip()
@@ -923,8 +925,9 @@ def build_one(
         first = next(iter(media_map.values()))
         hero_src = f"./media/{first}"
 
-    og_image = cover_path_for_guide(slug, hero_src, media_map)
-    # Prefer first web photo for OG even when there is no in-page hero
+    cover_src = rewrite_media_src(cover, media_map) if cover else None
+    og_image = cover_path_for_guide(slug, cover_src or hero_src, media_map)
+    # Prefer first web photo for OG even when there is no in-page hero / cover
     if og_image == OG_DEFAULT_PATH and media_map:
         og_image = cover_path_for_guide(slug, None, media_map)
 

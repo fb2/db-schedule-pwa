@@ -11,10 +11,11 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Hokkien / Prawn Mee** — Restoran 77 Food Yard · 23 Jul 2026
 - [x] **Mee Suah Koh** — 33 Best Food Hub · 23 Jul 2026
 - [x] **Char Kway Teow** — Restoran 77 Food Yard · 24 Jul 2026
+- [x] **Wantan Mee** (soup) — Cheah Yew Market · 27 Jul 2026
 
 ## Island classics still to try
 
-- [ ] **Wan Tan Mee** — dry and/or soup (neighbourhood cart is fine)
+- [ ] **Wantan Mee** (dry / kon lo) — next pass after the Cheah Yew soup bowl
 - [ ] **Curry Mee** — note white vs red / coconut style if you hit both
 - [ ] **Asam Laksa** — noodle-adjacent, still counts for the series
 - [ ] **Lor Mee** — starchy dark gravy

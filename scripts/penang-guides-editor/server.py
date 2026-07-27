@@ -603,6 +603,13 @@ def compose_post_md(fields: dict[str, str], body: str) -> str:
         if loc_lng:
             lines.append(f"  lng: {yaml_quote(loc_lng)}")
 
+    cover = fields.get("cover", "").strip()
+    if cover:
+        lines.append(f"cover: {yaml_quote(cover)}")
+    hero = fields.get("hero", "").strip()
+    if hero:
+        lines.append(f"hero: {yaml_quote(hero)}")
+
     lines.append("---")
     lines.append("")
     body = body.replace("\r\n", "\n").lstrip("\n")
@@ -632,6 +639,8 @@ def fields_from_post(text: str) -> tuple[dict[str, str], str]:
         "locationAddress": str(loc.get("address") or ""),
         "locationLat": str(loc.get("lat") or ""),
         "locationLng": str(loc.get("lng") or ""),
+        "cover": str(meta.get("cover") or meta.get("ogimage") or meta.get("og_image") or ""),
+        "hero": str(meta.get("hero") or ""),
     }
     if not fields["tasted"]:
         fields["tasted"] = infer_tasted(fields)
@@ -771,6 +780,8 @@ def default_post_fields(
             "locationAddress": "",
             "locationLat": "",
             "locationLng": "",
+            "cover": "",
+            "hero": "",
         }
         body = (
             "Intro paragraph — why this bowl, where you were coming from.\n\n"
@@ -801,6 +812,8 @@ def default_post_fields(
             "locationAddress": "",
             "locationLat": "",
             "locationLng": "",
+            "cover": "",
+            "hero": "",
         }
         body = (
             "Why this outing works for a family evening or weekend — ages, energy, rain plan.\n\n"
@@ -834,6 +847,8 @@ def default_post_fields(
         "locationAddress": "",
         "locationLat": "",
         "locationLng": "",
+        "cover": "",
+        "hero": "",
     }
     body = (
         "Write the guide here. Use `##` headings and lists.\n\n"
@@ -1854,6 +1869,16 @@ def edit_page(slug: str, flash: str = "") -> bytes:
         (or freeform). Appends into <code>## Photos</code> in editorial order if missing.</p>
         <div id="uploadRoleList" class="upload-role-list"></div>
         {media_html}
+        {_input(
+            "cover",
+            "Share / OG image (cover)",
+            fields.get("cover", ""),
+            "./media/orig/…-seller.jpg",
+            "cover",
+        )}
+        <p class="hint">Optional. Sets <code>og:image</code> only — no in-page banner
+        (avoids the 16:9 crop). Leave blank to fall back to alphabetically first photo.</p>
+        <input type="hidden" name="hero" value="{html.escape(fields.get("hero", ""))}" />
       </fieldset>
       <div class="row">
         <button type="submit">Save</button>
