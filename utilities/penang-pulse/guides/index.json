@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-07-24T05:13:15.148580+00:00",
+  "generatedAt": "2026-07-27T02:54:46.041036+00:00",
   "guides": [
+    {
+      "slug": "wantan-mee-in-cheah-yew-market",
+      "title": "Wantan Mee in Cheah Yew Market",
+      "dek": "Nasi Kandar plans, Wantan Mee pivot — a light soupy breakfast at Cheah Yew, with Penang dry-style lore for next time.",
+      "type": "Mee",
+      "href": "./guides/wantan-mee-in-cheah-yew-market/",
+      "updated": "2026-07-27",
+      "cover": "/guides/wantan-mee-in-cheah-yew-market/media/wantan-mee-in-cheah-yew-market-seller.jpg",
+      "fieldNote": "Field note · Tanjung Tokong · 27 Jul 2026",
+      "neighbourhood": "Tanjung Tokong",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 8,
+      "location": {
+        "name": "Cheah Yew Hawker Market",
+        "mapsUrl": "https://maps.app.goo.gl/WBCJFed1Pfg21B1w5"
+      }
+    },
     {
       "slug": "char-kway-teow-at-restoran-77-food-yard",
       "title": "Char Kway Teow at Restoran 77 Food Yard",
@@ -160,7 +179,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 7,
+      "count": 8,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",

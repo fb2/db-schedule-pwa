@@ -3,6 +3,7 @@ title: Jawa Mee at 33 Best Food Hub
 dek: Thick sweet-savoury tomato gravy, prawn fritters, and a Hungarian vadas echo — Monday evening Jawa Mee near the Airbnb.
 type: series-mee
 neighbourhood: Tanjung Tokong
+tasted: 2026-07-20
 fieldNote: Field note · Tanjung Tokong · 20 Jul 2026
 updated: 2026-07-20
 series: mee-myself-and-i
