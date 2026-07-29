@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-07-29T02:05:52.358519+00:00",
+  "generatedAt": "2026-07-29T02:06:15.050433+00:00",
   "guides": [
+    {
+      "slug": "instant-cook-koay-teow-at-sin-hup-aun-cafe",
+      "title": "Instant Cook Koay Teow at Sin Hup Aun Cafe",
+      "dek": "Rainy Pulau Tikus morning — clear Instant Cook Koay Teow Th’ng across from coworking, fried garlic and tiny fierce chillies.",
+      "type": "Mee",
+      "href": "./guides/instant-cook-koay-teow-at-sin-hup-aun-cafe/",
+      "updated": "2026-07-29",
+      "cover": "/guides/instant-cook-koay-teow-at-sin-hup-aun-cafe/media/instant-cook-koay-teow-at-sin-hup-aun-cafe-seller.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 29 Jul 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 10,
+      "location": {
+        "name": "Sin Hup Aun Cafe",
+        "mapsUrl": "https://maps.app.goo.gl/P2HY3MUEM7baf5Mq5"
+      }
+    },
     {
       "slug": "curry-mee-in-restoran-77-food-yard",
       "title": "Curry Mee in Restoran 77 Food Yard",
@@ -198,7 +217,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 9,
+      "count": 10,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
