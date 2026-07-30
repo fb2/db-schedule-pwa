@@ -49,9 +49,9 @@ First, let me admit I ate some of her duck as well — it was succulent. The Lor
 
 ### Photos
 
-![Hawker at Cheah Yew Market](./media/orig/lor-mee-in-cheah-yew-market-seller.jpg)
+![Hawker at the Lor Mee / Hokkien Mee stand in Cheah Yew Market](./media/orig/lor-mee-in-cheah-yew-market-seller.jpg)
 
-_At Cheah Yew — the roast side of lunch, cleaver in hand._
+_At the Lor Mee / Hokkien Mee stand — chopping ingredients._
 
 ![Bowl of Lor Mee at Cheah Yew Market](./media/orig/lor-mee-in-cheah-yew-market-bowl.jpg)
 
