@@ -17,6 +17,7 @@ import email
 import email.policy
 import html
 import json
+import mimetypes
 import os
 import pathlib
 import re
@@ -439,6 +440,103 @@ def media_role_filename(slug: str, role: str, other_label: str, ext: str) -> str
     return f"{stem}{ext}"
 
 
+IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic", ".heif"}
+
+
+def list_orig_images(slug: str) -> list[pathlib.Path]:
+    """Sorted image files under posts/<slug>/media/orig/."""
+    if not is_valid_slug(slug):
+        return []
+    orig = POSTS_DIR / slug / "media" / "orig"
+    if not orig.is_dir():
+        return []
+    files: list[pathlib.Path] = []
+    for path in sorted(orig.iterdir()):
+        if (
+            path.is_file()
+            and not path.name.startswith(".")
+            and path.suffix.lower() in IMAGE_SUFFIXES
+        ):
+            files.append(path)
+    return files
+
+
+def resolve_orig_media(slug: str, filename: str) -> pathlib.Path | None:
+    """Safe resolve of a basename under posts/<slug>/media/orig/."""
+    if not is_valid_slug(slug) or not filename or "/" in filename or "\\" in filename:
+        return None
+    if filename.startswith(".") or filename != pathlib.Path(filename).name:
+        return None
+    path = (POSTS_DIR / slug / "media" / "orig" / filename).resolve()
+    root = (POSTS_DIR / slug / "media" / "orig").resolve()
+    try:
+        path.relative_to(root)
+    except ValueError:
+        return None
+    if not path.is_file():
+        return None
+    return path
+
+
+def cover_picker_html(slug: str, current_cover: str) -> str:
+    """Radio grid to pick og:image cover from uploaded originals."""
+    current = (current_cover or "").strip()
+    files = list_orig_images(slug)
+    matched_links = {f"./media/orig/{path.name}" for path in files}
+    current_matched = current in matched_links or any(
+        current.endswith("/" + path.name) for path in files
+    )
+    none_checked = " checked" if not current or not current_matched else ""
+    cards = [
+        f"""
+        <label class="cover-card">
+          <input type="radio" name="cover" value=""{none_checked} />
+          <span class="cover-thumb cover-none">Default</span>
+          <span class="cover-name">Alphabetical first</span>
+        </label>
+        """
+    ]
+    for path in files:
+        link = f"./media/orig/{path.name}"
+        checked = (
+            " checked"
+            if current_matched and (current == link or current.endswith("/" + path.name))
+            else ""
+        )
+        thumb = (
+            f"/media-orig?slug={urllib.parse.quote(slug)}"
+            f"&file={urllib.parse.quote(path.name)}"
+        )
+        role = "photo"
+        stem = path.stem.lower()
+        if stem.endswith("-seller") or "-seller-" in stem:
+            role = "seller"
+        elif stem.endswith("-bowl") or "-bowl-" in stem:
+            role = "bowl"
+        elif stem.endswith("-author") or "-author-" in stem:
+            role = "author"
+        cards.append(
+            f"""
+        <label class="cover-card">
+          <input type="radio" name="cover" value="{html.escape(link, quote=True)}"{checked} />
+          <img class="cover-thumb" src="{html.escape(thumb, quote=True)}" alt="" loading="lazy" />
+          <span class="cover-name"><code>{html.escape(path.name)}</code>
+          <span class="cover-role">{html.escape(role)}</span></span>
+        </label>
+        """
+        )
+    if not files:
+        return (
+            '<p class="muted">No originals yet — upload photos first, then pick a share image.</p>'
+            f'<input type="hidden" name="cover" value="{html.escape(current, quote=True)}" />'
+        )
+    return (
+        '<div class="cover-picker" role="radiogroup" aria-label="Share / OG image">'
+        + "".join(cards)
+        + "</div>"
+    )
+
+
 def unique_media_path(orig_dir: pathlib.Path, name: str) -> pathlib.Path:
     dest = orig_dir / name
     if not dest.exists():
@@ -506,10 +604,14 @@ def run_subprocess(
     timeout: int | None = None,
 ) -> tuple[int, str]:
     merged = {**os.environ, **(env or {})}
+    # Avoid hangs when a tool prompts on a TTY while stdout/stderr are captured.
+    merged.setdefault("CI", "1")
+    merged.setdefault("npm_config_yes", "true")
     try:
         proc = subprocess.run(
             cmd,
             cwd=str(ROOT),
+            stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
             check=False,
@@ -523,6 +625,14 @@ def run_subprocess(
         return 124, (out or "") + "\n(timeout)"
     except OSError as exc:
         return 1, str(exc)
+
+
+def firebase_cmd() -> list[str]:
+    """Prefer a local firebase binary over npx (avoids npm-exec install hangs)."""
+    local = shutil.which("firebase")
+    if local:
+        return [local]
+    return ["npx", "--yes", "firebase-tools"]
 
 
 def publish_paths_for_slug(slug: str, series_slug: str, touched_slugs: list[str]) -> list[str]:
@@ -946,6 +1056,65 @@ NEW_PAGE_JS = (
 """
 )
 
+BUSY_JS = r"""
+(function () {
+  const overlay = document.getElementById("busyOverlay");
+  const titleEl = document.getElementById("busyTitle");
+  const detailEl = document.getElementById("busyDetail");
+  const stepsEl = document.getElementById("busySteps");
+  if (!overlay) return;
+
+  function showBusy(opts) {
+    const title = (opts && opts.title) || "Working…";
+    const detail = (opts && opts.detail) || "Please leave this tab open.";
+    const steps = (opts && opts.steps) || [];
+    if (titleEl) titleEl.textContent = title;
+    if (detailEl) detailEl.textContent = detail;
+    if (stepsEl) {
+      stepsEl.innerHTML = "";
+      if (steps.length) {
+        steps.forEach(function (s) {
+          const li = document.createElement("li");
+          li.textContent = s;
+          stepsEl.appendChild(li);
+        });
+        stepsEl.hidden = false;
+      } else {
+        stepsEl.hidden = true;
+      }
+    }
+    overlay.hidden = false;
+    overlay.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  window.__penangShowBusy = showBusy;
+
+  document.addEventListener("submit", function (event) {
+    const form = event.target;
+    if (!(form instanceof HTMLFormElement)) return;
+    if (!form.hasAttribute("data-busy")) return;
+    if (event.defaultPrevented) return;
+
+    const confirmMsg = form.getAttribute("data-busy-confirm");
+    if (confirmMsg && !window.confirm(confirmMsg)) {
+      event.preventDefault();
+      return;
+    }
+
+    const stepsAttr = form.getAttribute("data-busy-steps") || "";
+    const steps = stepsAttr
+      ? stepsAttr.split("|").map(function (s) { return s.trim(); }).filter(Boolean)
+      : [];
+    showBusy({
+      title: form.getAttribute("data-busy-title") || "Working…",
+      detail: form.getAttribute("data-busy-detail") || "Please leave this tab open.",
+      steps: steps,
+    });
+  }, true);
+})();
+"""
+
 EDITOR_JS = (
     "(function () {\n"
     + SLUGIFY_JS
@@ -1365,6 +1534,38 @@ def page_shell(
     .slug-preview code {{ font-size: 0.92em; }}
     .media {{ margin-top: 10px; font-size: 0.9rem; }}
     .media li {{ margin: 4px 0; }}
+    .cover-picker {{
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px; margin: 10px 0 0;
+    }}
+    .cover-card {{
+      display: flex; flex-direction: column; gap: 6px; margin: 0;
+      padding: 8px; border: 1px solid var(--line); border-radius: 10px;
+      background: #fff; cursor: pointer; font-weight: 500;
+    }}
+    .cover-card:has(input:checked) {{
+      border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft);
+    }}
+    .cover-card input {{ position: absolute; opacity: 0; pointer-events: none; }}
+    .cover-thumb {{
+      display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
+      border-radius: 8px; background: #eee;
+    }}
+    .cover-none {{
+      display: grid; place-items: center; color: var(--muted);
+      font-size: 0.85rem; font-weight: 600;
+    }}
+    .cover-name {{
+      font-size: 0.78rem; color: var(--muted); line-height: 1.3;
+      overflow-wrap: anywhere;
+    }}
+    .cover-name code {{ font-size: 0.72rem; color: var(--text); }}
+    .cover-role {{
+      display: inline-block; margin-left: 4px; padding: 1px 6px;
+      border-radius: 999px; background: var(--accent-soft); color: var(--accent);
+      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }}
     .upload-role-list {{ margin: 10px 0 0; display: grid; gap: 8px; }}
     .upload-role-row {{
       display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -1410,6 +1611,55 @@ def page_shell(
       display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
       margin: 8px 0 18px;
     }}
+    .save-bar {{
+      display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center;
+      margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line);
+    }}
+    .save-bar .row {{ margin-top: 0; }}
+    .draft-toggle {{
+      display: inline-flex; align-items: center; gap: 8px;
+      font-weight: 600; margin: 0; cursor: pointer; user-select: none;
+    }}
+    .draft-toggle input {{ width: auto; margin: 0; }}
+    .draft-toggle .draft-hint {{
+      font-weight: 500; font-size: 0.85rem; color: var(--muted);
+    }}
+    .busy-overlay {{
+      position: fixed; inset: 0; z-index: 100;
+      display: none; align-items: center; justify-content: center;
+      padding: 24px; background: rgba(28, 28, 26, 0.45);
+      backdrop-filter: blur(3px);
+    }}
+    .busy-overlay[open], .busy-overlay.is-open {{ display: flex; }}
+    .busy-card {{
+      width: min(26rem, 100%); padding: 22px 22px 18px;
+      background: var(--card); border-radius: 14px;
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+    }}
+    .busy-card h2 {{
+      margin: 0 0 8px; font-size: 1.15rem; color: var(--text);
+    }}
+    .busy-card p {{
+      margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.45;
+    }}
+    .busy-steps {{
+      margin: 14px 0 0; padding: 0; list-style: none;
+      font-size: 0.88rem; color: var(--muted);
+    }}
+    .busy-steps li {{
+      display: flex; gap: 8px; align-items: baseline;
+      padding: 4px 0;
+    }}
+    .busy-steps li::before {{
+      content: "·"; color: var(--accent); font-weight: 700;
+    }}
+    .busy-spinner {{
+      width: 28px; height: 28px; margin: 16px auto 0;
+      border: 3px solid var(--line); border-top-color: var(--accent);
+      border-radius: 50%; animation: busy-spin 0.8s linear infinite;
+    }}
+    @keyframes busy-spin {{ to {{ transform: rotate(360deg); }} }}
     input[type=date] {{
       width: 100%; padding: 10px 12px; border: 1px solid var(--line);
       border-radius: 8px; font: inherit; background: #fff;
@@ -1427,6 +1677,15 @@ def page_shell(
     {flash_html}
     {body}
   </main>
+  <div id="busyOverlay" class="busy-overlay" hidden aria-live="polite" aria-busy="true">
+    <div class="busy-card" role="dialog" aria-modal="true" aria-labelledby="busyTitle">
+      <h2 id="busyTitle">Working…</h2>
+      <p id="busyDetail">Please leave this tab open.</p>
+      <ul class="busy-steps" id="busySteps" hidden></ul>
+      <div class="busy-spinner" aria-hidden="true"></div>
+    </div>
+  </div>
+  <script>{BUSY_JS}</script>
   {js_html}
 </body>
 </html>
@@ -1565,10 +1824,12 @@ def series_page(slug: str, flash: str = "") -> bytes:
 
     if publish_anchor:
         series_publish = (
-            f'<form method="post" action="/publish" '
-            f'onsubmit="return confirm('
-            f"'Publish pending guide changes to penangpulse.com? "
-            f"Commits guide paths and deploys the whole site.');\">"
+            f'<form method="post" action="/publish" data-busy '
+            f'data-busy-title="Publishing…" '
+            f'data-busy-detail="Leave this tab open — Firebase deploy often takes several minutes." '
+            f'data-busy-steps="Build all guides|git commit|git push (best-effort)|Firebase deploy" '
+            f'data-busy-confirm="Publish pending guide changes to penangpulse.com? '
+            f'Commits guide paths and deploys the whole site.">'
             f'<input type="hidden" name="slug" value="{html.escape(publish_anchor)}" />'
             f'<input type="hidden" name="intent" value="series" />'
             f'<button class="publish" type="submit">Publish to penangpulse.com</button>'
@@ -1668,19 +1929,17 @@ def edit_page(slug: str, flash: str = "") -> bytes:
         )
     content = post_path.read_text(encoding="utf-8")
     fields, body_md = fields_from_post(content)
-    orig = POSTS_DIR / slug / "media" / "orig"
-    media_items = []
-    if orig.is_dir():
-        for path in sorted(orig.iterdir()):
-            if path.is_file() and not path.name.startswith("."):
-                media_items.append(
-                    f"<li><code>./media/orig/{html.escape(path.name)}</code></li>"
-                )
+    media_files = list_orig_images(slug)
+    media_items = [
+        f"<li><code>./media/orig/{html.escape(path.name)}</code></li>"
+        for path in media_files
+    ]
     media_html = (
         f'<ul class="media">{"".join(media_items)}</ul>'
         if media_items
         else '<p class="muted">No originals uploaded yet.</p>'
     )
+    cover_html = cover_picker_html(slug, fields.get("cover", ""))
 
     type_val = fields.get("type") or "text"
     type_options = [
@@ -1783,8 +2042,11 @@ def edit_page(slug: str, flash: str = "") -> bytes:
           <h2>Publish</h2>
           <p class="hint">Save &amp; build is local (rebuilds all guides) ·
           Publish commits guide paths and deploys all of penangpulse.com</p>
-          <form method="post" action="/publish"
-            onsubmit="return confirm('Publish to penangpulse.com? Commits guide paths and deploys the whole site.');">
+          <form method="post" action="/publish" data-busy
+            data-busy-title="Publishing…"
+            data-busy-detail="Leave this tab open — Firebase deploy often takes several minutes."
+            data-busy-steps="Build all guides|git commit|git push (best-effort)|Firebase deploy"
+            data-busy-confirm="Publish to penangpulse.com? Commits guide paths and deploys the whole site.">
             <input type="hidden" name="slug" value="{html.escape(slug)}" />
             <div class="row">
               <button class="publish" type="submit">Publish to penangpulse.com</button>
@@ -1820,11 +2082,6 @@ def edit_page(slug: str, flash: str = "") -> bytes:
       </div>
       <input type="hidden" name="updated" value="{html.escape(fields.get("updated", ""))}" />
       <input type="hidden" name="fieldNote" value="{html.escape(fields.get("fieldNote", ""))}" />
-      <label style="display:flex;align-items:center;gap:8px;font-weight:600;margin-top:14px">
-        <input type="checkbox" name="draft" value="true"{draft_checked} />
-        Draft (skip public build — CMS only)
-      </label>
-      <p class="hint">Drafts stay in the CMS — uncheck before Publish.</p>
       {_input("neighbourhood", "Neighbourhood", fields.get("neighbourhood", ""), "Pulau Tikus")}
 
       <fieldset>
@@ -1869,21 +2126,24 @@ def edit_page(slug: str, flash: str = "") -> bytes:
         (or freeform). Appends into <code>## Photos</code> in editorial order if missing.</p>
         <div id="uploadRoleList" class="upload-role-list"></div>
         {media_html}
-        {_input(
-            "cover",
-            "Share / OG image (cover)",
-            fields.get("cover", ""),
-            "./media/orig/…-seller.jpg",
-            "cover",
-        )}
-        <p class="hint">Optional. Sets <code>og:image</code> only — no in-page banner
-        (avoids the 16:9 crop). Leave blank to fall back to alphabetically first photo.</p>
+        <label>Share / OG image</label>
+        {cover_html}
+        <p class="hint">Optional. Click a photo for WhatsApp / social preview
+        (<code>cover</code> → <code>og:image</code>). No in-page banner.
+        Default = alphabetically first processed photo.</p>
         <input type="hidden" name="hero" value="{html.escape(fields.get("hero", ""))}" />
       </fieldset>
-      <div class="row">
-        <button type="submit">Save</button>
-        <button class="secondary" type="submit" name="and_build" value="1">Save &amp; build</button>
-        <a class="btn secondary" href="/">Desk</a>
+      <div class="save-bar">
+        <label class="draft-toggle">
+          <input type="checkbox" name="draft" value="true"{draft_checked} />
+          Draft
+          <span class="draft-hint">skip public build</span>
+        </label>
+        <div class="row">
+          <button type="submit">Save</button>
+          <button class="secondary" type="submit" name="and_build" value="1">Save &amp; build</button>
+          <a class="btn secondary" href="/">Desk</a>
+        </div>
       </div>
     </form>
 
@@ -2081,7 +2341,13 @@ def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
     )
 
     deploy_code, deploy_log = run_subprocess(
-        ["npx", "firebase-tools", "deploy", "--only", "hosting:penang-pulse"],
+        [
+            *firebase_cmd(),
+            "deploy",
+            "--only",
+            "hosting:penang-pulse",
+            "--non-interactive",
+        ],
         timeout=600,
     )
     result["steps"].append(
@@ -2149,6 +2415,17 @@ class Handler(BaseHTTPRequestHandler):
             url = (qs.get("url") or [""])[0]
             payload = json.dumps(parse_maps_url(url), ensure_ascii=False).encode("utf-8")
             self._send(200, payload, "application/json; charset=utf-8")
+            return
+        if path == "/media-orig":
+            slug = (qs.get("slug") or [""])[0]
+            filename = (qs.get("file") or [""])[0]
+            media_path = resolve_orig_media(slug, filename)
+            if media_path is None:
+                self._send(404, b"Not found", "text/plain; charset=utf-8")
+                return
+            data = media_path.read_bytes()
+            ctype = mimetypes.guess_type(media_path.name)[0] or "application/octet-stream"
+            self._send(200, data, ctype)
             return
         self._send(404, page_shell("Not found", "<p>Not found.</p>"))
 

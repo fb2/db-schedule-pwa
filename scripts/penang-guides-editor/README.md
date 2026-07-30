@@ -126,6 +126,7 @@ seriesOrder: 1          # auto from tasting date
 type: series-mee
 draft: true             # optional — CMS only
 fieldNote: Field note · George Town · 23 Jul 2026
+cover: ./media/orig/…-seller.jpg   # optional — og:image only (no page banner)
 location:
   name: Venue name
   mapsUrl: https://maps.app.goo.gl/...
@@ -133,6 +134,10 @@ location:
   lat: optional
   lng: optional
 ```
+
+### Share / OG image picker
+
+On the episode editor, under Photo intake, pick a thumbnail for `cover` (WhatsApp / social). Saves as `cover:` front matter. Build maps that to `og:image` without adding the in-page 16:9 hero. Default = alphabetically first processed photo.
 
 Add or edit series metadata in `utilities/penang-pulse/guides/posts/_series.json`.
 

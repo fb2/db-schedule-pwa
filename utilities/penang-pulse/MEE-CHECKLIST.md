@@ -12,17 +12,17 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Mee Suah Koh** — 33 Best Food Hub · 23 Jul 2026
 - [x] **Char Kway Teow** — Restoran 77 Food Yard · 24 Jul 2026
 - [x] **Wantan Mee** (soup) — Cheah Yew Market · 27 Jul 2026
+- [x] **Curry Mee** (coconut) — Restoran 77 Food Yard · 28 Jul 2026
+- [x] **Koay Teow Th’ng** (Instant Cook) — Sin Hup Aun Cafe · 29 Jul 2026
+- [x] **Lor Mee** — Cheah Yew Market · 30 Jul 2026
 
 ## Island classics still to try
 
-- [ ] **Wantan Mee** (dry / kon lo) — next pass after the Cheah Yew soup bowl
-- [ ] **Curry Mee** — note white vs red / coconut style if you hit both
+- [ ] **White Curry Mee** — paler / silkier coconut; spice mostly on the side (distinct from the Restoran 77 bowl)
 - [ ] **Asam Laksa** — noodle-adjacent, still counts for the series
-- [ ] **Lor Mee** — starchy dark gravy
 - [ ] **Mee Goreng Mamak**
 - [ ] **Maggi goreng** — late-night / mamak energy
 - [ ] **Bee Hoon** — fried or soup (pick a clear style per episode)
-- [ ] **Koay Teow Th’ng** — flat rice noodle soup
 - [ ] **Koay Chiak** — short rice noodles / dumpling-noodle hybrid
 - [ ] **Bak Chor Mee** — if you find a stall that actually does it well here
 - [ ] **Duck noodle / duck kway teow**
@@ -59,13 +59,19 @@ Cross-the-bridge suggestions only — **venues TBD**, not verified must-eats. Ma
 Stretch goals in the Mee Suah Koh spirit.
 
 - [ ] **Thong Soon / other named dry chilli pan mee** — only if clearly different from a prior pan mee episode
-- [ ] **Penang White Curry Mee** — if distinct from the red/coconut bowl you already logged
 - [ ] **Seasonal / festival noodles** — longevity, CNY, or stall specials
 - [ ] **Whatever C-Mee-PO can’t identify at first glance** — best wild card
+
+## Optional revisits (same dish, new style)
+
+Only if the write-up earns a second episode — not required for the series count.
+
+- [ ] **Wantan Mee** (dry / kon lo) — after Cheah Yew soup · Jul 2026
+- [ ] **Curry Mee** variants beyond White — only if clearly different from Restoran 77
 
 ## Notes
 
 - How to tick: edit this file, or ask the agent after publishing an episode.
 - `seriesOrder` / CMS tasting date on published posts is source of truth; this list is planning only.
-- Aim ~20+ distinct bowls; doubles (same dish, new venue) only if the write-up earns it.
+- Aim ~20+ distinct bowls; doubles (same dish, new venue/style) only if the write-up earns it.
 - Don’t invent tries — unchecked until a Guide post exists.
