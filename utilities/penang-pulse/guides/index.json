@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-07-29T02:06:39.110652+00:00",
+  "generatedAt": "2026-07-30T06:05:43.697294+00:00",
   "guides": [
+    {
+      "slug": "lor-mee-in-cheah-yew-market",
+      "title": "Lor Mee in Cheah Yew Market",
+      "dek": "Work-from-Airbnb lunch in Tanjung Tokong — first Lor Mee at Cheah Yew, thick five-spice gravy while Olga goes roast pork and goose.",
+      "type": "Mee",
+      "href": "./guides/lor-mee-in-cheah-yew-market/",
+      "updated": "2026-07-30",
+      "cover": "/guides/lor-mee-in-cheah-yew-market/media/lor-mee-in-cheah-yew-market-wife.jpg",
+      "fieldNote": "Field note · Tanjung Tokong · 30 Jul 2026",
+      "neighbourhood": "Tanjung Tokong",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 11,
+      "location": {
+        "name": "Cheah Yew Hawker Market",
+        "mapsUrl": "https://maps.app.goo.gl/ajLdbD832ShCLMuN7"
+      }
+    },
     {
       "slug": "instant-cook-koay-teow-at-sin-hup-aun-cafe",
       "title": "Instant Cook Koay Teow at Sin Hup Aun Cafe",
@@ -217,7 +236,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 10,
+      "count": 11,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
