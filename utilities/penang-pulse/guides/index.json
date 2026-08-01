@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-08-01T03:30:55.818365+00:00",
+  "generatedAt": "2026-08-01T03:32:17.372109+00:00",
   "guides": [
+    {
+      "slug": "mee-rebus-at-33-best-food-hub",
+      "title": "Mee Rebus at 33 Best Food Hub",
+      "dek": "Evening at 33 Best Food Hub — mamak Mee Rebus gravy, with Tamara on Wantan Mee dry beside it.",
+      "type": "Mee",
+      "href": "./guides/mee-rebus-at-33-best-food-hub/",
+      "updated": "2026-07-31",
+      "cover": "/guides/mee-rebus-at-33-best-food-hub/media/mee-rebus-at-33-best-food-hub-bowl.jpg",
+      "fieldNote": "Field note · Tanjung Tokong · 31 Jul 2026",
+      "neighbourhood": "Tanjung Tokong",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 12,
+      "location": {
+        "name": "33 Best Food Hub",
+        "mapsUrl": "https://maps.app.goo.gl/JN5bdo2NtF2hsAa2A"
+      }
+    },
     {
       "slug": "lor-mee-in-cheah-yew-market",
       "title": "Lor Mee in Cheah Yew Market",
@@ -236,7 +255,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 11,
+      "count": 12,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
