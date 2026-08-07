@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-08-01T03:32:17.372109+00:00",
+  "generatedAt": "2026-08-07T02:37:48.420099+00:00",
   "guides": [
+    {
+      "slug": "granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop",
+      "title": "Granny Q Lemak Laksa at Sin Yong Wah Coffee Shop",
+      "dek": "Friday breakfast in Pulau Tikus — a lighter, herbal coconut laksa with sweet flashes of pineapple.",
+      "type": "Mee",
+      "href": "./guides/granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop/",
+      "updated": "2026-08-07",
+      "cover": "/guides/granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop/media/granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop-seller.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 7 Aug 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 13,
+      "location": {
+        "name": "Sin Yong Wah Coffee Shop",
+        "mapsUrl": "https://maps.app.goo.gl/hyTuMVoxmz8uqJDj8"
+      }
+    },
     {
       "slug": "mee-rebus-at-33-best-food-hub",
       "title": "Mee Rebus at 33 Best Food Hub",
@@ -255,7 +274,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 12,
+      "count": 13,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
