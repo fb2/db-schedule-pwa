@@ -363,7 +363,9 @@ function setView(view) {
 function renderGuides() {
   if (!els.guidesStrip || !els.guidesList) return;
   const guides = Array.isArray(state.guides) ? state.guides : [];
-  const show = state.view === "all" && guides.length > 0;
+  // Newest-first order from guides/index.json; home strip shows two rows only.
+  const stripGuides = guides.slice(0, 6);
+  const show = state.view === "all" && stripGuides.length > 0;
   els.guidesStrip.hidden = !show;
   if (!show) {
     els.guidesList.replaceChildren();
@@ -371,7 +373,7 @@ function renderGuides() {
   }
 
   const list = document.createDocumentFragment();
-  guides.forEach((guide) => {
+  stripGuides.forEach((guide) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.href = guide.href || `./guides/${guide.slug}/`;

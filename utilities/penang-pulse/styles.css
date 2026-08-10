@@ -127,6 +127,21 @@ a {
   margin-top: 0;
 }
 
+.guides-more {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.guides-more:hover,
+.guides-more:focus-visible {
+  text-decoration: underline;
+}
+
 .guides-list {
   list-style: none;
   margin: 0;
@@ -428,7 +443,11 @@ a {
   .guides-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0 32px;
+    gap: 10px 32px;
+  }
+
+  .guides-more {
+    margin-top: 14px;
   }
 
   .guides-list li + li {
