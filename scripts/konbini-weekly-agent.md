@@ -45,6 +45,10 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
    - Confirm short-window or regional items have `timeGate` where appropriate.
    - Confirm `intro` summarizes the week without inventing claims.
    - Confirm UI-facing fields such as `name`, `category`, `regions`, `summary`, `englishContext`, and local signal display text are English.
+   - Skim the leading product from each major chain and other high-scoring cards. Fix malformed or vague English names with exact `PRODUCT_SPECIFIC_TITLES` entries.
+   - Add `PRODUCT_SPECIFIC_NOTES` only where a short **Good to know** sentence adds concrete product understanding. Empty `englishContext` is preferred over generic filler.
+   - Reject repeated process copy such as glossary, wording-safeguard, exact-naming, or allergen disclaimers on product cards. Those caveats belong once at page level.
+   - Keep notes source-grounded: explain format, ingredients named by the source, collaboration context, regional limits, or potentially misleading Japanese terms. Do not infer taste or allergens.
    - Confirm content-quality sanity passes: no `Region regional`, repeated words/phrases, repeated sentence fragments, or blocked generic product names before commit/deploy.
 
 4. If needed, adjust parsers or source config and rebuild the draft. Prefer parser/config fixes over manual feed edits.
@@ -101,11 +105,16 @@ Follow `scripts/konbini_translation_guidance.md` when adjusting glossary tables 
 ## Editorial Checklist
 
 - Weekly intro mentions the strongest visible themes: collabs, limited items, seasonal flavors, regional finds, or standout secondary-store items.
+- The first visible item for 7-Eleven, FamilyMart, and Lawson has a clear English product name—not a generic token such as `Supervised`, `Item`, or `Strawberry`.
+- Product cards show **Good to know** only when the note is specific and useful; most cards may correctly have no note.
+- Translation/allergen methodology appears once at page level, never as repeated card fallback text.
+- Allergens are never summarized unless they were explicitly extracted and verified from the official product page; otherwise the card links to **Official details**.
 - English context explains Japanese terms like:
   - `監修`: chef, restaurant, or brand-supervised item.
   - `数量限定`: limited quantity.
   - `期間限定`: available for a limited period.
   - `地域限定`: regional-only availability.
   - `増量`: larger portion or bonus-size campaign.
+- Do not automatically turn every occurrence of those terms into card context. Explain them only when the explanation materially helps with that product.
 - Local Japanese sources are used as context, not as proof of official availability.
 - Product cards link back to original Japanese sources so readers can verify details.

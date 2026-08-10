@@ -217,7 +217,7 @@ function sourceLink(url, index) {
   link.href = url;
   link.target = "_blank";
   link.rel = "noreferrer";
-  link.textContent = index === 0 ? "Official source" : `Source ${index + 1}`;
+  link.textContent = index === 0 ? "Official details" : `Source ${index + 1}`;
   return link;
 }
 
@@ -276,9 +276,11 @@ function renderProduct(product) {
 
   const context = card.querySelector(".context");
   if (context) {
-    context.textContent = product.englishContext
-      ? `English context: ${product.englishContext}.`
-      : "English context: automated glossary plus wording safeguards; open the official Japanese links for exact naming and allergens.";
+    if (product.englishContext) {
+      context.textContent = `Good to know: ${product.englishContext}`;
+    } else {
+      context.remove();
+    }
   }
 
   const reasons = card.querySelector(".reasons");

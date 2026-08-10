@@ -146,6 +146,9 @@ CATEGORY_TRANSLATIONS = {
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
+    ("Afternoon Tea監修 ピーチ香るティーソーダ 500ml", "Afternoon Tea-supervised peach-scented tea soda 500ml"),
+    ("銀座デリー監修 カシミールカレー", "Ginza Delhi-supervised Kashmir curry"),
+    ("いちごカスタードタルト", "strawberry custard tart"),
     ("プライチキャンペーン: カゴメ 私のフルーツこれ1本 マルチビタミン・1日分の鉄分いずれかを1本買うと、同商品いずれかが1本無料", "BOGO campaign: Kagome Watashi no Fruit Kore Ippon multivitamin or one-day iron, buy one get one free"),
     ("プライチキャンペーン: 三ツ矢サイダー クラシック 500mlを1本買うと、三ツ矢サイダー 500mlが1本無料", "BOGO campaign: Mitsuya Cider Classic 500ml, buy one get one Mitsuya Cider 500ml free"),
     ("【極旨！冷し麺】さっぽろ純連監修 冷し味噌まぜそば", "Sapporo Junren-supervised chilled miso maze-soba"),
@@ -795,6 +798,9 @@ def translate_qualifier_text(text: str) -> str:
         return qualifier
     if "監修" in text:
         return qualifier
+    # Campaign banners (bonus size, sales) are nationwide promotions, not regional limits.
+    if re.search(r"増量|作戦|キャンペーン|セール|お値段", text):
+        return qualifier
     return f"{qualifier} regional"
 
 
@@ -819,6 +825,7 @@ def translate_japanese_text(text: str, fallback: str = "item") -> str:
     value = re.sub(r"\s+", " ", value)
     value = re.sub(r"\bregional regional\b", "regional", value, flags=re.IGNORECASE)
     value = re.sub(r"\blimited limited\b", "limited", value, flags=re.IGNORECASE)
+    value = re.sub(r"\bbonus size bonus size\b", "bonus size", value, flags=re.IGNORECASE)
     value = re.sub(r"\s+([),.!?])", r"\1", value)
     value = re.sub(r"([(])\s+", r"\1", value)
     value = value.strip(" -_/・、。:：")
@@ -843,6 +850,7 @@ SANITIZE_ENGLISH_PATTERNS = [
     # Whole phrase first (modifiers like "egg bukkake udon").
     (re.compile(r"\bbukkake\s+(udon|soba)\b", re.I), r"broth-poured \1"),
     (re.compile(r"\bbukkake\b", re.I), "broth-poured"),
+    (re.compile(r"\b([a-z][a-z-]+)\s+\(\1\)", re.I), r"\1"),
     (re.compile(r"\bpork and egg and yakisoba\b", re.I), "pork and egg & yakisoba"),
     (re.compile(r"\bbread\s+bread\b", re.I), "bread"),
     (re.compile(r"\bsushi\s+sushi\b", re.I), "sushi"),
@@ -878,6 +886,215 @@ _GENERIC_TITLE_WITH_NUMBER_RE = re.compile(
     r"^\d+\s+(?:salad|snack|desserts?|bread|item)$",
     re.IGNORECASE,
 )
+
+PRODUCT_SPECIFIC_NOTES = {
+    "Afternoon Tea監修 ピーチ香るティーソーダ 500ml": (
+        "A peach-scented sparkling tea developed under the Afternoon Tea brand, in a 500ml bottle."
+    ),
+    "【北海道・東北・関東】LabQ監修 かつお香るコク旨チャーシューおむすび～爽快生姜煮入り～": (
+        "A LabQ-supervised rice ball with bonito-scented chashu and a bright ginger accent."
+    ),
+    "【北海道・東北・関東】LabQ監修 至高の一杯冷製煮干し醤油らぁ麺": (
+        "A cold ramen from LabQ built around dried-sardine shoyu broth; sold only in Hokkaido, Tohoku and Kanto."
+    ),
+    "ほたて日和監修 帆立味塩そば～すだち仕上げ～": (
+        "Hotate Biyori-supervised salt noodles with scallop flavor and a sudachi citrus finish."
+    ),
+    "銀座デリー監修 カシミールカレー": (
+        "Ginza Delhi supervises this Kashmir-style curry, part of 7-Eleven's summer curry lineup."
+    ),
+    "大きなふわもち生大福（いちごホイップ&練乳）": (
+        "A large soft-chewy daifuku filled with strawberry whipped cream and condensed milk."
+    ),
+    "明治 辻利 抹茶ティラミス": (
+        "Meiji ice cream pairing Tsujiri matcha with a tiramisu-style format."
+    ),
+    "エリックサウス監修 ２種スパイスカレー": (
+        "A two-curry spice plate supervised by South Indian restaurant Eric South."
+    ),
+    "銀座デリー監修ドライカレーおむすび": (
+        "A dry-curry rice ball supervised by Ginza Delhi."
+    ),
+    "いちごカスタードタルト": (
+        "A strawberry custard tart from Lawson's chilled dessert range."
+    ),
+    "いちごミルク杏仁": (
+        "An almond-jelly dessert paired with strawberry milk."
+    ),
+    "ゆずポン酢仕立て 夏野菜のネバネバご飯(麦入りご飯)": (
+        "Barley-mixed rice with sticky summer vegetables, dressed with yuzu ponzu."
+    ),
+    "純水仕立て しゃきっと果実 オレンジ&マンゴー": (
+        "A chilled orange-and-mango fruit cup packed in purified water."
+    ),
+    "じゅーしー２個入り": (
+        "Jushi is an Okinawan seasoned rice; this two-piece pack is sold in Okinawa only."
+    ),
+    "チーズキンパ ５巻": (
+        "Gimbap is Korean-style rolled rice; this five-piece pack is Hokkaido only."
+    ),
+    "とろけるわらび餅": (
+        "Warabimochi is a soft, jelly-like mochi made from bracken starch rather than rice."
+    ),
+    "アイスゆずシトラスティー": (
+        "A chilled yuzu citrus tea, not an ice cream, despite the Japanese アイス prefix."
+    ),
+    "【お値段そのまま おかわり45％増量作戦】甘栗むいちゃいました": (
+        "Pre-peeled sweet chestnuts sold at the usual price with 45% more in the bag."
+    ),
+    "日本のフルーツ 北海道産メロン 70ml": (
+        "A single 70ml frozen fruit bar from Lawson's Japanese Fruit range."
+    ),
+    "おおきなおむすび ゆかり": (
+        "Yukari is a dried red-shiso furikake seasoning mixed through the rice."
+    ),
+    "【九州】ばくだんむすび（唐揚げ・高菜・マヨネーズ）": (
+        "Bakudan musubi is an oversized rice ball; takana is pickled mustard greens."
+    ),
+    "【中国・四国】広島お好み焼 肉玉そば": (
+        "Hiroshima-style okonomiyaki layers the savory pancake over fried soba noodles."
+    ),
+}
+
+PRODUCT_SPECIFIC_TITLES = {
+    "Afternoon Tea監修 ピーチ香るティーソーダ 500ml": "Afternoon Tea peach-scented tea soda 500ml",
+    "【北海道・東北・関東】LabQ監修 かつお香るコク旨チャーシューおむすび～爽快生姜煮入り～": (
+        "LabQ bonito-chashu rice ball with ginger"
+    ),
+    "【北海道・東北・関東】LabQ監修 至高の一杯冷製煮干し醤油らぁ麺": (
+        "LabQ cold niboshi-shoyu ramen"
+    ),
+    "ほたて日和監修 帆立味塩そば～すだち仕上げ～": (
+        "Hotate Biyori scallop salt noodles with sudachi"
+    ),
+    "銀座デリー監修 カシミールカレー": "Ginza Delhi Kashmir curry",
+    "大きなふわもち生大福（いちごホイップ&練乳）": (
+        "Large daifuku with strawberry cream and condensed milk"
+    ),
+    "明治 辻利 抹茶ティラミス": "Meiji x Tsujiri matcha tiramisu ice cream",
+    "エリックサウス監修 ２種スパイスカレー": "Eric South two-spice curry plate",
+    "銀座デリー監修ドライカレーおむすび": "Ginza Delhi dry-curry rice ball",
+    "いちごカスタードタルト": "Strawberry custard tart",
+    "いちごミルク杏仁": "Strawberry-milk almond jelly",
+    "ゆずポン酢仕立て 夏野菜のネバネバご飯(麦入りご飯)": (
+        "Yuzu-ponzu summer vegetable rice with barley"
+    ),
+    "純水仕立て しゃきっと果実 オレンジ&マンゴー": "Orange and mango fruit cup",
+    # Week of 2026-08-10 — Lawson
+    "ご褒美スティックケーキ パリっとふわとろショコラ(ベルギーチョコ使用)": (
+        "Belgian chocolate stick cake"
+    ),
+    "カカオ香るショコラクレープ(ベルギーチョコ使用)": "Belgian chocolate crepe",
+    "バニラムースをのせたコーヒーゼリー": "Coffee jelly topped with vanilla mousse",
+    "ビッグピート クレイジースモーキーエディション 200ml": "Big Peat Crazy Smoky Edition 200ml",
+    "ビッグピート クレイジースモーキーハイボール 350ml": "Big Peat Crazy Smoky highball 350ml",
+    "ビッグピート スーパースモーキーハイボール 350ml": "Big Peat Super Smoky highball 350ml",
+    "ジンクス ジンソーダ 350ml": "Jinx gin soda 350ml",
+    "アイスゆずシトラスティー": "Iced yuzu citrus tea",
+    "メガアイスゆずシトラスティー": "Mega iced yuzu citrus tea",
+    "とろけるわらび餅": "Melt-in-the-mouth warabimochi",
+    "まんまる鶏&ハンバーグ弁当": "Round chicken and hamburg steak bento",
+    "ごはん大盛!まんまる鶏&ハンバーグ弁当": (
+        "Round chicken and hamburg steak bento, extra rice"
+    ),
+    "手巻寿司 たっぷりコーンマヨ": "Hand-rolled sushi with corn mayo",
+    "日本ルナ株式会社 アサイーボウルヨーグルト&ハニーグラノーラ": (
+        "Nippon Luna acai bowl yogurt with honey granola"
+    ),
+    "日本のフルーツ 北海道産メロン 70ml": "Japanese Fruit bar: Hokkaido melon 70ml",
+    "日本のフルーツ 栃木県産幸水 70ml": "Japanese Fruit bar: Tochigi Kosui pear 70ml",
+    # Week of 2026-08-10 — 7-Eleven
+    "じゅーしー２個入り": "Jushi Okinawan seasoned rice, 2 pieces",
+    "鶏釜めし仕立て": "Chicken kamameshi-style rice",
+    "チーズキンパ ５巻": "Cheese gimbap, 5 pieces",
+    "味付海苔 徳島ラーメン風 豚肉煮": "Tokushima ramen-style simmered pork rice ball",
+    "味付海苔 生姜焼き": "Ginger-pork rice ball with seasoned nori",
+    "照焼チキンわさびマヨ 静岡県産本わさび使用": (
+        "Teriyaki chicken with Shizuoka wasabi mayo"
+    ),
+    "熟成だれの牛カルビ弁当": "Beef kalbi bento in aged tare sauce",
+    "ＣＡＦＥ ＢＯＸ プルドポーク": "CAFE BOX pulled pork",
+    "よくばりサンド チョコミント": "Yokubari dessert sandwich, choco mint",
+    "３種のフルーツサンド": "Three-fruit sandwich",
+    # Week of 2026-08-10 — FamilyMart
+    "一番くじ ナルミヤキャラクターズ ～あの頃のときめきメモリーズ～": (
+        "Ichiban Kuji: Narumiya Characters lottery"
+    ),
+    "Happyくじ/ MARVEL『スパイダーマン：ブランド・ニュー・デイ』": (
+        "Happy Kuji: Marvel Spider-Man Brand New Day"
+    ),
+    "【お値段そのまま おかわり45％増量作戦】UHA味覚糖 コロロ清水白桃45%増量": (
+        "UHA Kororo white peach gummies, 45% bonus size"
+    ),
+    "【お値段そのまま おかわり45％増量作戦】増量 ファミマ・ザ・クレープ 生チョコ": (
+        "Famima The Crepe nama chocolate, 45% bonus size"
+    ),
+    "【お値段そのまま おかわり45％増量作戦】増量ファミチキ": "Famichiki, 45% bonus size",
+    "【お値段そのまま おかわり45％増量作戦】甘栗むいちゃいました": (
+        "Peeled sweet chestnuts, 45% bonus size"
+    ),
+    "ラインソックス 砂漠と青空/ブラック": "Line socks, desert and blue sky (black)",
+    "ラインソックス 砂漠と青空/ホワイト": "Line socks, desert and blue sky (white)",
+    "きゃらねいるぱーつ マイメロディ&クロミ": (
+        "Character nail parts: My Melody and Kuromi"
+    ),
+    "にじさんじポップコーンvol.3 うすしお味": (
+        "Nijisanji popcorn vol.3, lightly salted"
+    ),
+    "文豪ストレイドッグス んまほっぺ ミニアクリルスタンド": (
+        "Bungo Stray Dogs mini acrylic stand"
+    ),
+    "もっちり食感の明太マヨ焼うどん": "Chewy mentaiko-mayo yaki udon",
+    "カルビー じゃがりこ まじカルパス味bits": (
+        "Calbee Jagarico bits, Kalpas sausage flavor"
+    ),
+    "ソーセージバジルフランス6個入": "Sausage and basil French rolls, 6 pieces",
+    "トリプルチョコのホイップデニッシュ": "Triple chocolate whipped-cream danish",
+    "ピザ&チーズ": "Pizza and cheese bread",
+    "塩バターパン（つぶあん）": "Salted butter bread with chunky red bean paste",
+    "大盛！直火炒めの黒炒飯": "Wok-fired black fried rice, large serving",
+    "明治 ザクット チョコバナナ味": "Meiji Zakutto choco banana",
+    # Week of 2026-08-10 — FamilyMart regional items (region badge already carries the limit)
+    "【九州】6種具材の冷しぶっかけ手延素麺": (
+        "Chilled broth-poured somen with six toppings"
+    ),
+    "【関西】たんぱく質が摂れる！豚ロースの冷しゃぶサラダ": (
+        "Chilled pork loin shabu salad, high protein"
+    ),
+    "【中国・四国】広島お好み焼 肉玉そば": (
+        "Hiroshima okonomiyaki with pork, egg and soba"
+    ),
+    "【九州】ばくだんむすび（唐揚げ・高菜・マヨネーズ）": (
+        "Bakudan rice ball: karaage, takana and mayo"
+    ),
+    "【九州】ばくだんむすび（海老・ツナ・鮭マヨネーズ）": (
+        "Bakudan rice ball: shrimp, tuna and salmon mayo"
+    ),
+    "【北海道・東北】大盛！豚肉のせお好み焼&焼そば": (
+        "Large okonomiyaki topped with pork, plus yakisoba"
+    ),
+    "【東京都の一部・神奈川県の一部】国産鶏むね肉と厚切りトマトゆで玉子のクラブハウスサンド": (
+        "Clubhouse sandwich with chicken, tomato and egg"
+    ),
+    "【東北】背脂煮干し焼そば（にんにく入り）": (
+        "Back-fat niboshi yakisoba with garlic"
+    ),
+    "【東海】手巻 甘辛から揚げマヨネーズ": (
+        "Hand-rolled sushi with sweet-spicy karaage mayo"
+    ),
+    "【東海・北陸】ロメインレタス使用 シーザーサラダ": "Caesar salad with romaine lettuce",
+    "【関東】いか明太子と卵黄醤油だれおむすび": (
+        "Squid mentaiko rice ball with egg-yolk soy tare"
+    ),
+    "【関東】お味噌で食べるおつまみ野菜": "Snack vegetables served with miso dip",
+    "【静岡県の一部】豚焼肉&焼そば弁当": "Grilled pork and yakisoba bento",
+    # Week of 2026-08-10 — 7-Eleven large rice balls
+    "おおきなおむすび ゆかり": "Large rice ball with yukari shiso furikake",
+    "おおきなおむすび 鶏唐揚げマヨネーズ": "Large rice ball with karaage and mayo",
+    "おおきなおむすび上伊那産アスパラとベーコン": (
+        "Large rice ball with Kami-Ina asparagus and bacon"
+    ),
+}
 
 
 def is_obviously_generic_product_title(name: str) -> bool:
@@ -928,32 +1145,35 @@ def enrich_generic_product_title(product: dict[str, Any]) -> None:
 
 
 def infer_english_context(product: dict[str, Any]) -> None:
+    name_ja = (product.get("nameJa") or "").strip()
+    curated_title = PRODUCT_SPECIFIC_TITLES.get(name_ja)
+    if curated_title:
+        product["name"] = curated_title
+    curated = PRODUCT_SPECIFIC_NOTES.get(name_ja)
+    if curated:
+        product["englishContext"] = curated
+        return
+
+    if "deal" in product.get("tags", []):
+        product["englishContext"] = sanitize_english_output(product.get("englishContext", ""))
+        return
+
     hints: list[str] = []
-    ja = product.get("nameJa") or ""
-    if re.search(r"(おにぎり|おむすび|御握り|むすび)", ja):
+    if "ぶっかけうどん" in name_ja:
         hints.append(
-            "Onigiri / omusubi JP titles name the nori treatment, fillings, and seasonings; the English line keeps those details when they appear in the source title."
+            "Chilled udon served with savory broth poured over the noodles."
         )
-    if re.search(r"ラテ|カフェラテ|カフェオレ", ja):
+    elif "ぶっかけ" in name_ja:
         hints.append(
-            "Japanese labeling uses ラテ for café latte-style chilled dairy coffee drinks unless tea is explicitly named."
+            "Chilled noodles served with savory broth poured over."
         )
-    if "ぶっかけうどん" in ja:
+    if re.search(r"焼きそば|焼そば|ヤキソバ", name_ja):
         hints.append(
-            "ぶっかけうどん pairs chilled udon with savory broth poured over; English wording avoids misleading homographs."
+            "Yakisoba is a savory fried wheat-noodle dish, not buckwheat soba."
         )
-    elif "ぶっかけ" in ja:
-        hints.append(
-            "ぶっかけ styles pour savory chilled broth over noodles; English wording avoids misleading homographs."
-        )
-    if re.search(r"焼きそば|焼そば|ヤキソバ", ja):
-        hints.append(
-            "Lawson labeling uses 焼そば / 焼きそば for fried yakisoba noodles, not buckwheat soba."
-        )
-    if re.search(r"\d+\s*ml", ja, flags=re.I):
-        hints.append("Milliliters on pack shots reflect Japanese retail labeling.")
-    pieces = [piece for piece in [product.get("englishContext") or ""] + hints if piece]
-    product["englishContext"] = "; ".join(dict.fromkeys(pieces))
+    if "増量" in name_ja:
+        hints.append("This is a bonus-size promotion sold at the regular listed price.")
+    product["englishContext"] = "; ".join(dict.fromkeys(hints))
 
 
 def finalize_product_copy(product: dict[str, Any]) -> None:
@@ -1470,7 +1690,7 @@ def parse_setusoku_bogo_context(
     return context_entries, offer_entries, warnings
 
 
-def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> None:
+def tag_product(product: dict[str, Any], _keyword_contexts: dict[str, str]) -> None:
     text = f"{product['nameJa']} {product.get('categoryJa', '')} {' '.join(product.get('regionsJa', []))}"
     tags = set(product.get("tags", []))
     if any(token in text for token in ("コラボ", "×", "監修", "GODIVA", "ゴディバ", "mofusand", "森半", "八天堂", "ICHIBIKO")):
@@ -1491,20 +1711,11 @@ def tag_product(product: dict[str, Any], keyword_contexts: dict[str, str]) -> No
         if signal.get("dealTag"):
             tags.add(signal["dealTag"])
 
-    context_bits = []
-    if product.get("englishContext"):
-        context_bits.append(product["englishContext"])
-    context_bits.extend(english for keyword, english in keyword_contexts.items() if keyword in text)
     if any(signal.get("dealTag") == "bogo" for signal in product.get("localSignals", [])):
-        context_bits.append("matched a buy-one-get-one/free-item campaign source")
+        product["englishContext"] = "Matched to a current buy-one-get-one campaign listing."
     if "deal" in tags and "bogo" in tags:
-        context_bits.append("deal/campaign item, not an official new-product SKU")
-    if JP_CHAR_RE.search(product["name"]):
-        context_bits.append(
-            "English names use a glossary; verify wording on the Japanese official source link."
-        )
+        product["englishContext"] = "A campaign offer rather than a standalone new-product listing."
     product["tags"] = sorted(tags)
-    product["englishContext"] = "; ".join(context_bits[:3])
 
 
 def add_local_signals(products: list[dict[str, Any]], context_sources: list[dict[str, Any]]) -> None:
@@ -2182,6 +2393,16 @@ def main() -> int:
         tag_product(product, config.get("keywordContexts", {}))
         score_product(product, today)
         finalize_product_copy(product)
+
+    generic_counts = Counter(
+        product["chain"] for product in products if is_obviously_generic_product_title(product.get("name") or "")
+    )
+    if generic_counts:
+        products = [
+            product for product in products if not is_obviously_generic_product_title(product.get("name") or "")
+        ]
+        dropped = ", ".join(f"{chain} {count}" for chain, count in sorted(generic_counts.items()))
+        warnings.append(f"Dropped products whose Japanese titles could not produce specific English names: {dropped}.")
 
     products.sort(key=lambda item: (-item["score"], item.get("releaseDate") or "", item["chain"], item["nameJa"]))
 

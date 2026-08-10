@@ -374,6 +374,13 @@ select {
   gap: 16px;
 }
 
+.source-note {
+  margin: 4px 0 16px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
 .product-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
