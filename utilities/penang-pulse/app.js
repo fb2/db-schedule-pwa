@@ -194,7 +194,7 @@ function createItemCard(item) {
   const source = node.querySelector(".source");
   const starBtn = node.querySelector(".star-btn");
 
-  title.textContent = item.title || "Untitled";
+  const titleText = item.title || "Untitled";
   meta.textContent = item.dateLabel || item.area || "";
   blurb.textContent = item.summary || "";
 
@@ -219,9 +219,17 @@ function createItemCard(item) {
   }
 
   if (item.sourceUrl) {
+    const titleLink = document.createElement("a");
+    titleLink.href = item.sourceUrl;
+    titleLink.target = "_blank";
+    titleLink.rel = "noopener noreferrer";
+    titleLink.textContent = titleText;
+    title.replaceChildren(titleLink);
+
     source.href = item.sourceUrl;
     source.textContent = item.sourceName ? `${item.sourceName} →` : "Source →";
   } else {
+    title.textContent = titleText;
     source.hidden = true;
   }
 
@@ -315,8 +323,17 @@ function render() {
     list.className = "upcoming-list";
     later.forEach((item) => {
       const li = document.createElement("li");
-      const title = document.createElement("span");
-      title.textContent = item.title;
+      let title;
+      if (item.sourceUrl) {
+        title = document.createElement("a");
+        title.href = item.sourceUrl;
+        title.target = "_blank";
+        title.rel = "noopener noreferrer";
+        title.textContent = item.title;
+      } else {
+        title = document.createElement("span");
+        title.textContent = item.title;
+      }
       const date = document.createElement("span");
       date.textContent = item.dateLabel || item.startDate || "";
       li.append(title, date);
