@@ -305,6 +305,23 @@ OG_IMAGE_RE = re.compile(
     re.I,
 )
 IMG_SRC_RE = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+# Lazy-loading builders (GoDaddy/wsimg, WordPress plugins) keep the real poster in a
+# data attribute and ship a 1x1 placeholder in src.
+LAZY_IMG_ATTR_RE = re.compile(
+    r'\b(?:data-srclazy|data-lazy-src|data-original|data-src)=["\']([^"\']+)["\']',
+    re.I,
+)
+LAZY_SRCSET_ATTR_RE = re.compile(
+    r'\b(?:data-srcsetlazy|data-lazy-srcset|srcset)=["\']([^"\']+)["\']',
+    re.I,
+)
+# Site chrome that must never become an item card image.
+LOGO_IMAGE_RE = re.compile(
+    r"(logo|favicon|apple-touch-icon|site-?icon|brandmark|sprite|"
+    r"transparent_placeholder|placeholder|spacer\.gif|/wp-includes/)",
+    re.I,
+)
+WSIMG_WIDTH_RE = re.compile(r"(rs=w:)(\d+)", re.I)
 # PenangToday RSS often embeds /wp-content/uploads/ URLs that soft-404 to the homepage.
 # Prefer /ipsostuh/ CDN paths from article og:image instead.
 BROKEN_IMAGE_RE = re.compile(
@@ -314,6 +331,19 @@ BROKEN_IMAGE_RE = re.compile(
 HIN_BLOCK_RE = re.compile(
     r"<h4[^>]*>\s*(.*?)\s*</h4>\s*(.*?)(?=<h4|SUBSCRIBE|$)",
     re.I | re.S,
+)
+# Each Hin event is a builder "ContentCard": poster image, duplicated h4 title
+# (mobile + desktop), description block, then an optional CTA link.
+HIN_CARD_SPLIT_RE = re.compile(r'(?=<div\s[^>]*data-ux="ContentCard")', re.I)
+HIN_CARD_TITLE_RE = re.compile(r"<h4[^>]*>(.*?)</h4>", re.I | re.S)
+HIN_CARD_TEXT_RE = re.compile(
+    r'<div[^>]+data-ux="ContentCardText"[^>]*>(.*?)</div>', re.I | re.S
+)
+HIN_CARD_LINK_RE = re.compile(r'href=["\'](https?://[^"\']+)["\']', re.I)
+# CTA links that say nothing about the event itself; keep the events page instead.
+HIN_GENERIC_LINK_RE = re.compile(
+    r"(instagram\.com/hinbusdepot/?(?:\?|$)|list-manage\.com|facebook\.com/hinbusdepot/?(?:\?|$))",
+    re.I,
 )
 SMARTLOCAL_H3_RE = re.compile(r"<h3[^>]*>(.*?)</h3>", re.I | re.S)
 SMARTLOCAL_MONTH_RE = re.compile(
@@ -378,6 +408,66 @@ def classify_food_kind(title: str, summary: str = "", default_kind: str = "revis
     if REVIEW_HINTS.search(blob):
         return "revisit"
     return default_kind
+
+
+def is_logo_image(url: str | None) -> bool:
+    """True for site chrome (brand logo, favicon, placeholder) rather than content."""
+    return bool(url) and bool(LOGO_IMAGE_RE.search(url))
+
+
+def upgrade_wsimg_width(url: str, target: int = 1095) -> str:
+    """Request a poster-sized render from the wsimg CDN instead of the 365px thumbnail."""
+    if "wsimg.com" not in url:
+        return url
+
+    def bump(match: re.Match[str]) -> str:
+        width = int(match.group(2))
+        return f"{match.group(1)}{target}" if width < target else match.group(0)
+
+    return WSIMG_WIDTH_RE.sub(bump, url)
+
+
+def largest_srcset_url(srcset: str, base: str = "") -> str:
+    """Pick the highest-density/width candidate from a srcset attribute."""
+    best_url = ""
+    best_weight = -1.0
+    for candidate in srcset.split(","):
+        parts = candidate.strip().split()
+        if not parts:
+            continue
+        url = normalize_image_url(parts[0], base)
+        if not url or is_logo_image(url):
+            continue
+        weight = 1.0
+        if len(parts) > 1:
+            descriptor = parts[1].lower()
+            try:
+                weight = float(descriptor[:-1])
+            except ValueError:
+                weight = 1.0
+        if weight > best_weight:
+            best_weight = weight
+            best_url = url
+    return best_url
+
+
+def first_content_img(raw_html: str | None, base: str = "") -> str:
+    """Best content image from a block, tolerating lazy-loaded builder markup."""
+    if not raw_html:
+        return ""
+    for match in LAZY_IMG_ATTR_RE.finditer(raw_html):
+        url = normalize_image_url(match.group(1), base)
+        if url and not is_logo_image(url):
+            return url
+    for match in LAZY_SRCSET_ATTR_RE.finditer(raw_html):
+        url = largest_srcset_url(match.group(1), base)
+        if url:
+            return url
+    for match in IMG_SRC_RE.finditer(raw_html):
+        url = normalize_image_url(match.group(1), base)
+        if url and not is_logo_image(url):
+            return url
+    return ""
 
 
 def first_img_src(raw_html: str | None, base: str = "") -> str:
@@ -467,8 +557,11 @@ def enrich_missing_images(
         attempted += 1
         html_text = fetch_url_text(source_url, timeout, user_agent)
         image = extract_og_image(html_text, source_url)
+        if is_logo_image(image):
+            # Builder sites set og:image to the brand logo on listing pages.
+            image = ""
         if not image:
-            image = first_img_src(html_text, source_url)
+            image = first_content_img(html_text, source_url)
         if image:
             item["imageUrl"] = image
             filled += 1
@@ -651,24 +744,69 @@ def parse_rss_items(
     return items
 
 
+def _hin_card_body(card: str) -> str:
+    match = HIN_CARD_TEXT_RE.search(card)
+    if match:
+        text = clean_text(match.group(1))
+        if text:
+            return text
+    return clean_text(HIN_CARD_TITLE_RE.sub(" ", card))
+
+
+def hin_event_blocks(text: str) -> list[tuple[str, str, str, str]]:
+    """Yield (title, body, imageUrl, href) per event card.
+
+    Falls back to the older heading-split scan if the builder markup changes, so a
+    layout change degrades to text-only items instead of dropping the source.
+    """
+    blocks: list[tuple[str, str, str, str]] = []
+    for card in HIN_CARD_SPLIT_RE.split(text):
+        if 'data-ux="ContentCard"' not in card:
+            continue
+        title_match = HIN_CARD_TITLE_RE.search(card)
+        if not title_match:
+            continue
+        image = first_content_img(card, "https://hinbusdepot.com/")
+        href = ""
+        for link_match in HIN_CARD_LINK_RE.finditer(card):
+            candidate = link_match.group(1)
+            if not HIN_GENERIC_LINK_RE.search(candidate):
+                href = candidate
+                break
+        blocks.append(
+            (
+                clean_text(title_match.group(1)),
+                _hin_card_body(card),
+                upgrade_wsimg_width(image) if image else "",
+                href,
+            )
+        )
+    if blocks:
+        return blocks
+    for match in HIN_BLOCK_RE.finditer(text):
+        link_match = re.search(r'href=["\']([^"\']+)["\']', match.group(2), re.I)
+        blocks.append(
+            (
+                clean_text(match.group(1)),
+                clean_text(match.group(2)),
+                "",
+                link_match.group(1) if link_match else "",
+            )
+        )
+    return blocks
+
+
 def parse_hin_events(text: str, source_name: str, source_id: str, default_year: int) -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     seen: set[str] = set()
-    for match in HIN_BLOCK_RE.finditer(text):
-        title = clean_text(match.group(1))
-        body = clean_text(match.group(2))
+    for title, body, image_url, href in hin_event_blocks(text):
         if not title or title.lower() in seen or is_junk_title(title) or HIN_JUNK_RE.search(title):
             continue
-        if "weekend markets" in title.lower() and "friday market" not in title.lower():
-            # Keep the recurring markets card once with a generic label.
-            pass
         seen.add(title.lower())
         start, end, label = parse_dates_from_text(body, default_year)
         if not start:
             start, end, label = parse_dates_from_text(title, default_year)
-        link_match = re.search(r'href=["\']([^"\']+)["\']', match.group(2), re.I)
-        href = link_match.group(1) if link_match else "https://hinbusdepot.com/events"
-        source_url = urljoin("https://hinbusdepot.com/", href)
+        source_url = urljoin("https://hinbusdepot.com/", href or "https://hinbusdepot.com/events")
         kind = "food" if re.search(r"market|pasar|popup|pop-up", title, re.I) else "event"
         date_label = " · ".join(part for part in [label or "Ongoing", "Hin Bus Depot"] if part)
         items.append(
@@ -682,7 +820,7 @@ def parse_hin_events(text: str, source_name: str, source_id: str, default_year: 
                 "endDate": end,
                 "dateLabel": date_label,
                 "area": "George Town",
-                "imageUrl": "",
+                "imageUrl": image_url,
                 "sourceUrl": source_url,
                 "sourceName": source_name,
                 "sourceId": source_id,

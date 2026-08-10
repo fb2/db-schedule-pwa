@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T11:42:18.807306+00:00",
+  "generatedAt": "2026-08-10T13:19:11.763077+00:00",
   "weekLabel": "Week of 10 Aug",
   "intro": "9 events, 9 food picks, and 15 worth revisiting.",
   "sources": [
@@ -120,7 +120,7 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 25770,
+      "bytes": 22888,
       "itemCount": 2,
       "parser": "rss_items"
     },
@@ -167,16 +167,66 @@
       "interestScore": 100
     },
     {
-      "id": "event-berbunga-the-penang-puppet-festival-2424d7d3aa",
+      "id": "event-artisan-ii-a-solo-exhibition-by-low-chee-peng-1f55c75870",
+      "kind": "event",
+      "title": "“Artisan II”, a solo exhibition by Low Chee Peng",
+      "summary": "1 August - 30 August O Sculpture Studio Presented as part of George Town Festival 2026 Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
+      "detail": "1 August - 30 August O Sculpture Studio Presented as part of George Town Festival 2026 Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-30",
+      "dateLabel": "Ongoing · until 30 Aug · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_748278439_18601275514022625_91763.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/p/Da0dRhGtB3a/?hl=en",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 96
+    },
+    {
+      "id": "event-berbunga-the-penang-puppet-festival-45e80d0883",
       "kind": "event",
       "title": "Berbunga: The Penang Puppet Festival",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
+      "summary": "12 - 23 August 2026 COEX @Kilang Besi & Hin Bus Depot",
+      "detail": "12 - 23 August 2026 COEX @Kilang Besi & Hin Bus Depot",
+      "startDate": "2026-08-12",
+      "endDate": "2026-08-23",
+      "dateLabel": "12–23 Aug · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_747573190_18607846810007478_26167.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/ombak_potehi/?hl=en",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "culture"
+      ],
+      "interestScore": 96
+    },
+    {
+      "id": "event-street-fragments-by-mapping-jalan-gurdwara-proje-df770fc583",
+      "kind": "event",
+      "title": "Street Fragments by Mapping Jalan Gurdwara Project",
+      "summary": "Extended until 23 August 2026 Hin Bus Depot Gallery Presented as part of George Town Festival 2026 Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday)",
+      "detail": "Extended until 23 August 2026 Hin Bus Depot Gallery Presented as part of George Town Festival 2026 Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday)",
+      "startDate": "2026-08-23",
+      "endDate": "2026-08-23",
+      "dateLabel": "23 Aug · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_747235854_18601275190022625_79428.jpg/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://hinbusdepot.com/events",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
@@ -189,7 +239,7 @@
         "festival",
         "culture"
       ],
-      "interestScore": 90
+      "interestScore": 96
     },
     {
       "id": "event-ctrl-a-c-ccbbe711ac",
@@ -315,62 +365,48 @@
       "interestScore": 72
     },
     {
-      "id": "event-street-fragments-by-mapping-jalan-gurdwara-proje-b48dfdcef1",
-      "kind": "event",
-      "title": "Street Fragments by Mapping Jalan Gurdwara Project",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
+      "id": "food-sembang-selasa-with-founders-of-grow-community-m-80a7da4a48",
+      "kind": "food",
+      "title": "Sembang Selasa with Founders of Grow Community Market",
+      "summary": "Saturday 11 August 2026 Deck, Hin Bus Depot 8:00pm - 9:00pm Free entry for all!",
+      "detail": "Saturday 11 August 2026 Deck, Hin Bus Depot 8:00pm - 9:00pm Free entry for all!",
+      "startDate": "2026-08-11",
+      "endDate": "2026-08-11",
+      "dateLabel": "11 Aug · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Sembang%20Selasa%20with%20Grow%20Community%20Market_Hin%20.png/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://hinbusdepot.com/events",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
+      "category": "Markets"
     },
     {
-      "id": "event-artisan-ii-a-solo-exhibition-by-low-chee-peng-eebfb9d63d",
-      "kind": "event",
-      "title": "“Artisan II”, a solo exhibition by Low Chee Peng",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
+      "id": "food-the-makers-market-3b310e3756",
+      "kind": "food",
+      "title": "The Makers Market",
+      "summary": "Saturday 15 August 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 15 August 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-08-15",
+      "endDate": "2026-08-15",
+      "dateLabel": "15 Aug · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Makers%20Market_Hin%20Bus%20Depot_August_Compressed.png/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/themakersmarket_hin/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
+      "category": "Markets"
     },
     {
       "id": "food-hin-friday-market-e0e1531511",
       "kind": "food",
       "title": "Hin Friday Market",
-      "summary": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot Learn More",
-      "detail": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot Learn More",
+      "summary": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot",
+      "detail": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot",
       "startDate": "2026-08-28",
       "endDate": "2026-08-28",
       "dateLabel": "28 Aug · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Friday%20Market%20August.png/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://www.instagram.com/hinfridaymarket/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
@@ -445,12 +481,12 @@
       "kind": "food",
       "title": "Hin Weekend Markets",
       "summary": "Every Friday: Hin Friday Market Every 1st Saturday: Grow Market Every 2nd Saturday: Collectors Market Every 3rd Saturday: The Makers Market Every 4th Saturday: Pasar Hin Every Sunday: Hin Sunday Market Deck & Lawn, Hin B…",
-      "detail": "Every Friday: Hin Friday Market Every 1st Saturday: Grow Market Every 2nd Saturday: Collectors Market Every 3rd Saturday: The Makers Market Every 4th Saturday: Pasar Hin Every Sunday: Hin Sunday Market Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free admission. Learn More",
+      "detail": "Every Friday: Hin Friday Market Every 1st Saturday: Grow Market Every 2nd Saturday: Collectors Market Every 3rd Saturday: The Makers Market Every 4th Saturday: Pasar Hin Every Sunday: Hin Sunday Market Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free admission.",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Ongoing · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Weekend%20Markets%202026_Hin%20Bus%20Depot.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1095,cg:true",
       "sourceUrl": "https://www.instagram.com/hinfridaymarket/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
@@ -471,38 +507,6 @@
       "sourceName": "The Smart Local Penang Cafes",
       "sourceId": "smartlocal_cafes",
       "category": "Food"
-    },
-    {
-      "id": "food-sembang-selasa-with-founders-of-grow-community-m-c7bfd972f0",
-      "kind": "food",
-      "title": "Sembang Selasa with Founders of Grow Community Market",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Markets"
-    },
-    {
-      "id": "food-the-makers-market-a48b97833b",
-      "kind": "food",
-      "title": "The Makers Market",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Markets"
     },
     {
       "id": "revisit-10-best-bars-speakeasy-you-must-visit-in-penang-d4e5894396",
