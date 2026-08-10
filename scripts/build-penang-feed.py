@@ -282,10 +282,28 @@ GTF_JUNK_TITLES = {
     "download now",
     "explore more",
     "learn more",
+    "find out more",
+    "read more",
+    "register now",
     "click to explore the full programme",
     "get tickets",
     "buy tickets",
 }
+# Elementor loop cards ship each programme poster as a per-card background-image
+# rule keyed by the card's e-loop-item-<id> class, not as an <img>.
+GTF_LOOP_BG_RE = re.compile(
+    r'\.e-loop-item-(\d+)[^{}]*\{[^{}]*background-image\s*:\s*url\(["\']?([^"\')]+)',
+    re.I,
+)
+GTF_LOOP_ITEM_RE = re.compile(r'class="[^"]*\be-loop-item-(\d+)\b[^"]*"', re.I)
+GTF_PROGRAMME_LINK_RE = re.compile(
+    r'<a[^>]+href="(https://georgetownfestival\.com/programme/[^"]+)"[^>]*>\s*([^<]{3,120})\s*</a>',
+    re.I,
+)
+GTF_EXCERPT_RE = re.compile(r'program-excerpt[^>]*>\s*<div[^>]*>(.*?)</div>', re.I | re.S)
+GTF_TITLE_SMALL_WORDS = {"a", "an", "and", "at", "for", "in", "of", "on", "the", "to", "with"}
+GTF_PARAGRAPH_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.I | re.S)
+GTF_SLIDE_RE = re.compile(r'<div[^>]+class="swiper-slide"[^>]*>', re.I)
 MYPENANG_EVENT_RE = re.compile(
     r'<div class="row event-item">(.*?)</div>\s*<div class="row event-item">|'
     r'<div class="row event-item">(.*?)</div>\s*</div>\s*</div>',
@@ -551,7 +569,7 @@ def enrich_missing_images(
     user_agent: str,
     timeout: int = 6,
     sleep: float = 0.12,
-    limit: int = 12,
+    limit: int = 16,
     deadline_sec: float = 75.0,
 ) -> int:
     """Fill empty imageUrl from article og:image (needed for PenangToday).
@@ -567,6 +585,8 @@ def enrich_missing_images(
         "penangtoday_food",
         "penang_foodie",
         "hin_bus_depot",
+        "georgetown_festival",
+        "georgetown_festival_programme",
     }
     candidates = [
         i
@@ -602,6 +622,17 @@ def enrich_missing_images(
             filled += 1
         time.sleep(sleep)
     return filled
+
+
+def apply_fallback_images(items: list[dict[str, Any]]) -> int:
+    """Use parser-supplied card art where og:image enrichment came back empty."""
+    used = 0
+    for item in items:
+        fallback = item.pop("fallbackImageUrl", "")
+        if fallback and not item.get("imageUrl"):
+            item["imageUrl"] = fallback
+            used += 1
+    return used
 
 
 def slug_id(kind: str, title: str, start: str | None) -> str:
@@ -923,38 +954,110 @@ def parse_smartlocal_cafes(text: str, source_name: str, source_id: str, page_url
     return items
 
 
+def gtf_card_posters(text: str, base: str) -> dict[str, str]:
+    """Map each Elementor loop-item id to the poster injected as its background."""
+    posters: dict[str, str] = {}
+    for match in GTF_LOOP_BG_RE.finditer(text):
+        url = normalize_image_url(match.group(2), base)
+        if url and not is_logo_image(url):
+            posters.setdefault(match.group(1), url)
+    return posters
+
+
+def split_blocks(text: str, pattern: re.Pattern[str]) -> list[tuple[str, str]]:
+    """Slice a page into (capture, html) blocks running to the next match."""
+    starts = [(m.start(), m.group(1) if m.groups() else "") for m in pattern.finditer(text)]
+    blocks: list[tuple[str, str]] = []
+    for index, (position, captured) in enumerate(starts):
+        end = starts[index + 1][0] if index + 1 < len(starts) else len(text)
+        blocks.append((captured, text[position:end]))
+    return blocks
+
+
+def gtf_blurb(block: str) -> str:
+    """Programme excerpt text from a card or carousel slide."""
+    match = GTF_EXCERPT_RE.search(block)
+    if match:
+        raw = clean_text(match.group(1))
+        if len(raw) >= 40:
+            return raw
+    for paragraph in GTF_PARAGRAPH_RE.finditer(block):
+        raw = clean_text(paragraph.group(1))
+        if len(raw) >= 40:
+            return raw
+    return ""
+
+
+def gtf_link_title(link: re.Match[str]) -> str:
+    """Anchor text, or the slug when the link is a bare CTA such as "Learn More"."""
+    title = clean_text(link.group(2))
+    if title.lower() not in GTF_JUNK_TITLES:
+        return title
+    words = title_from_slug(link.group(1)).split()
+    return " ".join(
+        word.lower() if index and word.lower() in GTF_TITLE_SMALL_WORDS else word
+        for index, word in enumerate(words)
+    )
+
+
 def parse_gtf(text: str, source_name: str, source_id: str, page_url: str, default_year: int) -> list[dict[str, Any]]:
+    """Programme entries from the GTF home page or programme index.
+
+    Every card carries its own poster (loop background-image, or a slide <img>),
+    so the shared page og:image is only used for the festival-wide fallback item.
+    Posters are portrait; the wide event-page og:image is preferred when image
+    enrichment can reach the site, which is why they go in fallbackImageUrl.
+    """
     items: list[dict[str, Any]] = []
+    seen_urls: set[str] = set()
+    posters = gtf_card_posters(text, page_url)
     hero = extract_og_image(text, page_url)
-    for match in re.finditer(
-        r'<a[^>]+href="(https://georgetownfestival\.com/programme/[^"]+)"[^>]*>\s*([^<]{3,120})\s*</a>',
-        text,
-        re.I,
-    ):
-        href, title = match.group(1), clean_text(match.group(2))
-        if not title or title.lower() in GTF_JUNK_TITLES:
-            continue
+
+    def add(title: str, href: str, poster: str, blurb: str) -> None:
+        if not title or title.lower() in GTF_JUNK_TITLES or href in seen_urls:
+            return
+        seen_urls.add(href)
         start, end, label = parse_dates_from_text(title, default_year)
         items.append(
             {
                 "id": slug_id("event", title, start),
                 "kind": "event",
                 "title": title,
-                "summary": "George Town Festival programme highlight.",
-                "detail": "",
+                "summary": (blurb[:220] + ("…" if len(blurb) > 220 else ""))
+                or "George Town Festival programme highlight.",
+                "detail": blurb[:800],
                 "startDate": start,
                 "endDate": end,
                 "dateLabel": (label + " · George Town") if label else "George Town Festival",
                 "area": "George Town",
-                "imageUrl": hero,
+                "imageUrl": "",
+                "fallbackImageUrl": poster,
                 "sourceUrl": href,
                 "sourceName": source_name,
                 "sourceId": source_id,
                 "category": "Arts",
             }
         )
+
+    for loop_id, block in split_blocks(text, GTF_LOOP_ITEM_RE):
+        link = GTF_PROGRAMME_LINK_RE.search(block)
+        if not link:
+            continue
+        poster = posters.get(loop_id) or section_photo(block, page_url, min_width=200)
+        add(gtf_link_title(link), link.group(1), poster, gtf_blurb(block))
+
+    for _, block in split_blocks(text, GTF_SLIDE_RE):
+        link = GTF_PROGRAMME_LINK_RE.search(block)
+        if not link:
+            continue
+        add(gtf_link_title(link), link.group(1), section_photo(block, page_url, min_width=200), gtf_blurb(block))
+
+    for match in GTF_PROGRAMME_LINK_RE.finditer(text):
+        # Links outside a card: no poster, so leave the image to og:image enrichment.
+        add(gtf_link_title(match), match.group(1), "", "")
         if len(items) >= 12:
             break
+
     if not items and "George Town Festival" in text:
         items.append(
             {
@@ -1591,6 +1694,9 @@ def main() -> int:
     filled = enrich_missing_images(items, user_agent=user_agent)
     if filled:
         print(f"Enriched {filled} item image(s) from article og:image")
+    fell_back = apply_fallback_images(items)
+    if fell_back:
+        print(f"Used {fell_back} parser card image(s) where enrichment found none")
     items, industry_dropped = annotate_event_ranking(items)
     if industry_dropped:
         warnings.append(

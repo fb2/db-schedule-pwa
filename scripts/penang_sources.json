@@ -50,6 +50,16 @@
       "optional": true
     },
     {
+      "id": "georgetown_festival_programme",
+      "name": "George Town Festival Programme",
+      "tier": "A",
+      "kind": "event",
+      "parser": "gtf_html",
+      "url": "https://georgetownfestival.com/programme/",
+      "optional": true,
+      "notes": "Full programme grid; each card carries its own poster. Home page only shows 3."
+    },
+    {
       "id": "smartdory",
       "name": "SmartDory",
       "tier": "B",

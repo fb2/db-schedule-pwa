@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T13:29:29.472753+00:00",
+  "generatedAt": "2026-08-10T14:14:59.330354+00:00",
   "weekLabel": "Week of 10 Aug",
-  "intro": "9 events, 9 food picks, and 15 worth revisiting.",
+  "intro": "13 events, 9 food picks, and 15 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -61,7 +61,19 @@
       "ok": true,
       "status": 200,
       "bytes": 149207,
-      "itemCount": 3,
+      "itemCount": 4,
+      "parser": "gtf_html"
+    },
+    {
+      "id": "georgetown_festival_programme",
+      "name": "George Town Festival Programme",
+      "tier": "A",
+      "kind": "event",
+      "url": "https://georgetownfestival.com/programme/",
+      "ok": true,
+      "status": 200,
+      "bytes": 173211,
+      "itemCount": 6,
       "parser": "gtf_html"
     },
     {
@@ -84,7 +96,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 73118,
+      "bytes": 73211,
       "itemCount": 4,
       "parser": "chinapress_category_html"
     },
@@ -167,6 +179,114 @@
       "interestScore": 100
     },
     {
+      "id": "event-ctrl-a-c-ccbbe711ac",
+      "kind": "event",
+      "title": "CTRL A+C",
+      "summary": "Bringing George Town Festival to a vibrant close, “CTRL A+C” (Control Arts and the City) transforms the streets, parks, and public spaces of George Town into stages for unexpected encounters and shared experiences. Takin…",
+      "detail": "Bringing George Town Festival to a vibrant close, “CTRL A+C” (Control Arts and the City) transforms the streets, parks, and public spaces of George Town into stages for unexpected encounters and shared experiences. Taking art beyond conventional venues, this closing weekend programme invites audiences to discover performances that unfold amidst the city’s everyday rhythms, where passers-by become participants and familiar places are reimagined through creativity. Featuring an exciting line-up of local and international artists, “CTRL A+C” presents site-responsive theatre, movement, street performances, and interdisciplinary works that explore themes of identity, belonging, memory, resilience, and our relationship with one another and the world around us. Blending visual storytelling, music",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/CTRL-AC-Poster_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/ctrl-ac/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
+      "id": "event-dream-space-95067bbaa6",
+      "kind": "event",
+      "title": "Dream Space",
+      "summary": "Step into a dreamlike world where giant whales glide through the air, forgotten legends come alive, and puppets dance beyond the stage. “Dream Space” by Creative Group SSAK is a mesmerising non-verbal puppet and physical…",
+      "detail": "Step into a dreamlike world where giant whales glide through the air, forgotten legends come alive, and puppets dance beyond the stage. “Dream Space” by Creative Group SSAK is a mesmerising non-verbal puppet and physical theatre performance that transforms ordinary spaces into poetic landscapes of wonder, healing, and imagination. Combining beautifully crafted puppets, live music, dynamic movement, and stunning visual storytelling, this immersive production invites audiences of all ages on an unforgettable journey through folklore, fantasy, and celebration.",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/06/Dream-Space_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/dream-space/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "family",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "family",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
+      "id": "event-six-to-eleven-cdea8f9b86",
+      "kind": "event",
+      "title": "Six to Eleven",
+      "summary": "As the sun begins to set and the city comes alive, “Six to Eleven” transforms the opening weekend of George Town Festival into an evening of music, light, movement, and shared celebration.",
+      "detail": "As the sun begins to set and the city comes alive, “Six to Eleven” transforms the opening weekend of George Town Festival into an evening of music, light, movement, and shared celebration.",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Six-to-Eleven-Poster_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/six-to-eleven/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
+      "id": "event-when-spirits-meet-the-rainbow-bridge-and-ocean-c-7e67edf05c",
+      "kind": "event",
+      "title": "When Spirits Meet: The Rainbow Bridge and Ocean Chants",
+      "summary": "From the mist-covered mountains of Hualien County to the rhythmic shores of the Pacific Ocean, “When Spirits Meet: The Rainbow Bridge and Ocean Chants” invites audiences into the living traditions of Taiwan’s Truku and A…",
+      "detail": "From the mist-covered mountains of Hualien County to the rhythmic shores of the Pacific Ocean, “When Spirits Meet: The Rainbow Bridge and Ocean Chants” invites audiences into the living traditions of Taiwan’s Truku and Amis peoples. Rooted in ancestral teachings, sacred rituals, and communal memory, the performance weaves together the spiritual world of the Truku—guided by the “Hakaw Utux” (Rainbow Bridge)—with the vibrant songs and dances of the Amis community of Makota’ay and their celebrated Ilisin harvest festival. Through powerful music, movement, and ritual storytelling, the performance becomes a poetic encounter between mountain and sea, spirit and community, memory and celebration.",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/06/The-Rainbow-Bridge-and-Ocean-Chants-Poster_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/when-spirits-meet-the-rainbow-bridge-and-ocean-chants/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
       "id": "event-artisan-ii-a-solo-exhibition-by-low-chee-peng-1f55c75870",
       "kind": "event",
       "title": "“Artisan II”, a solo exhibition by Low Chee Peng",
@@ -242,79 +362,54 @@
       "interestScore": 96
     },
     {
-      "id": "event-ctrl-a-c-ccbbe711ac",
+      "id": "event-lament-of-the-wandering-head-eeeaf96026",
       "kind": "event",
-      "title": "CTRL A+C",
-      "summary": "George Town Festival programme highlight.",
-      "detail": "",
+      "title": "Lament of the Wandering Head",
+      "summary": "“My body is a headless train. My body is a legless boat.” Premiered in 2025 to critical acclaim, the award-nominated “Lament of the Wandering Head” by Sun Son Theatre is a haunting, female-led performance that blends liv…",
+      "detail": "“My body is a headless train. My body is a legless boat.” Premiered in 2025 to critical acclaim, the award-nominated “Lament of the Wandering Head” by Sun Son Theatre is a haunting, female-led performance that blends live music, physical theatre, and storytelling. Inspired by the flying head spirit of Southeast Asian folklore, the work reimagines myth as a powerful reflection on migration, displacement, and the fractured histories of the Chinese diaspora. Performed in Mandarin and Penang Hokkien, the production creates a rare bilingual soundscape where language, movement, and music intertwine. Combining traditional Taiwanese percussion with Southeast Asian gongs, chanting, and ritual rhythms, “Lament of the Wandering Head” invites audiences into a visceral theatrical journey where the body",
       "startDate": null,
       "endDate": null,
       "dateLabel": "George Town Festival",
       "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/1200x628px_Homepage-cover-web.png",
-      "sourceUrl": "https://georgetownfestival.com/programme/ctrl-ac/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/06/Lament-of-the-Wandering-Head_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/lament-of-the-wandering-head/",
+      "sourceName": "George Town Festival Programme",
+      "sourceId": "georgetown_festival_programme",
       "category": "Arts",
       "topics": [
-        "festival",
+        "music",
         "culture"
       ],
       "interest": [
-        "festival",
+        "music",
         "culture"
       ],
-      "interestScore": 90
+      "interestScore": 84
     },
     {
-      "id": "event-dream-space-95067bbaa6",
+      "id": "event-shakespeare-meets-noh-desdemona-8769a4ec0e",
       "kind": "event",
-      "title": "Dream Space",
-      "summary": "George Town Festival programme highlight.",
-      "detail": "",
+      "title": "Shakespeare Meets NOH: DESDEMONA",
+      "summary": "What happens when one of Othello’s most tragic heroines enters the dreamlike world of Japanese Noh theatre? “Shakespeare Meets NOH: DESDEMONA” is a haunting intercultural performance that reimagines Desdemona’s story thr…",
+      "detail": "What happens when one of Othello’s most tragic heroines enters the dreamlike world of Japanese Noh theatre? “Shakespeare Meets NOH: DESDEMONA” is a haunting intercultural performance that reimagines Desdemona’s story through the ritual, music, and movement of 14th-century Noh drama. Created by KL Shakespeare Players, the work shifts the focus from Othello to Desdemona herself, imagining an afterlife where she is finally given the power to confront her fate and seek reconciliation on her own terms. Blending Shakespearean storytelling with the refined aesthetics of Noh theatre, the production unfolds through poetic movement, ceremonial rhythms, evocative costumes, and a multilingual soundscape of Japanese, English, Malay, and Chinese. Both intimate and visually striking, “Shakespeare Meets N",
       "startDate": null,
       "endDate": null,
       "dateLabel": "George Town Festival",
       "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/1200x628px_Homepage-cover-web.png",
-      "sourceUrl": "https://georgetownfestival.com/programme/dream-space/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/06/Desdemona_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/shakespeare-meets-noh-desdemona/",
+      "sourceName": "George Town Festival Programme",
+      "sourceId": "georgetown_festival_programme",
       "category": "Arts",
       "topics": [
-        "festival",
+        "music",
         "culture"
       ],
       "interest": [
-        "festival",
+        "music",
         "culture"
       ],
-      "interestScore": 90
-    },
-    {
-      "id": "event-when-spirits-meet-the-rainbow-bridge-and-ocean-c-7e67edf05c",
-      "kind": "event",
-      "title": "When Spirits Meet: The Rainbow Bridge and Ocean Chants",
-      "summary": "George Town Festival programme highlight.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/1200x628px_Homepage-cover-web.png",
-      "sourceUrl": "https://georgetownfestival.com/programme/when-spirits-meet-the-rainbow-bridge-and-ocean-chants/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
-      "category": "Arts",
-      "topics": [
-        "festival",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "culture"
-      ],
-      "interestScore": 90
+      "interestScore": 84
     },
     {
       "id": "event-penang-coffee-festival-2026-to-brew-up-a-storm-f-fd5c7c971f",
@@ -363,6 +458,29 @@
         "festival"
       ],
       "interestScore": 72
+    },
+    {
+      "id": "event-islander-surge-3-0-22ce67ccbb",
+      "kind": "event",
+      "title": "Islander Surge 3.0",
+      "summary": "Every island speaks in its own way. Some voices emerge through singing and language, while others are carried within the rhythms of everyday life and embodied memory. As these sounds travel across seas and distances, car…",
+      "detail": "Every island speaks in its own way. Some voices emerge through singing and language, while others are carried within the rhythms of everyday life and embodied memory. As these sounds travel across seas and distances, carrying local textures and native tongues, they gradually move toward one another and intertwine—forming extending soundlines that connect place, memory, and human presence in invisible ways.",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/GTF-IslanderSurge-3-KV_Web2-1920-815.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/islander-surge-3-0/",
+      "sourceName": "George Town Festival Programme",
+      "sourceId": "georgetown_festival_programme",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 62
     },
     {
       "id": "food-sembang-selasa-with-founders-of-grow-community-m-80a7da4a48",
