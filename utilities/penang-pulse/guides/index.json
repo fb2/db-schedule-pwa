@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-08-07T02:59:58.186641+00:00",
+  "generatedAt": "2026-08-10T05:25:07.242181+00:00",
   "guides": [
+    {
+      "slug": "sabah-pan-mee-dry-fried-pork-version",
+      "title": "Dry Sabah Pan Mee with Fried Pork in Pulau Tikus",
+      "dek": "Monday lunch in Pulau Tikus — dark soy-tossed flat noodles, crunchy anchovies, and slightly sweet fried pork.",
+      "type": "Mee",
+      "href": "./guides/sabah-pan-mee-dry-fried-pork-version/",
+      "updated": "2026-08-10",
+      "cover": "/guides/sabah-pan-mee-dry-fried-pork-version/media/sabah-pan-mee-dry-fried-pork-version-bowl.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 10 Aug 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 14,
+      "location": {
+        "name": "Sabah Pan Mee in Pulau Tikus",
+        "mapsUrl": "https://maps.app.goo.gl/EHmrKmYpaJe13HoG7?g_st=ic"
+      }
+    },
     {
       "slug": "granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop",
       "title": "Granny Q Lemak Laksa at Sin Yong Wah Coffee Shop",
@@ -274,7 +293,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 13,
+      "count": 14,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
