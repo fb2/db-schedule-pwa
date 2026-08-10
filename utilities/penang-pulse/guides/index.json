@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T05:25:07.242181+00:00",
+  "generatedAt": "2026-08-10T06:15:45.432793+00:00",
   "guides": [
     {
       "slug": "sabah-pan-mee-dry-fried-pork-version",
@@ -297,6 +297,7 @@
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
+      "intro": "A running field diary of Penang noodles: hawkers, kopi, and the occasional mid-afternoon hunger that requires moooore. I show up, order, photograph, and write what the bowl actually did. C-Mee-PO, my AI research assistant, briefs the history so we can enjoy both the taste and the cultural context.",
       "mark": "./guides/marks/mee-myself-and-i.svg"
     }
   ]

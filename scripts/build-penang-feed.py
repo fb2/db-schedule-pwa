@@ -49,7 +49,8 @@ PAST_EVENT_RECAP_RE = re.compile(
     r"\b("
     r"was held|were held|was staged|were staged|"
     r"took place|has concluded|have concluded|concluded|"
-    r"last night|yesterday|over the weekend|"
+    r"last night|last (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|"
+    r"yesterday|over the weekend|"
     r"drew crowds|drew locals|drew thousands|drew revellers|"
     r"attracted (?:crowds|thousands|locals|visitors)|"
     r"descended on|packed the|filled the|"
@@ -116,6 +117,21 @@ NOISE_FOOD = re.compile(
 EVENT_HINTS = re.compile(
     r"\b(festival|event|parade|fair|exhibition|concert|workshop|market|celebration|programme|program)\b|"
     r"(嘉年华|活动|展览|市集)",
+    re.I,
+)
+OUTSIDE_PENANG_EVENT_RE = re.compile(
+    r"\b(kuala lumpur|petaling jaya|putrajaya|shah alam|mitec)\b",
+    re.I,
+)
+HIN_JUNK_RE = re.compile(
+    r"^(subscribe to our mailing list|this website uses cookies\.?)$",
+    re.I,
+)
+EVENT_NEWS_NOISE_RE = re.compile(
+    r"\b("
+    r"deploys gps tracking|scales up .*training|wedding venue guide|"
+    r"on track for .*completion|proposed acquisition|launches? .*campaign"
+    r")\b",
     re.I,
 )
 # Consumer-facing interests to surface near the top of Happening soon.
@@ -574,8 +590,10 @@ def parse_rss_items(
                 continue
             item_kind = classify_food_kind(title, description, default_kind="revisit")
         elif kind == "event" and source_id in {"penang_hyperlocal", "buletin_mutiara"}:
-            if not EVENT_HINTS.search(blob) and "penang" not in blob.lower():
+            if not EVENT_HINTS.search(blob) or OUTSIDE_PENANG_EVENT_RE.search(blob):
                 continue
+        if item_kind == "event" and EVENT_NEWS_NOISE_RE.search(blob):
+            continue
         # Prefer dates mentioned in the article text. RSS pubDate is article
         # publish time, not the event/opening date — do not treat it as startDate.
         start, end, label = parse_dates_from_text(blob, default_year)
@@ -623,7 +641,7 @@ def parse_hin_events(text: str, source_name: str, source_id: str, default_year: 
     for match in HIN_BLOCK_RE.finditer(text):
         title = clean_text(match.group(1))
         body = clean_text(match.group(2))
-        if not title or title.lower() in seen:
+        if not title or title.lower() in seen or is_junk_title(title) or HIN_JUNK_RE.search(title):
             continue
         if "weekend markets" in title.lower() and "friday market" not in title.lower():
             # Keep the recurring markets card once with a generic label.
@@ -1064,7 +1082,7 @@ def is_past_event_recap(item: dict[str, Any]) -> bool:
 def filter_event_window(
     items: list[dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], int, int]:
-    """Drop ended events + past-tense recaps; relabel ongoing shows.
+    """Drop ended dated items + past-tense event recaps; relabel ongoing shows.
 
     Returns (items, ended_dropped, recap_dropped).
     """
@@ -1073,6 +1091,11 @@ def filter_event_window(
     ended_dropped = 0
     recap_dropped = 0
     for item in items:
+        if item.get("kind") == "food":
+            food_end = _iso_date(item.get("endDate"))
+            if food_end is not None and food_end < today:
+                ended_dropped += 1
+                continue
         if item.get("kind") != "event":
             kept.append(item)
             continue
@@ -1346,8 +1369,8 @@ def main() -> int:
         warnings.append(f"dropped {recap_dropped} past-tense event recap(s)")
         print(f"Dropped {recap_dropped} past-tense event recap(s)")
     if ended_dropped:
-        warnings.append(f"dropped {ended_dropped} ended event(s) (endDate before today)")
-        print(f"Dropped {ended_dropped} ended event(s)")
+        warnings.append(f"dropped {ended_dropped} ended dated item(s) (endDate before today)")
+        print(f"Dropped {ended_dropped} ended dated item(s)")
     user_agent = config.get(
         "userAgent",
         "PenangPulse/0.1 (+https://fb2.github.io/db-schedule-pwa/utilities/penang-pulse/)",

@@ -36,13 +36,60 @@ POSTS_DIR = GUIDES_DIR / "posts"
 SERIES_REGISTRY = POSTS_DIR / "_series.json"
 SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
-ARTICLE_CSS_VER = "3"  # bump when article.css layout changes (cache bust)
+ARTICLE_CSS_VER = "4"  # bump when article.css layout changes (cache bust)
 MARKS_DIR = GUIDES_DIR / "marks"
 SITE_ORIGIN = "https://penangpulse.com"
 SITE_NAME = "Penang Pulse"
+SITE_AUTHOR = "Balazs Fejes"
 OG_DEFAULT_PATH = "/og-default.jpg"
 APPLE_TOUCH = "apple-touch-icon.png"
 OG_DEFAULT_FILE = "og-default.jpg"
+
+
+def copyright_year() -> int:
+    """Calendar year for soft © chrome (build date)."""
+    return dt.date.today().year
+
+
+def author_byline(*, series_hub: bool = False) -> str:
+    """Quiet authorship chrome — brand first, name as support."""
+    if series_hub:
+        return f"By {SITE_AUTHOR} · Field notes from Penang"
+    return f"By {SITE_AUTHOR}"
+
+
+def author_footer() -> str:
+    return f"By {SITE_AUTHOR} · © {copyright_year()}"
+
+
+def series_date_span(posts: list[dict[str, Any]]) -> str:
+    """Compact month/year span from published post dates, e.g. Jul–Aug 2026."""
+    dates: list[dt.date] = []
+    for post in posts:
+        raw = str(post.get("updated") or "").strip()
+        if not raw:
+            continue
+        try:
+            dates.append(dt.date.fromisoformat(raw[:10]))
+        except ValueError:
+            continue
+    if not dates:
+        return ""
+    start, end = min(dates), max(dates)
+    if start.year == end.year and start.month == end.month:
+        return f"{start.strftime('%b')} {start.year}"
+    if start.year == end.year:
+        return f"{start.strftime('%b')}–{end.strftime('%b')} {start.year}"
+    return f"{start.strftime('%b')} {start.year}–{end.strftime('%b')} {end.year}"
+
+
+def series_meta_label(count: int, *, template: str) -> str:
+    """Episode count phrase; Mee uses bowls, others use episodes."""
+    if (template or "").strip().lower() == "mee":
+        unit = "bowl" if count == 1 else "bowls"
+    else:
+        unit = "episode" if count == 1 else "episodes"
+    return f"{count} {unit}"
 
 MAX_WIDTH = 1400
 JPEG_QUALITY = 82
@@ -664,6 +711,8 @@ def render_article(
 
     # Calm format-agnostic kicker; field note + series carry the voice.
     kicker = "Field guide"
+    byline_html = f'<p class="guide-byline">{html.escape(author_byline())}</p>'
+    footer_html = f'<p class="guide-footer">{html.escape(author_footer())}</p>'
     social = social_head_tags(
         title=f"{title} — {SITE_NAME}",
         description=dek or title,
@@ -672,6 +721,9 @@ def render_article(
         og_type="article",
         icon_href=icon_href,
         apple_touch_href=apple_touch_href,
+    )
+    author_meta = (
+        f'    <meta property="article:author" content="{html.escape(SITE_AUTHOR)}" />'
     )
 
     return f"""<!doctype html>
@@ -683,6 +735,7 @@ def render_article(
     <meta name="description" content="{html.escape(dek or title)}" />
     <title>{html.escape(title)} — Penang Pulse</title>
 {social}
+{author_meta}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -703,10 +756,12 @@ def render_article(
       {field_html}
       <h1>{html.escape(title)}</h1>
       {dek_html}
+      {byline_html}
       {meta_html}
       <div class="guide-body">
 {body_html}
       </div>
+      {footer_html}
     </article>
   </body>
 </html>
@@ -734,6 +789,8 @@ def render_series_index(
     series_dek: str,
     posts: list[dict[str, Any]],
     series_mark: str = "",
+    series_intro: str = "",
+    series_template: str = "",
     og_image: str = OG_DEFAULT_PATH,
 ) -> str:
     items = []
@@ -772,6 +829,19 @@ def render_series_index(
             f"<h1>{html.escape(series_title)}</h1>\n"
             f'      <p class="guide-dek">{html.escape(dek)}</p>'
         )
+    byline_html = (
+        f'<p class="guide-byline">{html.escape(author_byline(series_hub=True))}</p>'
+    )
+    intro_html = (
+        f'\n      <p class="series-intro">{html.escape(series_intro)}</p>'
+        if series_intro
+        else ""
+    )
+    count_label = series_meta_label(len(posts), template=series_template)
+    span = series_date_span(posts)
+    meta_text = f"{count_label} · {span}" if span else count_label
+    meta_strip_html = f'<p class="series-meta-strip">{html.escape(meta_text)}</p>'
+    footer_html = f'<p class="guide-footer">{html.escape(author_footer())}</p>'
     social = social_head_tags(
         title=f"{series_title} — {SITE_NAME}",
         description=dek,
@@ -806,9 +876,12 @@ def render_series_index(
     <article class="guide-article">
       <p class="guide-kicker">Series</p>
       {heading_html}
+      {byline_html}{intro_html}
+      {meta_strip_html}
       <ul class="series-list">
 {list_html}
       </ul>
+      {footer_html}
     </article>
   </body>
 </html>
@@ -842,6 +915,9 @@ def load_series_registry(path: pathlib.Path = SERIES_REGISTRY) -> list[dict[str,
             "defaultType": str(item.get("defaultType") or item.get("default_type") or "text").strip(),
             "template": str(item.get("template") or "blank").strip() or "blank",
         }
+        intro = str(item.get("intro") or "").strip()
+        if intro:
+            entry["intro"] = intro
         mark = str(item.get("mark") or item.get("icon") or "").strip()
         if mark:
             entry["mark"] = pathlib.Path(mark).name
@@ -1027,6 +1103,8 @@ def build_series_pages(
     by_series: dict[str, list[dict[str, Any]]] = {}
     titles: dict[str, str] = {}
     deks: dict[str, str] = {}
+    intros: dict[str, str] = {}
+    templates: dict[str, str] = {}
     statuses: dict[str, str] = {}
     marks: dict[str, str] = {}
 
@@ -1035,6 +1113,8 @@ def build_series_pages(
         by_series.setdefault(slug, [])
         titles[slug] = entry["title"]
         deks[slug] = entry.get("dek") or ""
+        intros[slug] = entry.get("intro") or ""
+        templates[slug] = entry.get("template") or ""
         statuses[slug] = entry.get("status") or "active"
         if entry.get("mark"):
             marks[slug] = str(entry["mark"])
@@ -1068,6 +1148,8 @@ def build_series_pages(
         )
         series_title = titles.get(series_slug) or series_slug.replace("-", " ").title()
         series_dek = deks.get(series_slug) or ""
+        series_intro = intros.get(series_slug) or ""
+        series_template = templates.get(series_slug) or ""
         series_mark = marks.get(series_slug) or ""
         og_image = OG_DEFAULT_PATH
         for post in posts_sorted:
@@ -1083,6 +1165,8 @@ def build_series_pages(
             series_dek=series_dek,
             posts=posts_sorted,
             series_mark=series_mark,
+            series_intro=series_intro,
+            series_template=series_template,
             og_image=og_image,
         )
         (out_dir / "index.html").write_text(html_out, encoding="utf-8")
@@ -1096,6 +1180,8 @@ def build_series_pages(
         }
         if series_dek:
             entry["dek"] = series_dek
+        if series_intro:
+            entry["intro"] = series_intro
         if series_mark:
             entry["mark"] = f"./guides/marks/{series_mark}"
         series_index.append(entry)

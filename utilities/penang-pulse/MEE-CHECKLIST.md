@@ -15,6 +15,8 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Curry Mee** (coconut) — Restoran 77 Food Yard · 28 Jul 2026
 - [x] **Koay Teow Th’ng** (Instant Cook) — Sin Hup Aun Cafe · 29 Jul 2026
 - [x] **Lor Mee** — Cheah Yew Market · 30 Jul 2026
+- [x] **Mee Rebus** — 33 Best Food Hub (Tanjung Tokong) · 31 Jul 2026
+- [x] **Lemak Laksa** (Granny Q) — Sin Yong Wah Coffee Shop (Pulau Tikus) · 7 Aug 2026
 
 ## Island classics still to try
 
@@ -28,7 +30,6 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [ ] **Duck noodle / duck kway teow**
 - [ ] **Beef noodles** — clear or herbal, whichever shows up
 - [ ] **Fish head bee hoon / fish soup noodles**
-- [ ] **Mee Rebus** — distinct from Jawa Mee already tried
 - [ ] **Chee cheong fun** — edge case; optional if you want a stretch “noodle”
 
 ## Regional / immigrant bowls on the island

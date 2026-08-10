@@ -148,6 +148,29 @@ a {
   line-height: 1.4;
 }
 
+.guide-byline {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.series-intro {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.series-meta-strip {
+  margin: 12px 0 0;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
 .guide-meta {
   margin: 14px 0 0;
   font-size: 0.88rem;
@@ -156,6 +179,19 @@ a {
 
 .guide-body {
   margin-top: 22px;
+}
+
+.guide-footer {
+  margin: 36px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.series-list + .guide-footer {
+  margin-top: 28px;
 }
 
 .guide-body p {
