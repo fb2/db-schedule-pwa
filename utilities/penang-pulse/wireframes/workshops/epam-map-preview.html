@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#0f6e6e" />
+    <title>Map preview — EPAM workshop (wireframe)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #fafaf8;
+        --text: #1c1c1a;
+        --muted: #6b6b66;
+        --line: #e6e6e2;
+        --accent: #0f6e6e;
+        --accent-deep: #0a5555;
+        --pin-stay: #0f6e6e;
+        --pin-food: #c45c26;
+        --pin-sight: #2a5f9e;
+        --pin-transit: #5a4a8a;
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(1200px 600px at 10% -10%, rgba(15, 110, 110, 0.08), transparent 55%),
+          radial-gradient(900px 500px at 100% 0%, rgba(196, 92, 38, 0.06), transparent 50%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.45;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .page {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        padding: 18px 16px 56px;
+      }
+
+      .preview-banner {
+        margin: 0 0 18px;
+        padding: 10px 14px;
+        border: 1px dashed rgba(15, 110, 110, 0.35);
+        border-radius: 10px;
+        background: rgba(15, 110, 110, 0.06);
+        color: var(--accent-deep);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .preview-banner code {
+        font-size: 0.86em;
+      }
+
+      .brand {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.85rem;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .kicker {
+        margin: 14px 0 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .subhead {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin: 8px 0 0;
+      }
+
+      .lede {
+        margin: 10px 0 0;
+        max-width: 52ch;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .map-section {
+        margin-top: 28px;
+      }
+
+      .map-section h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.25rem;
+        margin: 0 0 8px;
+      }
+
+      .map-hint {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .map-layout {
+        display: grid;
+        gap: 16px;
+        align-items: start;
+      }
+
+      @media (min-width: 900px) {
+        .map-layout {
+          grid-template-columns: minmax(0, 1fr) 260px;
+          gap: 20px;
+        }
+      }
+
+      .map-stage {
+        position: relative;
+        border-radius: 18px;
+        overflow: hidden;
+        background: linear-gradient(165deg, #d9ecea 0%, #b7d8d4 42%, #9ec9c5 100%);
+        box-shadow:
+          0 1px 0 rgba(28, 28, 26, 0.04),
+          0 18px 40px rgba(15, 110, 110, 0.12);
+      }
+
+      .map-svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        vertical-align: middle;
+      }
+
+      .pin {
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* Fixed hit target — never transforms, so hover can't flicker */
+      .pin-hit {
+        fill: transparent;
+        pointer-events: all;
+      }
+
+      .pin-visual {
+        pointer-events: none;
+      }
+
+      .pin-halo {
+        opacity: 0.28;
+        transition: opacity 180ms ease;
+      }
+
+      .pin:focus-visible .pin-halo,
+      .pin[aria-expanded="true"] .pin-halo,
+      .pin:hover .pin-halo,
+      .pin.is-active .pin-halo {
+        opacity: 0.5;
+      }
+
+      .pin-dot {
+        filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.22));
+        transition: filter 180ms ease;
+      }
+
+      .pin:hover .pin-dot,
+      .pin[aria-expanded="true"] .pin-dot,
+      .pin:focus-visible .pin-dot,
+      .pin.is-active .pin-dot {
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.28));
+      }
+
+      .pin-label {
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        font-size: 10.5px;
+        font-weight: 600;
+        fill: var(--text);
+        paint-order: stroke;
+        stroke: rgba(250, 250, 248, 0.94);
+        stroke-width: 3.5px;
+        pointer-events: none;
+        opacity: 0.92;
+        transition: opacity 180ms ease, fill 180ms ease;
+      }
+
+      .pin:hover .pin-label,
+      .pin[aria-expanded="true"] .pin-label,
+      .pin:focus-visible .pin-label,
+      .pin.is-active .pin-label {
+        opacity: 1;
+        fill: var(--accent-deep);
+      }
+
+      .pin-label.is-muted {
+        opacity: 0.55;
+        font-weight: 500;
+      }
+
+      .region-label {
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        font-weight: 600;
+        fill: #4a5c48;
+        paint-order: stroke;
+        stroke: rgba(250, 250, 248, 0.85);
+        stroke-width: 2.5px;
+        pointer-events: none;
+      }
+
+      .popover {
+        position: absolute;
+        z-index: 5;
+        width: min(280px, calc(100% - 28px));
+        padding: 14px 14px 12px;
+        border-radius: 12px;
+        background: rgba(250, 250, 248, 0.97);
+        border: 1px solid rgba(28, 28, 26, 0.08);
+        box-shadow: 0 12px 28px rgba(28, 28, 26, 0.16);
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, -8px) scale(0.98);
+        transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+        pointer-events: none;
+      }
+
+      .popover.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0) scale(1);
+        pointer-events: auto;
+      }
+
+      .popover-tag {
+        margin: 0;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .popover-tag.food {
+        color: var(--pin-food);
+      }
+
+      .popover-tag.sight {
+        color: var(--pin-sight);
+      }
+
+      .popover-tag.transit {
+        color: var(--pin-transit);
+      }
+
+      .popover h3 {
+        margin: 4px 0 0;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.05rem;
+        line-height: 1.25;
+        padding-right: 24px;
+      }
+
+      .popover p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .popover a {
+        display: inline-block;
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .popover a:hover {
+        text-decoration: underline;
+      }
+
+      .popover-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .popover-close:hover {
+        background: var(--line);
+        color: var(--text);
+      }
+
+      .poi-panel {
+        margin: 0;
+        padding: 14px 14px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.55);
+      }
+
+      .poi-panel h3 {
+        margin: 0 0 4px;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.05rem;
+      }
+
+      .poi-panel-hint {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .poi-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 4px;
+      }
+
+      .poi-item {
+        display: grid;
+        grid-template-columns: 10px 1fr;
+        gap: 10px;
+        align-items: start;
+        width: 100%;
+        margin: 0;
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .poi-item:hover,
+      .poi-item:focus-visible {
+        background: rgba(15, 110, 110, 0.08);
+        outline: none;
+      }
+
+      .poi-item[aria-current="true"] {
+        background: rgba(15, 110, 110, 0.12);
+      }
+
+      .poi-dot {
+        width: 10px;
+        height: 10px;
+        margin-top: 5px;
+        border-radius: 999px;
+      }
+
+      .poi-dot.stay {
+        background: var(--pin-stay);
+      }
+
+      .poi-dot.food {
+        background: var(--pin-food);
+      }
+
+      .poi-dot.sight {
+        background: var(--pin-sight);
+      }
+
+      .poi-dot.transit {
+        background: var(--pin-transit);
+      }
+
+      .poi-name {
+        display: block;
+        font-weight: 600;
+        font-size: 0.95rem;
+        line-height: 1.25;
+      }
+
+      .poi-meta {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .legend li {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .swatch {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+      }
+
+      .swatch.stay {
+        background: var(--pin-stay);
+      }
+
+      .swatch.food {
+        background: var(--pin-food);
+      }
+
+      .swatch.sight {
+        background: var(--pin-sight);
+      }
+
+      .swatch.transit {
+        background: var(--pin-transit);
+      }
+
+      .tips {
+        margin-top: 32px;
+      }
+
+      .tips h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.25rem;
+        margin: 0 0 8px;
+      }
+
+      .tips-lede {
+        margin: 0 0 16px;
+        max-width: 48ch;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .tips-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      @media (min-width: 720px) {
+        .tips-list {
+          grid-template-columns: 1fr 1fr;
+          gap: 14px 20px;
+        }
+      }
+
+      .tips-list li {
+        padding: 14px 16px;
+        border-top: 2px solid rgba(15, 110, 110, 0.35);
+        background: linear-gradient(
+          180deg,
+          rgba(15, 110, 110, 0.06) 0%,
+          rgba(250, 250, 248, 0) 100%
+        );
+      }
+
+      .tips-list strong {
+        display: block;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.02rem;
+        margin-bottom: 4px;
+        color: var(--text);
+      }
+
+      .tips-list span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .notes {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .notes h2 {
+        margin: 0 0 8px;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: 1.1rem;
+        color: var(--text);
+      }
+
+      .notes ul {
+        margin: 0;
+        padding-left: 1.15rem;
+      }
+
+      .notes li + li {
+        margin-top: 6px;
+      }
+
+      @media (max-width: 640px) {
+        .pin-label {
+          font-size: 9.5px;
+        }
+
+        .popover {
+          left: 50% !important;
+          top: auto !important;
+          bottom: 12px;
+          transform: translate(-50%, 8px) scale(0.98);
+        }
+
+        .popover.is-open {
+          transform: translate(-50%, 0) scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <p class="preview-banner">
+        Wireframe only — illustrative map + pin popovers for review. Not the production workshop page.
+        Open via <code>python3 -m http.server 5173</code> from
+        <code>utilities/penang-pulse</code>, then visit
+        <code>/wireframes/workshops/epam-map-preview.html</code>.
+      </p>
+
+      <header>
+        <h1 class="brand">Penang Pulse</h1>
+        <p class="kicker">Workshop landing · map study</p>
+        <h2 class="subhead">EPAM APAC Business Pods Workshop, Penang 2026</h2>
+        <p class="lede">
+          Review this illustrated island map before we build the full unlisted page. Tap a pin or a list
+          item for stay, dinners, arrival, and sights.
+        </p>
+      </header>
+
+      <section class="map-section" aria-labelledby="map-title">
+        <h2 id="map-title">Where you’ll be</h2>
+        <p class="map-hint">
+          Illustrated Penang Island — not a Google embed. Pins are approximate for atmosphere. Use the
+          list when labels get crowded.
+        </p>
+
+        <div class="map-layout">
+          <div class="map-stage" id="mapStage">
+            <svg
+              class="map-svg"
+              viewBox="0 0 780 720"
+              role="img"
+              aria-label="Illustrated map of Penang Island with workshop locations"
+            >
+              <defs>
+                <linearGradient id="seaGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#d7ecea" />
+                  <stop offset="55%" stop-color="#a9d4d0" />
+                  <stop offset="100%" stop-color="#7fbbb6" />
+                </linearGradient>
+                <linearGradient id="landGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+                  <stop offset="0%" stop-color="#eef4ea" />
+                  <stop offset="45%" stop-color="#d7e4d0" />
+                  <stop offset="100%" stop-color="#b9cdae" />
+                </linearGradient>
+                <linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#9eb894" />
+                  <stop offset="100%" stop-color="#7f9d74" />
+                </linearGradient>
+                <pattern id="wave" width="28" height="14" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M0 8 Q7 2 14 8 T28 8"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.28)"
+                    stroke-width="1.2"
+                  />
+                </pattern>
+              </defs>
+
+              <!-- Sea -->
+              <rect width="780" height="720" fill="url(#seaGrad)" />
+              <rect width="780" height="720" fill="url(#wave)" opacity="0.55" />
+
+              <!-- Mainland hint (Butterworth) -->
+              <path
+                d="M680 30 C720 90 760 180 775 300 L780 300 L780 0 L650 0 Z"
+                fill="#c5d8c8"
+                opacity="0.55"
+              />
+              <text x="14" y="36" fill="#0a5555" font-size="13" font-weight="600" opacity="0.7">
+                Strait of Malacca
+              </text>
+              <text x="700" y="70" fill="#3d5a45" font-size="11" font-weight="600" opacity="0.55">
+                Mainland
+              </text>
+
+              <!--
+                Penang Island silhouette (stylized, north-up):
+                elongated N–S, narrower waist, NE Georgetown bulge, SW/S airport tip
+              -->
+              <g transform="translate(70, 28)">
+                <path
+                  d="M248 52
+                     C300 28 360 22 410 34
+                     C455 46 495 68 528 105
+                     C555 138 575 175 598 215
+                     C625 260 655 295 675 330
+                     C692 358 700 390 692 420
+                     C682 458 655 485 615 505
+                     C575 525 535 535 490 548
+                     C445 560 405 580 370 610
+                     C345 632 318 655 285 668
+                     C250 682 215 675 195 645
+                     C175 615 168 575 172 535
+                     C176 490 185 450 188 405
+                     C192 355 185 305 175 260
+                     C165 215 168 170 190 130
+                     C210 95 225 70 248 52 Z"
+                  fill="url(#landGrad)"
+                  stroke="#6f8f6a"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                />
+
+                <!-- Interior hills (central spine → Penang Hill) -->
+                <ellipse cx="310" cy="310" rx="78" ry="95" fill="url(#hillGrad)" opacity="0.5" />
+                <ellipse cx="280" cy="380" rx="60" ry="70" fill="url(#hillGrad)" opacity="0.38" />
+                <ellipse cx="355" cy="250" rx="55" ry="48" fill="url(#hillGrad)" opacity="0.32" />
+
+                <!-- North coast sand accent (Ferringhi → Gurney) -->
+                <path
+                  d="M230 78 C300 48 380 42 455 70 C500 88 535 115 560 145"
+                  fill="none"
+                  stroke="#f0e6d4"
+                  stroke-width="9"
+                  stroke-linecap="round"
+                  opacity="0.85"
+                />
+
+                <!-- Georgetown built-up wash (NE bulge) -->
+                <path
+                  d="M555 175 C595 195 640 240 655 290 C662 320 645 350 610 365 C575 380 535 355 520 315 C508 280 525 210 555 175 Z"
+                  fill="#d8cfc0"
+                  opacity="0.55"
+                />
+
+                <!-- Soft roads -->
+                <path
+                  d="M255 90 C340 65 430 80 520 130 C560 160 600 210 630 270"
+                  fill="none"
+                  stroke="rgba(90,90,80,0.22)"
+                  stroke-width="2.5"
+                  stroke-dasharray="6 8"
+                />
+                <path
+                  d="M520 130 C490 200 455 270 420 340 C390 400 350 470 310 540"
+                  fill="none"
+                  stroke="rgba(90,90,80,0.16)"
+                  stroke-width="2"
+                  stroke-dasharray="5 7"
+                />
+                <path
+                  d="M350 300 C390 310 430 340 470 390"
+                  fill="none"
+                  stroke="rgba(90,90,80,0.14)"
+                  stroke-width="1.8"
+                  stroke-dasharray="4 6"
+                />
+
+                <!-- Region labels (kept away from pin labels) -->
+                <text x="175" y="75" class="region-label" font-size="11" opacity="0.65">Batu Ferringhi</text>
+                <text x="400" y="68" class="region-label" font-size="11" opacity="0.5">Gurney Drive</text>
+                <text x="610" y="200" class="region-label" font-size="11" opacity="0.5">George Town</text>
+                <text x="210" y="330" class="region-label" font-size="11" opacity="0.45">Air Itam</text>
+                <text x="230" y="500" class="region-label" font-size="12" opacity="0.5">Penang Island</text>
+                <text x="390" y="640" class="region-label" font-size="11" opacity="0.45">Bayan Lepas</text>
+              </g>
+
+              <!-- Pins: fixed hit circle + visual layer (no hover translate/scale) -->
+              <!-- Selective map labels; crowded NE uses list + short labels -->
+
+              <!-- Ferringhi Garden ~ NW coast — label E -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-ferringhi"
+                data-pin="ferringhi"
+                transform="translate(305, 108)"
+              >
+                <circle class="pin-hit" r="22" cx="0" cy="-6" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="16" fill="#c45c26" />
+                  <g class="pin-dot">
+                    <path d="M0 -22 C8 -22 14 -15 14 -7 C14 4 0 18 0 18 S-14 4 -14 -7 C-14 -15 -8 -22 0 -22 Z" fill="#c45c26" />
+                    <circle cy="-9" r="4.5" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="18" y="-8">Ferringhi Garden</text>
+              </g>
+
+              <!-- Gurney Bay Hotel — label N -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-hotel"
+                data-pin="hotel"
+                transform="translate(500, 138)"
+              >
+                <circle class="pin-hit" r="22" cx="0" cy="-6" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="16" fill="#0f6e6e" />
+                  <g class="pin-dot">
+                    <path d="M0 -22 C8 -22 14 -15 14 -7 C14 4 0 18 0 18 S-14 4 -14 -7 C-14 -15 -8 -22 0 -22 Z" fill="#0f6e6e" />
+                    <circle cy="-9" r="4.5" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="0" y="-30" text-anchor="middle">Gurney Bay Hotel</text>
+              </g>
+
+              <!-- Bali Hai (near hotel) — label SE; short to avoid Fort -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-balihai"
+                data-pin="balihai"
+                transform="translate(528, 152)"
+              >
+                <circle class="pin-hit" r="20" cx="0" cy="-5" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="14" fill="#c45c26" />
+                  <g class="pin-dot">
+                    <path d="M0 -20 C7 -20 12 -14 12 -7 C12 3 0 16 0 16 S-12 3 -12 -7 C-12 -14 -7 -20 0 -20 Z" fill="#c45c26" />
+                    <circle cy="-8" r="4" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="14" y="16">Bali Hai</text>
+              </g>
+
+              <!-- Penang Hill funicular (Lower Station / Air Itam) — label W -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-hill"
+                data-pin="hill"
+                transform="translate(365, 318)"
+              >
+                <circle class="pin-hit" r="20" cx="0" cy="-5" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="14" fill="#2a5f9e" />
+                  <g class="pin-dot">
+                    <path d="M0 -20 C7 -20 12 -14 12 -7 C12 3 0 16 0 16 S-12 3 -12 -7 C-12 -14 -7 -20 0 -20 Z" fill="#2a5f9e" />
+                    <circle cy="-8" r="4" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="-18" y="-8" text-anchor="end">Penang Hill</text>
+              </g>
+
+              <!-- Fort Cornwallis — label E (sea side) -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-fort"
+                data-pin="fort"
+                transform="translate(665, 268)"
+              >
+                <circle class="pin-hit" r="20" cx="0" cy="-5" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="14" fill="#2a5f9e" />
+                  <g class="pin-dot">
+                    <path d="M0 -20 C7 -20 12 -14 12 -7 C12 3 0 16 0 16 S-12 3 -12 -7 C-12 -14 -7 -20 0 -20 Z" fill="#2a5f9e" />
+                    <circle cy="-8" r="4" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="16" y="-6">Fort Cornwallis</text>
+              </g>
+
+              <!-- Georgetown core — no on-map label (use list; crowded NE) -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-georgetown"
+                data-pin="georgetown"
+                transform="translate(620, 305)"
+              >
+                <circle class="pin-hit" r="20" cx="0" cy="-5" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="14" fill="#2a5f9e" />
+                  <g class="pin-dot">
+                    <path d="M0 -20 C7 -20 12 -14 12 -7 C12 3 0 16 0 16 S-12 3 -12 -7 C-12 -14 -7 -20 0 -20 Z" fill="#2a5f9e" />
+                    <circle cy="-8" r="4" fill="#fafaf8" />
+                  </g>
+                </g>
+              </g>
+
+              <!-- Penang International Airport (south/SW tip) — label N -->
+              <g
+                class="pin"
+                tabindex="0"
+                role="button"
+                aria-expanded="false"
+                aria-controls="pop-airport"
+                data-pin="airport"
+                transform="translate(340, 655)"
+              >
+                <circle class="pin-hit" r="22" cx="0" cy="-6" />
+                <g class="pin-visual">
+                  <circle class="pin-halo" r="16" fill="#5a4a8a" />
+                  <g class="pin-dot">
+                    <path d="M0 -22 C8 -22 14 -15 14 -7 C14 4 0 18 0 18 S-14 4 -14 -7 C-14 -15 -8 -22 0 -22 Z" fill="#5a4a8a" />
+                    <circle cy="-9" r="4.5" fill="#fafaf8" />
+                  </g>
+                </g>
+                <text class="pin-label" x="0" y="-30" text-anchor="middle">Airport (PEN)</text>
+              </g>
+
+              <!-- Compass -->
+              <g transform="translate(720, 640)" opacity="0.7">
+                <circle r="22" fill="rgba(250,250,248,0.55)" stroke="#0f6e6e" stroke-width="1.5" />
+                <polygon points="0,-14 4,2 0,0 -4,2" fill="#0f6e6e" />
+                <text y="28" text-anchor="middle" font-size="10" font-weight="600" fill="#0a5555">N</text>
+              </g>
+            </svg>
+
+            <!-- Popovers positioned in % of map stage -->
+            <aside
+              class="popover"
+              id="pop-hotel"
+              role="dialog"
+              aria-labelledby="pop-hotel-title"
+              style="left: 64%; top: 10%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag">Stay · venue</p>
+              <h3 id="pop-hotel-title">Gurney Bay Hotel, A PARKROYAL Hotel</h3>
+              <p>Main stay and workshop base on Persiaran Gurney — north coast, easy walk to the seafront.</p>
+              <p>53 Persiaran Gurney, George Town</p>
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-balihai"
+              role="dialog"
+              aria-labelledby="pop-balihai-title"
+              style="left: 68%; top: 14%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag food">Arrival dinner · Mon 17 Aug</p>
+              <h3 id="pop-balihai-title">Bali Hai Seafood Market</h3>
+              <p>
+                Walking distance from the hotel along Gurney. Live seafood market energy — Michelin Guide
+                listed. Same favourite as last year’s Penang offsite.
+              </p>
+              <a
+                href="https://guide.michelin.com/en/pulau-pinang/my-george-town/restaurant/bali-hai-seafood-market"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Michelin Guide →</a
+              >
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-ferringhi"
+              role="dialog"
+              aria-labelledby="pop-ferringhi-title"
+              style="left: 39%; top: 6%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag food">Day 1 dinner · Batu Ferringhi</p>
+              <h3 id="pop-ferringhi-title">Ferringhi Garden</h3>
+              <p>
+                Lush garden setting on the northwest coast — short drive from Gurney. Same favourite as last
+                year’s Penang offsite.
+              </p>
+              <a
+                href="https://www.tripadvisor.com/Restaurant_Review-g660694-d2212429-Reviews-Ferringhi_Garden_Restaurant-Penang_Island_Penang.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                >TripAdvisor →</a
+              >
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-fort"
+              role="dialog"
+              aria-labelledby="pop-fort-title"
+              style="left: 85%; top: 28%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag sight">Sight · walkable</p>
+              <h3 id="pop-fort-title">Fort Cornwallis</h3>
+              <p>Star fort at the tip of George Town — an easy shoreline walk from the esplanade / jetty area.</p>
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-georgetown"
+              role="dialog"
+              aria-labelledby="pop-georgetown-title"
+              style="left: 79%; top: 34%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag sight">Sight · UNESCO</p>
+              <h3 id="pop-georgetown-title">George Town heritage core</h3>
+              <p>
+                Shophouses, murals, temples, and street food — the walkable UNESCO old town. Best explored on
+                foot between bowls.
+              </p>
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-hill"
+              role="dialog"
+              aria-labelledby="pop-hill-title"
+              style="left: 47%; top: 36%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag sight">Sight · funicular</p>
+              <h3 id="pop-hill-title">Penang Hill · Lower Station</h3>
+              <p>
+                Air Itam — take the funicular up for cooler air and island views. Grab to the Lower Station,
+                then the railway to the summit.
+              </p>
+            </aside>
+
+            <aside
+              class="popover"
+              id="pop-airport"
+              role="dialog"
+              aria-labelledby="pop-airport-title"
+              style="left: 44%; top: 78%"
+            >
+              <button type="button" class="popover-close" aria-label="Close">×</button>
+              <p class="popover-tag transit">Arrival · Grab</p>
+              <h3 id="pop-airport-title">Penang International Airport (PEN)</h3>
+              <p>
+                Grab pickup zone is outside the Arrivals hall. Expect about 30–45 minutes to Gurney Bay Hotel
+                (allow ~45–60 min in rush hour).
+              </p>
+            </aside>
+          </div>
+
+          <aside class="poi-panel" aria-labelledby="poi-list-title">
+            <h3 id="poi-list-title">Places on the map</h3>
+            <p class="poi-panel-hint">Tap a name to open the same pin details.</p>
+            <ul class="poi-list" id="poiList">
+              <li>
+                <button type="button" class="poi-item" data-pin="airport" aria-current="false">
+                  <span class="poi-dot transit" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Penang International Airport</span>
+                    <span class="poi-meta">Arrival · Grab pickup</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="hotel" aria-current="false">
+                  <span class="poi-dot stay" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Gurney Bay Hotel</span>
+                    <span class="poi-meta">Stay · venue</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="balihai" aria-current="false">
+                  <span class="poi-dot food" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Bali Hai Seafood Market</span>
+                    <span class="poi-meta">Arrival dinner</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="ferringhi" aria-current="false">
+                  <span class="poi-dot food" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Ferringhi Garden</span>
+                    <span class="poi-meta">Day 1 dinner</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="fort" aria-current="false">
+                  <span class="poi-dot sight" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Fort Cornwallis</span>
+                    <span class="poi-meta">Sight · walkable</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="georgetown" aria-current="false">
+                  <span class="poi-dot sight" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">George Town heritage core</span>
+                    <span class="poi-meta">Sight · UNESCO</span>
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="poi-item" data-pin="hill" aria-current="false">
+                  <span class="poi-dot sight" aria-hidden="true"></span>
+                  <span>
+                    <span class="poi-name">Penang Hill funicular</span>
+                    <span class="poi-meta">Lower Station · Air Itam</span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </aside>
+        </div>
+
+        <ul class="legend" aria-label="Pin legend">
+          <li><span class="swatch stay" aria-hidden="true"></span> Stay / venue</li>
+          <li><span class="swatch food" aria-hidden="true"></span> Workshop dinners</li>
+          <li><span class="swatch sight" aria-hidden="true"></span> Sights</li>
+          <li><span class="swatch transit" aria-hidden="true"></span> Arrival / transit</li>
+        </ul>
+      </section>
+
+      <section class="tips" aria-labelledby="tips-title">
+        <h2 id="tips-title">Getting around · practical tips</h2>
+        <p class="tips-lede">
+          Wireframe of the logistics block for the production page — keep it short and useful, not a travel essay.
+        </p>
+        <ul class="tips-list">
+          <li>
+            <strong>Install Grab</strong>
+            <span>Penang’s convenient rideshare. Set it up on your phone before you land (or right after).</span>
+          </li>
+          <li>
+            <strong>Airport pickup</strong>
+            <span>There’s a Grab pickup zone outside the Arrivals hall at Penang International (PEN).</span>
+          </li>
+          <li>
+            <strong>Airport → hotel</strong>
+            <span
+              >Grab to Gurney Bay Hotel / PARKROYAL is usually about <em>30–45 minutes</em>; allow
+              <em>~45–60 minutes</em> in rush-hour traffic.</span
+            >
+          </li>
+          <li>
+            <strong>Carry some RM cash</strong>
+            <span>Street vendors and many hawkers still prefer cash — keep small notes handy.</span>
+          </li>
+          <li>
+            <strong>Dress for the heat</strong>
+            <span>Warm, humid weather year-round. Light clothes, and expect AC indoors.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="notes">
+        <h2>Review notes</h2>
+        <ul>
+          <li>Island silhouette redrawn: slimmer N–S form, NE Georgetown bulge, south/SW airport tip.</li>
+          <li>New pins: Airport (PEN) + Penang Hill Lower Station; Georgetown label via side list only.</li>
+          <li>
+            Side POI list mirrors pins — click opens the same popover. Hover: fixed hit circles (no jitter).
+          </li>
+          <li>Full page later: photography hero, welcome, food / Mee Myself and I, homepage events CTA.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const stage = document.getElementById("mapStage");
+        const pins = Array.from(stage.querySelectorAll(".pin"));
+        const popovers = Array.from(stage.querySelectorAll(".popover"));
+        const listItems = Array.from(document.querySelectorAll(".poi-item"));
+
+        function closeAll() {
+          pins.forEach((p) => {
+            p.setAttribute("aria-expanded", "false");
+            p.classList.remove("is-active");
+          });
+          popovers.forEach((pop) => pop.classList.remove("is-open"));
+          listItems.forEach((item) => item.setAttribute("aria-current", "false"));
+        }
+
+        function openByKey(key, { toggle } = { toggle: true }) {
+          const pin = stage.querySelector(`[data-pin="${key}"]`);
+          const popId = pin ? pin.getAttribute("aria-controls") : null;
+          const pop = popId ? document.getElementById(popId) : null;
+          if (!pin || !pop) return;
+
+          const wasOpen = pin.getAttribute("aria-expanded") === "true";
+          closeAll();
+          if (toggle && wasOpen) return;
+
+          pin.setAttribute("aria-expanded", "true");
+          pin.classList.add("is-active");
+          pop.classList.add("is-open");
+          listItems.forEach((item) => {
+            item.setAttribute("aria-current", item.getAttribute("data-pin") === key ? "true" : "false");
+          });
+        }
+
+        pins.forEach((pin) => {
+          pin.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openByKey(pin.getAttribute("data-pin"), { toggle: true });
+          });
+          pin.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openByKey(pin.getAttribute("data-pin"), { toggle: true });
+            }
+          });
+        });
+
+        listItems.forEach((item) => {
+          item.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openByKey(item.getAttribute("data-pin"), { toggle: true });
+          });
+        });
+
+        stage.querySelectorAll(".popover-close").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            closeAll();
+          });
+        });
+
+        document.addEventListener("click", (e) => {
+          const inStage = stage.contains(e.target);
+          const inList = e.target.closest(".poi-panel");
+          if (!inStage && !inList) closeAll();
+          else if (e.target === stage || e.target.classList.contains("map-svg")) closeAll();
+        });
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeAll();
+        });
+
+        // Open hotel by default so reviewers see the popover pattern immediately
+        openByKey("hotel", { toggle: false });
+      })();
+    </script>
+  </body>
+</html>
