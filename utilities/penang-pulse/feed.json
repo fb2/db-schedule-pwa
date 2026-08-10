@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-04T10:51:08.112721+00:00",
-  "weekLabel": "Week of 4 Aug",
-  "intro": "13 events, 11 food picks, and 16 worth revisiting.",
+  "generatedAt": "2026-08-10T11:42:18.807306+00:00",
+  "weekLabel": "Week of 10 Aug",
+  "intro": "9 events, 9 food picks, and 15 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,8 +12,8 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 65215,
-      "itemCount": 7,
+      "bytes": 54699,
+      "itemCount": 8,
       "parser": "rss_items"
     },
     {
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 146097,
-      "itemCount": 12,
+      "bytes": 124398,
+      "itemCount": 7,
       "parser": "hin_events_html"
     },
     {
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 589000,
+      "bytes": 582499,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -72,7 +72,7 @@
       "url": "https://smartdory.com/",
       "ok": true,
       "status": 200,
-      "bytes": 87258,
+      "bytes": 87343,
       "itemCount": 5,
       "parser": "wordpress_home_html"
     },
@@ -84,7 +84,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 72948,
+      "bytes": 73118,
       "itemCount": 4,
       "parser": "chinapress_category_html"
     },
@@ -108,7 +108,7 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 68239,
+      "bytes": 75110,
       "itemCount": 2,
       "parser": "rss_items"
     },
@@ -120,8 +120,8 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 38683,
-      "itemCount": 5,
+      "bytes": 25770,
+      "itemCount": 2,
       "parser": "rss_items"
     },
     {
@@ -132,39 +132,37 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 208832,
+      "bytes": 208744,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
   ],
   "items": [
     {
-      "id": "event-george-town-festival-2026-to-feature-artists-fro-5d99b2bf37",
+      "id": "event-george-town-literary-festival-2026-returns-with--484b9ff0c4",
       "kind": "event",
-      "title": "George Town Festival 2026 to Feature Artists From 10 Countries, Over 40 Programmes",
-      "summary": "The 17th George Town Festival (GTF) will bring more than 40 programmes featuring artists from 10 countries when it runs from 1 to 9 August across George Town. Themed “Beyond Boundaries,” the nine-day festival spans visua…",
-      "detail": "The 17th George Town Festival (GTF) will bring more than 40 programmes featuring artists from 10 countries when it runs from 1 to 9 August across George Town. Themed “Beyond Boundaries,” the nine-day festival spans visual arts, theatre, dance, music, film, public installations, workshops and community activities. According to Buletin Mutiara, State Tourism and Creative […]",
-      "startDate": "2026-08-01",
-      "endDate": "2026-08-09",
-      "dateLabel": "Ongoing · until 9 Aug",
+      "title": "George Town Literary Festival 2026 Returns with ‘Cosmopolises’ Theme and International Line-Up",
+      "summary": "The George Town Literary Festival (GTLF), organised by the Penang Institute, has unveiled key programme highlights and its main speaker line-up for its 2026 edition. Themed “Cosmopolises”, the festival will run from 27 t…",
+      "detail": "The George Town Literary Festival (GTLF), organised by the Penang Institute, has unveiled key programme highlights and its main speaker line-up for its 2026 edition. Themed “Cosmopolises”, the festival will run from 27 to 29 November in George Town, Penang, maintaining its role as a premier platform for literary and cultural exchange. Apart from selected […]",
+      "startDate": "2026-11-27",
+      "endDate": "2026-11-29",
+      "dateLabel": "27–29 Nov",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/buletinmutiara-gtf2026.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/8746/george-town-festival-2026-to-feature-artists-from-10-countries-over-40-programmes/",
+      "imageUrl": "https://penangtoday.my/ipsostuh/pxl_20260805_0324565283812039741537503637.jpg",
+      "sourceUrl": "https://penangtoday.my/art/9030/george-town-literary-festival-2026-returns-with-cosmopolises-theme-and-international-line-up/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Sat, 18 Jul 2026 07:33:59 +0000",
+      "publishedAt": "Wed, 05 Aug 2026 14:32:04 +0000",
       "topics": [
         "festival",
-        "music",
-        "culture",
-        "movies"
+        "literary",
+        "culture"
       ],
       "interest": [
         "festival",
-        "music",
-        "culture",
-        "movies"
+        "literary",
+        "culture"
       ],
       "interestScore": 100
     },
@@ -269,150 +267,57 @@
       "interestScore": 90
     },
     {
-      "id": "event-george-town-festival-showcases-penang-s-vibrant--22e9145f5c",
+      "id": "event-penang-coffee-festival-2026-to-brew-up-a-storm-f-fd5c7c971f",
       "kind": "event",
-      "title": "George Town Festival showcases Penang’s vibrant visual arts scene",
-      "summary": "THE Penang government is inviting the public to immerse themselves in the diverse visual arts offerings of the George Town Festival (GTF) 2026, with exhibitions by local artists transforming heritage spaces across the ci…",
-      "detail": "THE Penang government is inviting the public to immerse themselves in the diverse visual arts offerings of the George Town Festival (GTF) 2026, with exhibitions by local artists transforming heritage spaces across the city into creative hubs throughout August. State Tourism and Creative Economy Committee chairman Wong Hon Wai said the visual arts programme...",
+      "title": "Penang Coffee Festival 2026 to Brew Up a Storm From Aug 14-16",
+      "summary": "Coffee lovers can look forward to three days of brews, competitions and workshops as the Penang Coffee Festival 2026 takes place from 14 to 16 August at Sunshine Central in Air Itam. The festival features specialty coffe…",
+      "detail": "Coffee lovers can look forward to three days of brews, competitions and workshops as the Penang Coffee Festival 2026 takes place from 14 to 16 August at Sunshine Central in Air Itam. The festival features specialty coffee tastings, interactive workshops, product showcases and regional competitions, including the Malaysia AeroPress Championship (Northern Region). MBPP councillor Koay […]",
+      "startDate": "2026-08-14",
+      "endDate": "2026-08-16",
+      "dateLabel": "14–16 Aug",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/a2s-coffee-fest-bm.jpg",
+      "sourceUrl": "https://penangtoday.my/news/9053/penang-coffee-festival-2026/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Fri, 07 Aug 2026 11:38:35 +0000",
+      "topics": [
+        "festival"
+      ],
+      "interest": [
+        "festival"
+      ],
+      "interestScore": 78
+    },
+    {
+      "id": "event-atap-is-hosting-the-visit-penang-carnival-2026-a-608bce3b27",
+      "kind": "event",
+      "title": "ATAP is hosting the Visit Penang Carnival 2026 at the Sunway Carnival Mall",
+      "summary": "By V. Sivaji The Association of Tourism Attractions Penang (ATAP) is currently hosting its Visit Penang Carnival 2026 at the Sunway Carnival Mall till this Sunday. Officiating the event was Penang State Exco for Tourism …",
+      "detail": "By V. Sivaji The Association of Tourism Attractions Penang (ATAP) is currently hosting its Visit Penang Carnival 2026 at the Sunway Carnival Mall till this Sunday. Officiating the event was Penang State Exco for Tourism and Creative Economy YB Wong Hon Wai accompanied by ATAP chairman Dato Ch’ng Huck Teng and a host of guests. The four-day […] The post ATAP is hosting the Visit Penang Carnival 2026 at the Sunway Carnival Mall appeared first on Penang Hyperlocal .",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/george-town-festival-showcases-penangs-vibrant-visual-arts-scene/",
-      "sourceName": "Buletin Mutiara",
-      "sourceId": "buletin_mutiara",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/08/A-2.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/atap-is-hosting-the-visit-penang-carnival-2026-at-the-sunway-carnival-mall/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
       "category": "Events",
-      "publishedAt": "Mon, 03 Aug 2026 12:51:56 +0000",
+      "publishedAt": "Thu, 06 Aug 2026 07:39:23 +0000",
       "topics": [
-        "festival",
-        "culture"
+        "festival"
       ],
       "interest": [
-        "festival",
-        "culture"
+        "festival"
       ],
-      "interestScore": 86
+      "interestScore": 72
     },
     {
-      "id": "event-fieldwork-sharing-conversation-mapping-jalan-gur-4aabfb692a",
+      "id": "event-street-fragments-by-mapping-jalan-gurdwara-proje-b48dfdcef1",
       "kind": "event",
-      "title": "Fieldwork Sharing & Conversation: Mapping Jalan Gurdwara Project",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-hidden-fibres-what-do-you-wish-people-understood-4327246d79",
-      "kind": "event",
-      "title": "Hidden Fibres: What Do You Wish People Understood? with Alison Lam",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-street-fragments-mapping-jalan-gurdwara-project--f4b30a7ee4",
-      "kind": "event",
-      "title": "Street Fragments: (Mapping Jalan Gurdwara Project & Exhibition)",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-the-process-room-a-working-jam-331a292374",
-      "kind": "event",
-      "title": "The Process Room: A Working Jam",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-the-sound-of-where-i-come-from-audio-walk-with-r-f103a363c9",
-      "kind": "event",
-      "title": "The Sound of Where I Come From - Audio-Walk with Ryo Kobayashi",
-      "summary": "",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Ongoing · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-typechha-jioba-a-lettering-workshop-by-huruf-ins-6f1e4fad44",
-      "kind": "event",
-      "title": "TypeChha @JioBa (A lettering workshop by huruf inspired by chu-chha)",
+      "title": "Street Fragments by Mapping Jalan Gurdwara Project",
       "summary": "",
       "detail": "",
       "startDate": null,
@@ -470,23 +375,6 @@
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
-    },
-    {
-      "id": "food-120-industry-leaders-gather-in-penang-to-put-foo-78c3a3e0d6",
-      "kind": "food",
-      "title": "120 Industry Leaders Gather in Penang to Put Food Safety at the Top of the Menu",
-      "summary": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronom…",
-      "detail": "Shangri-La Rasa Sayang, Shangri-La Golden Sands, and Jen Hotel Penang joined hands with the Penang State Food Safety Ministry to host the Food Safety Symposium 2026, marking both World Food Safety Day and World Gastronomy Day. Held at the Pelangi Ballroom in Shangri-La Rasa Sayang, the event drew 120 executives from across the food industry […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Recently · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/Food-2.jpg",
-      "sourceUrl": "https://penangtoday.my/safety/8461/120-industry-leaders-gather-in-penang-to-put-food-safety-at-the-top-of-the-menu/",
-      "sourceName": "PenangToday Food",
-      "sourceId": "penangtoday_food",
-      "category": "Food",
-      "publishedAt": "Tue, 23 Jun 2026 11:55:29 +0000"
     },
     {
       "id": "food-bespace-coffee-fef9b5ff48",
@@ -585,23 +473,6 @@
       "category": "Food"
     },
     {
-      "id": "food-penang-marriott-hotel-appoints-chef-yab-han-wei--4c836dbebb",
-      "kind": "food",
-      "title": "Penang Marriott Hotel Appoints Chef Yab Han Wei as Executive Chef",
-      "summary": "Penang Marriott Hotel and Marriott Executive Apartments Penang have appointed Chef Yab Han Wei as their new Executive Chef. He brings more than 30 years of international culinary experience to the role. Chef Yab has held…",
-      "detail": "Penang Marriott Hotel and Marriott Executive Apartments Penang have appointed Chef Yab Han Wei as their new Executive Chef. He brings more than 30 years of international culinary experience to the role. Chef Yab has held executive culinary leadership positions at InterContinental, Marriott, Starwood Hotels & Resorts, Wanda Hotels, Kerry Hotel, and Avani Hotels. His […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Recently · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/chef-yab-han-wei.jpg",
-      "sourceUrl": "https://penangtoday.my/news/8824/penang-marriott-hotel-appoints-chef-yab-han-wei-executive-chef/",
-      "sourceName": "PenangToday Food",
-      "sourceId": "penangtoday_food",
-      "category": "Food",
-      "publishedAt": "Thu, 23 Jul 2026 19:13:29 +0000"
-    },
-    {
       "id": "food-sembang-selasa-with-founders-of-grow-community-m-c7bfd972f0",
       "kind": "food",
       "title": "Sembang Selasa with Founders of Grow Community Market",
@@ -627,7 +498,7 @@
       "endDate": null,
       "dateLabel": "Ongoing · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Bus%20Depot_Text%20Logo-02.png",
       "sourceUrl": "https://hinbusdepot.com/events",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
@@ -842,22 +713,6 @@
       "category": "Food"
     },
     {
-      "id": "revisit-sevora-residence-by-sevenco-new-freehold-afforda-1d7c1d4e9b",
-      "kind": "revisit",
-      "title": "Sevora Residence By Sevenco New Freehold Affordable Residence In Penang",
-      "summary": "Penang Foodie roundup or review.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://penangfoodie.com/sevora-residence-by-sevenco-new-freehold-affordable-residence-in-penang/",
-      "sourceName": "Penang Foodie",
-      "sourceId": "penang_foodie",
-      "category": "Food"
-    },
-    {
       "id": "revisit-top-13-places-for-the-best-tau-sar-piah-in-penan-6902cadfb5",
       "kind": "revisit",
       "title": "Top 13 Places For The Best Tau Sar Piah In Penang",
@@ -893,8 +748,9 @@
   ],
   "warnings": [
     "fetch failed for mypenang_events (status=404)",
+    "dropped 5 corporate/institutional PR item(s)",
     "dropped 5 food opening(s) older than ~2 months",
     "dropped 3 past-tense event recap(s)",
-    "dropped 6 ended dated item(s) (endDate before today)"
+    "dropped 5 ended dated item(s) (endDate before today)"
   ]
 }

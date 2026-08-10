@@ -54,7 +54,8 @@ PAST_EVENT_RECAP_RE = re.compile(
     r"drew crowds|drew locals|drew thousands|drew revellers|"
     r"attracted (?:crowds|thousands|locals|visitors)|"
     r"descended on|packed the|filled the|"
-    r"wrapped up|came to a close|kicked off yesterday"
+    r"wrapped up|came to a close|kicked off yesterday|"
+    r"earlier today|earlier this (?:week|month)"
     r")\b",
     re.I,
 )
@@ -125,6 +126,21 @@ OUTSIDE_PENANG_EVENT_RE = re.compile(
 )
 HIN_JUNK_RE = re.compile(
     r"^(subscribe to our mailing list|this website uses cookies\.?)$",
+    re.I,
+)
+# Corporate / institutional PR with no planning value: MoUs and partnership
+# announcements, executive appointments, policy programmes, industry
+# symposiums, property launches. Applies to every kind, not just events.
+PROMO_NOISE_RE = re.compile(
+    r"\bmemorandum of understanding\b|\bmou\b|"
+    r"\bthrough (?:a )?new partnership\b|"
+    r"\btalent (?:pilot )?(?:programme|program|scheme)\b|"
+    r"\bfood safety (?:symposium|day|ministry)\b|"
+    r"\b\d+ industry leaders\b|\bindustry leaders gather\b|"
+    r"\bappoints?\b[^.]{0,60}\bchef\b|\bnew executive chef\b|"
+    r"\bfreehold\b|\bleasehold\b|\bserviced apartments?\b|\bcondominium\b|"
+    r"\bproperty launch\b|"
+    r"(人才计划|人才培育|谅解备忘录)",
     re.I,
 )
 EVENT_NEWS_NOISE_RE = re.compile(
@@ -1048,6 +1064,18 @@ def filter_stale_food_openings(
     return kept, dropped
 
 
+def filter_promo_noise(items: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int]:
+    """Drop corporate/institutional PR that readers cannot act on this week."""
+    kept: list[dict[str, Any]] = []
+    dropped = 0
+    for item in items:
+        if PROMO_NOISE_RE.search(item_text_blob(item)):
+            dropped += 1
+            continue
+        kept.append(item)
+    return kept, dropped
+
+
 def _iso_date(value: Any) -> dt.date | None:
     if isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
         try:
@@ -1360,6 +1388,10 @@ def main() -> int:
         )
 
     items = dedupe_items(items)
+    items, promo_dropped = filter_promo_noise(items)
+    if promo_dropped:
+        warnings.append(f"dropped {promo_dropped} corporate/institutional PR item(s)")
+        print(f"Dropped {promo_dropped} corporate/institutional PR item(s)")
     items, stale_food_dropped = filter_stale_food_openings(items, max_age_days=62)
     if stale_food_dropped:
         warnings.append(f"dropped {stale_food_dropped} food opening(s) older than ~2 months")
