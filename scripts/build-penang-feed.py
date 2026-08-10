@@ -305,6 +305,9 @@ OG_IMAGE_RE = re.compile(
     re.I,
 )
 IMG_SRC_RE = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+IMG_TAG_RE = re.compile(r"<img\b[^>]*>", re.I)
+# Plain width=, not data-width=/max-width:, so declared icon sizes can be rejected.
+IMG_WIDTH_ATTR_RE = re.compile(r'(?<![-\w])width=["\']?(\d+)', re.I)
 # Lazy-loading builders (GoDaddy/wsimg, WordPress plugins) keep the real poster in a
 # data attribute and ship a 1x1 placeholder in src.
 LAZY_IMG_ATTR_RE = re.compile(
@@ -346,6 +349,7 @@ HIN_GENERIC_LINK_RE = re.compile(
     re.I,
 )
 SMARTLOCAL_H3_RE = re.compile(r"<h3[^>]*>(.*?)</h3>", re.I | re.S)
+SMARTLOCAL_ANCHOR_RE = re.compile(r'\bid=["\']([A-Za-z0-9_\-]+)["\']', re.I)
 SMARTLOCAL_MONTH_RE = re.compile(
     r"^[–\-—]?\s*(january|february|march|april|may|june|july|august|september|october|november|december)\s*[–\-—]?$",
     re.I,
@@ -466,6 +470,37 @@ def first_content_img(raw_html: str | None, base: str = "") -> str:
     for match in IMG_SRC_RE.finditer(raw_html):
         url = normalize_image_url(match.group(1), base)
         if url and not is_logo_image(url):
+            return url
+    return ""
+
+
+def best_img_tag_url(tag: str, base: str = "") -> str:
+    """Best URL a single <img> tag offers: widest srcset candidate, else src/lazy src."""
+    for match in LAZY_SRCSET_ATTR_RE.finditer(tag):
+        url = largest_srcset_url(match.group(1), base)
+        if url:
+            return url
+    for match in LAZY_IMG_ATTR_RE.finditer(tag):
+        url = normalize_image_url(match.group(1), base)
+        if url and not is_logo_image(url):
+            return url
+    match = IMG_SRC_RE.search(tag)
+    if match:
+        url = normalize_image_url(match.group(1), base)
+        if url and not is_logo_image(url):
+            return url
+    return ""
+
+
+def section_photo(block_html: str | None, base: str = "", min_width: int = 400) -> str:
+    """First editorial photo inside one article section, skipping icons and badges."""
+    for tag in IMG_TAG_RE.finditer(block_html or ""):
+        raw = tag.group(0)
+        declared = IMG_WIDTH_ATTR_RE.search(raw)
+        if declared and int(declared.group(1)) < min_width:
+            continue
+        url = best_img_tag_url(raw, base)
+        if url:
             return url
     return ""
 
@@ -834,9 +869,11 @@ def parse_smartlocal_cafes(text: str, source_name: str, source_id: str, page_url
     """Parse numbered cafe headings; keep only the newest month section on the page."""
     items: list[dict[str, Any]] = []
     page_image = extract_og_image(text, page_url) or first_img_src(text, page_url)
+    headings = list(SMARTLOCAL_H3_RE.finditer(text))
     current_month: str | None = None
     newest_month: str | None = None
-    for raw in SMARTLOCAL_H3_RE.findall(text):
+    for index, heading in enumerate(headings):
+        raw = heading.group(1)
         cleaned = clean_text(raw)
         if not cleaned:
             continue
@@ -857,6 +894,12 @@ def parse_smartlocal_cafes(text: str, source_name: str, source_id: str, page_url
         if len(title) < 3 or title.lower().startswith("new cafes"):
             continue
         label = f"New opening · {newest_month}" if newest_month else "New opening · Penang"
+        # Each venue's own photo sits between its heading and the next one; the page
+        # og:image is one shared hero, so only fall back to it when a section has none.
+        section_end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
+        image = section_photo(text[heading.end() : section_end], page_url) or page_image
+        anchor = SMARTLOCAL_ANCHOR_RE.search(raw)
+        item_url = f"{page_url}#{anchor.group(1)}" if anchor and page_url else page_url
         items.append(
             {
                 "id": slug_id("food", title, None),
@@ -868,8 +911,8 @@ def parse_smartlocal_cafes(text: str, source_name: str, source_id: str, page_url
                 "endDate": None,
                 "dateLabel": label,
                 "area": "Penang",
-                "imageUrl": page_image,
-                "sourceUrl": page_url,
+                "imageUrl": image,
+                "sourceUrl": item_url,
                 "sourceName": source_name,
                 "sourceId": source_id,
                 "category": "Food",
