@@ -42,6 +42,7 @@ Restart the process after pulling CMS changes (stdlib server — no auto-reload)
 - Commit author via env only (never `git config`): `Balazs Fejes` / `fbalazs@gmail.com`.
 - If push fails (auth / approval), deploy still runs and the result page notes **`PUSH_SKIPPED`**.
 - Live URL shown as `https://penangpulse.com/guides/<slug>/` (not `*.web.app`).
+- After a Mee Myself and I publish: tick `utilities/penang-pulse/MEE-CHECKLIST.md` from the published episode (Tried / Optional revisits).
 
 ## Series workflow
 

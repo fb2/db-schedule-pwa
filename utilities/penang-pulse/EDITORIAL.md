@@ -212,6 +212,7 @@ Idempotent checklist from Mee Myself and I episodes (C-Mee-PO):
 11. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
 12. **Share previews (OG)** — Guide/series HTML gets Open Graph + Twitter Card tags from `scripts/build-penang-guides.py`. `og:image` prefers the first guide photo (absolute `https://penangpulse.com/guides/…/media/….jpg`); otherwise `https://penangpulse.com/og-default.jpg` (JPEG — WhatsApp won’t use SVG). Rebuild after photos change so crawlers see the new image URL.
 13. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, and `feed.json` (shell assets stay offline-capable). After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
+14. **Mee checklist sync** — After publishing a Mee Myself and I episode, update `utilities/penang-pulse/MEE-CHECKLIST.md` from published posts (`series: mee-myself-and-i`, not `draft:true`): tick **Tried** (and **Optional revisits** when it’s a clear style revisit). Use `seriesOrder` / tasting date as source of truth; don’t invent tries. Uncheck or remove the matching planning-list line so the checklist doesn’t claim the bowl is still open.
 
 ## Agent handoff / session practices
 
@@ -226,6 +227,7 @@ Quick pickup for a fresh agent context working Mee / Guides:
 | **Wrong draft** | Confirm `/edit?slug=…` before pasting a full episode. |
 | **Stuck Working** | Orphaned approval card after a finished subagent — Stop does not clear it. Dismiss the approval, or archive the agent / start a new chat. |
 | **C-Mee-PO** | Full voice rules above; hard rules also in `.cursor/rules/penang-pulse-mee-cmeepo.mdc`. |
+| **Mee checklist** | After a Mee publish: sync `MEE-CHECKLIST.md` from published posts (Tried + clear revisits). Part of the handoff — don’t leave the checklist stale. |
 | **Shell refresh** | Any `index.html` / `sw.js` / CSS/JS shell change → bump `CACHE_NAME` and `?v=` together. |
 
 ## Tooling pointers
@@ -239,3 +241,4 @@ Quick pickup for a fresh agent context working Mee / Guides:
 | App README | `utilities/penang-pulse/README.md` |
 | Series mark wireframes | `utilities/penang-pulse/wireframes/guides/series-mark-mee.html` |
 | C-Mee-PO agent rule | `.cursor/rules/penang-pulse-mee-cmeepo.mdc` |
+| Mee try checklist | `utilities/penang-pulse/MEE-CHECKLIST.md` (sync after each Mee publish) |

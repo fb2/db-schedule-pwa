@@ -2199,9 +2199,17 @@ def publish_page(slug: str, result: dict[str, Any]) -> bytes:
             + (f'<pre class="build">{html.escape(log)}</pre>' if log else "")
         )
     flash = str(result.get("flash") or "")
+    mee_hint = ""
+    if (result.get("series") or "") == "mee-myself-and-i":
+        mee_hint = (
+            '<p class="hint">Mee series: tick '
+            "<code>utilities/penang-pulse/MEE-CHECKLIST.md</code> "
+            "(Tried / Optional revisits) from the published episode.</p>"
+        )
     body = f"""
     <p class="lede">Publish handoff for <code>{html.escape(slug)}</code>.</p>
     <p class="hint">Build rebuilt all guides · deploy covers all of penangpulse.com</p>
+    {mee_hint}
     <p><a href="{html.escape(live)}" target="_blank" rel="noopener">{html.escape(live)}</a></p>
     {"".join(steps_html) or '<p class="muted">No steps ran.</p>'}
     <div class="row">
@@ -2242,6 +2250,7 @@ def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
     title = (fields.get("title") or slug).strip()
     series_slug = (fields.get("series") or "").strip()
     series_title = (fields.get("seriesTitle") or series_slug).strip()
+    result["series"] = series_slug
 
     # Ensure tasting/order sync before build
     apply_tasting_fields(fields)

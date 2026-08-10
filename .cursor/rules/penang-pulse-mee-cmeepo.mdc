@@ -19,6 +19,7 @@ When drafting or editing `mee-myself-and-i` Guide posts, follow the full charter
 - Photos: kebab-case filenames; seller then dish; `_caption_` after image (blank line OK). Natural aspect — no forced 3:2.
 - Front matter: `location.name` + `location.mapsUrl` for spot widget; `seriesOrder` by tasting date.
 - CMS Build ≠ live. Publish: `npx firebase-tools deploy --only hosting:penang-pulse` → verify `https://penangpulse.com` only. Prefer skip agent `git push` if approval stalls; note `PUSH_SKIPPED`. Never `git config` — author via env when committing.
+- After publishing a Mee episode: sync `utilities/penang-pulse/MEE-CHECKLIST.md` from published posts — tick **Tried** (and **Optional revisits** for style revisits); clear the matching planning-list line.
 
 ## Pattern
 

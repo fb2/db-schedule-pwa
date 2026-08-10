@@ -17,6 +17,7 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Lor Mee** — Cheah Yew Market · 30 Jul 2026
 - [x] **Mee Rebus** — 33 Best Food Hub (Tanjung Tokong) · 31 Jul 2026
 - [x] **Lemak Laksa** (Granny Q) — Sin Yong Wah Coffee Shop (Pulau Tikus) · 7 Aug 2026
+- [x] **Dry Sabah Pan Mee** (fried pork) — Sabah Pan Mee Pulau Tikus · 10 Aug 2026
 
 ## Island classics still to try
 
@@ -36,7 +37,6 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 
 (Popular in Penang, roots elsewhere — skip if already covered above.)
 
-- [ ] **Dry / chilli pan mee** — distinct from Sabah soup pan mee already tried
 - [ ] **Ban mian** — if a stall brands it separately from Sabah pan mee
 - [ ] **Mee Soto**
 - [ ] **You mee** — oil-tossed / light dry style when you spot it
@@ -67,12 +67,13 @@ Stretch goals in the Mee Suah Koh spirit.
 
 Only if the write-up earns a second episode — not required for the series count.
 
+- [x] **Sabah Pan Mee** (dry / fried pork) — after soup at same stall · 10 Aug 2026
 - [ ] **Wantan Mee** (dry / kon lo) — after Cheah Yew soup · Jul 2026
 - [ ] **Curry Mee** variants beyond White — only if clearly different from Restoran 77
 
 ## Notes
 
-- How to tick: edit this file, or ask the agent after publishing an episode.
+- After every published Mee episode: tick this file from published posts (`series: mee-myself-and-i`, not `draft:true`) — **Tried** for new bowls, **Optional revisits** when it’s a style revisit.
 - `seriesOrder` / CMS tasting date on published posts is source of truth; this list is planning only.
 - Aim ~20+ distinct bowls; doubles (same dish, new venue/style) only if the write-up earns it.
 - Don’t invent tries — unchecked until a Guide post exists.
