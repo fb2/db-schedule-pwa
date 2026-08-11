@@ -18,6 +18,7 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Mee Rebus** — 33 Best Food Hub (Tanjung Tokong) · 31 Jul 2026
 - [x] **Lemak Laksa** (Granny Q) — Sin Yong Wah Coffee Shop (Pulau Tikus) · 7 Aug 2026
 - [x] **Dry Sabah Pan Mee** (fried pork) — Sabah Pan Mee Pulau Tikus · 10 Aug 2026
+- [x] **Koay Teow Th’ng** (Ah Liang) — Pulau Tikus Hidden Food Court · 11 Aug 2026
 
 ## Island classics still to try
 
@@ -68,6 +69,7 @@ Stretch goals in the Mee Suah Koh spirit.
 Only if the write-up earns a second episode — not required for the series count.
 
 - [x] **Sabah Pan Mee** (dry / fried pork) — after soup at same stall · 10 Aug 2026
+- [x] **Koay Teow Th’ng** (Ah Liang) — after Instant Cook · 11 Aug 2026
 - [ ] **Wantan Mee** (dry / kon lo) — after Cheah Yew soup · Jul 2026
 - [ ] **Curry Mee** variants beyond White — only if clearly different from Restoran 77
 
