@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-08-10T06:15:45.432793+00:00",
+  "generatedAt": "2026-08-11T02:29:20.725155+00:00",
   "guides": [
+    {
+      "slug": "ah-liang-koay-teow-th-ng",
+      "title": "Ah Liang Koay Teow Th’ng at Pulau Tikus Hidden Food Court",
+      "dek": "Tuesday breakfast tucked behind Pulau Tikus Wet Market — clear Ah Liang koay teow th’ng, springy fish balls, and morning light in the Hidden Food Court.",
+      "type": "Mee",
+      "href": "./guides/ah-liang-koay-teow-th-ng/",
+      "updated": "2026-08-11",
+      "cover": "/guides/ah-liang-koay-teow-th-ng/media/ah-liang-koay-teow-th-ng-seller.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 11 Aug 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 15,
+      "location": {
+        "name": "Pulau Tikus Market Hidden Food Court",
+        "mapsUrl": "https://maps.app.goo.gl/w2uYupA1y53SzXof6"
+      }
+    },
     {
       "slug": "sabah-pan-mee-dry-fried-pork-version",
       "title": "Dry Sabah Pan Mee with Fried Pork in Pulau Tikus",
@@ -293,7 +312,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 14,
+      "count": 15,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
