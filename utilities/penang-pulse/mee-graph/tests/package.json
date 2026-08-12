@@ -1,0 +1,23 @@
+{
+  "name": "mee-search-tests",
+  "private": true,
+  "description": "Browser tests for the Mee-Search visualisation views",
+  "scripts": {
+    "landing": "node landing.js",
+    "render": "node check.js",
+    "mobile": "node mob.js",
+    "interact": "node interact.js",
+    "panel": "node panelgeom.js",
+    "fade": "node fadebleed2.js && node faderamp.js",
+    "frames": "node align.js",
+    "hub": "node corefit.js",
+    "rings": "node ringall.js",
+    "rail": "node rail.js",
+    "markup": "node rich.js",
+    "easing": "node ease.js",
+    "all": "for t in landing check mob interact panelgeom align corefit ringall rail fadebleed2 faderamp rich; do echo \"== $t\"; node $t.js || exit 1; done"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

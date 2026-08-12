@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thread Flow · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .flow-stage {
+        position: relative;
+      }
+      .flow-stage canvas {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .flow-stage svg {
+        position: absolute;
+        inset: 0;
+      }
+      .ribbon {
+        fill: currentColor;
+        fill-opacity: 0.16;
+        stroke: none;
+        cursor: pointer;
+        transition: fill-opacity 0.2s ease;
+      }
+      .ribbon.on {
+        fill-opacity: 0.42;
+      }
+      .ribbon.dim {
+        fill-opacity: 0.05;
+      }
+      .col-node rect {
+        cursor: pointer;
+        rx: 2.5;
+      }
+      .col-title {
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        fill: var(--muted);
+      }
+      .flow-label {
+        font-size: 10.5px;
+        font-weight: 600;
+        fill: var(--text);
+        pointer-events: none;
+      }
+      .flow-label.dim {
+        fill: var(--muted);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="../../guides/series/mee-myself-and-i/mee-search/">&larr; Mee-Search</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>Thread Flow</h1>
+      <p class="viz-dek">
+        Four columns, left to right: where people came from, who they became, what noodle they made,
+        what ended up in the bowl. The moving dots are the flow itself. Hover any band to follow one
+        thread the whole way across — and watch what happens when you follow the yellow noodle.
+      </p>
+    </header>
+
+    <div class="viz-controls">
+      <div class="view-switch" role="group" aria-label="Flow">
+        <button data-flow="origin" aria-pressed="true">Place → community → noodle → dish</button>
+        <button data-flow="component" aria-pressed="false">Community → component → dish</button>
+      </div>
+      <div class="ctl-group">
+        <span class="ctl-label">Flow</span>
+        <input type="range" id="speed" min="0" max="100" value="55" aria-label="Flow speed" />
+      </div>
+      <button class="ctl-btn" id="pause" data-on="true">Running</button>
+      <select class="viz-select" id="focus" aria-label="Follow one thread">
+        <option value="">Follow a thread…</option>
+      </select>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-stage flow-stage" id="stage">
+        <canvas id="particles"></canvas>
+        <svg id="svg"></svg>
+      </div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Band thickness is how many things travel that route. Particle colour is inherited from the
+        community the thread passes through, so a single dish can receive dots of several colours —
+        which is the entire point of the dataset.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        Making the shared infrastructure visible. Pick <strong>Yellow alkaline wheat noodle</strong>
+        from the thread selector: it fans out to Hokkien, Cantonese, Malay and Tamil-Muslim dishes
+        alike, because it was made in Chinese factories and sold to everybody. Then pick
+        <strong>Salted wheat thread</strong> and watch it stay in one corner.
+      </p>
+      <h2>Why it animates</h2>
+      <p>
+        A static Sankey reads as a supply chain. Moving particles read as migration, which is what
+        this actually is — and the speed control exists because the honest speed is “over two
+        centuries”.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const svg = d3.select("#svg");
+        const gRib = svg.append("g");
+        const gNodes = svg.append("g");
+        const gTitles = svg.append("g");
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+        const tip = MEE.tooltip();
+
+        let W = 900,
+          H = 560,
+          dpr = Math.min(2, window.devicePixelRatio || 1);
+        let cols = [],
+          ribbons = [],
+          particles = [],
+          running = true,
+          speed = 0.55,
+          focusId = "",
+          hoverKey = null,
+          hoverCultures = null; /* Set of culture ids for full-thread hover */
+
+        /* ------------------------------------------------------ flow specs ---- */
+        const FLOWS = {
+          origin: {
+            titles: ["Home region", "Community", "Noodle", "Dish in Penang"],
+            build: buildOriginFlow,
+          },
+          component: {
+            titles: ["Community", "What it contributed", "Dish", ""],
+            build: buildComponentFlow,
+          },
+        };
+        let flowKey = "origin";
+
+        /* Each flow returns { columns: [[node,…],…], links: [{a,b,value,colour,culture}] }
+           where a and b are "col:id" keys. */
+        function buildOriginFlow() {
+          const links = new Map();
+          const used = [new Set(), new Set(), new Set(), new Set()];
+          const add = (ca, a, cb, b, colour, culture) => {
+            const key = ca + ":" + a + "|" + cb + ":" + b;
+            const rec = links.get(key) || { a: ca + ":" + a, b: cb + ":" + b, value: 0, colour, culture };
+            rec.value += 1;
+            links.set(key, rec);
+            used[ca].add(a);
+            used[cb].add(b);
+          };
+
+          for (const dish of g.byType.dish) {
+            if (dish.penangStatus === "absent") continue;
+            const carriers = g.neighbours(dish.id, ["carried_by"], "out").map((r) => r.node);
+            if (!carriers.length) continue;
+            const noodles = g
+              .neighbours(dish.id, ["uses_noodle"], "out")
+              .sort((a, b) => b.edge.weight - a.edge.weight)
+              .slice(0, 1)
+              .map((r) => r.node);
+            for (const c of carriers) {
+              const colour = MEE.tone(c);
+              const homes = g.neighbours(c.id, ["home_region"], "out").slice(0, 2).map((r) => r.node);
+              for (const h of homes) add(0, h.id, 1, c.id, colour, c.id);
+              for (const n of noodles) {
+                add(1, c.id, 2, n.id, colour, c.id);
+                add(2, n.id, 3, dish.id, colour, c.id);
+              }
+            }
+          }
+          return finish(used, links, 4);
+        }
+
+        function buildComponentFlow() {
+          const links = new Map();
+          const used = [new Set(), new Set(), new Set(), new Set()];
+          const add = (ca, a, cb, b, colour, culture) => {
+            const key = ca + ":" + a + "|" + cb + ":" + b;
+            const rec = links.get(key) || { a: ca + ":" + a, b: cb + ":" + b, value: 0, colour, culture };
+            rec.value += 1;
+            links.set(key, rec);
+            used[ca].add(a);
+            used[cb].add(b);
+          };
+          for (const dish of g.byType.dish) {
+            if (dish.penangStatus === "absent" || dish.penangStatus === "cousin") continue;
+            for (const rel of g.neighbours(dish.id, ["uses_noodle", "uses_ingredient", "uses_technique"], "out")) {
+              if (rel.edge.weight < 0.5) continue;
+              for (const c of g.neighbours(rel.node.id, ["contributed_by"], "out")) {
+                if (c.edge.weight < 0.55) continue;
+                add(0, c.node.id, 1, rel.node.id, MEE.tone(c.node), c.node.id);
+                add(1, rel.node.id, 2, dish.id, MEE.tone(c.node), c.node.id);
+              }
+            }
+          }
+          return finish(used, links, 3);
+        }
+
+        function finish(used, links, nCols) {
+          const linkArr = [...links.values()];
+          const columns = [];
+          for (let c = 0; c < nCols; c++) {
+            const totals = new Map();
+            for (const l of linkArr) {
+              const [ca, ida] = l.a.split(":");
+              const [cb, idb] = l.b.split(":");
+              if (+ca === c) totals.set(ida, (totals.get(ida) || 0) + l.value);
+              if (+cb === c) totals.set(idb, (totals.get(idb) || 0) + l.value);
+            }
+            const list = [...used[c]]
+              .map((id) => ({ node: g.byId[id], key: c + ":" + id, value: totals.get(id) || 1 }))
+              .filter((x) => x.node)
+              .sort((a, b) => b.value - a.value)
+              .slice(0, c === 0 ? 14 : c === nCols - 1 ? 20 : 13);
+            columns.push(list);
+          }
+          const keep = new Set(columns.flat().map((n) => n.key));
+          return { columns, links: linkArr.filter((l) => keep.has(l.a) && keep.has(l.b)) };
+        }
+
+        /* --------------------------------------------------------- layout ---- */
+        function layout() {
+          const spec = FLOWS[flowKey];
+          const data = spec.build();
+          const nCols = data.columns.filter((c) => c.length).length;
+          const padTop = 34,
+            padBot = 30,
+            padX = 18;
+          const nodeW = 11;
+          const usableH = H - padTop - padBot;
+          const gap = nCols > 1 ? (W - padX * 2 - nodeW * nCols) / (nCols - 1) : 0;
+
+          cols = [];
+          for (let c = 0; c < nCols; c++) {
+            const list = data.columns[c];
+            const total = d3.sum(list, (d) => d.value) || 1;
+            const spacing = Math.min(9, usableH / Math.max(list.length, 1) * 0.28);
+            const avail = usableH - spacing * (list.length - 1);
+            let y = padTop;
+            const placed = list.map((d) => {
+              const h = Math.max(5, (d.value / total) * avail);
+              const rec = {
+                ...d,
+                x: padX + c * (nodeW + gap),
+                y,
+                h,
+                w: nodeW,
+                col: c,
+                inTop: y,
+                outTop: y,
+              };
+              y += h + spacing;
+              return rec;
+            });
+            cols.push(placed);
+          }
+
+          const byKey = new Map(cols.flat().map((n) => [n.key, n]));
+
+          // stack ribbon endpoints inside each node band
+          const sorted = data.links.slice().sort((a, b) => b.value - a.value);
+          ribbons = [];
+          for (const l of sorted) {
+            const s = byKey.get(l.a),
+              t = byKey.get(l.b);
+            if (!s || !t) continue;
+            const sTotalOut = d3.sum(sorted.filter((x) => x.a === l.a), (x) => x.value) || 1;
+            const tTotalIn = d3.sum(sorted.filter((x) => x.b === l.b), (x) => x.value) || 1;
+            const hs = Math.max(1.3, (l.value / sTotalOut) * s.h);
+            const ht = Math.max(1.3, (l.value / tTotalIn) * t.h);
+            const y0 = s.outTop;
+            const y1 = t.inTop;
+            s.outTop += hs;
+            t.inTop += ht;
+            ribbons.push({
+              key: l.a + "->" + l.b,
+              s,
+              t,
+              value: l.value,
+              colour: l.colour,
+              culture: l.culture,
+              x0: s.x + s.w,
+              x1: t.x,
+              y0,
+              y0b: y0 + hs,
+              y1,
+              y1b: y1 + ht,
+            });
+          }
+
+          render();
+          seedParticles();
+        }
+
+        function ribbonPath(r) {
+          const cx = (r.x0 + r.x1) / 2;
+          return (
+            "M" +
+            r.x0 +
+            "," +
+            r.y0 +
+            "C" +
+            cx +
+            "," +
+            r.y0 +
+            " " +
+            cx +
+            "," +
+            r.y1 +
+            " " +
+            r.x1 +
+            "," +
+            r.y1 +
+            "L" +
+            r.x1 +
+            "," +
+            r.y1b +
+            "C" +
+            cx +
+            "," +
+            r.y1b +
+            " " +
+            cx +
+            "," +
+            r.y0b +
+            " " +
+            r.x0 +
+            "," +
+            r.y0b +
+            "Z"
+          );
+        }
+
+        function render() {
+          const spec = FLOWS[flowKey];
+
+          const rib = gRib.selectAll("path").data(ribbons, (d) => d.key);
+          rib.exit().transition().duration(200).style("opacity", 0).remove();
+          rib
+            .enter()
+            .append("path")
+            .attr("class", "ribbon")
+            .style("opacity", 0)
+            .on("mouseenter", function (evt, d) {
+              setHoverThread(d.culture ? [d.culture] : [], d.key);
+              tip.show(
+                evt,
+                { type: "concept", label: d.s.node.label + "  →  " + d.t.node.label },
+                d.value + (d.value === 1 ? " route" : " routes")
+              );
+              paintStates();
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => {
+              clearHoverThread();
+              tip.hide();
+              paintStates();
+            })
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.t.node, g, { relatedLimit: 8 });
+            })
+            .merge(rib)
+            .attr("d", ribbonPath)
+            .style("color", (d) => d.colour)
+            .transition()
+            .duration(280)
+            .style("opacity", 1);
+
+          const flat = cols.flat();
+          const nd = gNodes.selectAll("g.col-node").data(flat, (d) => d.key);
+          nd.exit().remove();
+          const ndEnter = nd.enter().append("g").attr("class", "col-node");
+          ndEnter.append("rect");
+          ndEnter.append("text").attr("class", "flow-label");
+          const ndAll = ndEnter.merge(nd);
+
+          ndAll
+            .select("rect")
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y)
+            .attr("width", (d) => d.w)
+            .attr("height", (d) => d.h)
+            .attr("fill", (d) => MEE.tone(d.node))
+            .attr("fill-opacity", 0.92)
+            .on("mouseenter", function (evt, d) {
+              tip.show(evt, d.node, d.value + " connections here");
+              const cultures = new Set();
+              for (const r of ribbons) {
+                if (r.s.key === d.key || r.t.key === d.key) {
+                  if (r.culture) cultures.add(r.culture);
+                }
+              }
+              cultures.add(d.node.id);
+              setHoverThread([...cultures], "node:" + d.key);
+              paintStates();
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => {
+              clearHoverThread();
+              tip.hide();
+              paintStates();
+            })
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.node, g, { relatedLimit: 10 });
+            });
+
+          const lastCol = cols.length - 1;
+          ndAll
+            .select("text")
+            .attr("x", (d) => (d.col === lastCol ? d.x - 6 : d.x + d.w + 6))
+            .attr("y", (d) => d.y + d.h / 2 + 3.5)
+            .attr("text-anchor", (d) => (d.col === lastCol ? "end" : "start"))
+            .classed("dim", (d) => d.h < 11)
+            .text((d) => (d.h < 6 ? "" : MEE.short(d.node.label, d.h < 12 ? 14 : 22)));
+
+          const titles = gTitles.selectAll("text").data(spec.titles.slice(0, cols.length));
+          titles.exit().remove();
+          titles
+            .enter()
+            .append("text")
+            .attr("class", "col-title")
+            .merge(titles)
+            .attr("x", (d, i) => (cols[i] && cols[i][0] ? cols[i][0].x : 0))
+            .attr("y", 18)
+            .attr("text-anchor", (d, i) => (i === cols.length - 1 ? "end" : "start"))
+            .attr("transform", (d, i) =>
+              i === cols.length - 1 && cols[i] && cols[i][0]
+                ? "translate(" + (cols[i][0].w) + ",0)"
+                : null
+            )
+            .text((d) => d);
+
+          paintStates();
+          buildFocusOptions();
+        }
+
+        function setHoverThread(cultures, key) {
+          hoverKey = key;
+          hoverCultures = new Set(cultures.filter(Boolean));
+        }
+
+        function clearHoverThread() {
+          hoverKey = null;
+          hoverCultures = null;
+        }
+
+        function inFocus(r) {
+          if (focusId) {
+            if (r.s.node.id === focusId || r.t.node.id === focusId || r.culture === focusId) return true;
+            return false;
+          }
+          return true;
+        }
+
+        /* Full-thread highlight: same culture spine the dropdown follows, not just one segment. */
+        function isHighlighted(r) {
+          if (hoverCultures && hoverCultures.size) return hoverCultures.has(r.culture);
+          if (hoverKey) {
+            return (
+              hoverKey === r.key ||
+              hoverKey === "node:" + r.s.key ||
+              hoverKey === "node:" + r.t.key
+            );
+          }
+          if (focusId) return inFocus(r);
+          return false;
+        }
+
+        function paintStates() {
+          const hovering = !!(hoverKey || (hoverCultures && hoverCultures.size));
+          const focusing = !!focusId;
+          gRib
+            .selectAll("path")
+            .classed("on", (d) => (hovering || focusing ? isHighlighted(d) : false))
+            .classed("dim", (d) => (hovering || focusing ? !isHighlighted(d) : false));
+          gNodes
+            .selectAll("g.col-node")
+            .transition("hi")
+            .duration(200)
+            .ease(d3.easeCubicInOut)
+            .style("opacity", (d) => {
+              if (!hovering && !focusing) return 1;
+              const touch = ribbons.some(
+                (r) => isHighlighted(r) && (r.s.key === d.key || r.t.key === d.key)
+              );
+              return touch ? 1 : 0.25;
+            });
+        }
+
+        function buildFocusOptions() {
+          const sel = document.getElementById("focus");
+          const prev = sel.value;
+          const items = [];
+          for (const c of cols[flowKey === "origin" ? 1 : 0] || []) items.push(c.node);
+          for (const c of cols[flowKey === "origin" ? 2 : 1] || []) items.push(c.node);
+          sel.innerHTML =
+            '<option value="">Follow a thread…</option>' +
+            items
+              .map((n) => '<option value="' + n.id + '">' + MEE.esc(MEE.short(n.label, 30)) + "</option>")
+              .join("");
+          if (items.some((n) => n.id === prev)) sel.value = prev;
+        }
+
+        /* ------------------------------------------------------ particles ---- */
+        function seedParticles() {
+          particles = [];
+          for (const r of ribbons) {
+            const n = Math.min(9, Math.max(2, Math.round(r.value * 1.4)));
+            for (let i = 0; i < n; i++) {
+              particles.push({ r, t: Math.random(), sp: 0.0016 + Math.random() * 0.0022, off: Math.random() });
+            }
+          }
+        }
+
+        function bez(p0, p1, p2, p3, t) {
+          const mt = 1 - t;
+          return mt * mt * mt * p0 + 3 * mt * mt * t * p1 + 3 * mt * t * t * p2 + t * t * t * p3;
+        }
+
+        function frame(dt) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.save();
+          ctx.scale(dpr, dpr);
+          for (const p of particles) {
+            if (running) p.t += p.sp * speed * dt;
+            if (p.t > 1) p.t -= 1;
+            const r = p.r;
+            const dim =
+              hoverKey || focusId ? isHighlighted(r) : true;
+            const cx = (r.x0 + r.x1) / 2;
+            const yTop = bez(r.y0, r.y0, r.y1, r.y1, p.t);
+            const yBot = bez(r.y0b, r.y0b, r.y1b, r.y1b, p.t);
+            const x = bez(r.x0, cx, cx, r.x1, p.t);
+            const y = yTop + (yBot - yTop) * (0.18 + p.off * 0.64);
+            ctx.globalAlpha = dim ? 0.9 : 0.12;
+            ctx.fillStyle = r.colour;
+            ctx.beginPath();
+            ctx.arc(x, y, dim ? 1.9 : 1.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+
+        let last = performance.now();
+        if (!MEE.reducedMotion()) {
+          d3.timer(() => {
+            const now = performance.now();
+            const dt = Math.min(48, now - last);
+            last = now;
+            frame(dt);
+          });
+        }
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (!n) return;
+          panel.show(n, g, { relatedLimit: 10 });
+          const sel = document.getElementById("focus");
+          if ([...sel.options].some((o) => o.value === id)) {
+            sel.value = id;
+            focusId = id;
+            paintStates();
+          }
+        });
+        svg.on("click", () => panel.close());
+
+        MEE.legend(document.getElementById("legend"), [
+          { key: "hokkien", label: "Hokkien", colour: "#c2603a" },
+          { key: "teochew", label: "Teochew", colour: "#a8492f" },
+          { key: "malay", label: "Malay / Javanese", colour: "#6f9455" },
+          { key: "mamak", label: "Tamil Muslim", colour: "#8d6ca8" },
+          { key: "nyonya", label: "Peranakan", colour: "#b06a8a" },
+          { key: "noodle", label: "Noodle", colour: "#d4a13b" },
+          { key: "dish", label: "Dish", colour: "#b8352f" },
+          { key: "region", label: "Region", colour: "#4a6fa5" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        document.querySelectorAll("[data-flow]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-flow]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            flowKey = b.dataset.flow;
+            focusId = "";
+            clearHoverThread();
+            layout();
+          });
+        });
+        document.getElementById("speed").addEventListener("input", (e) => {
+          speed = +e.target.value / 100;
+        });
+        document.getElementById("pause").addEventListener("click", (e) => {
+          running = !running;
+          e.currentTarget.dataset.on = running ? "true" : "false";
+          e.currentTarget.textContent = running ? "Running" : "Paused";
+        });
+        document.getElementById("focus").addEventListener("change", (e) => {
+          focusId = e.target.value;
+          paintStates();
+        });
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          svg.attr("viewBox", "0 0 " + W + " " + H).attr("width", W).attr("height", H);
+          canvas.width = W * dpr;
+          canvas.height = H * dpr;
+          canvas.style.width = W + "px";
+          canvas.style.height = H + "px";
+          layout();
+        });
+      })();
+    </script>
+  </body>
+</html>

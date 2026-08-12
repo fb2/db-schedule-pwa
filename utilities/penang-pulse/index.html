@@ -38,7 +38,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=16" />
+    <link rel="stylesheet" href="./styles.css?v=18" />
     <title>Penang Pulse</title>
   </head>
   <body>
@@ -61,10 +61,21 @@
         aria-labelledby="guides-kicker"
         hidden
       >
-        <h2 class="section-kicker" id="guides-kicker">Penang Pulse Says</h2>
-        <p class="guides-dek">Things I’ve walked, eaten, or bookmarked in Penang.</p>
-        <ul class="guides-list" id="guidesList"></ul>
-        <a class="guides-more" href="./guides/series/mee-myself-and-i/">See all field notes →</a>
+        <div class="guides-band">
+          <div class="guides-band-head">
+            <h2 class="section-kicker" id="guides-kicker">Penang Pulse Says</h2>
+            <p class="guides-dek">Things I’ve walked, eaten, or bookmarked in Penang.</p>
+          </div>
+          <div class="guides-band-body">
+            <div class="guides-band-main">
+              <ul class="guides-list" id="guidesList"></ul>
+              <a class="guides-more" id="guidesMore" href="./guides/series/mee-myself-and-i/"
+                >See all field notes →</a
+              >
+            </div>
+            <aside class="series-home-card" id="seriesHomeCard" hidden></aside>
+          </div>
+        </div>
       </section>
 
       <div id="emptyState" class="empty-state" hidden>
@@ -93,6 +104,6 @@
       </article>
     </template>
 
-    <script src="./app.js?v=16"></script>
+    <script src="./app.js?v=18"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T04:44:22.616055+00:00",
+  "generatedAt": "2026-08-12T12:26:45.492861+00:00",
   "guides": [
     {
       "slug": "jones-road-famous-mee-sotong-sambal",
@@ -10,6 +10,7 @@
       "updated": "2026-08-12",
       "cover": "/guides/jones-road-famous-mee-sotong-sambal/media/jones-road-famous-mee-sotong-sambal-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 12 Aug 2026",
+      "tasted": "2026-08-12",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -29,6 +30,7 @@
       "updated": "2026-08-11",
       "cover": "/guides/ah-liang-koay-teow-th-ng/media/ah-liang-koay-teow-th-ng-seller.jpg",
       "fieldNote": "Field note · Pulau Tikus · 11 Aug 2026",
+      "tasted": "2026-08-11",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -48,6 +50,7 @@
       "updated": "2026-08-10",
       "cover": "/guides/sabah-pan-mee-dry-fried-pork-version/media/sabah-pan-mee-dry-fried-pork-version-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 10 Aug 2026",
+      "tasted": "2026-08-10",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -67,6 +70,7 @@
       "updated": "2026-08-07",
       "cover": "/guides/granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop/media/granny-q-lemak-laksa-at-sin-yong-wah-coffee-shop-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 7 Aug 2026",
+      "tasted": "2026-08-07",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -86,6 +90,7 @@
       "updated": "2026-07-31",
       "cover": "/guides/mee-rebus-at-33-best-food-hub/media/mee-rebus-at-33-best-food-hub-bowl.jpg",
       "fieldNote": "Field note · Tanjung Tokong · 31 Jul 2026",
+      "tasted": "2026-07-31",
       "neighbourhood": "Tanjung Tokong",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -105,6 +110,7 @@
       "updated": "2026-07-30",
       "cover": "/guides/lor-mee-in-cheah-yew-market/media/lor-mee-in-cheah-yew-market-wife.jpg",
       "fieldNote": "Field note · Tanjung Tokong · 30 Jul 2026",
+      "tasted": "2026-07-30",
       "neighbourhood": "Tanjung Tokong",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -124,6 +130,7 @@
       "updated": "2026-07-29",
       "cover": "/guides/instant-cook-koay-teow-at-sin-hup-aun-cafe/media/instant-cook-koay-teow-at-sin-hup-aun-cafe-seller.jpg",
       "fieldNote": "Field note · Pulau Tikus · 29 Jul 2026",
+      "tasted": "2026-07-29",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -143,6 +150,7 @@
       "updated": "2026-07-28",
       "cover": "/guides/curry-mee-in-restoran-77-food-yard/media/curry-mee-in-restoran-77-food-yard-bowl.jpg",
       "fieldNote": "Field note · Pulau Tikus · 28 Jul 2026",
+      "tasted": "2026-07-28",
       "neighbourhood": "Pulau Tikus",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -162,6 +170,7 @@
       "updated": "2026-07-27",
       "cover": "/guides/wantan-mee-in-cheah-yew-market/media/wantan-mee-in-cheah-yew-market-seller.jpg",
       "fieldNote": "Field note · Tanjung Tokong · 27 Jul 2026",
+      "tasted": "2026-07-27",
       "neighbourhood": "Tanjung Tokong",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -306,6 +315,7 @@
       "updated": "2026-07-20",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "fieldNote": "Field note · Tanjung Tokong · 20 Jul 2026",
+      "tasted": "2026-07-20",
       "neighbourhood": "Tanjung Tokong",
       "series": "mee-myself-and-i",
       "seriesTitle": "Mee Myself and I",
@@ -336,7 +346,9 @@
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "intro": "A running field diary of Penang noodles: hawkers, kopi, and the occasional mid-afternoon hunger that requires moooore. I show up, order, photograph, and write what the bowl actually did. C-Mee-PO, my AI research assistant, briefs the history so we can enjoy both the taste and the cultural context.",
-      "mark": "./guides/marks/mee-myself-and-i.svg"
+      "mark": "./guides/marks/mee-myself-and-i.svg",
+      "meeSearch": true,
+      "meeSearchHref": "./guides/series/mee-myself-and-i/mee-search/"
     }
   ]
 }

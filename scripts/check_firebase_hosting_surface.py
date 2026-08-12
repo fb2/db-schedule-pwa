@@ -85,6 +85,11 @@ REQUIRED_PATHS = {
         "utilities/penang-pulse/feed.json",
         "utilities/penang-pulse/guides/index.json",
         "utilities/penang-pulse/guides/article.css",
+        "utilities/penang-pulse/guides/series/mee-myself-and-i/index.html",
+        "utilities/penang-pulse/guides/series/mee-myself-and-i/mee-search/index.html",
+        "utilities/penang-pulse/mee-graph/viz/04-bowl-orbit.html",
+        "utilities/penang-pulse/mee-graph/viz/d3.v7.min.js",
+        "utilities/penang-pulse/mee-graph/viz/mee-search-thumbs.js",
     ],
 }
 

@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Timeline Waves · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .lane rect {
+        cursor: pointer;
+        rx: 4;
+      }
+      .lane-label {
+        font-size: 10.5px;
+        font-weight: 600;
+        fill: var(--text);
+        pointer-events: none;
+      }
+      .lane-sub {
+        font-size: 9px;
+        font-weight: 500;
+        fill: var(--muted);
+        pointer-events: none;
+      }
+      .playhead line {
+        stroke: var(--hi);
+        stroke-width: 1.6;
+      }
+      .playhead text {
+        font-family: Fraunces, Georgia, serif;
+        font-size: 13px;
+        font-weight: 650;
+        fill: var(--hi);
+      }
+      .dish-dot {
+        cursor: pointer;
+      }
+      .dish-dot text {
+        font-size: 9.5px;
+        font-weight: 600;
+        fill: var(--text);
+        pointer-events: none;
+        paint-order: stroke;
+        stroke: var(--stage-bg);
+        stroke-width: 3px;
+      }
+      .era-tick line {
+        stroke: var(--line);
+      }
+      .era-tick text {
+        font-size: 9.5px;
+        fill: var(--muted);
+      }
+      .scrub {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 10px 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .scrub input[type="range"] {
+        flex: 1;
+        width: auto;
+      }
+      .scrub .year {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.1rem;
+        min-width: 3.6em;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="../../guides/series/mee-myself-and-i/mee-search/">&larr; Mee-Search</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>Timeline Waves</h1>
+      <p class="viz-dek">
+        Two hundred and forty years of arrivals, ordinances and ruptures, with dishes dropping in as
+        the playhead reaches whatever made them possible.
+      </p>
+    </header>
+
+    <div class="viz-controls">
+      <button class="ctl-btn" id="play" data-on="true">Pause</button>
+      <button class="ctl-btn" id="restart">Replay from 1786</button>
+      <div class="ctl-group">
+        <span class="ctl-label">Speed</span>
+        <input type="range" id="speed" min="10" max="100" value="42" aria-label="Playback speed" />
+      </div>
+      <div class="view-switch" role="group" aria-label="Show">
+        <button data-layer="all" aria-pressed="true">Waves &amp; commodities</button>
+        <button data-layer="waves" aria-pressed="false">Waves only</button>
+        <button data-layer="commodity" aria-pressed="false">Commodities only</button>
+      </div>
+    </div>
+
+    <div class="scrub">
+      <span class="year" id="year">1786</span>
+      <input type="range" id="scrub" min="1786" max="2026" value="1786" aria-label="Year" />
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-stage" id="stage" style="height: min(76vh, 720px)"></div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Lane length is the period a source actually supports. Drag the scrubber to stop anywhere;
+        click a lane or a dish for the note.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const svg = d3.select(stage).append("svg");
+        const gEra = svg.append("g");
+        const gLanes = svg.append("g");
+        const gBand = svg.append("g");
+        const gDots = svg.append("g");
+        const gHead = svg.append("g").attr("class", "playhead");
+        const tip = MEE.tooltip();
+
+        /* ---- period parsing: the dataset stores prose, so read it loosely ---- */
+        function yearsOf(node) {
+          const p = String(node.period || node.date || "");
+          const nums = (p.match(/1[6-9]\d\d|20[0-2]\d/g) || []).map(Number);
+          if (!nums.length) {
+            // decades like "1840s-1930s" are caught above; nothing else is datable
+            return null;
+          }
+          const a = Math.min(...nums);
+          const b = Math.max(...nums);
+          return { from: a, to: b === a ? Math.min(2026, a + 6) : b, exact: nums.length === 1 };
+        }
+
+        /* dish → the earliest hard date we can defend, via enabled_by / standardised_by */
+        function dishAnchor(dish) {
+          let best = null;
+          for (const rel of g.neighbours(dish.id, ["enabled_by", "standardised_by", "popularised_by"], "out")) {
+            const n = rel.node;
+            if (!["commodity", "media"].includes(n.type)) continue;
+            const y = yearsOf(n);
+            if (!y) continue;
+            const yr = n.type === "media" ? y.to : y.to;
+            if (!best || yr < best.year) best = { year: yr, via: n, edge: rel.edge };
+          }
+          return best;
+        }
+
+        const lanes = [];
+        for (const n of g.byType.wave) {
+          const y = yearsOf(n);
+          if (y) lanes.push({ node: n, kind: "wave", ...y });
+        }
+        for (const n of g.byType.commodity.concat(g.byType.media)) {
+          const y = yearsOf(n);
+          if (y) lanes.push({ node: n, kind: n.type === "media" ? "media" : "commodity", ...y });
+        }
+        lanes.sort((a, b) => a.from - b.from || a.to - b.to);
+
+        const anchored = [];
+        for (const d of g.byType.dish) {
+          if (!["core", "present", "rare"].includes(d.penangStatus)) continue;
+          const a = dishAnchor(d);
+          if (a) anchored.push({ dish: d, ...a });
+        }
+        anchored.sort((a, b) => a.year - b.year);
+
+        let W = 900,
+          H = 700,
+          x,
+          playing = true,
+          year = 1786,
+          speed = 0.42,
+          layer = "all";
+        const YEAR0 = 1786,
+          YEAR1 = 2026;
+        /* Bottom margin is for playhead year label only — undated dish band removed. */
+        const M = { top: 26, right: 18, bottom: 48, left: 172 };
+
+        function visibleLanes() {
+          return lanes.filter((l) => (layer === "all" ? true : layer === "waves" ? l.kind === "wave" : l.kind !== "wave"));
+        }
+
+        function layout() {
+          const L = visibleLanes();
+          x = d3.scaleLinear().domain([YEAR0, YEAR1]).range([M.left, W - M.right]);
+          const laneH = Math.max(11, Math.min(20, (H - M.top - M.bottom) / Math.max(L.length, 1) - 3));
+          const step = laneH + 3;
+
+          // era ticks
+          const ticks = [1786, 1830, 1870, 1900, 1930, 1949, 1970, 2000, 2026];
+          const et = gEra.selectAll("g").data(ticks);
+          const etE = et.enter().append("g").attr("class", "era-tick");
+          etE.append("line");
+          etE.append("text");
+          const etA = etE.merge(et);
+          etA.attr("transform", (d) => "translate(" + x(d) + ",0)");
+          etA
+            .select("line")
+            .attr("y1", M.top - 8)
+            .attr("y2", H - M.bottom + 6);
+          etA
+            .select("text")
+            .attr("y", M.top - 12)
+            .attr("text-anchor", "middle")
+            .text((d) => d);
+
+          // lanes
+          const ln = gLanes.selectAll("g.lane").data(L, (d) => d.node.id);
+          ln.exit().transition().duration(220).style("opacity", 0).remove();
+          const lnE = ln.enter().append("g").attr("class", "lane").style("opacity", 0);
+          lnE.append("rect");
+          lnE.append("text").attr("class", "lane-label");
+          lnE.append("text").attr("class", "lane-sub");
+          const lnA = lnE.merge(ln);
+
+          lnA
+            .transition()
+            .duration(400)
+            .style("opacity", 1)
+            .attr("transform", (d, i) => "translate(0," + (M.top + i * step) + ")");
+
+          lnA
+            .select("rect")
+            .attr("height", laneH)
+            .attr("y", 0)
+            .attr("fill", (d) => MEE.colour(d.node))
+            .attr("fill-opacity", 0.2)
+            .attr("stroke", (d) => MEE.colour(d.node))
+            .attr("stroke-opacity", 0.45)
+            .on("mouseenter", (evt, d) =>
+              tip.show(evt, d.node, d.node.period || d.node.date || "")
+            )
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.node, g, { relatedLimit: 8 });
+            })
+            .transition()
+            .duration(400)
+            .attr("x", (d) => x(d.from))
+            .attr("width", (d) => Math.max(3, x(d.to) - x(d.from)));
+
+          lnA
+            .select("text.lane-label")
+            .attr("x", M.left - 10)
+            .attr("y", laneH / 2 + 3.5)
+            .attr("text-anchor", "end")
+            .text((d) => MEE.short(d.node.label, 30));
+
+          lnA
+            .select("text.lane-sub")
+            .attr("y", laneH / 2 + 3.5)
+            .attr("x", (d) => (x(d.to) > W - 150 ? x(d.from) - 6 : x(d.to) + 6))
+            .attr("text-anchor", (d) => (x(d.to) > W - 150 ? "end" : "start"))
+            .text((d) => (d.kind === "wave" ? "" : d.node.period || d.node.date || ""));
+
+          // Undated dish band removed — parking that story until ~20 dishes pin cleanly.
+          gBand.selectAll("*").remove();
+
+          // Anchored dishes: stacked below the lanes at their year
+          const laneBottom = Math.min(M.top + L.length * step + 16, H - M.bottom - 8);
+          const byYear = d3.group(anchored, (d) => d.year);
+          anchored.forEach((a) => {
+            const peers = byYear.get(a.year);
+            a.i = peers.indexOf(a);
+            a.tx = x(a.year);
+            a.ty = laneBottom + a.i * 17;
+          });
+
+          const dd = gDots.selectAll("g.dish-dot").data(anchored, (d) => d.dish.id);
+          dd.exit().remove();
+          const ddE = dd.enter().append("g").attr("class", "dish-dot").style("opacity", 0);
+          ddE.append("line").attr("stroke", "#b8352f").attr("stroke-opacity", 0.3);
+          ddE.append("circle").attr("r", 5).attr("fill", "#b8352f");
+          ddE.append("text").attr("x", 9).attr("dy", 3.5);
+          const ddA = ddE.merge(dd);
+          ddA
+            .attr("transform", (d) => "translate(" + d.tx + "," + d.ty + ")")
+            .select("line")
+            .attr("y1", (d) => -(d.ty - M.top - 6))
+            .attr("y2", 0);
+          ddA
+            .select("text")
+            .attr("x", (d) => (d.tx > W - 190 ? -9 : 9))
+            .attr("text-anchor", (d) => (d.tx > W - 190 ? "end" : "start"))
+            .text((d) => MEE.short(d.dish.label, 24) + " · " + d.year);
+          ddA
+            .select("circle")
+            .on("mouseenter", (evt, d) => tip.show(evt, d.dish, "possible from " + d.year + " — via " + d.via.label))
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.dish, g, { relatedLimit: 8 });
+            });
+
+          paint();
+        }
+
+        function paint() {
+          document.getElementById("year").textContent = Math.round(year);
+          document.getElementById("scrub").value = Math.round(year);
+
+          gHead.selectAll("*").remove();
+          const px = x(year);
+          gHead.append("line").attr("x1", px).attr("x2", px).attr("y1", M.top - 16).attr("y2", H - M.bottom + 10);
+          gHead
+            .append("text")
+            .attr("x", px)
+            .attr("y", H - M.bottom + 24)
+            .attr("text-anchor", px > W - 90 ? "end" : "middle")
+            .text(Math.round(year));
+
+          gLanes
+            .selectAll("g.lane")
+            .select("rect")
+            .attr("fill-opacity", (d) => (year >= d.from ? 0.32 : 0.08))
+            .attr("stroke-opacity", (d) => (year >= d.from ? 0.7 : 0.2));
+
+          gLanes
+            .selectAll("g.lane")
+            .select("text.lane-label")
+            .attr("fill", (d) => (year >= d.from ? "var(--text)" : "var(--muted)"))
+            .attr("fill-opacity", (d) => (year >= d.from ? 1 : 0.5));
+
+          gDots
+            .selectAll("g.dish-dot")
+            .transition()
+            .duration(240)
+            .style("opacity", (d) => (year >= d.year ? 1 : 0));
+        }
+
+        /* ------------------------------------------------------------ clock ---- */
+        let last = performance.now();
+        d3.timer(() => {
+          const now = performance.now();
+          const dt = Math.min(60, now - last);
+          last = now;
+          if (playing && !MEE.reducedMotion()) {
+            year += dt * 0.001 * (6 + speed * 46);
+            if (year > YEAR1) {
+              // hold at the end for a beat, then loop: an idle timeline reads as broken
+              year = YEAR0;
+            }
+            paint();
+          }
+        });
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (n) panel.show(n, g, { relatedLimit: 8 });
+        });
+        svg.on("click", () => panel.close());
+
+        MEE.legend(document.getElementById("legend"), [
+          { key: "wave", label: "Migration wave / ordinance", colour: "#8a6d3b" },
+          { key: "commodity", label: "Industrial commodity", colour: "#8d6ca8" },
+          { key: "media", label: "Media event", colour: "#b06a8a" },
+          { key: "dish", label: "Dish, once possible", colour: "#b8352f" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        const playBtn = document.getElementById("play");
+        playBtn.addEventListener("click", () => {
+          if (year >= YEAR1) year = YEAR0;
+          playing = !playing;
+          playBtn.dataset.on = playing ? "true" : "false";
+          playBtn.textContent = playing ? "Pause" : "Play";
+        });
+        document.getElementById("restart").addEventListener("click", () => {
+          year = YEAR0;
+          playing = true;
+          playBtn.dataset.on = "true";
+          playBtn.textContent = "Pause";
+          paint();
+        });
+        document.getElementById("speed").addEventListener("input", (e) => {
+          speed = +e.target.value / 100;
+        });
+        document.getElementById("scrub").addEventListener("input", (e) => {
+          year = +e.target.value;
+          playing = false;
+          playBtn.dataset.on = "false";
+          playBtn.textContent = "Play";
+          paint();
+        });
+        document.querySelectorAll("[data-layer]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-layer]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            layer = b.dataset.layer;
+            layout();
+          });
+        });
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          M.left = W < 640 ? 118 : 172;
+          svg.attr("viewBox", "0 0 " + W + " " + H);
+          layout();
+        });
+      })();
+    </script>
+  </body>
+</html>

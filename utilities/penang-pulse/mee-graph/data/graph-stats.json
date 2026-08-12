@@ -1,0 +1,316 @@
+{
+  "built": "2026-08-12",
+  "nodes": 360,
+  "edges": 1017,
+  "sources": 137,
+  "nodesByType": {
+    "commodity": 6,
+    "concept": 15,
+    "culture": 26,
+    "dish": 75,
+    "episode": 44,
+    "ingredient": 45,
+    "media": 5,
+    "name": 8,
+    "noodle": 19,
+    "region": 62,
+    "technique": 18,
+    "venue": 20,
+    "wave": 17
+  },
+  "edgesByType": {
+    "attributed_to": 13,
+    "carried_by": 83,
+    "co_sold_with": 11,
+    "confused_with": 9,
+    "contributed_by": 89,
+    "derived_from": 34,
+    "enabled_by": 22,
+    "false_cognate_of": 3,
+    "halal_variant_of": 5,
+    "home_region": 45,
+    "illustrates": 49,
+    "influenced_by": 11,
+    "migrated_via": 36,
+    "occupied_niche": 8,
+    "of_dish": 45,
+    "originates_in": 86,
+    "popularised_by": 8,
+    "reference_stall_for": 13,
+    "revisit_of": 4,
+    "ritual_role": 5,
+    "settled_in": 46,
+    "shares_architecture": 6,
+    "shares_name_with": 23,
+    "sibling_of": 24,
+    "standardised_by": 2,
+    "tasted_at": 17,
+    "unevidenced_link": 4,
+    "uses_ingredient": 151,
+    "uses_noodle": 99,
+    "uses_technique": 66
+  },
+  "edgesByConfidence": {
+    "disputed": 12,
+    "high": 702,
+    "low": 37,
+    "medium": 266
+  },
+  "sourcesByTier": {
+    "commercial": 9,
+    "community": 22,
+    "encyclopedic": 37,
+    "journalism": 12,
+    "media": 9,
+    "reference": 19,
+    "scholarly": 11,
+    "specialist": 18
+  },
+  "topHubs": [
+    {
+      "id": "c-hokkien",
+      "label": "Hokkien (Hoklo) 福建",
+      "degree": 57
+    },
+    {
+      "id": "c-teochew",
+      "label": "Teochew 潮州",
+      "degree": 39
+    },
+    {
+      "id": "c-cantonese",
+      "label": "Cantonese 廣府",
+      "degree": 34
+    },
+    {
+      "id": "d-curry-mee-penang",
+      "label": "Penang Curry Mee",
+      "degree": 32
+    },
+    {
+      "id": "c-hakka",
+      "label": "Hakka 客家",
+      "degree": 31
+    },
+    {
+      "id": "r-george-town",
+      "label": "George Town, Penang",
+      "degree": 28
+    },
+    {
+      "id": "n-yellow-alkaline",
+      "label": "Yellow alkaline wheat noodle",
+      "degree": 28
+    },
+    {
+      "id": "n-bee-hoon",
+      "label": "Rice vermicelli",
+      "degree": 27
+    },
+    {
+      "id": "d-asam-laksa",
+      "label": "Penang Asam Laksa",
+      "degree": 27
+    },
+    {
+      "id": "d-mee-goreng-mamak",
+      "label": "Mee Goreng Mamak",
+      "degree": 27
+    },
+    {
+      "id": "d-mee-rebus",
+      "label": "Mee Rebus",
+      "degree": 26
+    },
+    {
+      "id": "d-char-kway-teow",
+      "label": "Char Kway Teow",
+      "degree": 25
+    },
+    {
+      "id": "d-hokkien-mee-penang",
+      "label": "Penang Hokkien Mee (Hae Mee / Prawn Mee)",
+      "degree": 24
+    },
+    {
+      "id": "c-malay-kedah",
+      "label": "Kedah Malay",
+      "degree": 23
+    },
+    {
+      "id": "d-lor-mee-penang",
+      "label": "Penang Lor Mee",
+      "degree": 22
+    }
+  ],
+  "flaggedNodes": [
+    {
+      "id": "c-teochew",
+      "label": "Teochew 潮州",
+      "flags": [
+        "hawking-dominance-unverified"
+      ]
+    },
+    {
+      "id": "w-tin-boom",
+      "label": "Tin, Larut and the secret societies",
+      "flags": [
+        "dialect-to-society-mapping-unsafe"
+      ]
+    },
+    {
+      "id": "w-hajj-port",
+      "label": "Penang as a hajj pilgrim port",
+      "flags": [
+        "interpretation"
+      ]
+    },
+    {
+      "id": "w-1932-aliens",
+      "label": "The Aliens Ordinance",
+      "flags": [
+        "interpretation"
+      ]
+    },
+    {
+      "id": "n-lo-shi-fun",
+      "label": "Rat-tail noodle",
+      "flags": [
+        "not-a-laksa-etymology"
+      ]
+    },
+    {
+      "id": "i-ikan-kembung",
+      "label": "Indian mackerel (ikan kembung)",
+      "flags": [
+        "kedah-eel-claim-disputed"
+      ]
+    },
+    {
+      "id": "i-five-spice",
+      "label": "Five-spice",
+      "flags": [
+        "not-arab-derived"
+      ]
+    },
+    {
+      "id": "i-nut-thickeners",
+      "label": "Nut and seed thickeners: almond, cashew, poppy seed",
+      "flags": [
+        "single-source"
+      ]
+    },
+    {
+      "id": "i-evaporated-milk",
+      "label": "Evaporated milk",
+      "flags": [
+        "hainanese-claim-unsourced"
+      ]
+    },
+    {
+      "id": "i-thai-blood",
+      "label": "Fresh pig's or cow's blood",
+      "flags": [
+        "concealment-story-unevidenced"
+      ]
+    },
+    {
+      "id": "cm-noodle-factory",
+      "label": "Chinese noodle factories",
+      "flags": [
+        "interpretation"
+      ]
+    },
+    {
+      "id": "d-char-kway-teow",
+      "label": "Char Kway Teow",
+      "flags": [
+        "fishermen-origin-unevidenced"
+      ]
+    },
+    {
+      "id": "d-asam-laksa",
+      "label": "Penang Asam Laksa",
+      "flags": [
+        "penang-first-framing-is-probable-prominence-bias"
+      ]
+    },
+    {
+      "id": "d-white-curry-mee",
+      "label": "Penang White Curry Mee",
+      "flags": [
+        "post-2012-reification"
+      ]
+    },
+    {
+      "id": "d-beef-noodles-my",
+      "label": "Malaysian Beef Noodles",
+      "flags": [
+        "hainan-import-claim-unevidenced"
+      ]
+    },
+    {
+      "id": "d-ipoh-hor-fun",
+      "label": "Ipoh Hor Fun / Kai Si Hor Fun",
+      "flags": [
+        "limestone-water-claim-unevidenced"
+      ]
+    },
+    {
+      "id": "d-thai-boat-noodles",
+      "label": "Thai Boat Noodles",
+      "flags": [
+        "medieval-ayutthaya-claim-likely-false"
+      ]
+    },
+    {
+      "id": "d-chilli-pan-mee",
+      "label": "Chilli Pan Mee",
+      "flags": [
+        "not-traditional-hakka"
+      ]
+    },
+    {
+      "id": "d-mee-udang",
+      "label": "Mee Udang",
+      "flags": [
+        "documentation-gap"
+      ]
+    },
+    {
+      "id": "d-mohinga",
+      "label": "Mohinga (Myanmar)",
+      "flags": [
+        "speculative-do-not-assert"
+      ]
+    }
+  ],
+  "unevidencedLinks": [
+    {
+      "source": "d-hokkien-mee-penang",
+      "target": "d-zhangzhou-lor-mian",
+      "note": "Wikipedia asserts that ALL Hokkien mee variants descend from lor mee, without citation, and it conflates two different Fujianese traditions - a starchy braise and a prawn broth. This graph declines to draw the descent edge."
+    },
+    {
+      "source": "d-mohinga",
+      "target": "d-asam-laksa",
+      "note": "Explicitly recorded as a NON-link. The resemblance is real and the Burmese community in Penang is real, but no source establishes transmission. Do not assert it."
+    },
+    {
+      "source": "d-yi-mein",
+      "target": "d-maggi-goreng",
+      "note": "Yi mein is routinely called 'the ancestor of instant noodles'. The fry-dry-rehydrate technique parallel is real; the line of descent to Ando Momofuku's 1958 product is not demonstrated. Kept as a technique link, refused as an ancestry link."
+    },
+    {
+      "source": "d-lam-mee",
+      "target": "d-singapore-lor-mee",
+      "note": "The 'lam mee is loh mee re-pronounced in Cantonese' story. Rejected on four grounds - see the name node."
+    }
+  ],
+  "disputedEdges": 12,
+  "unusedSources": [],
+  "checklist": {
+    "tried": 16,
+    "planned": 28
+  }
+}

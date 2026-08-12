@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Series Path · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .trail {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .trail-glow {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 7;
+        stroke-opacity: 0.1;
+        stroke-linecap: round;
+      }
+      .ep circle {
+        cursor: pointer;
+      }
+      .ep text {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text);
+        pointer-events: none;
+        paint-order: stroke;
+        stroke: var(--stage-bg);
+        stroke-width: 3px;
+        stroke-linejoin: round;
+      }
+      .todo circle {
+        cursor: pointer;
+      }
+      .todo text {
+        font-size: 9.5px;
+        font-weight: 500;
+        fill: var(--muted);
+        pointer-events: none;
+        paint-order: stroke;
+        stroke: var(--stage-bg);
+        stroke-width: 3px;
+      }
+      .zone-label {
+        font-family: Fraunces, Georgia, serif;
+        font-size: 12px;
+        font-weight: 560;
+        fill: var(--muted);
+        fill-opacity: 0.85;
+      }
+      .zone-ring {
+        fill: none;
+        stroke: var(--line);
+        stroke-dasharray: 3 6;
+      }
+      .runner {
+        fill: var(--accent);
+      }
+      .progress {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 12px 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .pbar {
+        flex: 1 1 220px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--line);
+        overflow: hidden;
+        min-width: 160px;
+      }
+      .pbar span {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+        border-radius: 999px;
+        transition: width 0.5s ease;
+      }
+      .pcount {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.05rem;
+      }
+      .pcount em {
+        font-style: normal;
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 0.85rem;
+        font-family: "Source Sans 3", sans-serif;
+      }
+      .ep-caption {
+        position: absolute;
+        left: 14px;
+        bottom: 12px;
+        max-width: 60%;
+        font-size: 0.86rem;
+        color: var(--muted);
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .ep-caption b {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        color: var(--text);
+        font-size: 1rem;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="./index.html">&larr; All views</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>The Series Path</h1>
+      <p class="viz-dek">
+        Every bowl so far, in the order it was eaten, drawn as a route across the cultural map
+        rather than a list. Faded dots are what is still on the checklist. Where the trail keeps returning
+        is where the eating has been concentrated — and the empty quarters are the argument for the
+        next few episodes.
+      </p>
+    </header>
+
+    <div class="progress">
+      <span class="pcount" id="pcount"></span>
+      <div class="pbar"><span id="pfill" style="width: 0%"></span></div>
+      <div class="view-switch" role="group" aria-label="Arrange by">
+        <button data-arrange="culture" aria-pressed="true">By community</button>
+        <button data-arrange="noodle" aria-pressed="false">By noodle</button>
+        <button data-arrange="venue" aria-pressed="false">By venue</button>
+      </div>
+    </div>
+
+    <div class="viz-controls">
+      <button class="ctl-btn" id="replay">Replay the run</button>
+      <button class="ctl-btn" id="showtodo" data-on="true">Showing to-try</button>
+      <div class="ctl-group">
+        <span class="ctl-label">Episode</span>
+        <input type="range" id="scrub" min="1" max="1" value="1" aria-label="Episode" />
+      </div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-stage" id="stage">
+        <div class="ep-caption" id="caption"></div>
+      </div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Dots sit near whichever community, noodle or venue they belong to, so the same set of
+        episodes rearranges completely when you change the grouping. Click any dot for the episode.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        Turning a checklist into a map of coverage. Grouped by community it is immediately obvious
+        that the run so far is Hokkien-heavy with a strong Teochew second — which is roughly what the
+        island's demography predicts. Episode 16, the Jones Road mee sotong, finally opened the
+        Indian-Muslim thread; the thin spots now are Cantonese (one bowl), the Malay and Javanese
+        side, and the Siamese substrate.
+      </p>
+      <h2>Editorially useful</h2>
+      <p>
+        Switch to <strong>By venue</strong> and the clustering at Restoran 77, 33 Best Food Hub and
+        Hock Beng 88 is a fair reminder that a series can accidentally become a review of three food
+        courts.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const svg = d3.select(stage).append("svg");
+        const gZones = svg.append("g");
+        const gTrail = svg.append("g");
+        const gTodo = svg.append("g");
+        const gEps = svg.append("g");
+        const gRunner = svg.append("g");
+        const tip = MEE.tooltip();
+        const caption = document.getElementById("caption");
+
+        const tried = g.byType.episode
+          .filter((e) => e.status === "tried")
+          .sort((a, b) => (a.seriesOrder || 0) - (b.seriesOrder || 0));
+        const planned = g.byType.episode.filter((e) => e.status === "planned");
+
+        // the scrubber range comes from the data — it used to be hardcoded, so a new
+        // episode was unreachable and silently missing from the path
+        const scrubEl = document.getElementById("scrub");
+        scrubEl.max = tried.length;
+        scrubEl.value = tried.length;
+
+        let W = 800,
+          H = 560,
+          arrange = "culture",
+          showTodo = true,
+          upto = tried.length,
+          zones = [],
+          pts = [],
+          todos = [];
+
+        /* ------------------------------------------------------ grouping ---- */
+        function anchorOf(ep) {
+          const dish = g.byId[ep.dish];
+          if (!dish) return null;
+          if (arrange === "venue") {
+            return ep.venue ? g.byId[ep.venue] : null;
+          }
+          if (arrange === "noodle") {
+            const n = g.neighbours(dish.id, ["uses_noodle"], "out").sort((a, b) => b.edge.weight - a.edge.weight)[0];
+            return n ? n.node : null;
+          }
+          const c = g
+            .neighbours(dish.id, ["carried_by"], "out")
+            .sort((a, b) => b.edge.weight - a.edge.weight)[0];
+          return c ? c.node : null;
+        }
+
+        function layout() {
+          // which anchors do we need
+          const need = new Map();
+          const collect = (ep) => {
+            const a = anchorOf(ep);
+            if (!a) return null;
+            if (!need.has(a.id)) need.set(a.id, { node: a, n: 0 });
+            need.get(a.id).n++;
+            return a.id;
+          };
+          for (const e of tried) collect(e);
+          if (showTodo) for (const e of planned) collect(e);
+
+          const list = [...need.values()].sort((a, b) => b.n - a.n);
+          const R = Math.min(W, H) / 2 - 74;
+          zones = list.map((z, i) => {
+            const ang = (i / list.length) * Math.PI * 2 - Math.PI / 2;
+            return {
+              ...z,
+              x: W / 2 + Math.cos(ang) * R * 0.68,
+              y: H / 2 + Math.sin(ang) * R * 0.68,
+              ang,
+            };
+          });
+          const zoneById = new Map(zones.map((z) => [z.node.id, z]));
+
+          function place(items, spread) {
+            const perZone = new Map();
+            return items.map((ep) => {
+              const a = anchorOf(ep);
+              const z = a ? zoneById.get(a.id) : null;
+              const k = a ? a.id : "_";
+              const i = perZone.get(k) || 0;
+              perZone.set(k, i + 1);
+              const t = i * 2.399963; // golden angle scatter
+              const rad = spread * Math.sqrt(i + 0.55);
+              return {
+                ep,
+                dish: g.byId[ep.dish],
+                zone: z,
+                x: (z ? z.x : W / 2) + Math.cos(t) * rad,
+                y: (z ? z.y : H / 2) + Math.sin(t) * rad,
+              };
+            });
+          }
+
+          pts = place(tried, 15);
+          todos = showTodo ? place(planned, 17) : [];
+
+          drawZones();
+          drawTodo();
+          drawTrail();
+        }
+
+        function drawZones() {
+          const z = gZones.selectAll("g").data(zones, (d) => d.node.id);
+          z.exit().transition().duration(240).style("opacity", 0).remove();
+          const zE = z.enter().append("g").style("opacity", 0);
+          zE.append("circle").attr("class", "zone-ring");
+          zE.append("text").attr("class", "zone-label");
+          const zA = zE.merge(z);
+          zA.transition().duration(480).style("opacity", 1);
+          zA.select("circle")
+            .attr("stroke", (d) => (d.node.type === "culture" ? MEE.tone(d.node) : "var(--line)"))
+            .attr("stroke-opacity", (d) => (d.node.type === "culture" ? 0.45 : 1))
+            .transition()
+            .duration(480)
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y)
+            .attr("r", (d) => 26 + Math.sqrt(d.n) * 12);
+          zA.select("text")
+            .attr("text-anchor", "middle")
+            .transition()
+            .duration(480)
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y - (26 + Math.sqrt(d.n) * 12) - 7)
+            .text((d) => MEE.short(d.node.label, 22));
+        }
+
+        function drawTodo() {
+          const t = gTodo.selectAll("g.todo").data(todos, (d) => d.ep.id);
+          t.exit().transition().duration(220).style("opacity", 0).remove();
+          const tE = t.enter().append("g").attr("class", "todo").style("opacity", 0);
+          tE.append("circle")
+            .attr("r", 5)
+            .attr("fill", "none")
+            .attr("stroke", "#b8352f")
+            .attr("stroke-opacity", 0.5)
+            .attr("stroke-dasharray", "2 2");
+          tE.append("text").attr("dy", -9).attr("text-anchor", "middle");
+          const tA = tE.merge(t);
+          tA.select("circle")
+            .on("mouseenter", (evt, d) => tip.show(evt, d.dish, "still to try" + (d.ep.mainland ? " · mainland" : "")))
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.ep, g, { relatedLimit: 6 });
+            });
+          tA.select("text").text((d) => MEE.short(d.ep.label, 18));
+          tA.transition()
+            .duration(420)
+            .style("opacity", 0.75)
+            .attr("transform", (d) => "translate(" + d.x + "," + d.y + ")");
+        }
+
+        const lineGen = d3
+          .line()
+          .x((d) => d.x)
+          .y((d) => d.y)
+          .curve(d3.curveCatmullRom.alpha(0.6));
+
+        function drawTrail() {
+          const shown = pts.slice(0, upto);
+
+          const glow = gTrail.selectAll("path.trail-glow").data([shown]);
+          glow.enter().append("path").attr("class", "trail-glow").merge(glow).attr("d", lineGen);
+
+          const path = gTrail.selectAll("path.trail").data([shown]);
+          const pAll = path.enter().append("path").attr("class", "trail").merge(path);
+          pAll.attr("d", lineGen);
+
+          const ep = gEps.selectAll("g.ep").data(shown, (d) => d.ep.id);
+          ep.exit().transition().duration(220).style("opacity", 0).remove();
+          const eE = ep.enter().append("g").attr("class", "ep").style("opacity", 0);
+          eE.append("circle").attr("r", 0).attr("fill", "var(--accent)").attr("stroke", "#fff").attr("stroke-width", 1.5);
+          eE.append("text").attr("dy", -11).attr("text-anchor", "middle");
+          const eA = eE.merge(ep);
+
+          eA.select("circle")
+            .on("mouseenter", (evt, d) =>
+              tip.show(evt, d.dish, "#" + d.ep.seriesOrder + " · " + (d.ep.date || ""))
+            )
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.show(d.ep, g, { relatedLimit: 8 });
+              setCaption(d);
+            })
+            .transition()
+            .duration(360)
+            .ease(d3.easeBackOut)
+            .attr("r", 6.5);
+
+          eA.select("text").text((d) => d.ep.seriesOrder + " · " + MEE.short(d.dish.label, 18));
+          eA.transition()
+            .duration(380)
+            .style("opacity", 1)
+            .attr("transform", (d) => "translate(" + d.x + "," + d.y + ")");
+
+          document.getElementById("pcount").innerHTML =
+            upto + " <em>of " + tried.length + " tasted · " + planned.length + " open</em>";
+          document.getElementById("pfill").style.width =
+            (upto / (tried.length + planned.length)) * 100 + "%";
+          document.getElementById("scrub").value = upto;
+
+          if (shown.length) setCaption(shown[shown.length - 1]);
+        }
+
+        function setCaption(d) {
+          const venue = d.ep.venue ? g.byId[d.ep.venue] : null;
+          caption.innerHTML =
+            "<b>" +
+            MEE.esc(d.dish.label) +
+            "</b>" +
+            MEE.esc(
+              "#" +
+                d.ep.seriesOrder +
+                (d.ep.date ? " · " + d.ep.date : "") +
+                (venue ? " · " + venue.label : "") +
+                (d.ep.styleNote ? " · " + d.ep.styleNote : "")
+            );
+          caption.style.opacity = 1;
+        }
+
+        /* -------------------------------------------------------- replay ---- */
+        let runTimer = null,
+          loopTimer = null;
+        function replay() {
+          if (runTimer) runTimer.stop();
+          if (loopTimer) clearTimeout(loopTimer);
+          upto = 0;
+          drawTrail();
+          if (MEE.reducedMotion()) {
+            upto = tried.length;
+            return drawTrail();
+          }
+          let i = 0;
+          runTimer = d3.interval(() => {
+            i++;
+            upto = i;
+            drawTrail();
+            runRunner();
+            if (i >= tried.length) {
+              runTimer.stop();
+              runTimer = null;
+              // idle, then run it again — the view is a progress animation, not a chart
+              loopTimer = setTimeout(replay, 6500);
+            }
+          }, 620);
+        }
+
+        function runRunner() {
+          const shown = pts.slice(0, upto);
+          if (shown.length < 2) return;
+          const p = gTrail.select("path.trail").node();
+          if (!p) return;
+          const len = p.getTotalLength();
+          const dot = gRunner.selectAll("circle").data([0]);
+          const dAll = dot.enter().append("circle").attr("class", "runner").attr("r", 4).merge(dot);
+          dAll
+            .transition()
+            .duration(520)
+            .ease(d3.easeCubicInOut)
+            .attrTween("transform", function () {
+              return (t) => {
+                const pt = p.getPointAtLength(len * (0.72 + 0.28 * t));
+                return "translate(" + pt.x + "," + pt.y + ")";
+              };
+            });
+        }
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (n) panel.show(n, g, { relatedLimit: 8 });
+        });
+        svg.on("click", () => panel.close());
+
+        MEE.legend(document.getElementById("legend"), [
+          { key: "done", label: "tasted, in order", colour: "#0f6e6e" },
+          { key: "trail", label: "the run so far", colour: "#0f6e6e", line: true },
+          { key: "todo", label: "still on the checklist", colour: "#b8352f" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        document.querySelectorAll("[data-arrange]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-arrange]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            arrange = b.dataset.arrange;
+            layout();
+          });
+        });
+        document.getElementById("replay").addEventListener("click", replay);
+        document.getElementById("showtodo").addEventListener("click", (e) => {
+          showTodo = !showTodo;
+          e.currentTarget.dataset.on = showTodo ? "true" : "false";
+          e.currentTarget.textContent = showTodo ? "Showing to-try" : "To-try hidden";
+          layout();
+        });
+        document.getElementById("scrub").addEventListener("input", (e) => {
+          if (runTimer) {
+            runTimer.stop();
+            runTimer = null;
+          }
+          if (loopTimer) clearTimeout(loopTimer);
+          upto = +e.target.value;
+          drawTrail();
+        });
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          svg.attr("viewBox", "0 0 " + W + " " + H);
+          layout();
+        });
+
+        setTimeout(replay, 420);
+      })();
+    </script>
+  </body>
+</html>

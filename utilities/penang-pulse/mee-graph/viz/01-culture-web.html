@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Culture Web · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="./index.html">&larr; All views</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>The Culture Web</h1>
+      <p class="viz-dek">
+        Communities hold their ground; dishes drift between them. Tap a community to pull its
+        dishes into orbit — tap a second and any dish they share is pulled taut between the two.
+        That tension is the whole argument: most Penang bowls have more than one parent.
+      </p>
+    </header>
+
+    <div class="viz-controls">
+      <div class="view-switch" role="group" aria-label="Layer">
+        <button data-mode="communities" aria-pressed="true">Communities</button>
+        <button data-mode="origins" aria-pressed="false">Origins</button>
+        <button data-mode="noodles" aria-pressed="false">Noodles</button>
+      </div>
+      <div class="ctl-group">
+        <span class="ctl-label">Claims</span>
+        <button class="ctl-btn" id="claims" data-on="true">Show contested</button>
+      </div>
+      <div class="ctl-group">
+        <span class="ctl-label">Gravity</span>
+        <input type="range" id="gravity" min="0" max="100" value="42" aria-label="Cluster gravity" />
+      </div>
+      <button class="ctl-btn" id="reset">Collapse all</button>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="viz-stage" id="stage"></div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Drag any node to reposition it. Solid lines are cooked-by; dashed lines are somebody's
+        contested claim. Node size is how connected the thing is, not how good it tastes.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        Answering “whose dish is this, really?” without pretending there is one answer. The graph
+        keeps <code>carried_by</code> (whose kitchen) apart from <code>attributed_to</code>
+        (somebody's claim), so a dish like mee rebus can visibly hang between the Javanese and
+        Tamil-Muslim nodes instead of being filed under one of them.
+      </p>
+      <h2>Try this</h2>
+      <p>
+        Open <strong>Hokkien</strong> and <strong>Teochew</strong> together and watch how much sits
+        in the middle. Then open <strong>Hainanese</strong> — the smallest group in the dataset —
+        and see how far its few dishes reach.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const svg = d3.select(stage).append("svg");
+        const gLink = svg.append("g").attr("class", "links");
+        const gNode = svg.append("g").attr("class", "nodes");
+        const tip = MEE.tooltip();
+
+        /* ---- mode definitions: each is a hub type + the edges that hang off it ---- */
+        const MODES = {
+          communities: {
+            hubType: "culture",
+            childTypes: ["dish"],
+            edgeTypes: ["carried_by", "attributed_to"],
+            dir: "in", // dish -> culture, so hubs receive
+            hubLabel: "Communities",
+            note: "26 communities. Dishes attach by whose kitchen they come out of.",
+          },
+          origins: {
+            hubType: "region",
+            childTypes: ["culture", "dish"],
+            edgeTypes: ["home_region", "originates_in"],
+            dir: "in",
+            hubLabel: "Home regions",
+            note: "Where people and dishes came from — Zhangzhou, not “China”.",
+          },
+          noodles: {
+            hubType: "noodle",
+            childTypes: ["dish"],
+            edgeTypes: ["uses_noodle"],
+            dir: "in",
+            hubLabel: "Noodle types",
+            note: "The noodle is the most reliable marker of which kitchen a dish came from.",
+          },
+        };
+
+        let mode = "communities";
+        let showClaims = true;
+        const open = new Set();
+
+        /* ---- persistent position memory so re-layout animates, not jumps ---- */
+        const pos = new Map();
+
+        let sim = d3
+          .forceSimulation()
+          .force("charge", d3.forceManyBody().strength((d) => (d.isHub ? -700 : -150)))
+          .force(
+            "link",
+            d3
+              .forceLink()
+              .id((d) => d.id)
+              .distance((l) => (l.contested ? 168 : 128))
+              .strength((l) => 0.16 + l.weight * 0.5)
+          )
+          .force(
+            "collide",
+            // pad by half the rendered label width so text stops colliding too
+            d3.forceCollide().radius((d) => d.r + (d.labelW || 0) / 2 + 6).iterations(3)
+          )
+          .alphaDecay(0.012)
+          .velocityDecay(0.34);
+
+        let W = 800,
+          H = 560;
+
+        function radius(n) {
+          if (n.isHub) return 13 + Math.sqrt(n.degree) * 2.4;
+          return 5 + Math.sqrt(n.degree) * 1.1;
+        }
+
+        /* ---------------------------------------------------------- build ---- */
+        function build() {
+          const cfg = MODES[mode];
+          const hubs = (g.byType[cfg.hubType] || [])
+            .filter((n) => n.degree > 1)
+            .sort((a, b) => b.degree - a.degree)
+            .slice(0, cfg.hubType === "region" ? 26 : 40);
+
+          const nodes = [];
+          const links = [];
+          const seen = new Map();
+
+          function put(n, isHub) {
+            let o = seen.get(n.id);
+            if (o) {
+              o.isHub = o.isHub || isHub;
+              return o;
+            }
+            const p = pos.get(n.id);
+            o = Object.assign(Object.create(n), {
+              id: n.id,
+              isHub: isHub,
+              x: p ? p.x : W / 2 + (Math.random() - 0.5) * 220,
+              y: p ? p.y : H / 2 + (Math.random() - 0.5) * 220,
+              vx: 0,
+              vy: 0,
+            });
+            o.r = radius(o);
+            seen.set(n.id, o);
+            nodes.push(o);
+            return o;
+          }
+
+          for (const h of hubs) put(h, true);
+
+          for (const hubId of open) {
+            if (!seen.has(hubId)) continue;
+            const hub = seen.get(hubId);
+            for (const rel of g.neighbours(hubId, cfg.edgeTypes, cfg.dir)) {
+              if (!cfg.childTypes.includes(rel.node.type)) continue;
+              const contested = rel.edge.type === "attributed_to" || rel.edge.confidence === "disputed";
+              if (contested && !showClaims) continue;
+              const child = put(rel.node, false);
+              links.push({
+                source: hub.id,
+                target: child.id,
+                weight: rel.edge.weight,
+                type: rel.edge.type,
+                confidence: rel.edge.confidence,
+                contested: contested,
+                raw: rel.edge,
+              });
+            }
+          }
+
+          // recompute radius: a dish attached to two open hubs should read bigger
+          const linkCount = new Map();
+          for (const l of links) {
+            linkCount.set(l.target, (linkCount.get(l.target) || 0) + 1);
+          }
+          for (const n of nodes) {
+            n.shared = linkCount.get(n.id) || 0;
+            if (!n.isHub) n.r = 5 + n.shared * 2.6 + Math.sqrt(n.degree) * 0.7;
+            // labels are the real collision hazard, not the dots
+            const txt = n.isHub ? MEE.short(n.label, 20) : n.r > 8 ? MEE.short(n.label, 18) : "";
+            n.labelW = txt.length * (n.isHub ? 5.6 : 4.9);
+          }
+
+          render(nodes, links);
+        }
+
+        /* --------------------------------------------------------- render ---- */
+        function render(nodes, links) {
+          const cfg = MODES[mode];
+
+          const link = gLink
+            .selectAll("line")
+            .data(links, (d) => d.source + "|" + d.target + "|" + d.type);
+          link.exit().transition().duration(240).attr("stroke-opacity", 0).remove();
+          const linkEnter = link
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("stroke-opacity", 0)
+            .attr("stroke-linecap", "round")
+            .style("cursor", "pointer")
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              panel.showEdge(d.raw, g);
+            })
+            .on("mouseenter", (evt, d) =>
+              tip.show(
+                evt,
+                { type: d.type, label: g.byId[d.source.id || d.source].label + " → " + g.byId[d.target.id || d.target].label },
+                d.confidence + " confidence"
+              )
+            )
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide());
+          const linkAll = linkEnter.merge(link);
+          linkAll
+            .attr("stroke", (d) => (d.contested ? "#b8352f" : "#1c1c1a"))
+            .attr("stroke-dasharray", (d) => (d.contested ? "5 4" : null))
+            .attr("stroke-width", (d) => 0.8 + d.weight * 2.1)
+            .transition()
+            .duration(300)
+            .attr("stroke-opacity", (d) => (d.contested ? 0.5 : MEE.CONF_ALPHA[d.confidence] || 0.3));
+
+          const node = gNode.selectAll("g.n").data(nodes, (d) => d.id);
+
+          node
+            .exit()
+            .transition()
+            .duration(240)
+            .attr("transform", function (d) {
+              return "translate(" + d.x + "," + d.y + ") scale(0.1)";
+            })
+            .style("opacity", 0)
+            .remove();
+
+          const enter = node
+            .enter()
+            .append("g")
+            .attr("class", "n")
+            .attr("transform", (d) => "translate(" + d.x + "," + d.y + ") scale(0.1)")
+            .style("opacity", 0)
+            .style("cursor", "pointer")
+            .call(
+              d3
+                .drag()
+                .on("start", (evt, d) => {
+                  if (!evt.active) sim.alphaTarget(0.14).restart();
+                  d.fx = d.x;
+                  d.fy = d.y;
+                })
+                .on("drag", (evt, d) => {
+                  d.fx = evt.x;
+                  d.fy = evt.y;
+                })
+                .on("end", (evt, d) => {
+                  if (!evt.active) sim.alphaTarget(0);
+                  d.fx = null;
+                  d.fy = null;
+                })
+            );
+
+          enter.append("circle").attr("class", "halo");
+          enter.append("circle").attr("class", "body");
+          enter.append("text").attr("class", "node-label");
+
+          enter
+            .on("mouseenter", function (evt, d) {
+              tip.show(evt, d, d.isHub ? "tap to " + (open.has(d.id) ? "collapse" : "expand") : null);
+              highlight(d.id, true);
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", function () {
+              tip.hide();
+              highlight(null, false);
+            })
+            .on("click", function (evt, d) {
+              evt.stopPropagation();
+              if (d.isHub) {
+                if (open.has(d.id)) open.delete(d.id);
+                else open.add(d.id);
+                d.fx = d.x;
+                d.fy = d.y;
+                setTimeout(() => {
+                  d.fx = null;
+                  d.fy = null;
+                }, 700);
+                build();
+                MEE.kick(sim, 0.42);
+              }
+              panel.show(d, g, { relatedLimit: 10 });
+            });
+
+          const all = enter.merge(node);
+
+          all
+            .transition()
+            .duration(380)
+            .ease(d3.easeCubicOut)
+            .style("opacity", 1)
+            .attr("transform", (d) => "translate(" + d.x + "," + d.y + ") scale(1)");
+
+          all
+            .select("circle.body")
+            .attr("r", (d) => d.r)
+            .attr("fill", (d) => MEE.colour(d))
+            .attr("fill-opacity", (d) => (d.isHub ? 0.92 : 0.8))
+            .attr("stroke", (d) => (d.isHub && open.has(d.id) ? "#1c1c1a" : "#fff"))
+            .attr("stroke-width", (d) => (d.isHub && open.has(d.id) ? 2 : 1.2));
+
+          all
+            .select("circle.halo")
+            .attr("r", (d) => d.r + (d.shared > 1 ? 7 : 0))
+            .attr("fill", "none")
+            .attr("stroke", "#b8352f")
+            .attr("stroke-width", 1.4)
+            .attr("stroke-opacity", (d) => (d.shared > 1 ? 0.75 : 0));
+
+          all
+            .select("text")
+            .attr("dy", (d) => d.r + 12)
+            .attr("text-anchor", "middle")
+            .classed("sub", (d) => !d.isHub)
+            .text((d) => (d.isHub ? MEE.short(d.label, 20) : d.r > 8 ? MEE.short(d.label, 18) : ""));
+
+          sim.nodes(nodes);
+          sim.force("link").links(links);
+          sim.force("collide").radius((d) => d.r + (d.labelW || 0) / 2 + 6);
+          sim.on("tick", () => {
+            for (const n of nodes) {
+              // hard clamp so nothing drifts out of the rounded stage
+              const m = n.r + 16;
+              n.x = Math.max(m, Math.min(W - m, n.x));
+              n.y = Math.max(m + 12, Math.min(H - m - 6, n.y));
+              pos.set(n.id, { x: n.x, y: n.y });
+            }
+            all.attr("transform", (d) => "translate(" + d.x + "," + d.y + ")");
+            linkAll
+              .attr("x1", (d) => d.source.x)
+              .attr("y1", (d) => d.source.y)
+              .attr("x2", (d) => d.target.x)
+              .attr("y2", (d) => d.target.y);
+          });
+          MEE.kick(sim, 0.4);
+
+          d3.select("#stage .stage-note").text(cfg.note);
+        }
+
+        /* ------------------------------------------------------ highlight ---- */
+        /* Named, eased transitions. Unnamed ones would cancel the enter/exit tweens
+           d3 is already running on these same selections, and an instant opacity
+           swap on mouseover reads as a flinch. */
+        const EASE_MS = 200;
+        function highlight(id, on) {
+          const nodes = gNode.selectAll("g.n").transition("hi").duration(EASE_MS).ease(d3.easeCubicInOut);
+          const links = gLink.selectAll("line").transition("hi").duration(EASE_MS).ease(d3.easeCubicInOut);
+          const restOpacity = (d) => (d.contested ? 0.5 : MEE.CONF_ALPHA[d.confidence] || 0.3);
+
+          if (!on) {
+            nodes.style("opacity", 1);
+            links.attr("stroke-opacity", restOpacity);
+            return;
+          }
+          const near = new Set([id]);
+          gLink.selectAll("line").each(function (d) {
+            const s = d.source.id || d.source,
+              t = d.target.id || d.target;
+            if (s === id) near.add(t);
+            if (t === id) near.add(s);
+          });
+          nodes.style("opacity", (d) => (near.has(d.id) ? 1 : 0.18));
+          links.attr("stroke-opacity", function (d) {
+            const s = d.source.id || d.source,
+              t = d.target.id || d.target;
+            return s === id || t === id ? 0.85 : 0.05;
+          });
+        }
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (!n) return;
+          const cfg = MODES[mode];
+          if (n.type === cfg.hubType) open.add(id);
+          build();
+          panel.show(n, g, { relatedLimit: 10 });
+          MEE.kick(sim, 0.4);
+        });
+        svg.on("click", () => panel.close());
+
+        /* --------------------------------------------------------- legend ---- */
+        MEE.legend(document.getElementById("legend"), [
+          { key: "culture", label: "Community", colour: "#c2603a" },
+          { key: "dish", label: "Dish", colour: "#b8352f" },
+          { key: "region", label: "Region", colour: "#4a6fa5" },
+          { key: "noodle", label: "Noodle", colour: "#d4a13b" },
+          { key: "cooked", label: "cooked by", colour: "#1c1c1a", line: true },
+          { key: "claim", label: "contested claim", colour: "#b8352f", line: true, dash: "dashed" },
+          { key: "shared", label: "shared by 2+ threads", colour: "#b8352f" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        document.querySelectorAll("[data-mode]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-mode]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            mode = b.dataset.mode;
+            open.clear();
+            panel.close();
+            build();
+          });
+        });
+
+        document.getElementById("claims").addEventListener("click", (e) => {
+          showClaims = !showClaims;
+          e.currentTarget.dataset.on = showClaims ? "true" : "false";
+          e.currentTarget.textContent = showClaims ? "Show contested" : "Contested hidden";
+          build();
+        });
+
+        document.getElementById("gravity").addEventListener("input", (e) => {
+          const v = +e.target.value / 100;
+          sim.force("x", d3.forceX(W / 2).strength(0.02 + v * 0.1));
+          sim.force("y", d3.forceY(H / 2).strength(0.02 + v * 0.1));
+          MEE.kick(sim, 0.3);
+        });
+
+        document.getElementById("reset").addEventListener("click", () => {
+          open.clear();
+          panel.close();
+          build();
+        });
+
+        /* --------------------------------------------------------- layout ---- */
+        svg.append("text").attr("class", "stage-note empty-note").attr("x", 14).attr("y", 22);
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          svg.attr("viewBox", "0 0 " + W + " " + H);
+          sim.force("x", d3.forceX(W / 2).strength(0.055));
+          sim.force("y", d3.forceY(H / 2).strength(0.055));
+          MEE.kick(sim, 0.25);
+        });
+
+        /* The simulation converges and stops, which looks dead. A tiny perpetual
+           wander keeps the web breathing without ever moving anything far enough
+           to make labels hard to read. */
+        if (!MEE.reducedMotion()) {
+          let phase = 0;
+          d3.timer(() => {
+            phase += 0.0055;
+            const ns = sim.nodes();
+            for (let i = 0; i < ns.length; i++) {
+              const n = ns[i];
+              if (n.fx != null) continue;
+              n.vx += Math.cos(phase + i * 1.7) * 0.035;
+              n.vy += Math.sin(phase * 0.83 + i * 2.3) * 0.035;
+            }
+            if (sim.alpha() < 0.035) sim.alpha(0.035);
+          });
+        }
+
+        // open two communities so the view is doing something on arrival
+        open.add("c-hokkien");
+        open.add("c-teochew");
+        build();
+      })();
+    </script>
+  </body>
+</html>

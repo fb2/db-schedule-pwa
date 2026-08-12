@@ -50,7 +50,9 @@ Served by Firebase Hosting target `penang-pulse`. Use this host in writing, shar
 | [`/feed.json`](https://penangpulse.com/feed.json) | Weekly feed data |
 | Guides strip on home | Links into posts (no separate public guides landing required) |
 | `/guides/<slug>/` | Single Guide post (published only; drafts skipped) |
-| [`/guides/series/<series-slug>/`](https://penangpulse.com/guides/series/mee-myself-and-i/) | Series index (episodes in order) |
+| [`/guides/series/<series-slug>/`](https://penangpulse.com/guides/series/mee-myself-and-i/) | Series index (episodes in order) — Pulse width (1120); episode Guides stay narrow for reading |
+| [`/guides/series/mee-myself-and-i/mee-search/`](https://penangpulse.com/guides/series/mee-myself-and-i/mee-search/) | Mee-Search landing (culture-graph companion; registry `meeSearch: true`) |
+| [`/mee-graph/viz/`](https://penangpulse.com/mee-graph/viz/04-bowl-orbit.html) | Mee-Search viz pages (Bowl Orbit ready; others alpha) |
 | [`/guides/index.json`](https://penangpulse.com/guides/index.json) | Machine index of guides + series |
 | [`/guides/article.css`](https://penangpulse.com/guides/article.css) | Shared Guide stylesheet |
 

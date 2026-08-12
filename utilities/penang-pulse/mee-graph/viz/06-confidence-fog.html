@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confidence Fog · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .fog-grid {
+        display: grid;
+        grid-template-columns: 1fr 316px;
+        gap: 16px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .fog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .danger {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        padding: 14px;
+      }
+      .danger h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.02rem;
+        margin: 0;
+      }
+      .danger p.d-dek {
+        margin: 5px 0 0;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .danger ol {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: d;
+      }
+      .danger li {
+        counter-increment: d;
+        padding: 9px 0;
+        border-top: 1px solid var(--line-soft);
+        font-size: 0.86rem;
+        cursor: pointer;
+      }
+      .danger li:hover .d-name {
+        color: var(--accent);
+      }
+      .danger li::before {
+        content: counter(d);
+        float: right;
+        font-size: 0.7rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .danger .d-name {
+        font-weight: 600;
+        display: block;
+      }
+      .danger .d-meta {
+        color: var(--muted);
+        font-size: 0.78rem;
+        display: block;
+        margin-top: 2px;
+      }
+      .fog-readout {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 12px 0 0;
+        font-size: 0.85rem;
+      }
+      .fog-readout div {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .fog-readout b {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.15rem;
+      }
+      .fog-readout span {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="./index.html">&larr; All views</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>Confidence Fog</h1>
+      <p class="viz-dek">
+        The whole graph, then take the evidence away. Drag the slider right and the well-sourced
+        connections burn off, leaving only the claims that are repeated confidently and known badly.
+        This is the honest view, and it is also the shortest.
+      </p>
+    </header>
+
+    <div class="viz-controls">
+      <div class="ctl-group">
+        <span class="ctl-label">Burn off evidence</span>
+        <input type="range" id="fog" min="0" max="100" value="0" aria-label="Evidence threshold" />
+      </div>
+      <button class="ctl-btn" id="sweep">Auto-sweep</button>
+      <div class="view-switch" role="group" aria-label="Emphasis">
+        <button data-em="conf" aria-pressed="true">By confidence</button>
+        <button data-em="risk" aria-pressed="false">By risk (weight × doubt)</button>
+        <button data-em="tier" aria-pressed="false">By source quality</button>
+      </div>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="fog-grid">
+        <div>
+          <div class="viz-stage" id="stage"></div>
+          <div class="fog-readout" id="readout"></div>
+          <div id="legend"></div>
+        </div>
+        <aside class="danger">
+          <h2>Load-bearing and unproven</h2>
+          <p class="d-dek">
+            High weight, low or disputed confidence. If any of these turns out to be wrong, something
+            in the narrative has to change.
+          </p>
+          <ol id="dangerlist"></ol>
+        </aside>
+      </div>
+      <p class="viz-hint">
+        Rendered to canvas so the full 1,008 edges stay interactive. Hover the plot to inspect the
+        nearest node.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        Turning epistemics into something you can look at. Most food graphs present every connection
+        with the same confidence, which is the reason bad claims propagate. Here the dashed red edges
+        are refusals — <code>unevidenced_link</code>, links other people assert that this dataset
+        declines to draw — and they stay visible right to the end of the sweep.
+      </p>
+      <h2>The uncomfortable one</h2>
+      <p>
+        Sweep to the far right and look for the Teochew node. The claim that Teochews dominate
+        Penang's street food trade is the load-bearing premise of a great deal of writing about this
+        island, including Michelin's, and no scholarly source establishes it.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const canvas = document.createElement("canvas");
+        stage.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+        const tip = MEE.tooltip();
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+        let W = 800,
+          H = 560,
+          fog = 0,
+          emphasis = "conf",
+          sweeping = false,
+          hover = null,
+          seeded = false;
+
+        const DOUBT = { high: 0.08, medium: 0.4, low: 0.82, disputed: 1 };
+        const TIER_SCORE = {
+          scholarly: 1,
+          reference: 0.88,
+          journalism: 0.62,
+          specialist: 0.72,
+          community: 0.42,
+          encyclopedic: 0.36,
+          commercial: 0.3,
+          media: 0.2,
+        };
+
+        function edgeTier(e) {
+          const s = (e.sources || []).map((id) => g.sources[id]).filter(Boolean);
+          if (!s.length) return 0;
+          return Math.max(...s.map((x) => TIER_SCORE[x.tier] || 0.2));
+        }
+
+        /* survival: 0 burns off first, 1 survives longest */
+        function survival(e) {
+          if (e.type === "unevidenced_link") return 1;
+          if (emphasis === "conf") return DOUBT[e.confidence];
+          if (emphasis === "risk") return DOUBT[e.confidence] * (0.35 + e.weight * 0.65);
+          return 1 - edgeTier(e); // "by source quality": weak sourcing survives
+        }
+
+        const nodes = g.nodes.map((n) => ({ ...n, x: 0, y: 0 }));
+        const byId = new Map(nodes.map((n) => [n.id, n]));
+        const links = g.edges.map((e) => ({
+          ...e,
+          s: byId.get(e.source),
+          t: byId.get(e.target),
+          surv: 0,
+        }));
+        for (const l of links) l.surv = survival(l);
+
+        const sim = d3
+          .forceSimulation(nodes)
+          .force(
+            "link",
+            d3
+              .forceLink(links)
+              .id((d) => d.id)
+              .distance((l) => 26 + (1 - l.weight) * 44)
+              .strength((l) => 0.05 + l.weight * 0.22)
+          )
+          .force("charge", d3.forceManyBody().strength(-42).distanceMax(320))
+          .force("collide", d3.forceCollide((d) => 3 + Math.sqrt(d.degree) * 0.7))
+          .alphaDecay(0.016)
+          .velocityDecay(0.42);
+
+        /* ------------------------------------------------------------- draw ---- */
+        function draw() {
+          ctx.save();
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.scale(dpr, dpr);
+
+          const thresh = fog / 100;
+
+          // edges
+          for (const l of links) {
+            if (l.surv < thresh) continue;
+            const fade = thresh > 0 ? Math.min(1, (l.surv - thresh) / 0.28 + 0.35) : 1;
+            const refused = l.type === "unevidenced_link";
+            const disputed = l.confidence === "disputed";
+            let alpha = (MEE.CONF_ALPHA[l.confidence] || 0.25) * fade;
+            if (refused || disputed) alpha = Math.min(0.85, alpha * 1.7);
+            const touches = hover && (l.s.id === hover.id || l.t.id === hover.id);
+            if (touches) alpha = 0.95;
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = refused ? "#b8352f" : disputed ? "#b8352f" : "#1c1c1a";
+            ctx.lineWidth = (refused ? 1.6 : 0.5 + l.weight * 1.5) * (touches ? 2 : 1);
+            if (refused) ctx.setLineDash([5, 4]);
+            else if (l.confidence === "low") ctx.setLineDash([2, 3]);
+            else ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.moveTo(l.s.x, l.s.y);
+            ctx.lineTo(l.t.x, l.t.y);
+            ctx.stroke();
+          }
+          ctx.setLineDash([]);
+
+          // nodes: only those still holding an edge
+          const alive = new Set();
+          for (const l of links) {
+            if (l.surv >= thresh) {
+              alive.add(l.s.id);
+              alive.add(l.t.id);
+            }
+          }
+          for (const n of nodes) {
+            const on = alive.has(n.id);
+            ctx.globalAlpha = on ? 1 : 0.06;
+            const r = 2.4 + Math.sqrt(n.degree) * 0.72 + (hover && hover.id === n.id ? 3 : 0);
+            ctx.fillStyle = MEE.colour(n);
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+            ctx.fill();
+            if (on && (r > 6 || (hover && hover.id === n.id))) {
+              ctx.globalAlpha = 1;
+              ctx.fillStyle = "#1c1c1a";
+              ctx.font = "600 10px 'Source Sans 3', sans-serif";
+              ctx.textAlign = "center";
+              ctx.strokeStyle = "#fdfdfb";
+              ctx.lineWidth = 3;
+              const lab = MEE.short(n.label, 20);
+              ctx.strokeText(lab, n.x, n.y - r - 4);
+              ctx.fillText(lab, n.x, n.y - r - 4);
+            }
+          }
+          ctx.restore();
+          readout(thresh);
+        }
+
+        function readout(thresh) {
+          const kept = links.filter((l) => l.surv >= thresh);
+          const counts = { high: 0, medium: 0, low: 0, disputed: 0 };
+          for (const l of kept) counts[l.confidence]++;
+          document.getElementById("readout").innerHTML =
+            "<div><b>" +
+            kept.length +
+            "</b><span>of 1,008 edges left</span></div>" +
+            "<div><b>" +
+            counts.disputed +
+            "</b><span>disputed</span></div>" +
+            "<div><b>" +
+            counts.low +
+            "</b><span>low</span></div>" +
+            "<div><b>" +
+            kept.filter((l) => l.type === "unevidenced_link").length +
+            "</b><span>refused links</span></div>";
+        }
+
+        sim.on("tick", () => {
+          for (const n of nodes) {
+            const m = 10;
+            n.x = Math.max(m, Math.min(W - m, n.x));
+            n.y = Math.max(m, Math.min(H - m, n.y));
+          }
+          draw();
+        });
+
+        /* --------------------------------------------------------- interact ---- */
+        function nearest(mx, my) {
+          let best = null,
+            bd = 26 * 26;
+          for (const n of nodes) {
+            const dx = n.x - mx,
+              dy = n.y - my;
+            const d = dx * dx + dy * dy;
+            if (d < bd) {
+              bd = d;
+              best = n;
+            }
+          }
+          return best;
+        }
+
+        canvas.addEventListener("mousemove", (evt) => {
+          const r = canvas.getBoundingClientRect();
+          const n = nearest(evt.clientX - r.left, evt.clientY - r.top);
+          if (n !== hover) {
+            hover = n;
+            draw();
+          }
+          if (n) tip.show(evt, n, n.degree + " connections");
+          else tip.hide();
+        });
+        canvas.addEventListener("mouseleave", () => {
+          hover = null;
+          tip.hide();
+          draw();
+        });
+        canvas.addEventListener("click", (evt) => {
+          const r = canvas.getBoundingClientRect();
+          const n = nearest(evt.clientX - r.left, evt.clientY - r.top);
+          if (n) panel.show(g.byId[n.id], g, { relatedLimit: 10 });
+          else panel.close();
+        });
+
+        /* ----------------------------------------------------- danger list ---- */
+        function buildDanger() {
+          const risky = links
+            .filter((l) => (l.confidence === "disputed" || l.confidence === "low") && l.weight >= 0.5)
+            .sort((a, b) => b.weight * DOUBT[b.confidence] - a.weight * DOUBT[a.confidence])
+            .slice(0, 14);
+          const host = document.getElementById("dangerlist");
+          host.innerHTML = risky
+            .map(
+              (l, i) =>
+                '<li data-i="' +
+                i +
+                '"><span class="d-name">' +
+                MEE.esc(MEE.short(l.s.label, 24)) +
+                " → " +
+                MEE.esc(MEE.short(l.t.label, 24)) +
+                "</span>" +
+                '<span class="d-meta">' +
+                MEE.esc(MEE.EDGE_LABEL[l.type] || l.type) +
+                " · weight " +
+                l.weight.toFixed(2) +
+                " · " +
+                l.confidence +
+                "</span></li>"
+            )
+            .join("");
+          host.querySelectorAll("li").forEach((li) =>
+            li.addEventListener("click", () => {
+              const l = risky[+li.dataset.i];
+              // showEdge expects plain ids; d3 has replaced source/target with objects
+              panel.showEdge({ ...l, source: l.s.id, target: l.t.id }, g);
+              hover = l.s;
+              draw();
+            })
+          );
+        }
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (!n) return;
+          panel.show(n, g, { relatedLimit: 10 });
+          hover = byId.get(id);
+          draw();
+        });
+
+        MEE.legend(document.getElementById("legend"), [
+          { key: "high", label: "high confidence", colour: "#1c1c1a", line: true },
+          { key: "low", label: "low", colour: "#1c1c1a", line: true, dash: "dotted" },
+          { key: "disputed", label: "disputed", colour: "#b8352f", line: true, dash: "dashed" },
+          { key: "refused", label: "refused link", colour: "#b8352f", line: true, dash: "dashed" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        document.getElementById("fog").addEventListener("input", (e) => {
+          fog = +e.target.value;
+          draw();
+        });
+        document.getElementById("sweep").addEventListener("click", () => {
+          if (sweeping) return;
+          sweeping = true;
+          const el = document.getElementById("fog");
+          const t = d3.timer((ms) => {
+            const p = Math.min(1, ms / 5200);
+            fog = d3.easeCubicInOut(p) * 100;
+            el.value = fog;
+            draw();
+            if (p >= 1) {
+              t.stop();
+              sweeping = false;
+            }
+          });
+        });
+        document.querySelectorAll("[data-em]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-em]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            emphasis = b.dataset.em;
+            for (const l of links) l.surv = survival(l);
+            draw();
+          });
+        });
+
+        function seed() {
+          const rMax = Math.min(W, H) * 0.44;
+          nodes.forEach((n, i) => {
+            const t = i * 2.399963; // golden angle
+            const rad = rMax * Math.sqrt((i + 0.5) / nodes.length);
+            n.x = W / 2 + Math.cos(t) * rad;
+            n.y = H / 2 + Math.sin(t) * rad;
+            n.vx = 0;
+            n.vy = 0;
+          });
+        }
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          canvas.width = W * dpr;
+          canvas.height = H * dpr;
+          canvas.style.width = W + "px";
+          canvas.style.height = H + "px";
+          sim.force("x", d3.forceX(W / 2).strength(0.075));
+          sim.force("y", d3.forceY(H / 2).strength(0.09));
+          if (!seeded) {
+            seed();
+            seeded = true;
+            sim.alpha(1).restart();
+          } else {
+            MEE.kick(sim, 0.4);
+          }
+        });
+
+        buildDanger();
+      })();
+    </script>
+  </body>
+</html>

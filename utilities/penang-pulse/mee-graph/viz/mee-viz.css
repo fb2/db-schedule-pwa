@@ -1,0 +1,871 @@
+/* Shared chrome for the Mee-Search prototypes.
+   Tokens and type inherited from Penang Pulse styles.css / guides/article.css.
+   Anything below the "viz-only" marker is new and specific to these views. */
+
+:root {
+  --bg: #fafaf8;
+  --text: #1c1c1a;
+  --muted: #6b6b66;
+  --line: #e6e6e2;
+  --accent: #0f6e6e;
+  --accent-soft: rgba(15, 110, 110, 0.12);
+
+  /* viz-only */
+  --surface: #ffffff;
+  --line-soft: #f0f0ec;
+  --ink-faint: rgba(28, 28, 26, 0.06);
+  --stage-bg: #fdfdfb;
+  --hi: #b8352f; /* dish red, used for emphasis */
+  --warn: #a8632a;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------- topbar */
+
+.viz-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.viz-topbar .back {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.viz-topbar .brand-mini {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 560;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+/* ------------------------------------------------------------- page head */
+
+.viz-head {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 16px 12px;
+}
+
+.viz-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.viz-head h1 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 650;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 6px 0 0;
+  font-optical-sizing: auto;
+}
+
+.viz-dek {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 46rem;
+}
+
+/* --------------------------------------------------------------- controls */
+
+.viz-controls {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 10px 16px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.view-switch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+}
+
+.view-switch button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.view-switch button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+.view-switch button:focus-visible,
+.ctl-btn:focus-visible,
+.viz-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ctl-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ctl-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ctl-btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.ctl-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ctl-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.ctl-btn[data-on="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.viz-select {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236b6b66'/></svg>")
+    no-repeat right 12px center;
+  border-radius: 999px;
+  padding: 7px 32px 7px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+  width: 150px;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------- stage */
+
+.viz-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 12px 16px 40px;
+}
+
+.viz-stage {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--stage-bg);
+  overflow: hidden;
+  min-height: 520px;
+}
+
+.viz-stage svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.viz-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* keeps the aspect sane on desktop, tall enough on mobile */
+.viz-stage {
+  height: min(70vh, 660px);
+}
+
+@media (max-width: 700px) {
+  .viz-stage {
+    height: 68vh;
+    min-height: 420px;
+  }
+}
+
+/* ----------------------------------------------------------------- panel */
+
+.viz-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 300px;
+  max-width: calc(100% - 24px);
+  /* Use the height that is actually available. Views with a centred subject and
+     a dead top-right corner (see 04-bowl-orbit) override this to the full stage. */
+  max-height: min(86%, calc(100% - 24px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.viz-panel .p-body {
+  /* flex: 1 + min-height: 0 is what actually makes this scroll. Without them the
+     body sizes to its content and spills out of the panel, taking the fade
+     overlay's reference point with it. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* the extra bottom padding matches the height of .p-fade: at full scroll the
+     last line clears the band instead of sitting under it */
+  padding: 14px 14px 46px;
+  scrollbar-width: thin;
+}
+
+/* Fades in only while there is more text below, so a long dossier never looks
+   like it simply stops mid-sentence. */
+.viz-panel .p-fade {
+  position: absolute;
+  /* inset 0, NOT 1px. An absolutely-positioned child is already laid out inside
+     the border box, so insetting to "clear the border" instead leaves a 1px strip
+     of live, unfaded text visible below the gradient. */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46px;
+  border-radius: 0 0 13px 13px;
+  /* Alpha has to climb FAST and finish at 1. A gentle ramp to 0.97 leaves a
+     readable line of text sitting under the "more" cue, which reads as a
+     rendering bug rather than as a fade. Only the top few pixels of a glyph
+     should ever show, and faintly. */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.72) 22%,
+    rgba(255, 255, 255, 0.94) 38%,
+    #fff 50%,
+    #fff 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.viz-panel[data-more="true"] .p-fade {
+  opacity: 1;
+}
+
+.viz-panel[data-more="true"] .p-fade::after {
+  content: "more ↓";
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.viz-panel[data-open="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* A dossier that lives in its own column rather than over the view. Nothing to
+   fade in, nothing to close, and it never covers the thing it describes. */
+.viz-panel--fixed {
+  /* relative, NOT static: .p-fade is absolutely positioned and needs this element
+     as its containing block. With static it anchored to the page and the "more"
+     cue drifted into the middle of the text. */
+  position: relative;
+  /* MUST reset the floating mode's offsets. .viz-panel sets top/right: 12px for
+     position: absolute; under position: relative those become RELATIVE nudges,
+     pushing the panel 12px down and 12px left of its grid cell — which is exactly
+     how the circle's frame and the dossier's frame ended up misaligned. */
+  inset: auto;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  /* height comes from the flex parent, not from here */
+  height: auto;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  background: var(--surface);
+  backdrop-filter: none;
+  border-radius: 14px;
+}
+
+.viz-panel--fixed .p-close {
+  display: none;
+}
+
+.viz-panel .p-type {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.viz-panel h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 650;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin: 4px 0 0;
+}
+
+.viz-panel .p-alt {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.viz-panel p {
+  margin: 9px 0 0;
+}
+
+.viz-panel .p-blurb {
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.viz-panel .p-note {
+  color: var(--muted);
+  font-size: 0.84rem;
+  padding-top: 9px;
+  margin-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.viz-panel .p-close {
+  float: right;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 8px;
+}
+
+.viz-panel dl {
+  margin: 9px 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 10px;
+  font-size: 0.84rem;
+}
+
+.viz-panel dt {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.viz-panel dd {
+  margin: 0;
+}
+
+.p-links {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+
+.p-links li {
+  padding: 5px 0;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.p-links .l-type {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.p-links button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.p-links button:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------- badges */
+
+.conf {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+.conf-high {
+  color: var(--accent);
+}
+.conf-medium {
+  color: var(--warn);
+}
+.conf-low {
+  color: #9a5b4e;
+}
+.conf-disputed {
+  color: var(--hi);
+  background: rgba(184, 53, 47, 0.08);
+}
+
+.flagpill {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--hi);
+  background: rgba(184, 53, 47, 0.08);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin: 6px 4px 0 0;
+}
+
+/* ------------------------------------------------------------- tooltip */
+
+.viz-tip {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  background: var(--text);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 7px;
+  max-width: 260px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+
+.viz-tip[data-open="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.viz-tip .t-type {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+/* -------------------------------------------------------------- legend */
+
+.viz-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 12px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.viz-legend button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition: opacity 0.18s ease;
+}
+
+.viz-legend button[data-off="true"] {
+  opacity: 0.32;
+}
+
+.viz-legend .swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.viz-legend .swatch-line {
+  width: 18px;
+  height: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-radius: 0;
+}
+
+/* ----------------------------------------------------------- footnote */
+
+.viz-foot {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  max-width: 46rem;
+}
+
+.viz-foot h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 560;
+  font-size: 1rem;
+  color: var(--text);
+  margin: 22px 0 6px;
+}
+
+.viz-foot kbd,
+.viz-hint kbd {
+  font-family: inherit;
+  font-size: 0.82em;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 1px 5px;
+  background: #fff;
+}
+
+.viz-foot code {
+  background: var(--accent-soft);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.85em;
+}
+
+.viz-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------------- hover easing (svg) */
+
+/* Hover feedback should ease in and out rather than snap. Only opacity-ish
+   properties are listed — NEVER `all`, and never `transform`, because the orbit,
+   force and particle loops rewrite transform every frame and a transition on it
+   would fight them. Views whose highlight is driven by a d3 tween use a named
+   d3 transition instead; see hotThread() in 04 and highlight() in 01. */
+.viz-stage .link,
+.viz-stage .ribbon,
+.viz-stage .col-node rect,
+.viz-stage .arc,
+.viz-stage .thread-arc,
+.viz-stage .sat circle,
+.viz-stage .ep circle,
+.viz-stage .todo circle,
+.viz-stage .dish-dot circle,
+.viz-stage .lane rect {
+  transition: fill-opacity 0.2s ease-in-out, stroke-opacity 0.2s ease-in-out,
+    opacity 0.2s ease-in-out, r 0.15s ease-out;
+}
+
+/* the tooltip should fade, but never ease its position — that lags the cursor */
+.viz-tip {
+  transition: opacity 0.16s ease-in-out, transform 0.16s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-stage * {
+    transition: none !important;
+  }
+}
+
+/* --------------------------------------------------------- svg defaults */
+
+.link {
+  fill: none;
+  stroke: var(--text);
+}
+
+.node-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--stage-bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.node-label.sub {
+  font-size: 9.5px;
+  font-weight: 500;
+  fill: var(--muted);
+}
+
+.axis text {
+  font-size: 10px;
+  fill: var(--muted);
+}
+
+.axis line,
+.axis path {
+  stroke: var(--line);
+}
+
+.stage-title {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 13px;
+  font-weight: 560;
+  fill: var(--muted);
+}
+
+.empty-note {
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+/* --------------------------------------------------------- gallery grid */
+
+.gallery {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 6px 16px 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.g-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.g-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.g-thumb {
+  height: 158px;
+  background: var(--stage-bg);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.g-thumb svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.g-body {
+  padding: 13px 14px 15px;
+}
+
+.g-num {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.g-card h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 650;
+  font-size: 1.08rem;
+  line-height: 1.2;
+  margin: 5px 0 0;
+}
+
+.g-card p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.g-card .g-answers {
+  margin: 9px 0 0;
+  font-size: 0.78rem;
+  color: var(--text);
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.g-card .g-answers strong {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ------------------------------------------------------------- narrow */
+
+/* Several views have long descriptive labels on their pill switches
+   ("Thread → community → place → dish"). Those must be allowed to wrap on a
+   phone, or the whole page gains horizontal scroll. */
+@media (max-width: 760px) {
+  .view-switch {
+    flex-wrap: wrap;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+
+  .view-switch button {
+    white-space: normal;
+    font-size: 0.8rem;
+    padding: 6px 11px;
+    flex: 0 1 auto;
+  }
+
+  .ctl-btn {
+    font-size: 0.8rem;
+    padding: 6px 11px;
+  }
+
+  .ctl-label {
+    font-size: 0.66rem;
+  }
+
+  .viz-controls {
+    gap: 8px 10px;
+  }
+
+  input[type="range"] {
+    width: 108px;
+  }
+
+  .viz-select {
+    max-width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .viz-head h1 {
+    font-size: 1.42rem;
+  }
+
+  .viz-panel {
+    width: calc(100% - 24px);
+    max-height: 62%;
+  }
+}
+
+/* respect the reduced-motion preference: these views are motion-heavy */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

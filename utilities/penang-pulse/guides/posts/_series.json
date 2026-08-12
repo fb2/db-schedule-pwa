@@ -8,7 +8,8 @@
       "status": "active",
       "defaultType": "series-mee",
       "template": "mee",
-      "mark": "mee-myself-and-i.svg"
+      "mark": "mee-myself-and-i.svg",
+      "meeSearch": true
     },
     {
       "slug": "family-matters",

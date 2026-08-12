@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mee-Search — where Penang's noodles come from · Penang Pulse</title>
+    <meta
+      name="description"
+      content="Where Penang's noodles come from. 75 noodle dishes traced to the communities and towns that brought them, across four interactive views."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      /* Landing page for the Mee-Search section. No JavaScript and no data load:
+         the four counts are literals, guarded by tests/landing.js, which fails if
+         they drift from data/graph-stats.json. */
+      .ms-wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 26px 16px 56px;
+      }
+
+      .ms-head {
+        max-width: 44rem;
+      }
+      .ms-kicker {
+        margin: 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .ms-head h1 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-optical-sizing: auto;
+        font-size: clamp(2rem, 5vw, 2.9rem);
+        letter-spacing: -0.025em;
+        line-height: 1.08;
+        margin: 10px 0 2px;
+      }
+      .ms-tagline {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 560;
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        color: var(--muted);
+        margin: 0 0 16px;
+      }
+      .ms-dek {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.62;
+        color: var(--text);
+        text-wrap: pretty;
+      }
+      .ms-dek a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      .ms-counts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin: 26px 0 12px;
+      }
+      .ms-count {
+        background: var(--line-soft);
+        border-radius: 10px;
+        padding: 14px 16px;
+      }
+      .ms-count b {
+        display: block;
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.85rem;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .ms-count span {
+        display: block;
+        margin-top: 6px;
+        font-size: 0.8rem;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+      .ms-promise {
+        margin: 0 0 34px;
+        font-size: 0.94rem;
+        color: var(--muted);
+        max-width: 44rem;
+        text-wrap: pretty;
+      }
+
+      .ms-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .ms-card {
+        display: block;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px 18px 18px;
+        background: var(--surface);
+        transition: border-color 0.18s ease, background-color 0.18s ease;
+      }
+      .ms-card:hover,
+      .ms-card:focus-visible {
+        border-color: var(--accent);
+        background: #fff;
+      }
+      .ms-card:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .ms-card--first {
+        border-width: 2px;
+        border-color: var(--accent-soft);
+      }
+
+      .ms-flag {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .ms-flag--alpha {
+        position: static;
+        display: inline-block;
+        margin: 0 0 8px;
+        background: var(--line-soft);
+        color: var(--muted);
+      }
+
+      .ms-thumb {
+        display: block;
+        height: 148px;
+        margin: -16px -18px 14px;
+        border-radius: 13px 13px 0 0;
+        background: var(--stage-bg);
+        border-bottom: 1px solid var(--line-soft);
+        overflow: hidden;
+        position: relative;
+      }
+      .ms-thumb svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .ms-card h2 {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.18rem;
+        letter-spacing: -0.015em;
+        margin: 0;
+      }
+      .ms-card p {
+        margin: 7px 0 0;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .ms-more {
+        display: inline-block;
+        margin-top: 12px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+      .ms-card:hover .ms-more::after,
+      .ms-card:focus-visible .ms-more::after {
+        transform: translateX(3px);
+      }
+      .ms-more::after {
+        content: " →";
+        display: inline-block;
+        transition: transform 0.18s ease;
+      }
+
+      .ms-foot {
+        margin: 40px 0 0;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        max-width: none;
+        text-wrap: pretty;
+        font-size: 0.94rem;
+        line-height: 1.62;
+        color: var(--muted);
+      }
+      .ms-foot a {
+        color: var(--accent);
+      }
+
+      @media (max-width: 760px) {
+        .ms-grid,
+        .ms-counts {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 460px) {
+        .ms-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .ms-card,
+        .ms-more::after {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="../../guides/series/mee-myself-and-i/">&larr; Mee Myself and I</a>
+      <a class="brand-mini" href="../../">Penang Pulse</a>
+    </div>
+
+    <main class="ms-wrap">
+      <header class="ms-head">
+        <p class="ms-kicker">Mee Myself and I</p>
+        <h1>Mee-Search</h1>
+        <p class="ms-tagline">Where Penang's noodles come from</p>
+        <p class="ms-dek">
+          Every noodle dish in Penang arrived from somewhere, carried by someone, and changed on
+          the way. This is the graph underneath
+          <a href="../../guides/series/mee-myself-and-i/">the diary</a> — four ways in.
+        </p>
+      </header>
+
+      <div class="ms-counts">
+        <div class="ms-count"><b data-count="dish">75</b><span>noodle dishes</span></div>
+        <div class="ms-count"><b data-count="culture">26</b><span>communities</span></div>
+        <div class="ms-count"><b data-count="region">62</b><span>towns and regions</span></div>
+        <div class="ms-count"><b data-count="sources">137</b><span>cited sources</span></div>
+      </div>
+      <p class="ms-promise">
+        Every connection traced to a source, and the shaky ones say so.
+      </p>
+
+      <div class="ms-grid">
+        <a class="ms-card" href="./02-origin-drill.html">
+          <span class="ms-thumb" data-ms-thumb="origin" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Alpha</span>
+          <h2>Origin drill</h2>
+          <p>
+            “Chinese” covers a dozen different kitchens, and “Indian” covers several more. Drill
+            through the rings and each one gets more specific — from a broad thread, to the
+            community that carried it, to the town the recipe left: Zhangzhou, Dabu, Nagore.
+          </p>
+          <span class="ms-more">Start drilling</span>
+        </a>
+
+        <a class="ms-card ms-card--first" href="./04-bowl-orbit.html">
+          <span class="ms-flag">Start here</span>
+          <span class="ms-thumb" data-ms-thumb="orbit" aria-hidden="true"></span>
+          <h2>Bowl orbit</h2>
+          <p>
+            One bowl, taken apart. The noodle, every ingredient, every technique — each coloured by
+            the community that contributed it. Most bowls turn out to hold five or six kitchens at
+            once.
+          </p>
+          <span class="ms-more">Open a bowl</span>
+        </a>
+
+        <a class="ms-card" href="./03-thread-flow.html">
+          <span class="ms-thumb" data-ms-thumb="flow" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Alpha</span>
+          <h2>Thread flow</h2>
+          <p>
+            Pick a kitchen or a noodle and follow it across the island. Some stayed put; yellow
+            alkaline noodles ended up in nearly every stall, regardless of whose stall it was.
+          </p>
+          <span class="ms-more">Follow a thread</span>
+        </a>
+
+        <div class="ms-card ms-card--disabled" aria-disabled="true">
+          <span class="ms-thumb" data-ms-thumb="timeline" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Coming later</span>
+          <h2>Arrivals</h2>
+          <p>
+            When the kitchens got here — Hokkien, Hakka, Cantonese, Tamil Muslim, and the rest —
+            mapped onto ports, migrations and ordinances.
+          </p>
+          <span class="ms-more">Not open yet</span>
+        </div>
+      </div>
+
+      <p class="ms-foot">
+        Drawn from census records, food writing, academic work on the Straits Chinese and the
+        Hadhrami diaspora, and stallholders' own accounts. Where the record runs out, it says so:
+        every dish carries a confidence level, and contested claims name what is disputed and by
+        whom. Origin drill and Thread flow are early alphas — Bowl Orbit is the place to start.
+      </p>
+    </main>
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script src="./mee-search-thumbs.js"></script>
+    <script>
+      (async function () {
+        try {
+          const g = await MEE.load();
+          MEE_THUMBS.mountLanding(document, g);
+        } catch (err) {
+          console.warn("Mee-Search thumbs:", err);
+        }
+      })();
+    </script>
+  </body>
+</html>

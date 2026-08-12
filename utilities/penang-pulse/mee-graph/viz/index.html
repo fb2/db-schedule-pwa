@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mee-Search · Visualisation prototypes · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .stats {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 16px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+      }
+      .stats div {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .stats b {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        font-size: 1.2rem;
+      }
+      .stats span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+      .section-label {
+        max-width: 1120px;
+        margin: 26px auto 0;
+        padding: 0 16px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="https://penangpulse.com/guides/series/mee-myself-and-i/"
+        >&larr; Mee Myself and I</a
+      >
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search · Prototypes</p>
+      <h1>Seven ways to look at a bowl of noodles</h1>
+      <p class="viz-dek" id="dek">
+        Working prototypes over the Penang noodle culture graph. Each view answers a different
+        question, and none of them pretends a dish has only one parent. Everything here is animated
+        because the subject is migration, and migration moves.
+      </p>
+    </header>
+
+    <div class="stats" id="stats"></div>
+
+    <p class="section-label">Drill into origins</p>
+    <div class="gallery" id="gal-a"></div>
+    <p class="section-label">Follow threads and components</p>
+    <div class="gallery" id="gal-b"></div>
+    <p class="section-label">Time, evidence and the series itself</p>
+    <div class="gallery" id="gal-c"></div>
+
+    <div class="viz-foot">
+      <h2>How to read the set</h2>
+      <p>
+        Views 01, 02 and 04 are the ones a reader would use to answer a question. View 03 is the one
+        that makes an argument. Views 05 and 06 are editorial — they are about what we do not know.
+        View 07 is the series' own progress, and the most likely candidate for a permanent home on
+        the series index page.
+      </p>
+      <h2>Embedding</h2>
+      <p>
+        Each file is standalone and reads <code>graph-data.js</code>, so any of them drops into an
+        <code>&lt;iframe&gt;</code> or gets inlined into a guide template. d3 is vendored as
+        <code>d3.v7.min.js</code>. The public Mee-Search landing lives under the series hub at
+        <code>/guides/series/mee-myself-and-i/mee-search/</code>. See <code>README.md</code> in this folder.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script src="./mee-search-thumbs.js"></script>
+    <script>
+      (async function () {
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(document.body, err);
+        }
+
+        /* Counts come from the data, never from the copy — this page used to state
+           them literally and went stale the moment a new bowl was logged. */
+        document.getElementById("dek").textContent =
+          "Working prototypes over the Penang noodle culture graph — " +
+          g.nodes.length +
+          " nodes, " +
+          g.edges.length.toLocaleString() +
+          " typed and confidence-rated relationships, " +
+          Object.keys(g.sources).length +
+          " sources. Each view answers a different question, and none of them pretends a dish " +
+          "has only one parent. Everything here is animated because the subject is migration, " +
+          "and migration moves.";
+
+        /* ------------------------------------------------------------ stats ---- */
+        const conf = { high: 0, medium: 0, low: 0, disputed: 0 };
+        for (const e of g.edges) conf[e.confidence]++;
+        document.getElementById("stats").innerHTML =
+          [
+            [g.nodes.length, "nodes"],
+            [g.edges.length, "edges"],
+            [Object.keys(g.sources).length, "sources"],
+            [g.byType.dish.length, "dishes"],
+            [g.byType.culture.length, "communities"],
+            [conf.disputed + conf.low, "shaky claims, marked"],
+            [g.meta.checklist.tried + " / " + (g.meta.checklist.tried + g.meta.checklist.planned), "bowls eaten"],
+          ]
+            .map((s) => "<div><b>" + s[0] + "</b><span>" + s[1] + "</span></div>")
+            .join("");
+
+        /* ------------------------------------------------------------ cards ---- */
+        const T = MEE_THUMBS;
+        const CARDS = [
+          {
+            group: "a",
+            n: "01",
+            href: "./01-culture-web.html",
+            title: "The Culture Web",
+            desc:
+              "Communities as anchors, dishes drifting between them. Expand two and any shared dish is pulled taut in the middle.",
+            answers: "Whose dish is this, and who else claims it?",
+            thumb: (svg) => T.thumbForce(svg, g),
+          },
+          {
+            group: "a",
+            n: "02",
+            href: "./02-origin-drill.html",
+            title: "The Origin Drill",
+            desc:
+              "Zoomable rings: thread → community → home prefecture → dish. Click a wedge to make it the whole circle.",
+            answers: "How do I get from “Chinese” to Zhangzhou in three clicks?",
+            thumb: (svg) => T.thumbSunburst(svg, g),
+          },
+          {
+            group: "b",
+            n: "03",
+            href: "./03-thread-flow.html",
+            title: "Thread Flow",
+            desc:
+              "Place → community → noodle → dish, with the flow animated as particles. Follow one thread all the way across.",
+            answers: "Which noodle crossed every community boundary?",
+            thumb: T.thumbFlow,
+          },
+          {
+            group: "b",
+            n: "04",
+            href: "./04-bowl-orbit.html",
+            title: "Bowl Orbit",
+            desc:
+              "One dish deconstructed into orbiting components, each coloured by the community that contributed it.",
+            answers: "What threads are actually in this bowl?",
+            thumb: T.thumbOrbit,
+          },
+          {
+            group: "c",
+            n: "05",
+            href: "./05-timeline-waves.html",
+            title: "Timeline Waves",
+            desc:
+              "1786 to now, with a playhead. Dishes drop in when something made them possible; the rest wait in the undated band.",
+            answers: "What can actually be dated? (Almost nothing.)",
+            thumb: T.thumbTimeline,
+          },
+          {
+            group: "c",
+            n: "06",
+            href: "./06-confidence-fog.html",
+            title: "Confidence Fog",
+            desc:
+              "Burn the well-sourced edges away and see what is left holding the story up. Includes a load-bearing-and-unproven list.",
+            answers: "Which claims would break the narrative if they are wrong?",
+            thumb: thumbFog,
+          },
+          {
+            group: "c",
+            n: "07",
+            href: "./07-series-path.html",
+            title: "The Series Path",
+            desc:
+              "Every tasted bowl drawn as a route across the map, with the checklist still faded in behind.",
+            answers: "Where has the eating been, and what is missing?",
+            thumb: thumbPath,
+          },
+        ];
+
+        for (const c of CARDS) {
+          const a = document.createElement("a");
+          a.className = "g-card";
+          a.href = c.href;
+          a.innerHTML =
+            '<div class="g-thumb"></div>' +
+            '<div class="g-body">' +
+            '<span class="g-num">View ' +
+            c.n +
+            "</span>" +
+            "<h2>" +
+            MEE.esc(c.title) +
+            "</h2>" +
+            "<p>" +
+            MEE.esc(c.desc) +
+            "</p>" +
+            '<p class="g-answers"><strong>Answers</strong>' +
+            MEE.esc(c.answers) +
+            "</p>" +
+            "</div>";
+          document.getElementById("gal-" + c.group).appendChild(a);
+          c.thumb(d3.select(a.querySelector(".g-thumb")).append("svg").attr("viewBox", "0 0 300 158"));
+        }
+
+        /* Gallery-only thumbs (method + series path) — not on the public Mee-Search landing */
+        function thumbFog(svg) {
+          const N = 46;
+          const nodes = d3.range(N).map((i) => ({
+            id: i,
+            colour: i % 7 === 0 ? "#b8352f" : ["#c2603a", "#4a6fa5", "#6f9455", "#d4a13b", "#0f6e6e"][i % 5],
+          }));
+          const links = d3.range(72).map((i) => ({ source: i % N, target: (i * 7 + 3) % N, bad: i % 9 === 0 }));
+          const l = svg
+            .append("g")
+            .selectAll("line")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("stroke", (d) => (d.bad ? "#b8352f" : "#1c1c1a"))
+            .attr("stroke-dasharray", (d) => (d.bad ? "4 3" : null));
+          const n = svg
+            .append("g")
+            .selectAll("circle")
+            .data(nodes)
+            .enter()
+            .append("circle")
+            .attr("r", 2.6)
+            .attr("fill", (d) => d.colour);
+          const sim = d3
+            .forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id((d) => d.id).distance(17).strength(0.2))
+            .force("charge", d3.forceManyBody().strength(-22))
+            .force("x", d3.forceX(150).strength(0.08))
+            .force("y", d3.forceY(79).strength(0.11))
+            .alphaDecay(0.006);
+          sim.on("tick", () => {
+            n.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+            l.attr("x1", (d) => d.source.x)
+              .attr("y1", (d) => d.source.y)
+              .attr("x2", (d) => d.target.x)
+              .attr("y2", (d) => d.target.y);
+          });
+          d3.timer((el) => {
+            const t = (Math.sin(el / 2600) + 1) / 2;
+            l.attr("stroke-opacity", (d) => (d.bad ? 0.6 : 0.28 * (1 - t)));
+            n.attr("fill-opacity", (d) => (d.colour === "#b8352f" ? 1 : 0.25 + 0.75 * (1 - t)));
+          });
+          T.keepWarm(sim);
+        }
+
+        function thumbPath(svg) {
+          const pts = d3.range(9).map((i) => ({
+            x: 34 + Math.cos(i * 1.5) * (26 + i * 4.6) + i * 12,
+            y: 79 + Math.sin(i * 1.9) * (30 + (i % 3) * 8),
+          }));
+          const line = d3.line().x((d) => d.x).y((d) => d.y).curve(d3.curveCatmullRom.alpha(0.6));
+          for (let i = 0; i < 12; i++) {
+            svg
+              .append("circle")
+              .attr("cx", 30 + (i * 43) % 250)
+              .attr("cy", 26 + ((i * 61) % 108))
+              .attr("r", 4)
+              .attr("fill", "none")
+              .attr("stroke", "#b8352f")
+              .attr("stroke-opacity", 0.35)
+              .attr("stroke-dasharray", "2 2");
+          }
+          const p = svg
+            .append("path")
+            .attr("d", line(pts))
+            .attr("fill", "none")
+            .attr("stroke", "#0f6e6e")
+            .attr("stroke-width", 2)
+            .attr("stroke-linecap", "round");
+          const len = p.node().getTotalLength();
+          p.attr("stroke-dasharray", len).attr("stroke-dashoffset", len);
+          svg
+            .append("g")
+            .selectAll("circle.e")
+            .data(pts)
+            .enter()
+            .append("circle")
+            .attr("class", "e")
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y)
+            .attr("r", 4)
+            .attr("fill", "#0f6e6e")
+            .attr("fill-opacity", 0);
+          const dots = svg.selectAll("circle.e");
+          function run() {
+            p.attr("stroke-dashoffset", len)
+              .transition()
+              .duration(3400)
+              .ease(d3.easeCubicInOut)
+              .attr("stroke-dashoffset", 0);
+            dots
+              .attr("fill-opacity", 0)
+              .transition()
+              .delay((d, i) => i * 340)
+              .duration(240)
+              .attr("fill-opacity", 1);
+          }
+          run();
+          d3.interval(run, 5200);
+        }
+      })();
+    </script>
+  </body>
+</html>

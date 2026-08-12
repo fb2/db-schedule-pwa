@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Origin Drill · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      /* This view is a circle, so it wants a near-square stage — the default
+         landscape stage caps the radius at half the height and wastes the width. */
+      #stage {
+        height: min(96vh, 940px);
+        min-height: 560px;
+      }
+      @media (max-width: 760px) {
+        #stage {
+          height: min(80vh, 620px);
+          min-height: 420px;
+        }
+      }
+
+      .crumbs {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+        color: var(--muted);
+        padding: 12px 16px 0;
+        max-width: 1120px;
+        margin: 0 auto;
+      }
+      .crumbs button {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        color: var(--accent);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .crumbs button:hover {
+        text-decoration: underline;
+      }
+      .crumbs .sep {
+        opacity: 0.45;
+      }
+      .crumbs .here {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .arc {
+        cursor: pointer;
+        stroke: var(--stage-bg);
+        stroke-width: 1.25;
+        transition: filter 0.2s ease-in-out, fill-opacity 0.2s ease-in-out;
+      }
+      .arc:hover {
+        filter: brightness(1.08);
+      }
+
+      .arc-label {
+        pointer-events: none;
+        paint-order: stroke;
+        stroke-linejoin: round;
+        font-weight: 600;
+      }
+
+      .centre-label {
+        font-family: Fraunces, Georgia, serif;
+        text-anchor: middle;
+        pointer-events: none;
+      }
+      .centre-label .t1 {
+        font-weight: 650;
+        fill: var(--text);
+      }
+      .centre-label .t2 {
+        font-size: 12px;
+        font-weight: 500;
+        fill: var(--muted);
+        font-family: "Source Sans 3", sans-serif;
+      }
+      .centre-label .t3 {
+        font-size: 11px;
+        font-weight: 600;
+        fill: var(--accent);
+        font-family: "Source Sans 3", sans-serif;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .hitcentre {
+        fill: transparent;
+      }
+      .centre-hover {
+        fill: var(--accent-soft);
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="../../guides/series/mee-myself-and-i/mee-search/">&larr; Mee-Search</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>The Origin Drill</h1>
+      <p class="viz-dek">
+        Rings outward: the broad thread, the community, the home prefecture, the dish. Click any
+        wedge to make it the whole circle and dive a level deeper; click the middle to surface
+        again. The point is that “Chinese” is a useless unit and Zhangzhou is a useful one.
+      </p>
+    </header>
+
+    <div class="viz-controls">
+      <div class="view-switch" role="group" aria-label="Hierarchy">
+        <button data-tree="people" aria-pressed="true">Thread → community → place → dish</button>
+        <button data-tree="place" aria-pressed="false">Country → region → community</button>
+        <button data-tree="kitchen" aria-pressed="false">Community → noodle → dish</button>
+      </div>
+      <div class="ctl-group">
+        <span class="ctl-label">Rings</span>
+        <div class="view-switch" role="group" aria-label="Rings shown">
+          <button data-depth="2" aria-pressed="false">2</button>
+          <button data-depth="3" aria-pressed="true">3</button>
+          <button data-depth="4" aria-pressed="false">4</button>
+        </div>
+      </div>
+      <button class="ctl-btn" id="spin" data-on="false">Slow spin</button>
+      <button class="ctl-btn" id="up">&uarr; Up a level</button>
+      <button class="ctl-btn" id="top">Back to the top</button>
+    </div>
+
+    <div class="crumbs" id="crumbs"></div>
+
+    <div class="viz-wrap">
+      <div class="viz-stage" id="stage"></div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Click a wedge to dive in. To come back out: click the <strong>middle of the circle</strong>,
+        use <strong>&uarr; Up a level</strong>, pick any step in the breadcrumb above, or press
+        <kbd>Esc</kbd>. Fewer rings means deeper bands and more room for labels — <strong>2</strong>
+        is the most readable, <strong>4</strong> shows the whole descent at once. Wedge size is the
+        number of things underneath it, so the Hokkien wedge is wide because the community is large
+        and well documented, not because its food is better.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        Drilling from a vague label down to a specific claim in three clicks. Hokkien → Zhangzhou →
+        lor mee is the fast path; Hakka → Dabu → kolo mee is the one most food writing gets wrong,
+        because it files kolo mee under Foochow.
+      </p>
+      <h2>Editorial note</h2>
+      <p>
+        A radial hierarchy has to pretend each dish has one parent, which is exactly the thing this
+        dataset says is false. Read it as a <em>route in</em>, and use View 01 or 04 when a dish has
+        several parents.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const tip = MEE.tooltip();
+        const svg = d3.select(stage).append("svg");
+        const root = svg.append("g");
+        const gArc = root.append("g");
+        const gLbl = root.append("g");
+        const centre = root.append("g");
+
+        /* ---- editorial grouping of the 26 communities into readable threads ---- */
+        const FAMILY = {
+          "c-hokkien": "Chinese dialect groups",
+          "c-teochew": "Chinese dialect groups",
+          "c-cantonese": "Chinese dialect groups",
+          "c-hakka": "Chinese dialect groups",
+          "c-hainanese": "Chinese dialect groups",
+          "c-foochow": "Chinese dialect groups",
+          "c-henghua": "Chinese dialect groups",
+          "c-peranakan-penang": "Creole kitchens",
+          "c-peranakan-malacca": "Creole kitchens",
+          "c-phuket-baba": "Creole kitchens",
+          "c-jawi-peranakan": "Creole kitchens",
+          "c-tamil-muslim": "South Asian",
+          "c-marakkayar": "South Asian",
+          "c-mappila": "South Asian",
+          "c-tamil-hindu": "South Asian",
+          "c-chettiar": "South Asian",
+          "c-arab-hadhrami": "Arab & Persian",
+          "c-malay-kedah": "Malay & Indonesian",
+          "c-javanese": "Malay & Indonesian",
+          "c-minangkabau": "Malay & Indonesian",
+          "c-acehnese": "Malay & Indonesian",
+          "c-siamese-my": "Siamese & Burmese",
+          "c-burmese-penang": "Siamese & Burmese",
+          "c-iban": "Bornean",
+          "c-kadazan-dusun": "Bornean",
+          "c-british-colonial": "Colonial apparatus",
+        };
+        const FAM_COLOUR = {
+          "Chinese dialect groups": "#c2603a",
+          "Creole kitchens": "#b06a8a",
+          "South Asian": "#8d6ca8",
+          "Arab & Persian": "#8a6d3b",
+          "Malay & Indonesian": "#6f9455",
+          "Siamese & Burmese": "#0f6e6e",
+          Bornean: "#3f7f9f",
+          "Colonial apparatus": "#5c5c5c",
+        };
+
+        /* --------------------------------------------------- tree builders ---- */
+        function treePeople() {
+          const fams = new Map();
+          for (const c of g.byType.culture) {
+            const fam = FAMILY[c.id] || "Other";
+            if (!fams.has(fam))
+              fams.set(fam, { name: fam, node: null, colour: FAM_COLOUR[fam], children: [] });
+            const places = new Map();
+            for (const rel of g.neighbours(c.id, ["home_region"], "out")) {
+              places.set(rel.node.id, { name: rel.node.label, node: rel.node, children: [] });
+            }
+            const loose = [];
+            for (const rel of g.neighbours(c.id, ["carried_by", "attributed_to"], "in")) {
+              const d = rel.node;
+              const origins = g
+                .neighbours(d.id, ["originates_in"], "out")
+                .sort((a, b) => b.edge.weight - a.edge.weight);
+              // prefer a home region we already have a wedge for
+              let hit = origins.find((o) => places.has(o.node.id));
+              // otherwise open a wedge for wherever the dish actually comes from.
+              // Penang dishes then sit under "George Town" instead of a useless
+              // "elsewhere" bucket, which is the whole point of the view.
+              if (!hit && origins.length) {
+                hit = origins[0];
+                places.set(hit.node.id, { name: hit.node.label, node: hit.node, children: [] });
+              }
+              if (hit) places.get(hit.node.id).children.push({ name: d.label, node: d, value: 1 });
+              else loose.push({ name: d.label, node: d, value: 1 });
+            }
+            const kids = [...places.values()].filter((p) => p.children.length);
+            if (loose.length) kids.push({ name: "origin unrecorded", node: null, children: loose });
+            fams.get(fam).children.push({
+              name: c.label,
+              node: c,
+              children: kids.length ? kids : [{ name: c.label, node: c, value: 1 }],
+            });
+          }
+          return { name: "Penang noodles", node: null, children: [...fams.values()] };
+        }
+
+        function treePlace() {
+          const countries = new Map();
+          for (const r of g.byType.region) {
+            const key = r.country || "Unknown";
+            if (!countries.has(key)) countries.set(key, { name: key, node: null, children: [] });
+            const kids = [];
+            for (const rel of g.neighbours(r.id, ["home_region"], "in"))
+              kids.push({ name: rel.node.label, node: rel.node, value: 1 });
+            for (const rel of g.neighbours(r.id, ["originates_in"], "in"))
+              kids.push({ name: rel.node.label, node: rel.node, value: 1 });
+            if (kids.length) countries.get(key).children.push({ name: r.label, node: r, children: kids });
+          }
+          return {
+            name: "Every origin in the set",
+            node: null,
+            children: [...countries.values()].filter((c) => c.children.length),
+          };
+        }
+
+        function treeKitchen() {
+          const out = [];
+          for (const c of g.byType.culture) {
+            const noodles = new Map();
+            for (const rel of g.neighbours(c.id, ["contributed_by"], "in")) {
+              if (rel.node.type !== "noodle") continue;
+              const dishes = g
+                .neighbours(rel.node.id, ["uses_noodle"], "in")
+                .filter((d) =>
+                  g
+                    .neighbours(d.node.id, ["carried_by", "attributed_to"], "out")
+                    .some((x) => x.node.id === c.id)
+                )
+                .map((d) => ({ name: d.node.label, node: d.node, value: 1 }));
+              if (dishes.length)
+                noodles.set(rel.node.id, { name: rel.node.label, node: rel.node, children: dishes });
+            }
+            if (noodles.size) out.push({ name: c.label, node: c, children: [...noodles.values()] });
+          }
+          return { name: "Kitchen by noodle", node: null, children: out };
+        }
+
+        const TREES = { people: treePeople, place: treePlace, kitchen: treeKitchen };
+        let treeKey = "people";
+
+        /* ----------------------------------------------------------- layout ---- */
+        let W = 800,
+          H = 800,
+          R = 380,
+          HOLE = 0.3, // fraction of R kept clear in the middle
+          depthLimit = 3,
+          hierarchy,
+          current,
+          spin = false,
+          spinAngle = 0,
+          spinTimer = null;
+
+        const arcGen = d3
+          .arc()
+          .startAngle((d) => d.x0)
+          .endAngle((d) => d.x1)
+          .padAngle(0.004)
+          .padRadius(R)
+          .innerRadius((d) => d.y0)
+          .outerRadius((d) => Math.max(d.y0 + 1, d.y1 - 2));
+
+        /* Radii come from *relative depth*, not from d3.partition's y values, so the
+           rings on screen always fill the circle no matter how deep the tree goes. */
+
+        /* How many rings actually have content below the current focus. Drilling into
+           a shallow branch used to leave a third of the radius empty; sizing the
+           bands to what exists means the circle always fills, and the bands get
+           deeper — which is also what makes the labels fit. */
+        function effDepth() {
+          let deepest = 0;
+          current.each((n) => {
+            const rel = n.depth - current.depth;
+            if (rel > deepest) deepest = rel;
+          });
+          return Math.max(1, Math.min(depthLimit, deepest));
+        }
+
+        function band() {
+          return (R * (1 - HOLE)) / effDepth();
+        }
+        function ringRadii(rel) {
+          const b = band();
+          const y0 = R * HOLE + rel * b;
+          return { y0, y1: y0 + b };
+        }
+
+        function relDepth(d) {
+          return d.depth - current.depth - 1;
+        }
+
+        function computeTargets() {
+          const eff = effDepth();
+          const b = band();
+          hierarchy.each((n) => {
+            const rel = relDepth(n);
+            const inside = n === current || n.ancestors().indexOf(current) >= 0;
+            let x0, x1;
+            if (inside) {
+              x0 = ((n.x0 - current.x0) / (current.x1 - current.x0)) * 2 * Math.PI;
+              x1 = ((n.x1 - current.x0) / (current.x1 - current.x0)) * 2 * Math.PI;
+            } else {
+              x0 = x1 = n.x0 < current.x0 ? 0 : 2 * Math.PI;
+            }
+            let rr;
+            if (rel < 0) rr = { y0: R * HOLE, y1: R * HOLE }; // ancestors collapse into the hole
+            else if (rel >= eff) {
+              const last = ringRadii(eff - 1);
+              rr = { y0: last.y1, y1: last.y1 }; // beyond the shown rings
+            } else rr = ringRadii(rel);
+            n.target = { x0, x1, y0: rr.y0, y1: rr.y1, rel, eff };
+          });
+        }
+
+        function relayout() {
+          const data = TREES[treeKey]();
+          hierarchy = d3
+            .hierarchy(data)
+            .sum((d) => d.value || 0)
+            .sort((a, b) => b.value - a.value);
+          d3.partition().size([2 * Math.PI, 1])(hierarchy); // angles only; radii from depth
+          current = hierarchy;
+          computeTargets();
+          // start collapsed in the hole so the rings sweep outward on arrival —
+          // real motion that costs nothing in readability once it settles
+          hierarchy.each((d) => {
+            d.cur = {
+              x0: d.target.x0,
+              x1: d.target.x0,
+              y0: R * HOLE,
+              y1: R * HOLE,
+              rel: d.target.rel,
+              eff: d.target.eff,
+            };
+          });
+          draw(false, true);
+          crumbs();
+        }
+
+        function visible(box) {
+          const lim = box.eff == null ? depthLimit : box.eff;
+          return box.rel >= 0 && box.rel < lim && box.x1 - box.x0 > 0.0015;
+        }
+
+        /* ------------------------------------------------------- text colour ---- */
+        function luminance(hex) {
+          const c = d3.color(hex);
+          if (!c) return 0;
+          const f = (v) => {
+            v /= 255;
+            return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+          };
+          return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+        }
+
+        const PAPER = "#efeae2";
+        function colourFor(d) {
+          let p = d;
+          while (p.depth > 1) p = p.parent;
+          const base = p.data.colour || (p.data.node && MEE.tone(p.data.node)) || "#c2603a";
+          // Fade toward warm paper with depth. d3.color().brighter() oversaturates —
+          // it turned the terracotta family neon orange — where a Lab interpolation
+          // desaturates and keeps the site's muted register.
+          const step = Math.min(0.62, (d.depth - 1) * 0.235);
+          return d3.interpolateLab(base, PAPER)(step);
+        }
+
+        /* ------------------------------------------------------------ labels ---- */
+        /* Tangential text for wide wedges, radial text for narrow ones. This is the
+           whole readability fix: a dish ring has ~70 wedges, and no tangential label
+           will ever fit in one. */
+        function labelPlan(box, d) {
+          if (!visible(box)) return null;
+          const angle = box.x1 - box.x0;
+          const rMid = (box.y0 + box.y1) / 2;
+          const bandDepth = box.y1 - box.y0;
+          const arcLen = angle * rMid;
+          const size = box.rel === 0 ? 13 : box.rel === 1 ? 12 : 11.5;
+          const perChar = size * 0.52;
+
+          if (arcLen > 54 && angle > 0.2) {
+            return { mode: "tangential", size, chars: Math.floor((arcLen - 10) / perChar) };
+          }
+          if (bandDepth > 46 && angle * rMid > size * 1.15) {
+            return { mode: "radial", size, chars: Math.floor((bandDepth - 16) / perChar) };
+          }
+          return null;
+        }
+
+        function labelTransform(box, plan) {
+          const mid = (box.x0 + box.x1) / 2;
+          const deg = (mid * 180) / Math.PI;
+          if (plan.mode === "tangential") {
+            const rMid = (box.y0 + box.y1) / 2;
+            return "rotate(" + (deg - 90) + ") translate(" + rMid + ",0) rotate(" + (deg < 180 ? 0 : 180) + ")";
+          }
+          const flip = deg >= 180;
+          const r = flip ? box.y1 - 7 : box.y0 + 7;
+          return "rotate(" + (deg - 90) + ") translate(" + r + ",0)" + (flip ? " rotate(180)" : "");
+        }
+
+        function draw(instant, stagger) {
+          const nodes = hierarchy.descendants().filter((d) => d.depth > 0);
+          const delayFor = (d) => (stagger ? Math.min(360, (d.depth - 1) * 110) : 0);
+
+          /* -------- arcs -------- */
+          const arcs = gArc.selectAll("path").data(nodes, key);
+          arcs.exit().remove();
+          const enter = arcs
+            .enter()
+            .append("path")
+            .attr("class", "arc")
+            .attr("d", (d) => arcGen(d.cur))
+            .on("mouseenter", function (evt, d) {
+              tip.show(
+                evt,
+                d.data.node || { type: "concept", label: d.data.name },
+                d.value + (d.value === 1 ? " dish below" : " dishes below")
+              );
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", function (evt, d) {
+              evt.stopPropagation();
+              if (d.data.node) panel.show(d.data.node, g, { relatedLimit: 8 });
+              if (d.children && d.children.length) zoom(d);
+            });
+
+          const all = enter.merge(arcs);
+          all.attr("fill", colourFor);
+
+          if (instant) {
+            all
+              .attr("d", (d) => arcGen(d.cur))
+              .attr("fill-opacity", (d) => (visible(d.cur) ? 1 : 0))
+              .attr("pointer-events", (d) => (visible(d.cur) ? "auto" : "none"));
+          } else {
+            all
+              .attr("pointer-events", (d) => (visible(d.target) ? "auto" : "none"))
+              .transition()
+              .delay(delayFor)
+              .duration(stagger ? 880 : 760)
+              .ease(d3.easeCubicInOut)
+              .attrTween("d", function (d) {
+                const i = d3.interpolate(d.cur, d.target);
+                return (t) => {
+                  d.cur = i(t);
+                  return arcGen(d.cur);
+                };
+              })
+              .attr("fill-opacity", (d) => (visible(d.target) ? 1 : 0));
+          }
+
+          /* -------- labels -------- */
+          const labels = gLbl.selectAll("text").data(nodes, key);
+          labels.exit().remove();
+          const lEnter = labels.enter().append("text").attr("class", "arc-label").attr("dy", "0.34em");
+          const lAll = lEnter.merge(labels);
+
+          const applyLabel = (sel, box) =>
+            sel
+              .each(function (d) {
+                const b = box(d);
+                const plan = labelPlan(b, d);
+                d._plan = plan;
+                const t = d3.select(this);
+                if (!plan) {
+                  t.attr("fill-opacity", 0).text("");
+                  return;
+                }
+                const light = luminance(colourFor(d)) > 0.55;
+                t.attr("font-size", plan.size)
+                  .attr("fill", light ? "#1c1c1a" : "#ffffff")
+                  .attr("stroke", light ? "rgba(255,255,255,.55)" : "rgba(0,0,0,.28)")
+                  .attr("stroke-width", 2.4)
+                  .attr("text-anchor", plan.mode === "tangential" ? "middle" : "start")
+                  .text(MEE.short(d.data.name, Math.max(3, plan.chars)));
+              })
+              .attr("fill-opacity", (d) => (d._plan ? 1 : 0))
+              .attr("transform", (d) => (d._plan ? labelTransform(box(d), d._plan) : "translate(-9999,0)"));
+
+          if (instant) {
+            applyLabel(lAll, (d) => d.cur);
+          } else {
+            // retext at the destination, then fade/slide into place
+            applyLabel(lAll.attr("fill-opacity", 0), (d) => d.target);
+            lAll
+              .transition()
+              .delay((d) => delayFor(d) + (stagger ? 260 : 0))
+              .duration(stagger ? 620 : 760)
+              .ease(d3.easeCubicInOut)
+              .attr("fill-opacity", (d) => (d._plan ? 1 : 0));
+          }
+
+          drawCentre();
+        }
+
+        function key(d) {
+          return d
+            .ancestors()
+            .map((a) => a.data.name)
+            .reverse()
+            .join("/");
+        }
+
+        /* ------------------------------------------------------------ centre ---- */
+        function drawCentre() {
+          centre.selectAll("*").remove();
+          const isRoot = current === hierarchy;
+          const rHole = R * HOLE - 6;
+
+          const hoverRing = centre
+            .append("circle")
+            .attr("class", "centre-hover")
+            .attr("r", rHole);
+
+          const t = centre.append("text").attr("class", "centre-label");
+          const name = current.data.name;
+          const maxChars = Math.max(10, Math.floor(rHole / 5.4));
+          const words = name.split(" ");
+          const lines = [];
+          let line = "";
+          for (const w of words) {
+            if ((line + " " + w).trim().length > maxChars) {
+              lines.push(line.trim());
+              line = w;
+            } else line += " " + w;
+          }
+          if (line.trim()) lines.push(line.trim());
+
+          const fs = Math.max(14, Math.min(24, rHole / (lines.length * 0.9 + 1.6)));
+          const blockH = lines.length * (fs + 3);
+          const top = -blockH / 2 - (isRoot ? 2 : 8);
+
+          if (!isRoot) {
+            t.append("tspan")
+              .attr("class", "t3")
+              .attr("x", 0)
+              .attr("y", top - 12)
+              .text("↑ back");
+          }
+          lines.forEach((ln, i) => {
+            t.append("tspan")
+              .attr("class", "t1")
+              .attr("x", 0)
+              .attr("y", top + i * (fs + 3) + fs * 0.8)
+              .attr("font-size", fs)
+              .text(ln);
+          });
+          t.append("tspan")
+            .attr("class", "t2")
+            .attr("x", 0)
+            .attr("y", top + blockH + 14)
+            .text(current.value + (current.value === 1 ? " dish below" : " dishes below"));
+
+          centre
+            .append("circle")
+            .attr("class", "hitcentre")
+            .attr("r", rHole)
+            .style("cursor", isRoot ? "default" : "pointer")
+            .on("mouseenter", function () {
+              if (!isRoot) hoverRing.style("opacity", 1);
+            })
+            .on("mouseleave", () => hoverRing.style("opacity", 0))
+            .on("click", (evt) => {
+              evt.stopPropagation();
+              if (!isRoot) zoom(current.parent);
+            });
+        }
+
+        function zoom(d) {
+          if (!d) return;
+          current = d;
+          computeTargets();
+          draw(false);
+          crumbs();
+        }
+
+        function crumbs() {
+          const host = document.getElementById("crumbs");
+          const chain = current.ancestors().reverse();
+          host.innerHTML = chain
+            .map((c, i) =>
+              i === chain.length - 1
+                ? '<span class="here">' + MEE.esc(c.data.name) + "</span>"
+                : '<button data-i="' + i + '">' + MEE.esc(c.data.name) + '</button><span class="sep">/</span>'
+            )
+            .join(" ");
+          host.querySelectorAll("button").forEach((b) =>
+            b.addEventListener("click", () => zoom(chain[+b.dataset.i]))
+          );
+          const atTop = current === hierarchy;
+          document.getElementById("up").disabled = atTop;
+          document.getElementById("top").disabled = atTop;
+        }
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (n) panel.show(n, g, { relatedLimit: 8 });
+        });
+        svg.on("click", () => panel.close());
+
+        MEE.legend(
+          document.getElementById("legend"),
+          Object.entries(FAM_COLOUR).map(([k, v]) => ({ key: k, label: k, colour: v }))
+        );
+
+        /* -------------------------------------------------------- controls ---- */
+        document.querySelectorAll("[data-tree]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-tree]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            treeKey = b.dataset.tree;
+            panel.close();
+            relayout();
+          });
+        });
+
+        document.querySelectorAll("[data-depth]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-depth]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            depthLimit = +b.dataset.depth;
+            computeTargets();
+            draw(false);
+          });
+        });
+
+        document.getElementById("up").addEventListener("click", () => {
+          if (current !== hierarchy) zoom(current.parent);
+        });
+
+        document.getElementById("top").addEventListener("click", () => {
+          if (current !== hierarchy) zoom(hierarchy);
+        });
+
+        function applySpinTransform() {
+          root.attr("transform", "translate(" + W / 2 + "," + H / 2 + ") rotate(" + spinAngle + ")");
+        }
+
+        document.getElementById("spin").addEventListener("click", (e) => {
+          spin = !spin;
+          e.currentTarget.dataset.on = spin ? "true" : "false";
+          if (spin && !MEE.reducedMotion()) {
+            const t0 = performance.now() - spinAngle * 900;
+            spinTimer = d3.timer(() => {
+              spinAngle = ((performance.now() - t0) / 900) % 360;
+              applySpinTransform();
+            });
+          } else if (spinTimer) {
+            spinTimer.stop();
+            spinTimer = null;
+          }
+        });
+
+        /* Three ways out, because a drill-down with no way back is a trap:
+           the centre hole, the "Up a level" button, the breadcrumb — and Escape. */
+        addEventListener("keydown", (e) => {
+          if (e.key === "Escape" || e.key === "Backspace") {
+            if (current !== hierarchy) {
+              e.preventDefault();
+              zoom(current.parent);
+            } else {
+              panel.close();
+            }
+          }
+          if (e.key === "Home" && current !== hierarchy) zoom(hierarchy);
+        });
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          // use as much of the stage as the shorter side allows, with room for
+          // the outermost radial labels
+          R = Math.min(W, H) / 2 - 18;
+          HOLE = R > 300 ? 0.28 : 0.32;
+          arcGen.padRadius(R);
+          svg.attr("viewBox", "0 0 " + W + " " + H);
+          applySpinTransform();
+          if (!hierarchy) {
+            relayout();
+          } else {
+            // a genuine resize: the entrance has already played, so snap
+            computeTargets();
+            hierarchy.each((d) => {
+              d.cur = { ...d.target };
+            });
+            draw(true);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

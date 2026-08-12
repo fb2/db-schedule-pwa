@@ -9,6 +9,8 @@ to web JPEGs, and emits:
   utilities/penang-pulse/guides/<slug>/index.html
   utilities/penang-pulse/guides/<slug>/media/*.jpg
   utilities/penang-pulse/guides/series/<series-slug>/index.html
+  utilities/penang-pulse/guides/series/mee-myself-and-i/mee-search/index.html
+    (when registry entry has "meeSearch": true)
 
 Registered series get index pages even with 0–1 posts.
 
@@ -36,8 +38,10 @@ POSTS_DIR = GUIDES_DIR / "posts"
 SERIES_REGISTRY = POSTS_DIR / "_series.json"
 SERIES_DIR = GUIDES_DIR / "series"
 ARTICLE_CSS = "article.css"
-ARTICLE_CSS_VER = "4"  # bump when article.css layout changes (cache bust)
+ARTICLE_CSS_VER = "23"  # bump when article.css layout changes (cache bust)
 MARKS_DIR = GUIDES_DIR / "marks"
+GRAPH_STATS = PULSE_DIR / "mee-graph" / "data" / "graph-stats.json"
+MEE_SEARCH_SERIES = "mee-myself-and-i"
 SITE_ORIGIN = "https://penangpulse.com"
 SITE_NAME = "Penang Pulse"
 SITE_AUTHOR = "Balazs Fejes"
@@ -90,6 +94,106 @@ def series_meta_label(count: int, *, template: str) -> str:
     else:
         unit = "episode" if count == 1 else "episodes"
     return f"{count} {unit}"
+
+
+_FIELDNOTE_DAY_RE = re.compile(
+    r"\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b",
+    re.I,
+)
+_FIELDNOTE_MON_RE = re.compile(
+    r"\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{4})\b",
+    re.I,
+)
+_MONTH_NUM = {
+    "jan": 1,
+    "feb": 2,
+    "mar": 3,
+    "apr": 4,
+    "may": 5,
+    "jun": 6,
+    "jul": 7,
+    "aug": 8,
+    "sep": 9,
+    "oct": 10,
+    "nov": 11,
+    "dec": 12,
+}
+
+
+def parse_series_cal(post: dict[str, Any]) -> tuple[dt.date | None, bool]:
+    """Return (date, month_only) for the series calendar chip."""
+    for key in ("tasted", "updated"):
+        raw = str(post.get(key) or "").strip()
+        if not raw:
+            continue
+        try:
+            return dt.date.fromisoformat(raw[:10]), False
+        except ValueError:
+            pass
+    note = str(post.get("fieldNote") or "")
+    day_m = _FIELDNOTE_DAY_RE.search(note)
+    if day_m:
+        mon = _MONTH_NUM.get(day_m.group(2).lower())
+        if mon:
+            try:
+                return dt.date(int(day_m.group(3)), mon, int(day_m.group(1))), False
+            except ValueError:
+                pass
+    mon_m = _FIELDNOTE_MON_RE.search(note)
+    if mon_m:
+        mon = _MONTH_NUM.get(mon_m.group(1).lower())
+        if mon:
+            try:
+                return dt.date(int(mon_m.group(2)), mon, 1), True
+            except ValueError:
+                pass
+    return None, False
+
+
+def series_note_place(post: dict[str, Any]) -> str:
+    """Neighbourhood line for the hub list (date lives on the calendar chip)."""
+    place = str(post.get("neighbourhood") or "").strip()
+    if place:
+        return place
+    note = str(post.get("fieldNote") or "").strip()
+    if not note:
+        return ""
+    # "Field note · Pulau Tikus · 20 Jul 2026" → Pulau Tikus
+    parts = [p.strip() for p in note.split("·")]
+    if len(parts) >= 2:
+        mid = parts[1]
+        if mid and not _FIELDNOTE_MON_RE.search(mid) and not _FIELDNOTE_DAY_RE.search(mid):
+            return mid
+    cleaned = _FIELDNOTE_DAY_RE.sub("", note)
+    cleaned = _FIELDNOTE_MON_RE.sub("", cleaned)
+    cleaned = re.sub(r"\s*·\s*", " · ", cleaned).strip(" ·")
+    return cleaned
+
+
+def render_series_cal(when: dt.date | None, *, month_only: bool = False) -> str:
+    """Quiet calendar square: month + day + year (month + year when day unknown)."""
+    if when is None:
+        return ""
+    mon = when.strftime("%b")
+    year = str(when.year)
+    if month_only:
+        label = when.strftime("%B %Y")
+        iso = when.strftime("%Y-%m")
+        cls = "series-cal series-cal--month"
+        day_html = ""
+    else:
+        label = f"{when.day} {mon} {when.year}"
+        iso = when.isoformat()
+        cls = "series-cal"
+        day_html = f'<span class="series-cal-day">{when.day}</span>'
+    return (
+        f'<time class="{cls}" datetime="{html.escape(iso, quote=True)}" '
+        f'title="{html.escape(label)}">'
+        f'<span class="series-cal-mon">{html.escape(mon)}</span>'
+        f"{day_html}"
+        f'<span class="series-cal-year">{html.escape(year)}</span>'
+        f"</time>"
+    )
 
 MAX_WIDTH = 1400
 JPEG_QUALITY = 82
@@ -768,6 +872,191 @@ def render_article(
 """
 
 
+def load_mee_search_counts() -> dict[str, int]:
+    """Literal counts for Mee-Search teaser/landing — kept in step with graph-stats.json."""
+    defaults = {"dish": 75, "culture": 26, "region": 62, "sources": 137}
+    if not GRAPH_STATS.is_file():
+        print(f"warning: missing {GRAPH_STATS.relative_to(ROOT)}; using defaults", file=sys.stderr)
+        return defaults
+    try:
+        data = json.loads(GRAPH_STATS.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        print(f"warning: could not read graph-stats: {exc}", file=sys.stderr)
+        return defaults
+    by_type = data.get("nodesByType") or {}
+    return {
+        "dish": int(by_type.get("dish", defaults["dish"])),
+        "culture": int(by_type.get("culture", defaults["culture"])),
+        "region": int(by_type.get("region", defaults["region"])),
+        "sources": int(data.get("sources", defaults["sources"])),
+    }
+
+
+def render_mee_search_teaser(counts: dict[str, int]) -> str:
+    """Series-hub intro strip linking into the Mee-Search landing."""
+    return f"""      <a class="ms-teaser" href="./mee-search/">
+        <img class="cmeepo-peek" src="../../marks/c-mee-po.svg" alt="" width="40" height="64" decoding="async" />
+        <p class="ms-teaser-kicker">Research companion</p>
+        <h2>Mee-Search</h2>
+        <p class="ms-teaser-tag">Where Penang&apos;s noodles come from</p>
+        <p class="ms-teaser-dek">The graph underneath the diary — communities, towns, and sources behind the bowls. Four ways in; start with Bowl Orbit.</p>
+        <ul class="ms-teaser-counts">
+          <li>{counts["dish"]} dishes</li>
+          <li>{counts["culture"]} communities</li>
+          <li>{counts["region"]} regions</li>
+          <li>{counts["sources"]} sources</li>
+        </ul>
+        <span class="ms-teaser-more">Explore Mee-Search →</span>
+      </a>"""
+
+
+def render_mee_search_landing(
+    *,
+    series_title: str,
+    og_image: str,
+    counts: dict[str, int],
+) -> str:
+    """Port of mee-graph/viz/mee-search.html into series chrome; viz cards link to /mee-graph/viz/."""
+    social = social_head_tags(
+        title=f"Mee-Search — where Penang's noodles come from · {SITE_NAME}",
+        description=(
+            "Where Penang's noodles come from. "
+            f"{counts['dish']} noodle dishes traced to the communities and towns that brought them, "
+            "across four interactive views."
+        ),
+        canonical_path=f"/guides/series/{MEE_SEARCH_SERIES}/mee-search/",
+        image_url=og_image,
+        og_type="website",
+        icon_href="../../../../icon.svg",
+        apple_touch_href="../../../../apple-touch-icon.png",
+    )
+    viz = "../../../../mee-graph/viz"
+    d = counts["dish"]
+    c = counts["culture"]
+    r = counts["region"]
+    s = counts["sources"]
+    series_href = "../"
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f6e6e" />
+    <meta
+      name="description"
+      content="Where Penang's noodles come from. {d} noodle dishes traced to the communities and towns that brought them, across four interactive views."
+    />
+    <title>Mee-Search — where Penang's noodles come from · {html.escape(SITE_NAME)}</title>
+{social}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}" />
+  </head>
+  <body>
+    <div class="guide-topbar">
+      <a class="back" href="{series_href}">← {html.escape(series_title)}</a>
+      <a class="brand-mini" href="../../../../">Penang Pulse</a>
+    </div>
+
+    <main class="ms-wrap">
+      <header class="ms-head">
+        <h1>Mee-Search</h1>
+        <p class="ms-tagline">Where Penang's noodles come from</p>
+        <p class="ms-dek">
+          Every noodle dish in Penang arrived from somewhere, carried by someone, and changed on
+          the way. This is the graph underneath
+          <a href="{series_href}">the diary</a> — four ways in.
+        </p>
+      </header>
+
+      <div class="ms-counts">
+        <div class="ms-count"><b data-count="dish">{d}</b><span>noodle dishes</span></div>
+        <div class="ms-count"><b data-count="culture">{c}</b><span>communities</span></div>
+        <div class="ms-count"><b data-count="region">{r}</b><span>towns and regions</span></div>
+        <div class="ms-count"><b data-count="sources">{s}</b><span>cited sources</span></div>
+      </div>
+      <p class="ms-promise">
+        Every connection traced to a source, and the shaky ones say so.
+      </p>
+
+      <div class="ms-grid">
+        <a class="ms-card" href="{viz}/02-origin-drill.html">
+          <span class="ms-thumb" data-ms-thumb="origin" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Alpha</span>
+          <h2>Origin drill</h2>
+          <p>
+            “Chinese” covers a dozen different kitchens, and “Indian” covers several more. Drill
+            through the rings and each one gets more specific — from a broad thread, to the
+            community that carried it, to the town the recipe left: Zhangzhou, Dabu, Nagore.
+          </p>
+          <span class="ms-more">Start drilling</span>
+        </a>
+
+        <a class="ms-card ms-card--first" href="{viz}/04-bowl-orbit.html">
+          <span class="ms-flag">Start here</span>
+          <span class="ms-thumb" data-ms-thumb="orbit" aria-hidden="true"></span>
+          <h2>Bowl orbit</h2>
+          <p>
+            One bowl, taken apart. The noodle, every ingredient, every technique — each coloured by
+            the community that contributed it. Most bowls turn out to hold five or six kitchens at
+            once.
+          </p>
+          <span class="ms-more">Open a bowl</span>
+        </a>
+
+        <a class="ms-card" href="{viz}/03-thread-flow.html">
+          <span class="ms-thumb" data-ms-thumb="flow" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Alpha</span>
+          <h2>Thread flow</h2>
+          <p>
+            Pick a kitchen or a noodle and follow it across the island. Some stayed put; yellow
+            alkaline noodles ended up in nearly every stall, regardless of whose stall it was.
+          </p>
+          <span class="ms-more">Follow a thread</span>
+        </a>
+
+        <div class="ms-card ms-card--disabled" aria-disabled="true">
+          <span class="ms-thumb" data-ms-thumb="timeline" aria-hidden="true"></span>
+          <span class="ms-flag ms-flag--alpha">Coming later</span>
+          <h2>Arrivals</h2>
+          <p>
+            When the kitchens got here — Hokkien, Hakka, Cantonese, Tamil Muslim, and the rest —
+            mapped onto ports, migrations and ordinances.
+          </p>
+          <span class="ms-more">Not open yet</span>
+        </div>
+      </div>
+
+      <p class="ms-foot">
+        Drawn from census records, food writing, academic work on the Straits Chinese and the
+        Hadhrami diaspora, and stallholders' own accounts. Where the record runs out, it says so:
+        every dish carries a confidence level, and contested claims name what is disputed and by
+        whom. Origin drill and Thread flow are early alphas — Bowl Orbit is the place to start.
+      </p>
+    </main>
+    <script src="{viz}/d3.v7.min.js"></script>
+    <script src="{viz}/graph-data.js"></script>
+    <script src="{viz}/mee-viz.js"></script>
+    <script src="{viz}/mee-search-thumbs.js"></script>
+    <script>
+      (async function () {{
+        try {{
+          const g = await MEE.load();
+          MEE_THUMBS.mountLanding(document, g);
+        }} catch (err) {{
+          console.warn("Mee-Search thumbs:", err);
+        }}
+      }})();
+    </script>
+  </body>
+</html>
+"""
+
+
 def series_mark_img(mark: str, *, prefix: str) -> str:
     """Return <img> for a guides/marks filename, or empty if missing/unsafe."""
     name = pathlib.Path(str(mark or "").strip()).name
@@ -792,19 +1081,24 @@ def render_series_index(
     series_intro: str = "",
     series_template: str = "",
     og_image: str = OG_DEFAULT_PATH,
+    mee_search: bool = False,
 ) -> str:
     items = []
     for post in posts:
         href = f"../../{html.escape(post['slug'], quote=True)}/"
-        note = html.escape(post.get("fieldNote") or "")
-        note_html = f'<span class="series-note">{note}</span>' if note else ""
+        when, month_only = parse_series_cal(post)
+        cal_html = render_series_cal(when, month_only=month_only)
+        place = series_note_place(post)
+        note_html = f'<span class="series-note">{html.escape(place)}</span>' if place else ""
         items.append(
             "<li>"
             f'<a href="{href}">'
+            f"{cal_html}"
+            f'<span class="series-list-copy">'
             f'<span class="g-title">{html.escape(post["title"])}</span>'
-            f'<span class="g-type">Field guide</span>'
-            f"</a>"
             f"{note_html}"
+            f"</span>"
+            f"</a>"
             "</li>"
         )
     list_html = (
@@ -812,6 +1106,7 @@ def render_series_index(
         if items
         else '<li class="muted">No episodes yet — check back after the next field note.</li>'
     )
+    list_heading = "Field notes" if posts else "Episodes"
     dek = series_dek or f"Episodes in {series_title}."
     mark_html = series_mark_img(series_mark, prefix="../../")
     if mark_html:
@@ -820,15 +1115,13 @@ def render_series_index(
             f"        {mark_html}\n"
             f'        <div class="series-mast-stack">\n'
             f"          <h1>{html.escape(series_title)}</h1>\n"
-            f'          <p class="guide-dek">{html.escape(dek)}</p>\n'
             f"        </div>\n"
             f"      </div>"
         )
     else:
-        heading_html = (
-            f"<h1>{html.escape(series_title)}</h1>\n"
-            f'      <p class="guide-dek">{html.escape(dek)}</p>'
-        )
+        heading_html = f"<h1>{html.escape(series_title)}</h1>"
+    # Dek lives in the lead row so it can sit beside Mee-Search on wide hubs.
+    dek_html = f'<p class="guide-dek">{html.escape(dek)}</p>'
     byline_html = (
         f'<p class="guide-byline">{html.escape(author_byline(series_hub=True))}</p>'
     )
@@ -841,6 +1134,19 @@ def render_series_index(
     span = series_date_span(posts)
     meta_text = f"{count_label} · {span}" if span else count_label
     meta_strip_html = f'<p class="series-meta-strip">{html.escape(meta_text)}</p>'
+    teaser_html = (
+        "\n" + render_mee_search_teaser(load_mee_search_counts())
+        if mee_search
+        else ""
+    )
+    peek_html = (
+        """
+          <div class="cmeepo-rail" aria-hidden="true">
+            <span class="cmeepo-rail-line"></span>
+          </div>"""
+        if mee_search
+        else ""
+    )
     footer_html = f'<p class="guide-footer">{html.escape(author_footer())}</p>'
     social = social_head_tags(
         title=f"{series_title} — {SITE_NAME}",
@@ -873,12 +1179,22 @@ def render_series_index(
       <a class="back" href="../../../">← Home</a>
       <a class="brand-mini" href="../../../">Penang Pulse</a>
     </div>
-    <article class="guide-article">
-      <p class="guide-kicker">Series</p>
+    <article class="guide-article guide-article--hub">
+      <div class="series-hub-top">
+        <div class="series-hub-mast">
       {heading_html}
+        </div>
+        <div class="series-hub-lead">
+          <div class="series-hub-copy">
+      {dek_html}
       {byline_html}{intro_html}
       {meta_strip_html}
-      <ul class="series-list">
+          </div>{peek_html}
+{teaser_html}
+        </div>
+      </div>
+      <h2 class="series-list-label">{html.escape(list_heading)}</h2>
+      <ul class="series-list series-list--hub">
 {list_html}
       </ul>
       {footer_html}
@@ -921,6 +1237,12 @@ def load_series_registry(path: pathlib.Path = SERIES_REGISTRY) -> list[dict[str,
         mark = str(item.get("mark") or item.get("icon") or "").strip()
         if mark:
             entry["mark"] = pathlib.Path(mark).name
+        if item.get("meeSearch") is True or str(item.get("meeSearch") or "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+        }:
+            entry["meeSearch"] = True
         out.append(entry)
     return out
 
@@ -956,6 +1278,7 @@ def build_one(
     neighbourhood = meta.get("neighbourhood") or meta.get("area") or ""
     field_note = str(meta.get("fieldnote") or meta.get("field_note") or "").strip()
     updated = meta.get("updated") or meta.get("date") or dt.date.today().isoformat()
+    tasted = str(meta.get("tasted") or "").strip()
     hero = meta.get("hero") or ""
     # cover / ogImage: share preview only — does not render the in-page 16:9 hero banner
     cover = meta.get("cover") or meta.get("ogimage") or meta.get("og_image") or ""
@@ -1037,6 +1360,8 @@ def build_one(
     }
     if field_note:
         entry["fieldNote"] = field_note
+    if tasted:
+        entry["tasted"] = tasted
     if neighbourhood:
         entry["neighbourhood"] = neighbourhood
     if series_slug:
@@ -1107,6 +1432,7 @@ def build_series_pages(
     templates: dict[str, str] = {}
     statuses: dict[str, str] = {}
     marks: dict[str, str] = {}
+    mee_search_flags: dict[str, bool] = {}
 
     for entry in registry:
         slug = entry["slug"]
@@ -1116,6 +1442,7 @@ def build_series_pages(
         intros[slug] = entry.get("intro") or ""
         templates[slug] = entry.get("template") or ""
         statuses[slug] = entry.get("status") or "active"
+        mee_search_flags[slug] = bool(entry.get("meeSearch"))
         if entry.get("mark"):
             marks[slug] = str(entry["mark"])
 
@@ -1151,6 +1478,7 @@ def build_series_pages(
         series_intro = intros.get(series_slug) or ""
         series_template = templates.get(series_slug) or ""
         series_mark = marks.get(series_slug) or ""
+        mee_search = bool(mee_search_flags.get(series_slug))
         og_image = OG_DEFAULT_PATH
         for post in posts_sorted:
             cover = str(post.get("cover") or "").strip()
@@ -1168,8 +1496,19 @@ def build_series_pages(
             series_intro=series_intro,
             series_template=series_template,
             og_image=og_image,
+            mee_search=mee_search,
         )
         (out_dir / "index.html").write_text(html_out, encoding="utf-8")
+        if mee_search:
+            landing_dir = out_dir / "mee-search"
+            landing_dir.mkdir(parents=True, exist_ok=True)
+            landing = render_mee_search_landing(
+                series_title=series_title,
+                og_image=og_image,
+                counts=load_mee_search_counts(),
+            )
+            (landing_dir / "index.html").write_text(landing, encoding="utf-8")
+            print(f"built series/{series_slug}/mee-search")
         entry: dict[str, Any] = {
             "slug": series_slug,
             "title": series_title,
@@ -1184,6 +1523,9 @@ def build_series_pages(
             entry["intro"] = series_intro
         if series_mark:
             entry["mark"] = f"./guides/marks/{series_mark}"
+        if mee_search:
+            entry["meeSearch"] = True
+            entry["meeSearchHref"] = f"./guides/series/{series_slug}/mee-search/"
         series_index.append(entry)
         print(f"built series/{series_slug} ({len(posts_sorted)} post(s))")
 

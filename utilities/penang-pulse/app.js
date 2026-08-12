@@ -8,11 +8,14 @@ const els = {
   itemTemplate: document.querySelector("#itemTemplate"),
   guidesStrip: document.querySelector("#guidesStrip"),
   guidesList: document.querySelector("#guidesList"),
+  guidesMore: document.querySelector("#guidesMore"),
+  seriesHomeCard: document.querySelector("#seriesHomeCard"),
 };
 
 const state = {
   feed: null,
   guides: [],
+  series: [],
   view: "all",
   starred: new Set(),
 };
@@ -360,6 +363,87 @@ function setView(view) {
   render();
 }
 
+function pickFeaturedSeries() {
+  const series = Array.isArray(state.series) ? state.series : [];
+  const active = series.filter(
+    (s) => (s.status || "active") === "active" && Number(s.count || 0) > 0
+  );
+  if (!active.length) return null;
+  return (
+    active.find((s) => s.slug === "mee-myself-and-i") ||
+    active.find((s) => s.meeSearch) ||
+    active[0]
+  );
+}
+
+function seriesCountLabel(series) {
+  const n = Number(series.count || 0);
+  if (series.slug === "mee-myself-and-i" || series.meeSearch) {
+    return `${n} ${n === 1 ? "bowl" : "bowls"}`;
+  }
+  return `${n} ${n === 1 ? "episode" : "episodes"}`;
+}
+
+function renderSeriesHomeCard() {
+  const card = els.seriesHomeCard;
+  if (!card) return null;
+  const series = pickFeaturedSeries();
+  if (!series) {
+    card.hidden = true;
+    card.replaceChildren();
+    return null;
+  }
+
+  const href = series.href || `./guides/series/${series.slug}/`;
+  const a = document.createElement("a");
+  a.className = "series-home-card-link";
+  a.href = href;
+
+  if (series.mark) {
+    const img = document.createElement("img");
+    img.className = "series-home-card-mark";
+    img.src = series.mark;
+    img.alt = "";
+    img.width = 44;
+    img.height = 44;
+    img.decoding = "async";
+    a.append(img);
+  }
+
+  const stack = document.createElement("div");
+  stack.className = "series-home-card-stack";
+
+  const kicker = document.createElement("p");
+  kicker.className = "series-home-card-kicker";
+  kicker.textContent = "Series";
+
+  const title = document.createElement("p");
+  title.className = "series-home-card-title";
+  title.textContent = series.title || series.slug;
+
+  const meta = document.createElement("p");
+  meta.className = "series-home-card-meta";
+  meta.textContent = seriesCountLabel(series);
+
+  const more = document.createElement("span");
+  more.className = "series-home-card-more";
+  more.textContent = "Open series →";
+
+  stack.append(kicker, title, meta);
+  if (series.dek) {
+    const dek = document.createElement("p");
+    dek.className = "series-home-card-dek";
+    dek.textContent = series.dek;
+    stack.append(dek);
+  }
+  stack.append(more);
+  a.append(stack);
+
+  card.replaceChildren(a);
+  card.hidden = false;
+  return series;
+}
+
 function renderGuides() {
   if (!els.guidesStrip || !els.guidesList) return;
   const guides = Array.isArray(state.guides) ? state.guides : [];
@@ -369,6 +453,10 @@ function renderGuides() {
   els.guidesStrip.hidden = !show;
   if (!show) {
     els.guidesList.replaceChildren();
+    if (els.seriesHomeCard) {
+      els.seriesHomeCard.hidden = true;
+      els.seriesHomeCard.replaceChildren();
+    }
     return;
   }
 
@@ -389,6 +477,11 @@ function renderGuides() {
     list.append(li);
   });
   els.guidesList.replaceChildren(list);
+
+  const featured = renderSeriesHomeCard();
+  if (els.guidesMore && featured?.href) {
+    els.guidesMore.href = featured.href;
+  }
 }
 
 async function loadGuides() {
@@ -397,8 +490,10 @@ async function loadGuides() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     state.guides = Array.isArray(data.guides) ? data.guides : [];
+    state.series = Array.isArray(data.series) ? data.series : [];
   } catch {
     state.guides = [];
+    state.series = [];
   }
   renderGuides();
 }

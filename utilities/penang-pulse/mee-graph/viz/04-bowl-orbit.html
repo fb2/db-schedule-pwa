@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bowl Orbit · Mee-Search · Penang Pulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Source+Sans+3:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./mee-viz.css" />
+    <style>
+      .orbit-ring {
+        fill: none;
+        stroke: var(--line);
+        stroke-dasharray: 2 5;
+      }
+      .ring-name {
+        font-size: 0.66rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        fill: var(--muted);
+      }
+      .sat circle {
+        cursor: pointer;
+      }
+      .sat text {
+        font-size: 10px;
+        font-weight: 600;
+        fill: var(--text);
+        pointer-events: none;
+        paint-order: stroke;
+        stroke: var(--stage-bg);
+        stroke-width: 3px;
+        stroke-linejoin: round;
+      }
+      .spoke {
+        stroke: var(--text);
+        stroke-opacity: 0.14;
+        fill: none;
+      }
+      .core-title {
+        font-family: Fraunces, Georgia, serif;
+        font-weight: 650;
+        text-anchor: middle;
+        fill: var(--text);
+      }
+      .core-sub {
+        font-size: 10px;
+        font-weight: 500;
+        text-anchor: middle;
+        fill: var(--muted);
+      }
+      .thread-arc {
+        cursor: pointer;
+      }
+      .thread-tick {
+        font-size: 9.5px;
+        font-weight: 600;
+        fill: var(--muted);
+      }
+      /* An overlay was the wrong model here: the circle is centred and its thread
+         labels sit OUTSIDE the ring, so a floating panel covered the very labels it
+         was describing. Two columns instead — the circle owns its box, the dossier
+         owns its own. */
+      /* One height for both columns, declared once. The dossier's content used to
+         stretch the grid row well past the stage. */
+      .orbit-grid {
+        --orbit-h: min(74vh, 660px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 312px;
+        gap: 16px;
+        align-items: start;
+      }
+
+      /* No separate threads box: the ring already carries that information, and the
+         description is the scarce thing. The dossier gets the whole column, and the
+         breakdown appears inside it AFTER the prose. */
+      .orbit-side {
+        display: flex;
+        flex-direction: column;
+        height: var(--orbit-h);
+        min-height: 520px;
+      }
+
+      .dossier {
+        flex: 1 1 auto;
+        min-height: 0;
+        border: 1px solid var(--line);
+      }
+
+      .p-threads {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+      }
+
+      .p-threads ol {
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .thread-chip {
+        display: grid;
+        grid-template-columns: 10px 1fr auto;
+        align-items: center;
+        gap: 8px;
+        padding: 3px 4px;
+        margin: 0 -4px;
+        font-size: 0.84rem;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: background 0.15s ease;
+      }
+
+      .thread-chip:hover,
+      .thread-chip[data-hot="true"] {
+        background: var(--accent-soft);
+      }
+
+      .thread-chip .sw {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+      }
+
+      .thread-chip .nm {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .thread-chip .pc {
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 940px) {
+        .orbit-grid {
+          grid-template-columns: 1fr;
+        }
+        .orbit-side {
+          height: auto;
+          min-height: 0;
+          margin-top: 16px;
+        }
+        .dossier {
+          height: 380px;
+        }
+      }
+
+      #stage {
+        height: var(--orbit-h);
+        min-height: 520px;
+      }
+
+      /* The rail overflows at every realistic width, so it needs to LOOK scrollable
+         without being touched: a visible scrollbar, a fade at whichever edge has more
+         content behind it, and arrows. macOS hides overlay scrollbars until you
+         already scroll, which is exactly the wrong time to learn you can. */
+      .rail-wrap {
+        position: relative;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 12px 16px 0;
+      }
+      .dish-rail {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 2px 2px 8px;
+        scroll-behavior: smooth;
+      }
+      /* Do NOT set scrollbar-width / scrollbar-color here. Chrome ignores every
+         ::-webkit-scrollbar rule the moment either standard property is present, and
+         then falls back to the macOS overlay scrollbar — invisible at rest, which is
+         the whole problem. Styling the pseudo-elements forces a permanent bar.
+         Firefox gets the standard properties in the @supports block below. */
+      .dish-rail::-webkit-scrollbar {
+        height: 7px;
+      }
+      .dish-rail::-webkit-scrollbar-track {
+        background: var(--line-soft);
+        border-radius: 999px;
+      }
+      .dish-rail::-webkit-scrollbar-thumb {
+        background: rgba(28, 28, 26, 0.24);
+        border-radius: 999px;
+      }
+      .dish-rail::-webkit-scrollbar-thumb:hover {
+        background: rgba(28, 28, 26, 0.42);
+      }
+      /* Firefox only: it has no ::-webkit-scrollbar, and its thin scrollbar is
+         always visible anyway. */
+      @supports (-moz-appearance: none) {
+        .dish-rail {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(28, 28, 26, 0.28) var(--line-soft);
+        }
+      }
+
+      /* Fades sit over the pills, inside the wrapper's padding. Pointer-events off so
+         they never eat a click on the pill underneath. */
+      .rail-wrap::before,
+      .rail-wrap::after {
+        content: "";
+        position: absolute;
+        top: 12px;
+        bottom: 8px;
+        width: 52px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.22s ease;
+        z-index: 1;
+      }
+      .rail-wrap::before {
+        left: 16px;
+        background: linear-gradient(to right, var(--bg) 12%, rgba(250, 250, 248, 0) 100%);
+      }
+      .rail-wrap::after {
+        right: 16px;
+        background: linear-gradient(to left, var(--bg) 12%, rgba(250, 250, 248, 0) 100%);
+      }
+      .rail-wrap[data-scroll="left"]::before,
+      .rail-wrap[data-scroll="both"]::before,
+      .rail-wrap[data-scroll="right"]::after,
+      .rail-wrap[data-scroll="both"]::after {
+        opacity: 1;
+      }
+
+      .rail-nudge {
+        position: absolute;
+        top: 12px;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--accent);
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 2;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease, border-color 0.18s ease, background-color 0.18s ease;
+      }
+      .rail-nudge:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      .rail-nudge--l {
+        left: 10px;
+      }
+      .rail-nudge--r {
+        right: 10px;
+      }
+      .rail-wrap[data-scroll="left"] .rail-nudge--l,
+      .rail-wrap[data-scroll="both"] .rail-nudge--l,
+      .rail-wrap[data-scroll="right"] .rail-nudge--r,
+      .rail-wrap[data-scroll="both"] .rail-nudge--r {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      /* keep the first and last pill clear of the arrows */
+      .rail-wrap[data-scroll]:not([data-scroll="none"]) .dish-rail {
+        padding-left: 34px;
+        padding-right: 34px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .dish-rail {
+          scroll-behavior: auto;
+        }
+      }
+      .dish-rail button {
+        appearance: none;
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 999px;
+        padding: 6px 13px;
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--muted);
+        cursor: pointer;
+        white-space: nowrap;
+        transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+      }
+      .dish-rail button:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .dish-rail button[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .dish-rail button .tick {
+        opacity: 0.7;
+        margin-right: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viz-topbar">
+      <a class="back" href="../../guides/series/mee-myself-and-i/mee-search/">&larr; Mee-Search</a>
+      <a class="brand-mini" href="https://penangpulse.com/">Penang Pulse</a>
+    </div>
+
+    <header class="viz-head">
+      <p class="viz-kicker">Mee-Search</p>
+      <h1>Bowl Orbit</h1>
+      <p class="viz-dek">
+        One bowl, taken apart. The noodle orbits closest, then the ingredients, then the methods —
+        and each satellite is coloured by the community that contributed it, not by what it is. The
+        ring around the outside is the answer to “whose dish is this”, assembled from the parts
+        rather than from the label.
+      </p>
+    </header>
+
+    <div class="rail-wrap" id="railwrap" role="group" aria-label="Choose a dish">
+      <button class="rail-nudge rail-nudge--l" id="rail-l" aria-label="Show earlier dishes">
+        &lsaquo;
+      </button>
+      <div class="dish-rail" id="rail"></div>
+      <button class="rail-nudge rail-nudge--r" id="rail-r" aria-label="Show more dishes">
+        &rsaquo;
+      </button>
+    </div>
+
+    <div class="viz-controls">
+      <div class="view-switch" role="group" aria-label="Set">
+        <button data-set="tried" id="btn-tried" aria-pressed="true">Tasted so far</button>
+        <button data-set="core" aria-pressed="false">Penang core</button>
+        <button data-set="all" aria-pressed="false">Everything</button>
+      </div>
+      <button class="ctl-btn" id="spin" data-on="true">Orbiting</button>
+      <button class="ctl-btn" id="next">Next bowl &rarr;</button>
+    </div>
+
+    <div class="viz-wrap">
+      <div class="orbit-grid">
+        <div class="viz-stage" id="stage"></div>
+        <div class="orbit-side">
+          <aside class="dossier" id="dossier"></aside>
+        </div>
+      </div>
+      <div id="legend"></div>
+      <p class="viz-hint">
+        Satellites drift on their own orbits at their own speeds. Hover one to see which community it
+        came from and how load-bearing it is; click for the full note.
+      </p>
+    </div>
+
+    <div class="viz-foot">
+      <h2>What this one is for</h2>
+      <p>
+        The question the dataset was built to answer: which threads are actually in this bowl. It
+        walks <code>uses_noodle</code> / <code>uses_ingredient</code> / <code>uses_technique</code>
+        out to each component, then <code>contributed_by</code> back to a community, and totals it.
+        No dish label is consulted at any point.
+      </p>
+      <h2>Try this</h2>
+      <p>
+        <strong>Curry Mee</strong> is the clean four-way case — Chinese noodle, Indian spice, Malay
+        coconut, and a Chinese blood cube that pins the whole thing on one side of the halal line.
+        Then look at <strong>Mee Suah Koh</strong>, which is almost pure Hokkien and barely creolised
+        at all. Same island, opposite answers.
+      </p>
+    </div>
+
+    <script src="./d3.v7.min.js"></script>
+    <script src="./graph-data.js"></script>
+    <script src="./mee-viz.js"></script>
+    <script>
+      (async function () {
+        const stage = document.getElementById("stage");
+        let g;
+        try {
+          g = await MEE.load();
+        } catch (err) {
+          return MEE.fail(stage, err);
+        }
+
+        const svg = d3.select(stage).append("svg");
+        const root = svg.append("g");
+        const gRings = root.append("g");
+        const gSpokes = root.append("g");
+        const gThreads = root.append("g");
+        const gSats = root.append("g");
+        const gCore = root.append("g");
+        const tip = MEE.tooltip();
+
+        let W = 800,
+          H = 560,
+          R = 240,
+          SIDE = 116,
+          spinning = true,
+          t0 = performance.now();
+        let current = null,
+          sats = [],
+          threads = [];
+
+        const RINGS = [
+          { key: "uses_noodle", name: "Noodle", f: 0.34 },
+          { key: "uses_ingredient", name: "Ingredients", f: 0.62 },
+          { key: "uses_technique", name: "Method", f: 0.88 },
+        ];
+
+        /* --------------------------------------------------------- dish set ---- */
+        let setKey = "tried";
+        function dishList() {
+          const all = g.byType.dish;
+          if (setKey === "tried") {
+            const order = g.byType.episode
+              .filter((e) => e.status === "tried")
+              .sort((a, b) => (a.seriesOrder || 0) - (b.seriesOrder || 0));
+            const seen = new Set();
+            const out = [];
+            for (const e of order) {
+              if (seen.has(e.dish)) continue;
+              seen.add(e.dish);
+              out.push(g.byId[e.dish]);
+            }
+            return out.filter(Boolean);
+          }
+          if (setKey === "core") return all.filter((d) => d.penangStatus === "core");
+          return all
+            .filter((d) => ["core", "present", "rare"].includes(d.penangStatus))
+            .sort((a, b) => a.label.localeCompare(b.label));
+        }
+
+        const triedDish = new Set(g.byType.episode.filter((e) => e.status === "tried").map((e) => e.dish));
+
+        function buildRail() {
+          const rail = document.getElementById("rail");
+          rail.innerHTML = "";
+          for (const d of dishList()) {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.dataset.id = d.id;
+            b.setAttribute("aria-pressed", current && current.id === d.id ? "true" : "false");
+            b.innerHTML =
+              (triedDish.has(d.id) ? '<span class="tick">✓</span>' : "") + MEE.esc(MEE.short(d.label, 26));
+            b.addEventListener("click", () => select(d.id));
+            rail.appendChild(b);
+          }
+          syncRail();
+        }
+
+        /* ------------------------------------------------------- rail affordance ---- */
+        const railEl = document.getElementById("rail");
+        const railWrap = document.getElementById("railwrap");
+
+        /* data-scroll drives the edge fades and the arrows purely in CSS: which side
+           still has pills behind it. "none" hides both, so a rail that fits looks
+           like a plain row of pills rather than a broken carousel. */
+        function syncRail() {
+          const max = railEl.scrollWidth - railEl.clientWidth;
+          if (max <= 2) {
+            railWrap.dataset.scroll = "none";
+            return;
+          }
+          const x = railEl.scrollLeft;
+          railWrap.dataset.scroll = x > 2 ? (x < max - 2 ? "both" : "left") : "right";
+        }
+        railEl.addEventListener("scroll", syncRail, { passive: true });
+        const nudge = (dir) => () =>
+          railEl.scrollBy({ left: dir * railEl.clientWidth * 0.75, behavior: "smooth" });
+        document.getElementById("rail-l").addEventListener("click", nudge(-1));
+        document.getElementById("rail-r").addEventListener("click", nudge(1));
+        if (window.ResizeObserver) new ResizeObserver(syncRail).observe(railEl);
+
+        /* One small nudge and back on first load. A static fade tells you there is
+           more; movement tells you it is YOURS to move. Skipped under
+           prefers-reduced-motion, where the fade and arrows carry it alone. */
+        function peekRail() {
+          if (MEE.reducedMotion()) return;
+          if (railEl.scrollWidth - railEl.clientWidth <= 2) return;
+          const start = railEl.scrollLeft;
+          railEl.style.scrollBehavior = "auto";
+          const t0 = performance.now();
+          const tick = () => {
+            const t = (performance.now() - t0) / 900;
+            if (t >= 1) {
+              railEl.scrollLeft = start;
+              railEl.style.scrollBehavior = "";
+              return;
+            }
+            // out and back on one sine hump
+            railEl.scrollLeft = start + Math.sin(t * Math.PI) * 26;
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+
+        /* ----------------------------------------------------------- select ---- */
+        function select(id) {
+          current = g.byId[id];
+          document.querySelectorAll("#rail button").forEach((b) =>
+            b.setAttribute("aria-pressed", b.dataset.id === id ? "true" : "false")
+          );
+          const btn = document.querySelector('#rail button[data-id="' + id + '"]');
+          if (btn) {
+            btn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+            // scrollIntoView does not fire scroll synchronously; catch the settled state
+            setTimeout(syncRail, 420);
+          }
+
+          // components, ring by ring
+          const next = [];
+          RINGS.forEach((ring, ri) => {
+            const rel = g
+              .neighbours(current.id, [ring.key], "out")
+              .sort((a, b) => b.edge.weight - a.edge.weight)
+              .slice(0, ring.key === "uses_ingredient" ? 11 : 6);
+            rel.forEach((r, i) => {
+              const contributors = g
+                .neighbours(r.node.id, ["contributed_by"], "out")
+                .sort((a, b) => b.edge.weight - a.edge.weight);
+              const owner = contributors[0] ? contributors[0].node : null;
+              next.push({
+                id: r.node.id,
+                node: r.node,
+                edge: r.edge,
+                ring: ri,
+                owner,
+                contributors: contributors.map((c) => c.node),
+                colour: owner ? MEE.tone(owner) : "#9a9a95",
+                a0: (i / Math.max(rel.length, 1)) * Math.PI * 2 + ri * 0.5,
+                spd: (ri % 2 ? -1 : 1) * (0.045 + (ri * 0.012) + (i % 3) * 0.006),
+                rr: 5 + r.edge.weight * 7,
+              });
+            });
+          });
+
+          // keep positions of satellites that survive the change, so it morphs
+          const prev = new Map(sats.map((s) => [s.id, s]));
+          for (const s of next) {
+            const p = prev.get(s.id);
+            if (p) s.a0 = p.angle != null ? p.angle : s.a0;
+          }
+          sats = next;
+          threads = g.threadsOf(current.id).slice(0, 7);
+
+          draw();
+          showDossier(current);
+        }
+
+        /* --------------------------------------------------------- core fit ---- */
+        /* The hub used to be a fixed R * 0.2 with text poured into it, so a long
+           name like "Penang Curry Mee" spilled over its own edge. Size the circle
+           to the text instead: measure, wrap, shrink only if we run out of room,
+           then let the orbits move outward to keep their clearance. */
+        const gMeasure = svg.append("g").attr("aria-hidden", "true").style("visibility", "hidden");
+        const measurer = gMeasure.append("text");
+        function textW(str, fs, family) {
+          measurer.attr("font-size", fs).attr("font-family", family).text(str);
+          return measurer.node().getComputedTextLength();
+        }
+        const TITLE_FONT = "Fraunces, Georgia, serif";
+        const SUB_FONT = '"Source Sans 3", sans-serif';
+
+        function wrapToWidth(str, fs, maxW) {
+          const out = [];
+          let line = "";
+          for (const w of str.split(" ")) {
+            const cand = line ? line + " " + w : w;
+            if (line && textW(cand, fs, TITLE_FONT) > maxW) {
+              out.push(line);
+              line = w;
+            } else line = cand;
+          }
+          if (line) out.push(line);
+          return out;
+        }
+
+        /* Radius needed to contain a horizontally-centred line: the far corner of its
+           box, not its half-width — a wide line low in the circle needs more room. */
+        function cornerR(w, fs, baseline) {
+          const top = baseline - fs * 0.74;
+          const bot = baseline + fs * 0.22;
+          return Math.hypot(w / 2, Math.max(Math.abs(top), Math.abs(bot)));
+        }
+
+        function fitCore(title, nSats, nThreads, hubMax) {
+          const PAD = 6;
+          const SUBS = [
+            nSats + " components · " + nThreads + " threads",
+            nSats + " parts · " + nThreads + " threads",
+            nSats + " · " + nThreads,
+          ];
+          let best = null;
+          for (const fs of [17, 16, 15, 14, 13, 12, 11]) {
+            for (const sub of SUBS) {
+              // narrower wrap targets trade width for height; try wide first
+              for (const frac of [1.55, 1.35, 1.15, 0.95]) {
+                const lines = wrapToWidth(title, fs, hubMax * frac);
+                if (lines.length > 3) continue;
+                const lh = fs + 2;
+                const subFs = fs >= 14 ? 10 : 9;
+                const blockH = lines.length * lh + subFs + 3;
+                let y = -blockH / 2 + fs * 0.74;
+                const laid = lines.map((ln) => {
+                  const o = { text: ln, y, w: textW(ln, fs, TITLE_FONT) };
+                  y += lh;
+                  return o;
+                });
+                const subY = y + 1;
+                const subWidth = textW(sub, subFs, SUB_FONT);
+                let need = Math.max(
+                  ...laid.map((o) => cornerR(o.w, fs, o.y)),
+                  cornerR(subWidth, subFs, subY)
+                );
+                const cand = { fs, subFs, lines: laid, sub, subY, need, r: need + PAD };
+                if (!best || cand.need < best.need) best = cand;
+                if (need + PAD <= hubMax) return cand;
+              }
+            }
+          }
+          return best;
+        }
+
+        /* ------------------------------------------------------------- draw ---- */
+        function draw() {
+          const total = d3.sum(threads, (t) => t.weight) || 1;
+
+          // The hub is sized to its own text, so it has to be measured BEFORE the
+          // orbits are laid out — the rings key off it, not the other way round.
+          const core = fitCore(MEE.short(current.label, 40), sats.length, threads.length, R * 0.3);
+          const hubR = Math.max(R * 0.2, Math.min(core.r, R * 0.3));
+          /* Keep the innermost orbit a constant gap outside the hub and spread the
+             rest between it and the outer ring, so a big hub pushes the satellites
+             out instead of swallowing them. At the old hub size this reproduces the
+             original 0.34 / 0.62 / 0.88 almost exactly. */
+          const h = hubR / R;
+          RINGS[0].f = h + 0.11;
+          RINGS[2].f = 0.88;
+          RINGS[1].f = RINGS[0].f + (RINGS[2].f - RINGS[0].f) * 0.55;
+
+          // rings
+          const rings = gRings.selectAll("g").data(RINGS);
+
+          const rEnter = rings.enter().append("g");
+          rEnter.append("circle").attr("class", "orbit-ring");
+          rEnter.append("text").attr("class", "ring-name");
+          const rAll = rEnter.merge(rings);
+          rAll
+            .select("circle")
+            .transition()
+            .duration(500)
+            .attr("r", (d) => R * d.f);
+          rAll
+            .select("text")
+            .attr("text-anchor", "middle")
+            .transition()
+            .duration(500)
+            .attr("y", (d) => -R * d.f - 6)
+            .text((d) => d.name);
+
+          // outer thread ring
+          const arc = d3
+            .arc()
+            .innerRadius(R + 10)
+            .outerRadius(R + 22)
+            .padAngle(0.012);
+          let acc = 0; // 0 = 12 o'clock in d3's arc convention; ring reads clockwise
+          const segs = threads.map((t) => {
+            const span = (t.weight / total) * Math.PI * 2;
+            const s = { ...t, startAngle: acc, endAngle: acc + span, mid: acc + span / 2, share: t.weight / total };
+            acc += span;
+            return s;
+          });
+
+          const ta = gThreads.selectAll("path").data(segs, (d) => d.culture.id);
+          ta.exit().transition().duration(260).style("opacity", 0).remove();
+          ta.enter()
+            .append("path")
+            .attr("class", "thread-arc")
+            .style("opacity", 0)
+            .on("mouseenter", function (evt, d) {
+              tip.show(evt, d.culture, Math.round(d.share * 100) + "% of this bowl's components");
+              hotThread(d.culture.id);
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => {
+              tip.hide();
+              hotThread(null);
+            })
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              showDossier(d.culture);
+            })
+            .merge(ta)
+            .attr("fill", (d) => MEE.tone(d.culture))
+            .transition()
+            .duration(520)
+            .ease(d3.easeCubicOut)
+            .style("opacity", 0.9)
+            .attrTween("d", function (d) {
+              const prev = this._cur || { startAngle: d.startAngle, endAngle: d.startAngle };
+              const i = d3.interpolate(prev, d);
+              this._cur = d;
+              return (t) => arc(i(t));
+            });
+
+          // Only the segments with room get an outside label; the rest are covered by
+          // the list beside the stage. Nothing is ever rotated.
+          /* d3.arc measures angles from 12 o'clock, clockwise. Screen offset for an
+             angle t is therefore (sin t, -cos t) — NOT (cos t, sin t), which is the
+             standard-maths convention and rotates every label 90° away from the arc
+             it belongs to. That mismatch is why the ring appeared to highlight the
+             wrong community. */
+          const labelR = R + 26;
+          const spots = segs.map((d) => ({
+            seg: d,
+            side: Math.sin(d.mid) >= 0 ? 1 : -1,
+            x: Math.sin(d.mid) * labelR,
+            y: -Math.cos(d.mid) * labelR,
+          }));
+
+          /* Every thread gets a label now, so small neighbouring slices need
+             decluttering: push each side's labels apart vertically, then pull the
+             column back inside the stage if it ran off the bottom. */
+          const MIN_GAP = 15;
+          const limit = H / 2 - 14;
+          [-1, 1].forEach((side) => {
+            const col = spots.filter((p) => p.side === side).sort((a, b) => a.y - b.y);
+            for (let i = 1; i < col.length; i++) {
+              if (col[i].y - col[i - 1].y < MIN_GAP) col[i].y = col[i - 1].y + MIN_GAP;
+            }
+            if (col.length) {
+              const over = col[col.length - 1].y - limit;
+              if (over > 0) col.forEach((p) => (p.y -= over));
+              const under = -limit - col[0].y;
+              if (under > 0) col.forEach((p) => (p.y += under));
+            }
+          });
+          const spotOf = new Map(spots.map((p) => [p.seg.culture.id, p]));
+
+          const tt = gThreads.selectAll("text").data(
+            segs.filter((s) => s.share > 0.02),
+            (d) => d.culture.id
+          );
+          tt.exit().remove();
+          tt.enter()
+            .append("text")
+            .attr("class", "thread-tick")
+            .merge(tt)
+            .attr("text-anchor", (d) => {
+              const p = spotOf.get(d.culture.id);
+              if (Math.abs(Math.sin(d.mid)) < 0.25) return "middle";
+              return p.side > 0 ? "start" : "end";
+            })
+            .transition()
+            .duration(520)
+            .attr("x", (d) => spotOf.get(d.culture.id).x)
+            .attr("y", (d) => spotOf.get(d.culture.id).y + 3)
+            .text(
+              (d) =>
+                MEE.short(d.culture.label, SIDE < 116 ? 9 : 18) +
+                " " +
+                Math.round(d.share * 100) +
+                "%"
+            );
+
+          // satellites
+          const sel = gSats.selectAll("g.sat").data(sats, (d) => d.id);
+          sel
+            .exit()
+            .transition()
+            .duration(260)
+            .style("opacity", 0)
+            .attr("transform", "translate(0,0) scale(0.2)")
+            .remove();
+          const sEnter = sel.enter().append("g").attr("class", "sat").style("opacity", 0);
+          sEnter.append("circle");
+          sEnter.append("text").attr("text-anchor", "middle");
+          const sAll = sEnter.merge(sel);
+
+          sAll
+            .select("circle")
+            .attr("r", (d) => d.rr)
+            .attr("fill", (d) => d.colour)
+            .attr("fill-opacity", 0.9)
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.2)
+            .on("mouseenter", function (evt, d) {
+              tip.show(
+                evt,
+                d.node,
+                (d.owner ? d.owner.label + " · " : "") + "weight " + d.edge.weight.toFixed(2)
+              );
+            })
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide())
+            .on("click", (evt, d) => {
+              evt.stopPropagation();
+              showDossier(d.node);
+            });
+
+          /* Wrap to two lines rather than truncating with an ellipsis — an orbit has
+             vertical room even when it has no horizontal room, and "Coagulated pig's
+             blo…" is not a label. Only the long technique names still get cut, and the
+             tooltip carries the full text. */
+          sAll.select("text").each(function (d) {
+            const t = d3.select(this);
+            t.selectAll("tspan").remove();
+            if (d.rr <= 6) return;
+
+            const maxChars = d.ring === 0 ? 19 : 17;
+            const words = String(d.node.label).split(" ");
+            const lines = [];
+            let line = "";
+            for (const w of words) {
+              if (line && (line + " " + w).trim().length > maxChars) {
+                lines.push(line.trim());
+                line = w;
+              } else line += " " + w;
+            }
+            if (line.trim()) lines.push(line.trim());
+
+            const shown = lines.slice(0, 2);
+            if (lines.length > 2) {
+              shown[1] = MEE.short(lines.slice(1).join(" "), maxChars + 2);
+            }
+            const base = d.rr + 8;
+            shown.forEach((ln, i) =>
+              t
+                .append("tspan")
+                .attr("x", 0)
+                .attr("y", -(base + (shown.length - 1 - i) * 11))
+                .text(ln)
+            );
+          });
+          sAll.transition().duration(360).style("opacity", 1);
+
+          // spokes
+          const sp = gSpokes.selectAll("line").data(sats, (d) => d.id);
+          sp.exit().remove();
+          sp.enter().append("line").attr("class", "spoke").merge(sp);
+
+          // core
+          gCore.selectAll("*").remove();
+          gCore
+            .append("circle")
+            .attr("r", 0)
+            .attr("fill", "#fff")
+            .attr("stroke", current.colour)
+            .attr("stroke-width", 2.5)
+            .transition()
+            .duration(420)
+            .ease(d3.easeBackOut)
+            .attr("r", hubR);
+          const label = gCore.append("text").attr("class", "core-title");
+          core.lines.forEach((ln) =>
+            label
+              .append("tspan")
+              .attr("x", 0)
+              .attr("y", ln.y)
+              .attr("font-size", core.fs)
+              .text(ln.text)
+          );
+          gCore
+            .append("text")
+            .attr("class", "core-sub")
+            .attr("font-size", core.subFs)
+            .attr("y", core.subY)
+            .text(core.sub);
+          gCore
+            .append("circle")
+            .attr("r", hubR)
+            .attr("fill", "transparent")
+            .style("cursor", "pointer")
+            .on("click", (evt) => {
+              evt.stopPropagation();
+              showDossier(current);
+            })
+            .on("mouseenter", (evt) => tip.show(evt, current, current.penangStatus))
+            .on("mousemove", (evt) => tip.move(evt))
+            .on("mouseleave", () => tip.hide());
+        }
+
+        /* ------------------------------------------------ dossier + threads ---- */
+        /* The dossier owns the whole side column. The thread breakdown goes INSIDE
+           it, after the prose — the ring already carries the same information
+           visually, so the description gets the top of the space. */
+        function threadHtml() {
+          const total = d3.sum(threads, (t) => t.weight) || 1;
+          if (!threads.length) return "";
+          return (
+            '<div class="p-threads"><p class="p-type">Threads in this bowl</p><ol>' +
+            threads
+              .map(
+                (t) =>
+                  '<li class="thread-chip" data-cid="' +
+                  MEE.esc(t.culture.id) +
+                  '"><span class="sw" style="background:' +
+                  MEE.tone(t.culture) +
+                  '"></span><span class="nm">' +
+                  MEE.esc(t.culture.label) +
+                  '</span><span class="pc">' +
+                  Math.round((t.weight / total) * 100) +
+                  "%</span></li>"
+              )
+              .join("") +
+            "</ol></div>"
+          );
+        }
+
+        /* Every dossier render goes through here so the chips always get wired. */
+        function showDossier(node, opts) {
+          const isCurrent = current && node.id === current.id;
+          panel.show(node, g, {
+            relatedLimit: 10,
+            inject: isCurrent ? threadHtml() : "",
+            ...(opts || {}),
+          });
+          panel.el.querySelectorAll(".thread-chip").forEach((li) => {
+            const cid = li.dataset.cid;
+            li.addEventListener("mouseenter", () => hotThread(cid));
+            li.addEventListener("mouseleave", () => hotThread(null));
+            li.addEventListener("click", () => {
+              const n = g.byId[cid];
+              if (n) showDossier(n);
+            });
+          });
+        }
+
+        /* One highlight path, shared by the ring and the chips — and eased, because
+           snapping opacity on mouseover reads as a flinch. */
+        function hotThread(cid) {
+          /* style.opacity, not the fill-opacity attribute: draw() animates opacity on
+             these same arcs, and driving both channels multiplied them (0.9 x 0.9)
+             so the ring sat slightly dimmer after any hover. */
+          gThreads
+            .selectAll("path")
+            .transition("hot")
+            .duration(220)
+            .ease(d3.easeCubicInOut)
+            .style("opacity", (d) => (cid ? (d.culture.id === cid ? 1 : 0.22) : 0.9));
+          gSats
+            .selectAll("g.sat")
+            .transition("hot")
+            .duration(220)
+            .ease(d3.easeCubicInOut)
+            .style("opacity", (d) =>
+              cid ? (d.contributors.some((c) => c.id === cid) ? 1 : 0.16) : 1
+            );
+          panel.el
+            .querySelectorAll(".thread-chip")
+            .forEach((li) => (li.dataset.hot = li.dataset.cid === cid ? "true" : "false"));
+        }
+
+        /* ------------------------------------------------------------- spin ---- */
+        d3.timer(() => {
+          const el = (performance.now() - t0) / 1000;
+          const satSel = gSats.selectAll("g.sat");
+          const spokeSel = gSpokes.selectAll("line");
+          satSel.attr("transform", function (d) {
+            d.angle = d.a0 + (spinning && !MEE.reducedMotion() ? el * d.spd : 0);
+            const rad = R * RINGS[d.ring].f;
+            d.px = Math.cos(d.angle) * rad;
+            d.py = Math.sin(d.angle) * rad;
+            return "translate(" + d.px + "," + d.py + ")";
+          });
+          spokeSel
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", (d) => d.px || 0)
+            .attr("y2", (d) => d.py || 0);
+        });
+
+        /* ---------------------------------------------------------- panel ---- */
+        const panel = MEE.panel(stage, (id) => {
+          const n = g.byId[id];
+          if (!n) return;
+          if (n.type === "dish") {
+            if (!dishList().some((d) => d.id === id)) {
+              setKey = "all";
+              document.querySelectorAll("[data-set]").forEach((x) =>
+                x.setAttribute("aria-pressed", x.dataset.set === "all" ? "true" : "false")
+              );
+              buildRail();
+            }
+            select(id);
+          } else showDossier(n);
+        }, { host: document.getElementById("dossier") });
+        // clicking empty space returns the dossier to the bowl itself
+        svg.on("click", () => showDossier(current));
+
+        MEE.legend(document.getElementById("legend"), [
+          { key: "hokkien", label: "Hokkien", colour: "#c2603a" },
+          { key: "malay", label: "Malay / Kedah", colour: "#6f9455" },
+          { key: "mamak", label: "Tamil Muslim", colour: "#8d6ca8" },
+          { key: "nyonya", label: "Peranakan", colour: "#b06a8a" },
+          { key: "teochew", label: "Teochew", colour: "#a8492f" },
+          { key: "cantonese", label: "Cantonese", colour: "#d4794a" },
+          { key: "siamese", label: "Siamese", colour: "#0f6e6e" },
+          { key: "colonial", label: "Colonial supply chain", colour: "#5c5c5c" },
+        ]);
+
+        /* -------------------------------------------------------- controls ---- */
+        document.querySelectorAll("[data-set]").forEach((b) => {
+          b.addEventListener("click", () => {
+            document.querySelectorAll("[data-set]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+            b.setAttribute("aria-pressed", "true");
+            setKey = b.dataset.set;
+            buildRail();
+            const list = dishList();
+            if (!list.some((d) => current && d.id === current.id)) select(list[0].id);
+          });
+        });
+        document.getElementById("spin").addEventListener("click", (e) => {
+          spinning = !spinning;
+          e.currentTarget.dataset.on = spinning ? "true" : "false";
+          e.currentTarget.textContent = spinning ? "Orbiting" : "Held still";
+          if (spinning) t0 = performance.now() - 0;
+        });
+        document.getElementById("next").addEventListener("click", () => {
+          const list = dishList();
+          const i = list.findIndex((d) => d.id === current.id);
+          select(list[(i + 1) % list.length].id);
+        });
+
+        MEE.onResize(() => {
+          const s = MEE.size(stage);
+          W = s.w;
+          H = s.h;
+          // The thread labels are horizontal text OUTSIDE the ring, so the limit is
+          // not a circle inscribed in the box — it is the box minus label width on
+          // the sides and a smaller margin top and bottom. On a phone a flat 116px
+          // reserve eats most of the width and starves the circle (R fell to 79,
+          // which is smaller than the hub's own text), so it scales down and the
+          // labels are truncated to match.
+          SIDE = W < 620 ? Math.max(56, W * 0.17) : 116;
+          R = Math.min(W / 2 - SIDE, H / 2 - 42);
+          svg.attr("viewBox", "0 0 " + W + " " + H);
+          root.attr("transform", "translate(" + W / 2 + "," + H / 2 + ")");
+          if (current) draw();
+        });
+
+        // label the set button from the data rather than hardcoding a count
+        // dishes, not episodes: pan mee and koay teow th'ng were each eaten twice,
+        // so the dish count is legitimately lower than the episode count
+        document.getElementById("btn-tried").textContent =
+          new Set(g.byType.episode.filter((e) => e.status === "tried").map((e) => e.dish)).size +
+          " dishes tasted";
+
+        buildRail();
+        select("d-curry-mee-penang");
+        syncRail();
+        setTimeout(peekRail, 900);
+      })();
+    </script>
+  </body>
+</html>
