@@ -715,6 +715,153 @@ def ensure_share_assets(Image: Any) -> None:
         print(f"wrote {og.relative_to(ROOT)}")
 
 
+def write_series_og_image(
+    out_path: pathlib.Path,
+    *,
+    title: str,
+    dek: str = "",
+    mark: str = "",
+) -> str:
+    """Write a branded 1200×630 series share card (not an episode dish photo)."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont  # type: ignore
+    except ImportError:
+        die("Pillow required to generate series share images")
+
+    w, h = 1200, 630
+    canvas = Image.new("RGB", (w, h), "#0f6e6e")
+    draw = ImageDraw.Draw(canvas)
+    for i in range(h):
+        t = i / h
+        draw.line(
+            [(0, i), (w, i)],
+            fill=(int(15 + t * 8), int(110 + t * 12), int(110 + t * 8)),
+        )
+
+    cream = "#fafaf8"
+    soft = "#d7ebea"
+    cx, icon_y = w // 2, 168
+    if str(mark).endswith("mee-myself-and-i.svg"):
+        # Bowl mark (same silhouette as guides/marks/mee-myself-and-i.svg)
+        bw, bh = 120, 120
+        left, top = cx - bw // 2, icon_y - bh // 2
+        draw.arc(
+            [left + 8, top + 28, left + bw - 8, top + bh - 4],
+            start=0,
+            end=180,
+            fill=cream,
+            width=7,
+        )
+        draw.arc(
+            [left + 14, top + 18, left + bw - 14, top + 70],
+            start=200,
+            end=340,
+            fill=cream,
+            width=6,
+        )
+        draw.arc(
+            [left + 40, top + 2, left + 70, top + 40],
+            start=200,
+            end=340,
+            fill=cream,
+            width=5,
+        )
+        draw.arc(
+            [left + 58, top + 0, left + 92, top + 36],
+            start=200,
+            end=330,
+            fill=cream,
+            width=5,
+        )
+        draw.arc(
+            [left + 28, top + 52, left + bw - 28, top + 88],
+            start=20,
+            end=160,
+            fill=cream,
+            width=5,
+        )
+    else:
+        # Pulse target mark (matches site og-default)
+        draw.ellipse(
+            [cx - 90, icon_y - 90, cx + 90, icon_y + 90],
+            outline=cream,
+            width=14,
+        )
+        draw.ellipse(
+            [cx - 32, icon_y - 32, cx + 32, icon_y + 32],
+            fill=cream,
+        )
+        for x1, y1, x2, y2 in [
+            (cx, icon_y - 110, cx, icon_y - 72),
+            (cx, icon_y + 72, cx, icon_y + 110),
+            (cx - 110, icon_y, cx - 72, icon_y),
+            (cx + 72, icon_y, cx + 110, icon_y),
+        ]:
+            draw.line([(x1, y1), (x2, y2)], fill=cream, width=10)
+
+    try:
+        font = ImageFont.truetype(
+            "/System/Library/Fonts/Supplemental/Georgia.ttf", 64
+        )
+        small = ImageFont.truetype(
+            "/System/Library/Fonts/Supplemental/Georgia.ttf", 30
+        )
+        kicker_font = ImageFont.truetype(
+            "/System/Library/Fonts/Supplemental/Georgia.ttf", 26
+        )
+    except OSError:
+        font = ImageFont.load_default()
+        small = font
+        kicker_font = font
+
+    kicker = "Penang Pulse"
+    bbox = draw.textbbox((0, 0), kicker, font=kicker_font)
+    draw.text(
+        ((w - (bbox[2] - bbox[0])) // 2, icon_y + 78),
+        kicker,
+        fill=soft,
+        font=kicker_font,
+    )
+
+    title_text = title.strip() or "Series"
+    bbox = draw.textbbox((0, 0), title_text, font=font)
+    tw = bbox[2] - bbox[0]
+    draw.text(((w - tw) // 2, icon_y + 118), title_text, fill=cream, font=font)
+
+    sub = (dek or "").strip()
+    if len(sub) > 88:
+        sub = sub[:85].rstrip() + "…"
+    if sub:
+        bbox = draw.textbbox((0, 0), sub, font=small)
+        sw_ = bbox[2] - bbox[0]
+        # wrap once if needed
+        if sw_ > w - 120:
+            words = sub.split()
+            line1, line2 = [], []
+            for word in words:
+                trial = " ".join(line1 + [word])
+                tb = draw.textbbox((0, 0), trial, font=small)
+                if (tb[2] - tb[0]) < w - 140 or not line1:
+                    line1.append(word)
+                else:
+                    line2.append(word)
+            y = icon_y + 200
+            for line in (" ".join(line1), " ".join(line2)):
+                if not line:
+                    continue
+                bbox = draw.textbbox((0, 0), line, font=small)
+                lw = bbox[2] - bbox[0]
+                draw.text(((w - lw) // 2, y), line, fill=soft, font=small)
+                y += 40
+        else:
+            draw.text(((w - sw_) // 2, icon_y + 200), sub, fill=soft, font=small)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    canvas.save(out_path, "JPEG", quality=88, optimize=True)
+    rel = out_path.relative_to(PULSE_DIR).as_posix()
+    return "/" + rel
+
+
 def social_head_tags(
     *,
     title: str,
@@ -1479,14 +1626,15 @@ def build_series_pages(
         series_template = templates.get(series_slug) or ""
         series_mark = marks.get(series_slug) or ""
         mee_search = bool(mee_search_flags.get(series_slug))
-        og_image = OG_DEFAULT_PATH
-        for post in posts_sorted:
-            cover = str(post.get("cover") or "").strip()
-            if cover and cover != OG_DEFAULT_PATH:
-                og_image = cover
-                break
         out_dir = SERIES_DIR / series_slug
         out_dir.mkdir(parents=True)
+        # Series share card: branded title art — never an episode dish photo.
+        og_image = write_series_og_image(
+            out_dir / "og.jpg",
+            title=series_title,
+            dek=series_dek,
+            mark=series_mark,
+        )
         html_out = render_series_index(
             series_slug=series_slug,
             series_title=series_title,

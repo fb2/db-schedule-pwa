@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T12:26:45.492861+00:00",
+  "generatedAt": "2026-08-12T12:36:16.108176+00:00",
   "guides": [
     {
       "slug": "jones-road-famous-mee-sotong-sambal",
@@ -334,7 +334,7 @@
       "href": "./guides/series/family-matters/",
       "count": 0,
       "status": "active",
-      "cover": "/og-default.jpg",
+      "cover": "/guides/series/family-matters/og.jpg",
       "dek": "Weekends and evenings with kids — practical planning notes, not parenting advice."
     },
     {
@@ -343,7 +343,7 @@
       "href": "./guides/series/mee-myself-and-i/",
       "count": 16,
       "status": "active",
-      "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
+      "cover": "/guides/series/mee-myself-and-i/og.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
       "intro": "A running field diary of Penang noodles: hawkers, kopi, and the occasional mid-afternoon hunger that requires moooore. I show up, order, photograph, and write what the bowl actually did. C-Mee-PO, my AI research assistant, briefs the history so we can enjoy both the taste and the cultural context.",
       "mark": "./guides/marks/mee-myself-and-i.svg",
