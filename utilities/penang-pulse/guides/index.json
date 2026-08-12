@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-08-11T02:29:20.725155+00:00",
+  "generatedAt": "2026-08-12T04:44:22.616055+00:00",
   "guides": [
+    {
+      "slug": "jones-road-famous-mee-sotong-sambal",
+      "title": "Jones Road Famous Mee Sotong Sambal",
+      "dek": "Lunchtime dry noodles across from coworking — Jones Road Mee Sotong Sambal, sambal heat, soft potato, and a Hungarian krumplis tészta echo.",
+      "type": "Mee",
+      "href": "./guides/jones-road-famous-mee-sotong-sambal/",
+      "updated": "2026-08-12",
+      "cover": "/guides/jones-road-famous-mee-sotong-sambal/media/jones-road-famous-mee-sotong-sambal-bowl.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 12 Aug 2026",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 16,
+      "location": {
+        "name": "Jones Road Famous Mee Sotong Sambal at Sin Hup Aun Cafe",
+        "mapsUrl": "https://maps.app.goo.gl/KQBdnsZPxKgrkWkF6"
+      }
+    },
     {
       "slug": "ah-liang-koay-teow-th-ng",
       "title": "Ah Liang Koay Teow Th’ng at Pulau Tikus Hidden Food Court",
@@ -312,7 +331,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 15,
+      "count": 16,
       "status": "active",
       "cover": "/guides/jawa-mee-33/media/jawa-mee-bowl.jpg",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",
