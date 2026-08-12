@@ -48,6 +48,7 @@ SITE_AUTHOR = "Balazs Fejes"
 OG_DEFAULT_PATH = "/og-default.jpg"
 APPLE_TOUCH = "apple-touch-icon.png"
 OG_DEFAULT_FILE = "og-default.jpg"
+SERIES_OG_VER = "2"  # bump when regenerating series share cards (WhatsApp image cache)
 
 
 def copyright_year() -> int:
@@ -859,7 +860,7 @@ def write_series_og_image(
     out_path.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(out_path, "JPEG", quality=88, optimize=True)
     rel = out_path.relative_to(PULSE_DIR).as_posix()
-    return "/" + rel
+    return f"/{rel}?v={SERIES_OG_VER}"
 
 
 def social_head_tags(
