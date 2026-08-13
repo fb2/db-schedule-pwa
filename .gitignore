@@ -8,3 +8,4 @@ utilities/penang-pulse/guides/posts/**/media/orig/
 utilities/penang-pulse/guides/posts/**/media/*.jpg
 utilities/penang-pulse/guides/posts/**/media/*.jpeg
 utilities/penang-pulse/guides/posts/**/media/*.webp
+utilities/penang-pulse/mee-graph/tests/node_modules
