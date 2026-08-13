@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="A visual shelf of physical film discs, with a random picker." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Movie Shelf" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=5" />
+    <title>Movie Shelf</title>
+  </head>
+  <body>
+    <canvas id="c" aria-label="Film poster sphere"></canvas>
+
+    <header id="chrome">
+      <label class="search-wrap">
+        <span class="sr-only">Find a film</span>
+        <input id="search" type="search" placeholder="Find a film…" autocomplete="off" spellcheck="false" />
+      </label>
+      <div id="home-chips" class="chips" role="group" aria-label="Home filter"></div>
+      <button id="stats-btn" type="button">Stats</button>
+    </header>
+
+    <div id="title-bar"><h1>Film Collection</h1></div>
+    <div id="loading">
+      <div class="spinner"></div>
+      <span id="loading-msg">Loading posters…</span>
+    </div>
+
+    <div id="browse" hidden>
+      <div id="browse-meta"></div>
+      <div id="browse-track"></div>
+      <button id="browse-close" type="button">Back to sphere</button>
+    </div>
+
+    <div id="trivia"><div id="trivia-text"></div></div>
+
+    <div id="actions">
+      <button id="btn-browse" type="button">Browse</button>
+      <button id="btn-pick" type="button">Pick a film</button>
+    </div>
+
+    <aside id="details">
+      <img id="d-img" alt="" />
+      <div class="d-copy">
+        <div class="d-title" id="d-title"></div>
+        <div class="d-year" id="d-year"></div>
+        <div class="d-home" id="d-home"></div>
+        <a class="lb" id="d-link" href="#" target="_blank" rel="noreferrer">View on Letterboxd</a>
+        <button id="btn-again" type="button">Pick another</button>
+      </div>
+    </aside>
+
+    <div id="stats-overlay">
+      <div id="stats-panel" role="dialog" aria-labelledby="stats-heading">
+        <button id="stats-close" type="button" aria-label="Close stats">Close</button>
+        <h2 id="stats-heading">Collection</h2>
+        <div class="stats-section">
+          <div class="stat-hero" id="stat-total">—</div>
+          <div class="stat-sub" id="stat-span"></div>
+        </div>
+        <div class="stats-section">
+          <h3>By home</h3>
+          <div id="home-chart"></div>
+        </div>
+        <div class="stats-section">
+          <h3>By era</h3>
+          <div id="decade-chart"></div>
+        </div>
+        <div class="stats-section">
+          <h3>Top directors</h3>
+          <div id="director-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./movies.js?v=5"></script>
+    <script src="./trivia.js?v=5"></script>
+    <script src="./app.js?v=5"></script>
+  </body>
+</html>

@@ -66,6 +66,17 @@ REQUIRED_PATHS = {
         "utilities/reciprocity-timer/manifest.webmanifest",
         "utilities/reciprocity-timer/icon.svg",
     ],
+    "Movie Shelf": [
+        "utilities/movie-shelf/index.html",
+        "utilities/movie-shelf/app.js",
+        "utilities/movie-shelf/styles.css",
+        "utilities/movie-shelf/sw.js",
+        "utilities/movie-shelf/manifest.webmanifest",
+        "utilities/movie-shelf/icon.svg",
+        "utilities/movie-shelf/movies.js",
+        "utilities/movie-shelf/trivia.js",
+        "utilities/movie-shelf/collection.json",
+    ],
     "Konbini Radar": [
         "utilities/konbini-radar/index.html",
         "utilities/konbini-radar/app.js",

@@ -1,9 +1,16 @@
 .DS_Store
 __pycache__/
+.env
+**/.env
 private/
 firebase-debug.log
 .firebase/
 scripts/penang-guides-editor/.venv/
+scripts/movie-shelf-editor/.venv/
+utilities/movie-shelf/posters/*.jpg
+utilities/movie-shelf/posters/*.jpeg
+utilities/movie-shelf/posters/*.png
+utilities/movie-shelf/posters/*.webp
 utilities/penang-pulse/guides/posts/**/media/orig/
 utilities/penang-pulse/guides/posts/**/media/*.jpg
 utilities/penang-pulse/guides/posts/**/media/*.jpeg
