@@ -47,7 +47,13 @@ cd mee-graph/tools && python3 build_graph.py
 
 No dependencies. It refuses to write output if an edge dangles, a type is unknown, a source id
 is wrong, a dish has no noodle, an episode is not linked to a dish, or a node ends up with no
-edges at all. Edit the `src_*.py` files, never the JSON.
+edges at all. Edit the `src_*.py` files, never the JSON. It also stamps `graph-data.js?v=YYYYMMDD`
+on viz HTML so Bowl Orbit’s “Tasted so far” rail (unique tried episodes) picks up a new tasting
+without a hard refresh.
+
+**After each Mee Myself and I publish:** add `EP()` + venue + `tryStatus="tried"` (and the
+`_EPISODES` row) as in ep.17 Mohinga, run this rebuild, then rebuild Guides. Full checklist:
+`utilities/penang-pulse/EDITORIAL.md` → Guides publish cycle item 15.
 
 ## What is in the graph
 

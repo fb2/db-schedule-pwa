@@ -213,8 +213,19 @@ Idempotent checklist from Mee Myself and I episodes (C-Mee-PO):
 10. **Sample vs real episodes** — do not keep auto-generated venue samples once real episodes exist; delete the sample post and renumber `seriesOrder` by tasting date.
 11. **Series mark (B masthead)** — Mee Myself and I uses `guides/marks/mee-myself-and-i.svg` via the registry `mark` field (series index masthead + episode series row). Other series stay text-only unless they get their own mark. Wireframes: [`wireframes/guides/series-mark-mee.html`](./wireframes/guides/series-mark-mee.html).
 12. **Share previews (OG)** — Guide/series HTML gets Open Graph + Twitter Card tags from `scripts/build-penang-guides.py`. `og:image` prefers the first guide photo (absolute `https://penangpulse.com/guides/…/media/….jpg`); otherwise `https://penangpulse.com/og-default.jpg` (JPEG — WhatsApp won’t use SVG). Rebuild after photos change so crawlers see the new image URL.
-13. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, and `feed.json` (shell assets stay offline-capable). After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
+13. **Caching after publish** — Firebase serves HTML/`index.json`/`feed.json`/`sw.js` with `max-age=0, must-revalidate`. The PWA service worker is **network-first** for navigations, guide HTML, `guides/index.json`, `feed.json`, and Mee-Search `graph-data.js`. Shell assets stay offline-capable. After deploy, returning visitors should see new Mee episodes without hard-refresh fights; bump `CACHE_NAME` + `?v=` on shell changes.
 14. **Mee checklist sync** — After publishing a Mee Myself and I episode, update `utilities/penang-pulse/MEE-CHECKLIST.md` from published posts (`series: mee-myself-and-i`, not `draft:true`): tick **Tried** (and **Optional revisits** when it’s a clear style revisit). Use `seriesOrder` / tasting date as source of truth; don’t invent tries. Uncheck or remove the matching planning-list line so the checklist doesn’t claim the bowl is still open.
+15. **Mee-Search graph** — Bowl Orbit’s “Tasted so far” rail is **not** a hardcoded filter. It lists unique dishes from tried `episode` nodes in `graph-data.js`. After each Mee publish, update the culture graph (edit `src_*.py`, never the JSON), rebuild, then deploy with the Guide:
+
+    1. `mee-graph/tools/src_dishes.py` — `EP("ep-NN-…", …, "d-dish", date=, venue=, postSlug=, seriesOrder=N)` (default status is `tried`). `V()` if the venue is new. Set the dish’s `tryStatus="tried"`.
+    2. `mee-graph/tools/src_edges.py` — add `(ep, dish, venue, revisit_or_None)` to `_EPISODES` (emits `of_dish` + `tasted_at`). Add `reference_stall_for` if the venue is new.
+    3. `mee-graph/tools/src_sources.py` — `pp-field-<slug>` community source with the live `https://penangpulse.com/guides/<slug>/` URL; cite it on at least one edge or the dish.
+    4. Rebuild: `cd utilities/penang-pulse/mee-graph/tools && python3 build_graph.py` — writes JSON, `viz/graph-data.js`, stamps `graph-data.js?v=YYYYMMDD` on viz HTML, and fails if the episode isn’t linked to a dish.
+    5. If source/dish/region counts changed, update the literals in `viz/mee-search.html` (the public landing is generated from `graph-stats.json` on the Guides build).
+    6. Rebuild Guides (`scripts/build-penang-guides.py`) so the series-hub Mee-Search teaser counts stay in step.
+    7. Verify [Bowl Orbit](https://penangpulse.com/mee-graph/viz/04-bowl-orbit.html) “Tasted so far” includes the new dish (scroll the rail — it’s last). Do **not** invent a Mohinga–laksa (or similar) transmission edge; the graph already records refused links.
+
+    Mohinga (ep.17 / Mingalarpar) is the template for an immigrant/cousin bowl that was already a dish node: add episode + venue, flip `tryStatus`, rebuild.
 
 ## Agent handoff / session practices
 
@@ -230,6 +241,7 @@ Quick pickup for a fresh agent context working Mee / Guides:
 | **Stuck Working** | Orphaned approval card after a finished subagent — Stop does not clear it. Dismiss the approval, or archive the agent / start a new chat. |
 | **C-Mee-PO** | Full voice rules above; hard rules also in `.cursor/rules/penang-pulse-mee-cmeepo.mdc`. |
 | **Mee checklist** | After a Mee publish: sync `MEE-CHECKLIST.md` from published posts (Tried + clear revisits). Part of the handoff — don’t leave the checklist stale. |
+| **Mee-Search graph** | After a Mee publish: add `EP()` / venue / `tryStatus="tried"` in `mee-graph/tools/src_*.py`, run `python3 build_graph.py`, rebuild Guides. Bowl Orbit “Tasted so far” reads tried episodes from `graph-data.js` — there is no separate filter list. |
 | **Shell refresh** | Any `index.html` / `sw.js` / CSS/JS shell change → bump `CACHE_NAME` and `?v=` together. |
 
 ## Tooling pointers
@@ -244,3 +256,4 @@ Quick pickup for a fresh agent context working Mee / Guides:
 | Series mark wireframes | `utilities/penang-pulse/wireframes/guides/series-mark-mee.html` |
 | C-Mee-PO agent rule | `.cursor/rules/penang-pulse-mee-cmeepo.mdc` |
 | Mee try checklist | `utilities/penang-pulse/MEE-CHECKLIST.md` (sync after each Mee publish) |
+| Mee-Search graph | `utilities/penang-pulse/mee-graph/` — `tools/src_*.py` then `python3 tools/build_graph.py` |

@@ -78,6 +78,7 @@ Only if the write-up earns a second episode — not required for the series coun
 ## Notes
 
 - After every published Mee episode: tick this file from published posts (`series: mee-myself-and-i`, not `draft:true`) — **Tried** for new bowls, **Optional revisits** when it’s a style revisit.
+- Also update the Mee-Search graph (`mee-graph/tools/src_*.py` → `python3 build_graph.py`) so [Bowl Orbit](https://penangpulse.com/mee-graph/viz/04-bowl-orbit.html) “Tasted so far” includes the dish. See `EDITORIAL.md` publish cycle step 15.
 - `seriesOrder` / CMS tasting date on published posts is source of truth; this list is planning only.
 - Aim ~20+ distinct bowls; doubles (same dish, new venue/style) only if the write-up earns it.
 - Don’t invent tries — unchecked until a Guide post exists.

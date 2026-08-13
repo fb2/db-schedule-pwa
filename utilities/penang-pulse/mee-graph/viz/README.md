@@ -419,10 +419,14 @@ properties on `.dish-rail` — and the rendered scrollbar wants an eyeball on a 
 cd mee-graph/tools && python3 build_graph.py
 ```
 
-Writes `../data/noodle-graph.json`, `../data/graph-stats.json` and `../viz/graph-data.js`. It
-refuses to write anything if an edge dangles, an edge type is unknown, a source id is wrong, a
-dish has no noodle, an episode is not linked to a dish, a culture has no tone, or a node ends up
-with no edges.
+Writes `../data/noodle-graph.json`, `../data/graph-stats.json` and `../viz/graph-data.js`, and
+stamps `graph-data.js?v=YYYYMMDD` on viz HTML. It refuses to write anything if an edge dangles,
+an edge type is unknown, a source id is wrong, a dish has no noodle, an episode is not linked to
+a dish, a culture has no tone, or a node ends up with no edges.
+
+Bowl Orbit’s **Tasted so far** set is unique dishes from tried episode nodes — not a hardcoded
+list. After a Mee publish, add the episode in `tools/src_*.py` and rebuild (charter:
+`utilities/penang-pulse/EDITORIAL.md` item 15).
 
 ## Accessibility and motion
 

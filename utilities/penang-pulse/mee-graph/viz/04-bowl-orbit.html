@@ -379,7 +379,7 @@
     </div>
 
     <script src="./d3.v7.min.js"></script>
-    <script src="./graph-data.js"></script>
+    <script src="./graph-data.js?v=20260813"></script>
     <script src="./mee-viz.js"></script>
     <script>
       (async function () {
@@ -421,6 +421,8 @@
         function dishList() {
           const all = g.byType.dish;
           if (setKey === "tried") {
+            // Unique dishes from tried episode nodes (graph rebuild), oldest first.
+            // Do not hardcode this list — a new tasting is an EP() in src_dishes.py.
             const order = g.byType.episode
               .filter((e) => e.status === "tried")
               .sort((a, b) => (a.seriesOrder || 0) - (b.seriesOrder || 0));

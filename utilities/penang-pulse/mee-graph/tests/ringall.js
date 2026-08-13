@@ -36,8 +36,15 @@ const { chromium } = require('playwright');
   });
 
   let bad = 0;
-  // walk every tasted dish
-  for (let i = 0; i < 14; i++) {
+  // walk every unique tasted dish (derived from tried episodes — do not hardcode)
+  const nTried = await p.evaluate(() =>
+    new Set(
+      (window.MEE_GRAPH.nodes || [])
+        .filter((n) => n.type === "episode" && n.status === "tried")
+        .map((e) => e.dish)
+    ).size
+  );
+  for (let i = 0; i < nTried; i++) {
     const r = await probe();
     const ok = r.nLabels === r.nArcs && r.worst <= 40 && r.allInside && r.chips === r.nArcs;
     if (!ok) bad++;

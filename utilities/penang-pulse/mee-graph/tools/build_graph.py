@@ -9,6 +9,7 @@ dangling edges, unknown node or edge types, unknown source ids, or duplicate ids
 
 import json
 import os
+import re
 import sys
 from collections import Counter, defaultdict
 from datetime import date
@@ -302,6 +303,7 @@ def main():
             json.dump(graph, fh, ensure_ascii=False, separators=(",", ":"))
             fh.write(";\n")
         print("    wrote viz/graph-data.js")
+        stamp_graph_data_query(viz)
 
     print("OK  %d nodes, %d edges, %d sources -> %s"
           % (len(NODES), len(EDGES), len(SOURCES), out))
@@ -310,6 +312,29 @@ def main():
     if unused_sources:
         print("    note: %d source(s) registered but not cited: %s"
               % (len(unused_sources), ", ".join(unused_sources)))
+
+
+_GRAPH_DATA_SRC = re.compile(r'src="\./graph-data\.js(?:\?v=[^"]*)?"')
+
+
+def stamp_graph_data_query(viz):
+    """Cache-bust Bowl Orbit / viz pages so a new tasting shows up without a hard refresh."""
+    ver = date.today().strftime("%Y%m%d")
+    replacement = 'src="./graph-data.js?v=%s"' % ver
+    stamped = 0
+    for name in sorted(os.listdir(viz)):
+        if not name.endswith(".html"):
+            continue
+        path = os.path.join(viz, name)
+        with open(path, encoding="utf-8") as fh:
+            text = fh.read()
+        new, n = _GRAPH_DATA_SRC.subn(replacement, text)
+        if n:
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(new)
+            stamped += n
+    if stamped:
+        print("    stamped graph-data.js?v=%s on %d script tag(s)" % (ver, stamped))
 
 
 if __name__ == "__main__":

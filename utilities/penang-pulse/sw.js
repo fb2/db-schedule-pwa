@@ -1,9 +1,9 @@
-const CACHE_NAME = "penang-pulse-v18";
+const CACHE_NAME = "penang-pulse-v19";
 const SHELL_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=18",
-  "./app.js?v=18",
+  "./styles.css?v=19",
+  "./app.js?v=19",
   "./manifest.webmanifest",
   "./icon.svg",
   "./apple-touch-icon.png",
@@ -30,6 +30,10 @@ function isFreshContent(request, url) {
   if (path.endsWith(".html") || path.endsWith("/")) return true;
   if (path.endsWith("/feed.json") || path.endsWith("/guides/index.json")) return true;
   if (path.endsWith("/index.json")) return true;
+  // Mee-Search graph changes with each episode; do not pin graph-data.js.
+  if (path.endsWith("/graph-data.js") || path.endsWith("/noodle-graph.json") || path.endsWith("/graph-stats.json")) {
+    return true;
+  }
   return false;
 }
 
