@@ -1249,6 +1249,7 @@ _EPISODES = [
     ("ep-15-koay-teow-thng-ah-liang", "d-koay-teow-thng", "v-pulau-tikus-hidden",
      "ep-10-koay-teow-thng"),
     ("ep-16-mee-sotong", "d-mee-sotong", "v-sin-hup-aun", None),
+    ("ep-17-mohinga", "d-mohinga", "v-mingalarpar", None),
 ]
 for ep, dish, venue, revisit in _EPISODES:
     E("of_dish", ep, dish, weight=1.0, confidence="high")
@@ -1353,6 +1354,10 @@ E("reference_stall_for", "v-jones-road-mee-sotong", "d-mee-sotong", weight=0.85,
 E("tasted_at", "ep-16-mee-sotong", "v-jones-road-mee-sotong", weight=0.9, confidence="high",
   note="Eaten at Sin Hup Aun Cafe, but the stall carries its own Jones Road identity - the cook "
        "moved, the name came with him.", sources=["pp-field-mee-sotong"])
+E("reference_stall_for", "v-mingalarpar", "d-mohinga", weight=0.85, confidence="high",
+  note="The series' Penang Mohinga bowl. A restaurant, not a hawker stall - which is how "
+       "Burmese food actually shows up here.",
+  sources=["pp-field-mohinga"])
 
 for v, d in [
     ("v-kim-lian-kee", "d-kl-hokkien-mee"),

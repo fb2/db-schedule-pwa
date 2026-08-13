@@ -20,7 +20,7 @@ mee-graph/
 │   ├── 06-how-fusion-actually-happens.md
 │   └── 07-dish-dossiers.md
 ├── data/
-│   ├── noodle-graph.json     360 nodes · 1,017 edges · 137 sources
+│   ├── noodle-graph.json     362 nodes · 1,020 edges · 138 sources
 │   ├── graph-stats.json      counts, hubs, flags, refused links
 │   └── SCHEMA.md             full schema + example queries + suggested views
 ├── viz/                      SEVEN WORKING ANIMATED PROTOTYPES + gallery
@@ -53,10 +53,10 @@ edges at all. Edit the `src_*.py` files, never the JSON.
 
 | | |
 | --- | --- |
-| **360 nodes** | 75 dishes · 62 regions · 45 ingredients · 44 episodes · 26 cultures · 20 venues · 19 noodles · 18 techniques · 17 waves · 15 concepts · 8 name collisions · 6 commodities · 5 media events |
-| **1,017 edges** | 30 typed relationships, each with a weight and a confidence rating; ~230 carry an explanatory note and ~300 carry sources |
-| **137 sources** | tiered: scholarly · reference · journalism · specialist · community · encyclopedic · commercial · media |
-| **Confidence** | 702 high · 266 medium · 37 low · 12 disputed |
+| **362 nodes** | 75 dishes · 62 regions · 45 ingredients · 45 episodes · 26 cultures · 21 venues · 19 noodles · 18 techniques · 17 waves · 15 concepts · 8 name collisions · 6 commodities · 5 media events |
+| **1,020 edges** | 30 typed relationships, each with a weight and a confidence rating; ~230 carry an explanatory note and ~300 carry sources |
+| **138 sources** | tiered: scholarly · reference · journalism · specialist · community · encyclopedic · commercial · media |
+| **Confidence** | 705 high · 266 medium · 37 low · 12 disputed |
 
 Every checklist entry is in there — tried, to-try, mainland, wild card and revisit — as an
 `episode` node linked to its dish, its venue, its date and, where published, its live guide

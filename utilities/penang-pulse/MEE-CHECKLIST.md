@@ -20,6 +20,7 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Dry Sabah Pan Mee** (fried pork) — Sabah Pan Mee Pulau Tikus · 10 Aug 2026
 - [x] **Koay Teow Th’ng** (Ah Liang) — Pulau Tikus Hidden Food Court · 11 Aug 2026
 - [x] **Mee Sotong Sambal** (Jones Road / Mee Goreng Sotong) — Sin Hup Aun Cafe · 12 Aug 2026
+- [x] **Mohinga** — Mingalarpar (Pulau Tikus) · 13 Aug 2026
 
 ## Island classics still to try
 

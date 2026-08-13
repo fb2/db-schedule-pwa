@@ -1,21 +1,21 @@
 {
-  "built": "2026-08-12",
-  "nodes": 360,
-  "edges": 1017,
-  "sources": 137,
+  "built": "2026-08-13",
+  "nodes": 362,
+  "edges": 1020,
+  "sources": 138,
   "nodesByType": {
     "commodity": 6,
     "concept": 15,
     "culture": 26,
     "dish": 75,
-    "episode": 44,
+    "episode": 45,
     "ingredient": 45,
     "media": 5,
     "name": 8,
     "noodle": 19,
     "region": 62,
     "technique": 18,
-    "venue": 20,
+    "venue": 21,
     "wave": 17
   },
   "edgesByType": {
@@ -33,10 +33,10 @@
     "influenced_by": 11,
     "migrated_via": 36,
     "occupied_niche": 8,
-    "of_dish": 45,
+    "of_dish": 46,
     "originates_in": 86,
     "popularised_by": 8,
-    "reference_stall_for": 13,
+    "reference_stall_for": 14,
     "revisit_of": 4,
     "ritual_role": 5,
     "settled_in": 46,
@@ -44,7 +44,7 @@
     "shares_name_with": 23,
     "sibling_of": 24,
     "standardised_by": 2,
-    "tasted_at": 17,
+    "tasted_at": 18,
     "unevidenced_link": 4,
     "uses_ingredient": 151,
     "uses_noodle": 99,
@@ -52,13 +52,13 @@
   },
   "edgesByConfidence": {
     "disputed": 12,
-    "high": 702,
+    "high": 705,
     "low": 37,
     "medium": 266
   },
   "sourcesByTier": {
     "commercial": 9,
-    "community": 22,
+    "community": 23,
     "encyclopedic": 37,
     "journalism": 12,
     "media": 9,
@@ -310,7 +310,7 @@
   "disputedEdges": 12,
   "unusedSources": [],
   "checklist": {
-    "tried": 16,
+    "tried": 17,
     "planned": 28
   }
 }

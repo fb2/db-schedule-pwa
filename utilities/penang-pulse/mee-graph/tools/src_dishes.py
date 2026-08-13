@@ -1026,13 +1026,15 @@ D("d-fuzhou-red-wine-mee-sua", "Ang Jiu Chicken Mee Sua", zh="紅酒雞麵線",
         "for birthdays, post-partum confinement and Chinese New Year in Sitiawan and Sarawak.",
   confidence="high", sources=["danielfooddiary-foochow"])
 
-D("d-mohinga", "Mohinga (Myanmar)", penangStatus="cousin", homeRegion="r-george-town",
+D("d-mohinga", "Mohinga (Myanmar)", penangStatus="cousin", tryStatus="tried",
+  homeRegion="r-george-town", style="soup",
   blurb="Burmese fish-and-rice-noodle breakfast soup. Conceptually a sibling of laksa utara - "
         "fish broth, rice noodles, sour and herbal garnish - and Penang has had a Burmese "
         "community since the early 19th century. But NO source establishes direct transmission, "
         "and the graph records the absence of a link rather than inventing one. Included as an "
-        "explicit negative result.",
-  confidence="low", sources=["malaymail-beyond-hokkien"], flags=["speculative-do-not-assert"])
+        "explicit negative result. Tasted in this series at Mingalarpar, Pulau Tikus.",
+  confidence="low", sources=["malaymail-beyond-hokkien", "pp-field-mohinga"],
+  flags=["speculative-do-not-assert"])
 
 
 # ================================================================== VENUES
@@ -1091,6 +1093,10 @@ V("v-thean-chun", "Thean Chun", area="Ipoh", role="reference stall",
   blurb="Founded by Hokkiens from Nan'an, and famous for a Cantonese dish.")
 V("v-ghee-lian", "Ghee Lian", area="Perak Road, Penang", role="reference stall", founded="2012",
   blurb="Michelin Bib, and a green tom yum noodle - local invention inside an imported category.")
+V("v-mingalarpar", "Mingalarpar", area="Pulau Tikus, Penang", role="series venue",
+  kind="restaurant",
+  blurb="A small Burmese restaurant rather than a hawker stall - which is how Mohinga actually "
+        "shows up in Penang. The series' first Burmese-carried bowl.")
 
 
 # ================================================================ EPISODES
@@ -1155,6 +1161,12 @@ EP("ep-16-mee-sotong", "Jones Road Famous Mee Sotong Sambal", "d-mee-sotong",
    styleNote="sambal gravy, sotong",
    note="The first Tamil-Muslim-carried bowl in the series, and the second episode at Sin Hup "
         "Aun Cafe after the Instant Cook koay teow th'ng.")
+EP("ep-17-mohinga", "Burmese Mohinga at Mingalarpar", "d-mohinga",
+   date="2026-08-13", venue="v-mingalarpar",
+   postSlug="burmese-mohinga-at-mingalarpar-restaurant", seriesOrder=17,
+   styleNote="fish broth, rice vermicelli",
+   note="The first Burmese-carried bowl in the series. A restaurant lunch, not a hawker "
+        "breakfast - which is how Mohinga actually appears in Penang.")
 
 # planned episodes - island classics
 EP("ep-p-white-curry-mee", "White Curry Mee", "d-white-curry-mee", status="planned",

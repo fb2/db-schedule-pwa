@@ -1,7 +1,7 @@
 # Mee-Search — where Penang's noodles come from
 
 Animated views over the Penang noodle culture graph: 75 noodle dishes, 26 communities,
-62 towns and regions, 1,017 traced connections, 137 cited sources.
+62 towns and regions, 1,020 traced connections, 138 cited sources.
 
 Vanilla HTML, CSS and JS plus **d3 v7**. No build step, no framework, no bundler. Open any
 file by double-clicking it — `graph-data.js` sets `window.MEE_GRAPH`, so every view works on
@@ -16,7 +16,7 @@ views and shares the four Mee-Search thumbs from that module.
 ```
 mee-graph/
 ├── data/
-│   ├── noodle-graph.json      360 nodes, 1017 edges, 137 sources
+│   ├── noodle-graph.json      362 nodes, 1020 edges, 138 sources
 │   ├── graph-stats.json       counts per type, per confidence level
 │   └── SCHEMA.md              node and edge types, field by field
 ├── narrative/                 seven essay chapters, ~24.5k words

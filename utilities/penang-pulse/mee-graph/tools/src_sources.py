@@ -634,6 +634,15 @@ SOURCES = {
              "Jones T-junction origin in the 1980s, since relocated into Sin Hup Aun Cafe - "
              "is stall-sourced and not independently verified.",
     ),
+    "pp-field-mohinga": dict(
+        title="Penang Pulse field note - 'Burmese Mohinga at Mingalarpar Restaurant', "
+              "Mee Myself and I ep.17, 13 Aug 2026",
+        url="https://penangpulse.com/guides/burmese-mohinga-at-mingalarpar-restaurant/",
+        tier="community",
+        note="First-hand tasting note. Lunch bowl at a Burmese restaurant in Pulau Tikus; "
+             "in Myanmar the dish is a breakfast staple. Does not license a mohinga-to-laksa "
+             "transmission claim.",
+    ),
 
     # ----------------------------------------------------------------- media
     "cnn-go-2011": dict(

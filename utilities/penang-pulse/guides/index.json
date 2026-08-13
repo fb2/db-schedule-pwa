@@ -1,6 +1,26 @@
 {
-  "generatedAt": "2026-08-12T12:40:33.106159+00:00",
+  "generatedAt": "2026-08-13T05:27:00.028972+00:00",
   "guides": [
+    {
+      "slug": "burmese-mohinga-at-mingalarpar-restaurant",
+      "title": "Burmese Mohinga at Mingalarpar Restaurant",
+      "dek": "Lunchtime walk in Pulau Tikus — Mingalarpar’s Mohinga, a smooth fish-and-vermicelli soup, and a vast cultural arc for a few dollars.",
+      "type": "Mee",
+      "href": "./guides/burmese-mohinga-at-mingalarpar-restaurant/",
+      "updated": "2026-08-13",
+      "cover": "/guides/burmese-mohinga-at-mingalarpar-restaurant/media/burmese-mohinga-at-mingalarpar-restaurant-bowl.jpg",
+      "fieldNote": "Field note · Pulau Tikus · 13 Aug 2026",
+      "tasted": "2026-08-13",
+      "neighbourhood": "Pulau Tikus",
+      "series": "mee-myself-and-i",
+      "seriesTitle": "Mee Myself and I",
+      "seriesHref": "./guides/series/mee-myself-and-i/",
+      "seriesOrder": 17,
+      "location": {
+        "name": "Mingalarpar",
+        "mapsUrl": "https://maps.app.goo.gl/HE1oJhxDnkKQPW6NA"
+      }
+    },
     {
       "slug": "jones-road-famous-mee-sotong-sambal",
       "title": "Jones Road Famous Mee Sotong Sambal",
@@ -341,7 +361,7 @@
       "slug": "mee-myself-and-i",
       "title": "Mee Myself and I",
       "href": "./guides/series/mee-myself-and-i/",
-      "count": 16,
+      "count": 17,
       "status": "active",
       "cover": "/guides/series/mee-myself-and-i/og.jpg?v=2",
       "dek": "Bowl-by-bowl field notes on Penang noodles — tasted, mapped, dated.",

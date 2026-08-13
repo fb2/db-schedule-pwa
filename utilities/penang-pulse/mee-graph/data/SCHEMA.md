@@ -1,6 +1,6 @@
 # Graph schema — `noodle-graph.json`
 
-Built by `../tools/build_graph.py` — 360 nodes, 1,017 edges, 137 sources, 30 edge types. Run it after any edit to the `src_*.py` files; it
+Built by `../tools/build_graph.py` — 362 nodes, 1,020 edges, 138 sources, 30 edge types. Run it after any edit to the `src_*.py` files; it
 refuses to write output if an edge dangles, a type is unknown, a source id is wrong, a
 dish has no noodle, or an episode is not linked to a dish.
 
@@ -12,7 +12,7 @@ mee-graph/
     SCHEMA.md           this file
   narrative/            the long-form story, chapter by chapter
   tools/
-    src_sources.py      136 sources, each with a reliability tier
+    src_sources.py      138 sources, each with a reliability tier
     src_nodes.py        regions, cultures, waves, noodles, ingredients,
                         techniques, commodities, media, concepts, name collisions
     src_dishes.py       dishes, venues, episodes
@@ -44,8 +44,8 @@ mee-graph/
 | `media` | 5 | media events that measurably changed a dish's economy |
 | `concept` | 15 | structural ideas: the halal boundary, longevity noodles, the three naming logics, citogenesis |
 | `name` | 8 | names that collide across unrelated dishes |
-| `venue` | 20 | stalls, kopitiams and food courts — the series' own plus reference stalls |
-| `episode` | 44 | one tasting each, tried or planned |
+| `venue` | 21 | stalls, kopitiams and food courts — the series' own plus reference stalls |
+| `episode` | 45 | one tasting each, tried or planned |
 
 Every node has `id`, `type`, `label`, plus a `cluster` and `colour` hint for the renderer.
 Most carry `blurb`; many carry `confidence`, `sources`, and `flags`.
