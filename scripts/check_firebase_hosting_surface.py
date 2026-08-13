@@ -75,6 +75,7 @@ REQUIRED_PATHS = {
         "utilities/movie-shelf/icon.svg",
         "utilities/movie-shelf/movies.js",
         "utilities/movie-shelf/trivia.js",
+        "utilities/movie-shelf/quiz.js",
         "utilities/movie-shelf/collection.json",
     ],
     "Konbini Radar": [

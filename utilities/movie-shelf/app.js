@@ -217,9 +217,11 @@
     ctx.fillRect(0, 0, W, H);
 
     if (state === "idle") {
-      spinSpeed = 0.01;
-      angleY += spinSpeed;
-      angleX += (IDLE_ANGLE_X - angleX) * 0.08;
+      if (!drag) {
+        spinSpeed = 0.01;
+        angleY += spinSpeed;
+        angleX += (IDLE_ANGLE_X - angleX) * 0.08;
+      }
     } else if (state === "spinup") {
       spinT++;
       spinSpeed = 0.005 + (MAX_SPIN - 0.005) * Math.min(1, spinT / 45);
@@ -242,7 +244,12 @@
       }
     } else if (state === "spindown" || state === "seek") {
       spinT++;
-      const dur = state === "seek" ? 40 : 70;
+      const yawTravel = Math.abs(targetAngleY - spindownFrom);
+      const pitchTravel = Math.abs(targetAngleX - spindownFromX);
+      const dur =
+        state === "seek"
+          ? Math.max(36, Math.min(70, Math.round((yawTravel + pitchTravel) * 28)))
+          : 70;
       const progress = Math.min(1, spinT / dur);
       const eased = 1 - Math.pow(1 - progress, 3);
       angleY = spindownFrom + (targetAngleY - spindownFrom) * eased;
@@ -330,13 +337,17 @@
 
   function flyTo(idx, roulette) {
     if (idx < 0) return;
+    if (!roulette && state === "done" && selectedIdx === idx) {
+      showDetails(idx);
+      return;
+    }
     selectedIdx = idx;
+    pickBtn.disabled = true;
     detailsEl.classList.remove("open");
     document.getElementById("trivia").style.opacity = "0";
     if (roulette) {
       state = "spinup";
       spinT = 0;
-      pickBtn.disabled = true;
     } else {
       spindownFrom = angleY;
       spindownFromX = angleX;
@@ -385,24 +396,23 @@
     requestDraw();
   }
 
-  function nearestCover(mx, my) {
-    let best = -1;
-    let bestD = 40 * 40;
+  function coverAtPointer(mx, my) {
+    let hit = -1;
+    let hitZ = Infinity;
     for (let i = 0; i < n; i++) {
       const z = workPts[i * 3 + 2];
-      if (z > 0.05) continue;
+      if (z > 0) continue;
       const { sx, sy, scale } = project(workPts[i * 3], workPts[i * 3 + 1], z);
       const w = CARD_W * scale;
-      if (w < 12) continue;
-      const dx = mx - sx;
-      const dy = my - sy;
-      const d = dx * dx + dy * dy;
-      if (d < bestD) {
-        bestD = d;
-        best = i;
+      const h = CARD_H * scale;
+      if (w < 16) continue;
+      if (mx < sx - w / 2 || mx > sx + w / 2 || my < sy - h / 2 || my > sy + h / 2) continue;
+      if (z < hitZ) {
+        hitZ = z;
+        hit = i;
       }
     }
-    return best;
+    return hit;
   }
 
   function openBrowse(indices) {
@@ -606,7 +616,7 @@
     if (!drag) return;
     drag = false;
     if (!moved) {
-      const hit = nearestCover(e.clientX, e.clientY);
+      const hit = coverAtPointer(e.clientX, e.clientY);
       if (hit >= 0) flyTo(hit, false);
     }
     requestDraw();
@@ -641,6 +651,168 @@
     if (e.target.id === "stats-overlay") document.getElementById("stats-overlay").classList.remove("open");
   });
 
+  const QUIZ_BANK =
+    window.QUIZ_QUESTIONS && window.QUIZ_QUESTIONS.length ? window.QUIZ_QUESTIONS : null;
+  let quizOpen = false;
+  let quizLen = 10;
+  let quizDiff = "all";
+  let quizRound = [];
+  let quizI = 0;
+  let quizScore = 0;
+  let quizLocked = false;
+  let quizSeen = [];
+
+  function quizShuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function quizPool() {
+    if (!QUIZ_BANK) return [];
+    return QUIZ_BANK.filter((q) => {
+      if (quizDiff === "12") return q.d <= 2;
+      if (quizDiff === "34") return q.d >= 3 && q.d <= 4;
+      if (quizDiff === "5") return q.d === 5;
+      return true;
+    });
+  }
+
+  function quizBuildRound() {
+    const pool = quizPool();
+    if (!pool.length) return [];
+    const fresh = pool.filter((q) => quizSeen.indexOf(q.id) === -1);
+    const src = fresh.length ? fresh : pool;
+    const count = Math.min(quizLen, src.length);
+    const picked = quizShuffle(src).slice(0, count);
+    for (let i = 0; i < picked.length; i++) quizSeen.push(picked[i].id);
+    if (quizSeen.length > 250) quizSeen = quizSeen.slice(-120);
+    return picked;
+  }
+
+  function quizShow(view) {
+    document.getElementById("quiz-setup").hidden = view !== "setup";
+    document.getElementById("quiz-play").hidden = view !== "play";
+    document.getElementById("quiz-end").hidden = view !== "end";
+    document.getElementById("quiz-error").hidden = view !== "error";
+  }
+
+  function openQuiz() {
+    quizOpen = true;
+    document.getElementById("stats-overlay").classList.remove("open");
+    document.getElementById("quiz-overlay").classList.add("open");
+    document.getElementById("trivia").style.opacity = "0";
+    if (!QUIZ_BANK) {
+      quizShow("error");
+      return;
+    }
+    quizShow("setup");
+  }
+
+  function closeQuiz() {
+    quizOpen = false;
+    document.getElementById("quiz-overlay").classList.remove("open");
+    if (!detailsEl.classList.contains("open")) {
+      document.getElementById("trivia").style.opacity = "";
+    }
+  }
+
+  function quizRenderQ() {
+    const q = quizRound[quizI];
+    quizLocked = false;
+    document.getElementById("quiz-progress").textContent =
+      "Question " + (quizI + 1) + " of " + quizRound.length;
+    document.getElementById("quiz-cat").textContent = q.cat || "";
+    document.getElementById("quiz-q").textContent = q.q;
+    const nextBtn = document.getElementById("quiz-next");
+    nextBtn.disabled = true;
+    nextBtn.textContent = quizI === quizRound.length - 1 ? "Results" : "Next";
+    const box = document.getElementById("quiz-opts");
+    box.replaceChildren();
+    const opts = quizShuffle(q.options);
+    for (let i = 0; i < opts.length; i++) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "quiz-opt";
+      btn.textContent = opts[i];
+      btn.addEventListener("click", () => quizPick(btn, q));
+      box.append(btn);
+    }
+  }
+
+  function quizPick(btn, q) {
+    if (quizLocked) return;
+    quizLocked = true;
+    const chosen = btn.textContent;
+    if (chosen === q.a) quizScore++;
+    const buttons = document.querySelectorAll("#quiz-opts .quiz-opt");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+      if (buttons[i].textContent === q.a) buttons[i].classList.add("correct");
+      else if (buttons[i] === btn) buttons[i].classList.add("wrong");
+    }
+    document.getElementById("quiz-next").disabled = false;
+  }
+
+  function quizStart() {
+    if (!QUIZ_BANK) {
+      quizShow("error");
+      return;
+    }
+    quizRound = quizBuildRound();
+    quizI = 0;
+    quizScore = 0;
+    if (!quizRound.length) {
+      quizShow("error");
+      return;
+    }
+    quizShow("play");
+    quizRenderQ();
+  }
+
+  function quizNext() {
+    if (!quizLocked) return;
+    if (quizI >= quizRound.length - 1) {
+      document.getElementById("quiz-score").textContent = quizScore + "/" + quizRound.length;
+      document.getElementById("quiz-score-sub").textContent = quizRound.length + " questions";
+      quizShow("end");
+      return;
+    }
+    quizI++;
+    quizRenderQ();
+  }
+
+  document.getElementById("quiz-btn").addEventListener("click", openQuiz);
+  document.getElementById("quiz-close").addEventListener("click", closeQuiz);
+  document.getElementById("quiz-end-close").addEventListener("click", closeQuiz);
+  document.getElementById("quiz-overlay").addEventListener("click", (e) => {
+    if (e.target.id === "quiz-overlay") closeQuiz();
+  });
+  document.getElementById("quiz-start").addEventListener("click", quizStart);
+  document.getElementById("quiz-again").addEventListener("click", quizStart);
+  document.getElementById("quiz-next").addEventListener("click", quizNext);
+  document.getElementById("quiz-len-chips").addEventListener("click", (e) => {
+    const b = e.target.closest(".quiz-chip");
+    if (!b) return;
+    quizLen = +b.dataset.n;
+    document.querySelectorAll("#quiz-len-chips .quiz-chip").forEach((c) =>
+      c.classList.toggle("active", c === b)
+    );
+  });
+  document.getElementById("quiz-diff-chips").addEventListener("click", (e) => {
+    const b = e.target.closest(".quiz-chip");
+    if (!b) return;
+    quizDiff = b.dataset.d;
+    document.querySelectorAll("#quiz-diff-chips .quiz-chip").forEach((c) =>
+      c.classList.toggle("active", c === b)
+    );
+  });
+
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) requestDraw();
   });
@@ -650,9 +822,10 @@
   const facts = window.TRIVIA_FACTS && window.TRIVIA_FACTS.length ? window.TRIVIA_FACTS : [];
   let triviaIdx = facts.length ? Math.floor(Math.random() * facts.length) : 0;
   function showTrivia(idx) {
-    if (!facts.length) return;
+    if (!facts.length || quizOpen) return;
     triviaEl.style.opacity = "0";
     setTimeout(() => {
+      if (quizOpen || detailsEl.classList.contains("open")) return;
       triviaEl.textContent = facts[idx % facts.length];
       triviaEl.style.opacity = "1";
     }, 900);
@@ -661,7 +834,7 @@
     triviaEl.textContent = facts[triviaIdx];
     triviaEl.style.opacity = "1";
     setInterval(() => {
-      if (state === "idle" || state === "done") {
+      if ((state === "idle" || state === "done") && !quizOpen) {
         triviaIdx = (triviaIdx + 1) % facts.length;
         showTrivia(triviaIdx);
       }
