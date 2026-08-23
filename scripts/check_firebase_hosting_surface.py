@@ -31,6 +31,7 @@ REQUIRED_PATHS = {
     "Travel Plans": [
         "travel/index.html",
         "travel/app.js",
+        "travel/plan-view.js",
         "travel/styles.css",
         "travel/sw.js",
         "travel/manifest.webmanifest",

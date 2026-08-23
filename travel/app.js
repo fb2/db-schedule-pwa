@@ -1,20 +1,21 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  GoogleAuthProvider,
-  getAuth,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import {
-  collection,
-  doc,
-  getDocs,
-  getFirestore,
-  serverTimestamp,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+  findFocusPoint,
+  focusFacts,
+  groupBodyLines,
+  parseRememberItems,
+  relevantRememberItems,
+  sectionTiming,
+  todayIso,
+  weekTiming
+} from "./plan-view.js?v=4";
 
+const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+const FIREBASE_AUTH_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+const FIREBASE_FIRESTORE_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+const PLAN_CACHE_VERSION = "travel.plans.v1";
+const LAST_USER_KEY = "travel.lastUser.v1";
+const FB_CONFIG_KEY = "travel.firebaseConfig.v1";
+const BROWSE_MONTH_KEY = "travel.browseMonth.v1";
 const MAX_DOC_BYTES = 900_000;
 const MONTHS = new Map([
   ["JAN", 0], ["JANUARY", 0],
@@ -37,11 +38,17 @@ const MONTH_NAMES = [
 
 let auth = null;
 let db = null;
+let store = null;
 let currentUser = null;
 let authState = "starting";
 let plans = [];
 let plansById = new Map();
 let activeMonthId = "";
+let cachedUserEmail = "";
+let lastCacheAt = "";
+let viewMode = readBrowseMonth() ? "browse" : "now";
+let explicitSignOut = false;
+let didInitialFocus = false;
 
 const userLabel = document.getElementById("userLabel");
 const signInBtn = document.getElementById("signInBtn");
@@ -51,8 +58,10 @@ const monthSelect = document.getElementById("monthSelect");
 const prevMonthBtn = document.getElementById("prevMonthBtn");
 const nextMonthBtn = document.getElementById("nextMonthBtn");
 const refreshBtn = document.getElementById("refreshBtn");
+const jumpNowBtn = document.getElementById("jumpNowBtn");
 const importFile = document.getElementById("importFile");
 const statusEl = document.getElementById("status");
+const nowRail = document.getElementById("nowRail");
 const monthOverview = document.getElementById("monthOverview");
 const weekList = document.getElementById("weekList");
 const empty = document.getElementById("empty");
@@ -61,81 +70,174 @@ boot();
 
 async function boot() {
   bindEvents();
-  setAppState("starting", "Loading Firebase...");
+  const cached = readPlanCache();
+  if (cached) {
+    cachedUserEmail = cached.userEmail || "";
+    applyPlans(cached.plans, { fromCache: true, cachedAt: cached.cachedAt });
+    userLabel.textContent = cachedUserEmail || "Cached plans";
+    setAppState("ready", cachedStatus(cached.cachedAt, "Checking for updates…"));
+    render();
+  } else {
+    setAppState("starting", "Loading Firebase...");
+  }
 
   try {
-    const firebaseConfig = await loadFirebaseConfig();
-    const app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    signInBtn.addEventListener("click", async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (error) {
-        setStatus(`Sign-in failed: ${error.message}`);
-      }
-    });
-    signOutBtn.addEventListener("click", () => signOut(auth));
-    onAuthStateChanged(auth, handleAuthChange);
+    await initFirebase();
   } catch (error) {
     console.error(error);
+    if (plans.length) {
+      setAppState("ready", cachedStatus(lastCacheAt, "Offline — showing cached plans."));
+      render();
+      return;
+    }
     setAppState("offline", "Firebase is unavailable here. Open this app from Firebase Hosting.");
   }
 }
 
 function bindEvents() {
   monthSelect.addEventListener("change", () => {
-    activeMonthId = monthSelect.value;
+    setBrowseMonth(monthSelect.value);
     render();
   });
   prevMonthBtn.addEventListener("click", () => moveMonth(-1));
   nextMonthBtn.addEventListener("click", () => moveMonth(1));
-  refreshBtn.addEventListener("click", () => currentUser && loadPlans());
+  refreshBtn.addEventListener("click", () => {
+    if (currentUser) refreshPlans({ background: false });
+  });
+  jumpNowBtn.addEventListener("click", jumpToNow);
   importFile.addEventListener("change", importMonthFiles);
+  nowRail.addEventListener("click", (event) => {
+    const card = event.target.closest("[data-section-id]");
+    if (!card) return;
+    openSection(card.dataset.monthId, card.dataset.sectionId);
+  });
+}
+
+async function initFirebase() {
+  const firebaseConfig = await loadFirebaseConfig();
+  const [{ initializeApp }, authMod, firestoreMod] = await Promise.all([
+    import(FIREBASE_APP_URL),
+    import(FIREBASE_AUTH_URL),
+    import(FIREBASE_FIRESTORE_URL)
+  ]);
+  const app = initializeApp(firebaseConfig);
+  auth = authMod.getAuth(app);
+  db = firestoreMod.getFirestore(app);
+  store = {
+    getDocs: firestoreMod.getDocs,
+    collection: firestoreMod.collection,
+    doc: firestoreMod.doc,
+    setDoc: firestoreMod.setDoc,
+    serverTimestamp: firestoreMod.serverTimestamp
+  };
+  const provider = new authMod.GoogleAuthProvider();
+
+  signInBtn.addEventListener("click", async () => {
+    try {
+      await authMod.signInWithPopup(auth, provider);
+    } catch (error) {
+      setStatus(`Sign-in failed: ${error.message}`);
+    }
+  });
+  signOutBtn.addEventListener("click", async () => {
+    explicitSignOut = true;
+    viewMode = "now";
+    writeBrowseMonth("");
+    await authMod.signOut(auth);
+  });
+  authMod.onAuthStateChanged(auth, handleAuthChange);
 }
 
 async function loadFirebaseConfig() {
-  const response = await fetch("/__/firebase/init.json", { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error("Firebase config is only available from Firebase Hosting.");
+  try {
+    const response = await fetch("/__/firebase/init.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Firebase config is only available from Firebase Hosting.");
+    const config = await response.json();
+    try { localStorage.setItem(FB_CONFIG_KEY, JSON.stringify(config)); } catch { /* ignore */ }
+    return config;
+  } catch (error) {
+    try {
+      const cached = JSON.parse(localStorage.getItem(FB_CONFIG_KEY) || "");
+      if (cached?.apiKey || cached?.projectId) return cached;
+    } catch { /* ignore */ }
+    throw error;
   }
-  return response.json();
 }
 
 async function handleAuthChange(user) {
   currentUser = user;
-  plans = [];
-  plansById = new Map();
-  activeMonthId = "";
-
   if (!user) {
+    if (explicitSignOut) {
+      plans = [];
+      plansById = new Map();
+      activeMonthId = "";
+      setAppState("signed-out", "Sign in with Google to load private travel plans.");
+      render();
+      return;
+    }
+    if (plans.length) {
+      setAppState("ready", cachedStatus(lastCacheAt, "Sign in to refresh."));
+      render();
+      return;
+    }
     setAppState("signed-out", "Sign in with Google to load private travel plans.");
     render();
     return;
   }
 
+  explicitSignOut = false;
   userLabel.textContent = user.email || "Signed in";
-  setAppState("loading", "Loading private travel plans...");
-  await loadPlans();
+  if (cachedUserEmail && cachedUserEmail !== user.email) {
+    const other = readPlanCache(user.email);
+    plans = [];
+    plansById = new Map();
+    cachedUserEmail = user.email;
+    if (other) applyPlans(other.plans, { fromCache: true, cachedAt: other.cachedAt });
+  } else {
+    cachedUserEmail = user.email;
+    writeLastUser(user.email);
+  }
+
+  if (plans.length) {
+    setAppState("ready", cachedStatus(lastCacheAt, "Checking for updates…"));
+    render();
+    refreshPlans({ background: true });
+    return;
+  }
+
+  await refreshPlans({ background: false });
 }
 
-async function loadPlans() {
-  if (!currentUser || !db) return;
-  setAppState("loading", "Loading private travel plans...");
+async function refreshPlans({ background = false } = {}) {
+  if (!currentUser || !db || !store) return;
+  if (!background) setAppState("loading", "Loading private travel plans...");
 
   try {
-    const snapshot = await getDocs(collection(db, "travelPlans"));
-    plans = snapshot.docs
+    const snapshot = await store.getDocs(store.collection(db, "travelPlans"));
+    const next = snapshot.docs
       .map((item) => ({ id: item.id, ...serializeData(item.data()) }))
       .sort((a, b) => String(a.monthId || a.id).localeCompare(String(b.monthId || b.id)));
-    plansById = new Map(plans.map((plan) => [plan.monthId || plan.id, plan]));
-    activeMonthId = chooseActiveMonth(activeMonthId);
-    setAppState("ready", plans.length ? `${plans.length} private month plan${plans.length === 1 ? "" : "s"} loaded.` : "No travel plans uploaded yet.");
+    const changed = plansSignature(next) !== plansSignature(plans);
+    writePlanCache(currentUser.email, next);
+    applyPlans(next);
+    setAppState(
+      "ready",
+      next.length
+        ? `${next.length} private month plan${next.length === 1 ? "" : "s"} · ${changed ? "updated" : "up to date"}`
+        : "No travel plans uploaded yet."
+    );
     render();
+    if (viewMode === "now") requestAnimationFrame(() => scrollToFocus(true));
   } catch (error) {
     console.error(error);
+    if (plans.length) {
+      setAppState(
+        "ready",
+        cachedStatus(lastCacheAt, permissionDenied(error) ? "This account cannot refresh plans." : "Could not refresh — showing cache.")
+      );
+      render();
+      return;
+    }
     const message = permissionDenied(error)
       ? "This Google account is not allowed to access private travel plans."
       : "Could not load private travel plans.";
@@ -147,7 +249,7 @@ async function loadPlans() {
 async function importMonthFiles(event) {
   const files = [...(event.target.files || [])];
   event.target.value = "";
-  if (!files.length || !currentUser || !db) return;
+  if (!files.length || !currentUser || !db || !store) return;
   if (!confirm(`Upload ${files.length} travel plan file${files.length === 1 ? "" : "s"}? Re-uploading a month replaces the stored version.`)) return;
 
   setAppState("loading", `Reading ${files.length} file${files.length === 1 ? "" : "s"}...`);
@@ -160,19 +262,19 @@ async function importMonthFiles(event) {
         ...cleanObject(plan),
         sourceFilename: file.name,
         importedBy: currentUser.email || currentUser.uid,
-        updatedAt: serverTimestamp(),
-        importedAt: serverTimestamp()
+        updatedAt: store.serverTimestamp(),
+        importedAt: store.serverTimestamp()
       };
       const bytes = new TextEncoder().encode(JSON.stringify(payload)).length;
       if (bytes > MAX_DOC_BYTES) {
         throw new Error(`${file.name} is too large for a single Firestore document.`);
       }
-      await setDoc(doc(db, "travelPlans", plan.monthId), payload);
+      await store.setDoc(store.doc(db, "travelPlans", plan.monthId), payload);
       imported.push(plan.monthId);
     }
-    activeMonthId = imported.at(-1) || activeMonthId;
+    setBrowseMonth(imported.at(-1) || activeMonthId);
     setStatus(`Imported ${imported.length} month plan${imported.length === 1 ? "" : "s"}.`);
-    await loadPlans();
+    await refreshPlans({ background: false });
   } catch (error) {
     console.error(error);
     setAppState("ready", `Import failed: ${error.message}`);
@@ -194,6 +296,7 @@ function parseTravelPlan(filename, rawText) {
   const sections = parseSections(lines, monthInfo);
   const summaryItems = parseNamedBlock(lines, "SUMMARY").filter(Boolean);
   const openItems = parseNamedBlock(lines, "OPEN ITEMS").filter(Boolean).map(parseOpenItem);
+  const rememberItems = parseRememberItems(lines);
   const events = sections.map(sectionToEvent);
   const warnings = detectWarnings(events);
   const weeks = buildWeeks(events, monthInfo);
@@ -206,6 +309,7 @@ function parseTravelPlan(filename, rawText) {
     sections,
     summaryItems,
     openItems,
+    rememberItems,
     events,
     warnings,
     weeks,
@@ -357,13 +461,19 @@ function summarizeSection(section) {
 }
 
 function detectCategory(text) {
+  const title = text.split("\n")[0].toLowerCase();
   const value = text.toLowerCase();
   if (/\bcancelled\b/.test(value)) return "cancelled";
-  if (/\b(flight|fly|airport|depart|arrive|airways|air china|cathay|wizz)\b/.test(value)) return "flight";
-  if (/\b(hotel|check-in|check-out|accommodation|room|nights)\b/.test(value)) return "hotel";
-  if (/\b(transfer|taxi|ride|fast lane|luggage)\b/.test(value)) return "transfer";
-  if (/\b(meeting|office|business|forum|presentation|epam|scsk|mitsui|nissan)\b/.test(value)) return "business";
-  if (/\b(dinner|festival|primavera|private|sightseeing|weekend|free day|personal)\b/.test(value)) return "personal";
+  if (/\[travel day\]|\bfly\b|\bflight\b/.test(title)) return "flight";
+  if (/\[key event\]|workshop|presentation|sko|master class|people \/ hr/.test(title)) return "business";
+  if (/\bhotel\b|\baccommodation\b/.test(title)) return "hotel";
+  if (/\btransfer\b|\btrain\b|\bamtrak\b/.test(title)) return "transfer";
+  if (/\b(flight|fly|airport|depart|arrive|airways|cathay|wizz|batik)\b/.test(value) && /→|->|depart/.test(value) && !/workshop|presentation/.test(title)) {
+    return "flight";
+  }
+  if (/\b(meeting|office|business|forum|epam|scsk|mitsui|nissan|workshop)\b/.test(value)) return "business";
+  if (/\b(hotel|check-in|check-out|accommodation)\b/.test(value) && !/workshop|presentation|key event/.test(title)) return "hotel";
+  if (/\b(dinner|festival|primavera|sightseeing|weekend|free day|personal)\b/.test(value)) return "personal";
   return "event";
 }
 
@@ -372,8 +482,8 @@ function detectStatus(text) {
   return {
     cancelled: /\bcancelled\b/.test(value),
     paid: /\bpaid\b|prepaid/.test(value),
-    confirmed: /\bconfirmed\b|\[registered\]|\[must\]|\[x\]/.test(value),
-    tbc: /\btbc\b|to be confirmed|\[ \]/.test(value),
+    confirmed: /\bconfirmed\b|\[registered\]|\[must\]/.test(value),
+    tbc: /\btbc\b|to be confirmed|to be booked/.test(value),
     urgent: /\[!\]|\bmust\b|\u26a0/.test(value)
   };
 }
@@ -460,29 +570,34 @@ function buildWeeks(events, monthInfo) {
 }
 
 function render() {
-  const isSignedIn = Boolean(currentUser);
+  const hasPlans = plans.length > 0;
   const activePlan = plansById.get(activeMonthId);
   renderMonthSelect();
-  empty.hidden = isSignedIn && plans.length > 0;
-  monthOverview.hidden = !isSignedIn || !activePlan;
-  weekList.hidden = !isSignedIn || !activePlan;
+  jumpNowBtn.hidden = !hasPlans;
+  empty.hidden = hasPlans;
+  monthOverview.hidden = !activePlan;
+  weekList.hidden = !activePlan;
 
-  if (!isSignedIn) {
-    monthOverview.innerHTML = "";
-    weekList.innerHTML = "";
-    empty.textContent = "Sign in with an allowed Google account to view private travel plans.";
-    return;
-  }
-  if (!plans.length) {
+  if (!hasPlans) {
+    nowRail.hidden = true;
+    nowRail.innerHTML = "";
     monthOverview.innerHTML = "";
     weekList.innerHTML = "";
     empty.textContent = authState === "unauthorized"
       ? "This account is not allowed to access private travel plans."
-      : "No travel plans uploaded yet. Upload one or more monthly text files.";
+      : currentUser
+        ? "No travel plans uploaded yet. Upload one or more monthly text files."
+        : "Sign in with an allowed Google account to view private travel plans.";
     return;
   }
+
+  renderNowRail();
   renderOverview(activePlan);
   renderWeeks(activePlan);
+  if (viewMode === "now" && !didInitialFocus) {
+    didInitialFocus = true;
+    requestAnimationFrame(() => scrollToFocus(true));
+  }
 }
 
 function renderMonthSelect() {
@@ -495,14 +610,43 @@ function renderMonthSelect() {
   nextMonthBtn.disabled = index === -1 || index >= plans.length - 1;
 }
 
+function renderNowRail() {
+  const today = todayIso();
+  const focus = findFocusPoint(plans, today);
+  if (!focus.current) {
+    nowRail.hidden = true;
+    nowRail.innerHTML = "";
+    return;
+  }
+
+  const remember = plans.flatMap((plan) => relevantRememberItems(plan.rememberItems || [], today));
+  nowRail.hidden = false;
+  nowRail.innerHTML = `
+    <div class="now-grid">
+      ${nowCardHtml("Today", focus.current, focusFacts(focus.current), "current")}
+      ${focus.next ? nowCardHtml("Next", focus.next, focusFacts(focus.next), "next") : ""}
+    </div>
+    ${remember.length ? `<ul class="now-remember">${remember.slice(0, 4).map((item) => `<li><span>${item.kind === "take" ? "Take" : "Remember"}</span>${richText(item.text)}</li>`).join("")}</ul>` : ""}
+  `;
+}
+
+function nowCardHtml(label, section, facts, kind) {
+  return `<button type="button" class="now-card ${kind}" data-section-id="${escapeAttr(section.id)}" data-month-id="${escapeAttr(section.monthId)}">
+    <span class="now-kicker">${escapeHtml(label)} · ${escapeHtml(formatLongDate(section.startDate))}</span>
+    <strong>${escapeHtml(shortTitle(section.title))}</strong>
+    ${facts.fact ? `<p>${highlightDetail(facts.fact)}</p>` : ""}
+    ${facts.warning ? `<p class="now-warning">${highlightDetail(facts.warning)}</p>` : ""}
+  </button>`;
+}
+
 function renderOverview(plan) {
   const counts = categoryCounts(plan.events || []);
   const activeOpenItems = (plan.openItems || []).filter((item) => !item.checked);
-  const updated = plan.updatedAt || plan.importedAt || plan.parsedAt;
+  const updated = plan.updatedAt || plan.importedAt || plan.parsedAt || lastCacheAt;
   const summary = (plan.summaryItems || []).slice(0, 10);
   const warnings = plan.warnings || [];
 
-  monthOverview.innerHTML = `<details class="overview-card" open>
+  monthOverview.innerHTML = `<details class="overview-card">
     <summary>
       <span>
         <span class="eyebrow">Month Overview</span>
@@ -527,12 +671,17 @@ function renderOverview(plan) {
 }
 
 function renderWeeks(plan) {
+  const today = todayIso();
   const eventsById = new Map((plan.events || []).map((event) => [event.id, event]));
   const sectionsById = new Map((plan.sections || []).map((section) => [section.id, section]));
-  const activeWeekId = chooseExpandedWeek(plan.weeks || []);
-  weekList.innerHTML = (plan.weeks || []).map((week) => {
+  const weeks = plan.weeks || [];
+  const pastWeeks = weeks.filter((week) => weekTiming(week, today) === "past");
+  const liveWeeks = weeks.filter((week) => weekTiming(week, today) !== "past");
+  const openWeekId = chooseExpandedWeek(liveWeeks.length ? liveWeeks : weeks);
+
+  const weekHtml = (week, open) => {
     const weekEvents = week.eventIds.map((id) => eventsById.get(id)).filter(Boolean);
-    return `<details class="week-card" ${week.id === activeWeekId ? "open" : ""}>
+    return `<details class="week-card" ${open ? "open" : ""}>
       <summary>
         <span>
           <strong>${escapeHtml(week.label)}</strong>
@@ -541,29 +690,48 @@ function renderWeeks(plan) {
         <span class="week-summary-chips">${weekEvents.slice(0, 4).map((event) => chipHtml(event.category, labelForCategory(event.category))).join("")}</span>
       </summary>
       <div class="week-body">
-        ${weekEvents.length ? weekEvents.map((event) => sectionHtml(sectionsById.get(event.id), event)).join("") : "<p class=\"muted\">No dated travel plan items this week.</p>"}
+        ${weekEvents.length ? weekEvents.map((event) => sectionHtml(sectionsById.get(event.id), event, today)).join("") : "<p class=\"muted\">No dated travel plan items this week.</p>"}
       </div>
     </details>`;
-  }).join("");
+  };
+
+  const pastHtml = pastWeeks.length
+    ? `<details class="past-weeks">
+        <summary>Earlier this month · ${pastWeeks.length} week${pastWeeks.length === 1 ? "" : "s"}</summary>
+        <div class="past-weeks-body">${pastWeeks.map((week) => weekHtml(week, false)).join("")}</div>
+      </details>`
+    : "";
+
+  weekList.innerHTML = pastHtml + liveWeeks.map((week) => weekHtml(week, week.id === openWeekId)).join("");
 }
 
-function sectionHtml(section, event) {
+function sectionHtml(section, event, today) {
   if (!section) return "";
-  return `<article class="section-card ${escapeAttr(event.category)}">
-    <div class="section-head">
-      <div>
-        <h3>${escapeHtml(section.title)}</h3>
-        <p>${escapeHtml(formatDateRange(section.startDate, section.endDate))}</p>
-      </div>
-      <div class="section-chips">
-        ${chipHtml(event.category, labelForCategory(event.category))}
-        ${event.status.cancelled ? chipHtml("cancelled", "Cancelled") : ""}
-        ${event.status.paid ? chipHtml("paid", "Paid") : ""}
-        ${event.status.confirmed ? chipHtml("confirmed", "Confirmed") : ""}
-        ${event.status.tbc ? chipHtml("tbc", "TBC") : ""}
-      </div>
+  const timing = sectionTiming(section, today);
+  const body = section.body ? `<div class="detail-flow">${formatSectionBody(section.body)}</div>` : "";
+  const head = `
+    <div>
+      <h3>${escapeHtml(section.title)}</h3>
+      <p>${escapeHtml(formatDateRange(section.startDate, section.endDate))}</p>
     </div>
-    ${section.body ? `<div class="detail-lines">${formatSectionBody(section.body)}</div>` : ""}
+    <div class="section-chips">
+      ${chipHtml(event.category, labelForCategory(event.category))}
+      ${event.status.cancelled ? chipHtml("cancelled", "Cancelled") : ""}
+      ${event.status.paid ? chipHtml("paid", "Paid") : ""}
+      ${event.status.confirmed ? chipHtml("confirmed", "Confirmed") : ""}
+      ${event.status.tbc ? chipHtml("tbc", "TBC") : ""}
+    </div>`;
+
+  if (timing === "past") {
+    return `<details class="section-card past ${escapeAttr(event.category)}" id="sec-${escapeAttr(section.id)}">
+      <summary class="section-head">${head}</summary>
+      ${body}
+    </details>`;
+  }
+
+  return `<article class="section-card ${escapeAttr(timing)} ${escapeAttr(event.category)}" id="sec-${escapeAttr(section.id)}">
+    <div class="section-head">${head}</div>
+    ${body}
   </article>`;
 }
 
@@ -571,37 +739,185 @@ function moveMonth(offset) {
   const index = plans.findIndex((plan) => plan.monthId === activeMonthId);
   const next = plans[index + offset];
   if (!next) return;
-  activeMonthId = next.monthId;
+  setBrowseMonth(next.monthId);
   render();
+}
+
+function setBrowseMonth(monthId) {
+  if (!monthId || !plansById.has(monthId)) return;
+  activeMonthId = monthId;
+  viewMode = "browse";
+  writeBrowseMonth(monthId);
+}
+
+function jumpToNow() {
+  viewMode = "now";
+  writeBrowseMonth("");
+  const focus = findFocusPoint(plans, todayIso());
+  if (focus.current?.monthId) activeMonthId = focus.current.monthId;
+  didInitialFocus = false;
+  render();
+}
+
+function openSection(monthId, sectionId) {
+  if (monthId && plansById.has(monthId) && monthId !== activeMonthId) {
+    setBrowseMonth(monthId);
+    render();
+  }
+  requestAnimationFrame(() => {
+    const target = document.getElementById(`sec-${sectionId}`);
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) target.open = true;
+    const week = target.closest("details.week-card");
+    if (week) week.open = true;
+    target.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+}
+
+function scrollToFocus(force) {
+  if (!force && viewMode !== "now") return;
+  const focus = findFocusPoint(plans, todayIso());
+  if (!focus.current) return;
+  if (focus.current.monthId && focus.current.monthId !== activeMonthId) {
+    activeMonthId = focus.current.monthId;
+    render();
+    return;
+  }
+  const target = document.getElementById(`sec-${focus.current.id}`);
+  if (!target) return;
+  if (target instanceof HTMLDetailsElement) target.open = true;
+  const week = target.closest("details.week-card");
+  if (week) week.open = true;
+  target.scrollIntoView({ block: "start", behavior: "instant" });
 }
 
 function chooseActiveMonth(preferred) {
   if (preferred && plansById.has(preferred)) return preferred;
-  const now = new Date();
-  const current = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}`;
+  const current = todayIso().slice(0, 7);
   if (plansById.has(current)) return current;
+  const focus = findFocusPoint(plans, todayIso());
+  if (focus.current?.monthId && plansById.has(focus.current.monthId)) return focus.current.monthId;
   return plans.at(-1)?.monthId || "";
 }
 
 function chooseExpandedWeek(weeks) {
   if (!weeks.length) return "";
-  const today = isoFromDate(new Date());
+  const today = todayIso();
   const current = weeks.find((week) => week.startDate <= today && week.endDate >= today);
   return (current || weeks.find((week) => week.eventIds.length) || weeks[0]).id;
+}
+
+function hydratePlan(plan) {
+  if (!plan) return plan;
+  const next = { ...plan };
+  if ((!next.rememberItems || !next.rememberItems.length) && next.rawText) {
+    next.rememberItems = parseRememberItems(String(next.rawText).split("\n"));
+  }
+  if (next.sections) {
+    next.sections = next.sections.map((section) => ({
+      ...section,
+      category: detectCategory(`${section.title}\n${section.body || ""}`),
+      status: detectStatus(`${section.title}\n${section.body || ""}`)
+    }));
+    const categories = new Map(next.sections.map((section) => [section.id, section]));
+    next.events = (next.events || []).map((event) => {
+      const section = categories.get(event.id);
+      return section ? { ...event, category: section.category, status: section.status } : event;
+    });
+  }
+  return next;
+}
+
+function applyPlans(list, { fromCache = false, cachedAt = "" } = {}) {
+  plans = (list || []).map(hydratePlan);
+  plansById = new Map(plans.map((plan) => [plan.monthId || plan.id, plan]));
+  if (viewMode === "browse") {
+    activeMonthId = chooseActiveMonth(readBrowseMonth() || activeMonthId);
+  } else {
+    const focus = findFocusPoint(plans, todayIso());
+    activeMonthId = focus.current?.monthId || chooseActiveMonth(activeMonthId);
+  }
+  if (fromCache) lastCacheAt = cachedAt || lastCacheAt;
+}
+
+function readBrowseMonth() {
+  try { return sessionStorage.getItem(BROWSE_MONTH_KEY) || ""; } catch { return ""; }
+}
+
+function writeBrowseMonth(monthId) {
+  try {
+    if (monthId) sessionStorage.setItem(BROWSE_MONTH_KEY, monthId);
+    else sessionStorage.removeItem(BROWSE_MONTH_KEY);
+  } catch { /* ignore */ }
+}
+
+function cacheStorageKey(email) {
+  return `${PLAN_CACHE_VERSION}:${email || "local"}`;
+}
+
+function readLastUser() {
+  try { return localStorage.getItem(LAST_USER_KEY) || ""; } catch { return ""; }
+}
+
+function writeLastUser(email) {
+  try { localStorage.setItem(LAST_USER_KEY, email || ""); } catch { /* ignore */ }
+}
+
+function readPlanCache(email = readLastUser()) {
+  try {
+    const raw = localStorage.getItem(cacheStorageKey(email));
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data?.plans) || !data.plans.length) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function writePlanCache(email, list) {
+  const payload = { userEmail: email || "", plans: list, cachedAt: new Date().toISOString() };
+  try {
+    localStorage.setItem(cacheStorageKey(email), JSON.stringify(payload));
+    writeLastUser(email);
+    lastCacheAt = payload.cachedAt;
+    return;
+  } catch {
+    const slim = list.map(({ rawText, ...rest }) => rest);
+    try {
+      localStorage.setItem(cacheStorageKey(email), JSON.stringify({ ...payload, plans: slim }));
+      writeLastUser(email);
+      lastCacheAt = payload.cachedAt;
+    } catch { /* ignore */ }
+  }
+}
+
+function plansSignature(list) {
+  return (list || [])
+    .map((plan) => `${plan.monthId}:${plan.updatedAt || plan.importedAt || plan.parsedAt}:${(plan.sections || []).length}`)
+    .join("|");
+}
+
+function cachedStatus(cachedAt, extra = "") {
+  const when = formatUpdatedDateTime(cachedAt);
+  return [`Showing cached plans${when ? ` from ${when}` : ""}`, extra].filter(Boolean).join(" · ");
 }
 
 function setAppState(state, message) {
   authState = state;
   setStatus(message);
   const isSignedIn = Boolean(currentUser);
+  const canBrowse = isSignedIn || plans.length > 0;
   signInBtn.hidden = isSignedIn;
   signOutBtn.hidden = !isSignedIn;
   signInBtn.style.display = isSignedIn ? "none" : "";
   signOutBtn.style.display = isSignedIn ? "" : "none";
-  signedInControls.hidden = !isSignedIn || state === "unauthorized";
-  refreshBtn.disabled = state === "loading";
-  importFile.disabled = state === "loading";
-  userLabel.textContent = currentUser ? (currentUser.email || "Signed in") : "Signed out";
+  signedInControls.hidden = !canBrowse || state === "unauthorized";
+  refreshBtn.disabled = !isSignedIn || state === "loading";
+  importFile.disabled = !isSignedIn || state === "loading";
+  userLabel.textContent = currentUser
+    ? (currentUser.email || "Signed in")
+    : (plans.length ? (cachedUserEmail || "Cached plans") : "Signed out");
 }
 
 function setStatus(message) {
@@ -651,25 +967,30 @@ function highlightLine(line) {
 }
 
 function formatSectionBody(body) {
-  return String(body || "")
-    .split("\n")
-    .map(detailLineHtml)
-    .join("");
+  return groupBodyLines(body).map(blockHtml).join("");
 }
 
-function detailLineHtml(line) {
-  const trimmed = line.trim();
-  if (!trimmed) return "<div class=\"detail-spacer\"></div>";
-
-  const field = trimmed.match(/^([A-Za-z][A-Za-z /-]{1,24}):\s*(.+)$/);
-  if (field) {
-    return `<div class="detail-line field-line">
-      <span class="field-label">${escapeHtml(field[1])}</span>
-      <span class="field-value">${highlightDetail(field[2])}</span>
-    </div>`;
+function blockHtml(block) {
+  switch (block.type) {
+    case "heading":
+      return `<h4 class="detail-heading">${escapeHtml(block.text)}</h4>`;
+    case "callout":
+      return `<p class="detail-callout">${highlightDetail(block.text)}</p>`;
+    case "prose":
+      return `<p class="detail-prose">${highlightDetail(block.text)}</p>`;
+    case "field":
+      return `<div class="detail-field"><span class="field-label">${escapeHtml(block.label)}</span><span class="field-value">${highlightDetail(block.value)}</span></div>`;
+    case "checks":
+      return `<ul class="detail-checks">${block.items.map((item) => `
+        <li class="${item.checked ? "is-done" : ""} ${item.urgent ? "is-urgent" : ""}">
+          <span class="check-mark" aria-hidden="true">${item.checked ? "☑" : "☐"}</span>
+          <span>${highlightDetail(item.text)}${item.note ? `<small>${highlightDetail(item.note)}</small>` : ""}</span>
+        </li>`).join("")}</ul>`;
+    case "bullets":
+      return `<ul class="detail-bullets">${block.items.map((item) => `<li>${highlightDetail(item)}</li>`).join("")}</ul>`;
+    default:
+      return "";
   }
-
-  return `<div class="detail-line ${line.startsWith("    ") || line.startsWith("  ") ? "indented" : ""}">${highlightDetail(trimmed)}</div>`;
 }
 
 function highlightDetail(line) {
@@ -704,6 +1025,10 @@ function shortLinkLabel(url) {
   } catch {
     return url;
   }
+}
+
+function shortTitle(title) {
+  return String(title || "").replace(/^[A-Z]{3,9}\s+\d{1,2}(?:\s*[-–]\s*[A-Z]{3,9}?\s*\d{1,2})?(?:\s*\([A-Z]{3}\))?\s*[—-]\s*/i, "");
 }
 
 function labelForCategory(category) {
@@ -746,6 +1071,13 @@ function formatUpdated(value) {
   const date = new Date(value);
   if (Number.isNaN(date.valueOf())) return "n/a";
   return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function formatUpdatedDateTime(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.valueOf())) return "";
+  return date.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
 function rangesOverlap(left, right) {
