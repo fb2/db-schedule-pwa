@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import unquote, urljoin
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -121,7 +121,9 @@ EVENT_HINTS = re.compile(
     re.I,
 )
 OUTSIDE_PENANG_EVENT_RE = re.compile(
-    r"\b(kuala lumpur|petaling jaya|putrajaya|shah alam|mitec)\b",
+    r"\b(kuala lumpur|petaling jaya|putrajaya|shah alam|mitec|"
+    r"selangor|sabak bernam|guangzhou)\b|"
+    r"(广州)",
     re.I,
 )
 HIN_JUNK_RE = re.compile(
@@ -146,8 +148,10 @@ PROMO_NOISE_RE = re.compile(
 EVENT_NEWS_NOISE_RE = re.compile(
     r"\b("
     r"deploys gps tracking|scales up .*training|wedding venue guide|"
-    r"on track for .*completion|proposed acquisition|launches? .*campaign"
-    r")\b",
+    r"on track for .*completion|proposed acquisition|launches? .*campaign|"
+    r"medal haul|double-gold|tourism (?:roadshow|road show)"
+    r")\b|"
+    r"(旅游路演|旅游推介|率团赴)",
     re.I,
 )
 # Consumer-facing interests to surface near the top of Happening soon.
@@ -251,9 +255,10 @@ INDUSTRY_HARD_RE = re.compile(
     r"investor\s+(?:forum|summit)|property\s+investment\s+(?:expo|fair)|"
     r"conference\s+for\s+professionals|professional\s+conference|"
     r"corporate\s+(?:summit|expo|convention)|"
-    r"pihex|penang\s+international\s+halal"
+    r"pihex|penang\s+international\s+halal|"
+    r"business\s+awards?|pearl\s+global"
     r")\b|"
-    r"(清真工业|工业展|贸易展)",
+    r"(清真工业|工业展|贸易展|珍珠全球商业奖)",
     re.I,
 )
 INDUSTRY_FORM_RE = re.compile(
@@ -342,6 +347,21 @@ LOGO_IMAGE_RE = re.compile(
     r"transparent_placeholder|placeholder|spacer\.gif|/wp-includes/)",
     re.I,
 )
+# Filenames that usually mean a real photo, not a title card.
+PHOTO_NAME_RE = re.compile(
+    r"(photo|photograph|performance|workshop|portrait|dream-site|site-\d)",
+    re.I,
+)
+# KopiKarya4.jpg / image5-3.png — in-article shots, not the share banner.
+NUMBERED_SHOT_RE = re.compile(
+    r"[a-z][a-z0-9_-]*[a-z]\d{1,2}\.(jpe?g|png)(?:$|\?)",
+    re.I,
+)
+# GTF wide/card title locks (wordmarks) unless the name also says poster/photo.
+WORDMARK_BANNER_RE = re.compile(r"(?:_web_?|_web-)?1920x815|557x606", re.I)
+WORDMARK_KEEP_RE = re.compile(r"(poster|resize|photo)", re.I)
+# Mojibake in a source URL (e.g. GTF filenames with a replacement character).
+BROKEN_IMAGE_CHAR_RE = re.compile(r"\ufffd|%ef%bf%bd", re.I)
 WSIMG_WIDTH_RE = re.compile(r"(rs=w:)(\d+)", re.I)
 # PenangToday RSS often embeds /wp-content/uploads/ URLs that soft-404 to the homepage.
 # Prefer /ipsostuh/ CDN paths from article og:image instead.
@@ -412,7 +432,7 @@ def normalize_image_url(url: str | None, base: str = "") -> str:
     cleaned = html.unescape(url.strip())
     if not cleaned or cleaned.startswith("data:"):
         return ""
-    if BROKEN_IMAGE_RE.search(cleaned):
+    if BROKEN_IMAGE_RE.search(cleaned) or BROKEN_IMAGE_CHAR_RE.search(cleaned):
         return ""
     if base and cleaned.startswith("/"):
         cleaned = urljoin(base, cleaned)
@@ -435,6 +455,69 @@ def classify_food_kind(title: str, summary: str = "", default_kind: str = "revis
 def is_logo_image(url: str | None) -> bool:
     """True for site chrome (brand logo, favicon, placeholder) rather than content."""
     return bool(url) and bool(LOGO_IMAGE_RE.search(url))
+
+
+def image_filename(url: str) -> str:
+    return unquote((url or "").split("?", 1)[0]).rsplit("/", 1)[-1]
+
+
+def is_likely_wordmark_banner(url: str | None) -> bool:
+    """True for GTF-style title locks when the filename is not a poster/photo."""
+    if not url:
+        return False
+    name = image_filename(url)
+    if WORDMARK_KEEP_RE.search(name) or PHOTO_NAME_RE.search(name):
+        return False
+    return bool(WORDMARK_BANNER_RE.search(name))
+
+
+def topical_image_score(url: str) -> int:
+    """Higher = more likely a topical photo than a logo or wordmark banner."""
+    name = image_filename(url).lower()
+    score = 0
+    if PHOTO_NAME_RE.search(name):
+        score += 10
+    if NUMBERED_SHOT_RE.search(name):
+        score += 6
+    if name.endswith((".jpg", ".jpeg")):
+        score += 1
+    if is_likely_wordmark_banner(url):
+        score -= 8
+    return score
+
+
+def iter_page_content_images(page_html: str | None, base: str = ""):
+    """Yield in-article image URLs, skipping logos. Sidebar backgrounds are ignored."""
+    seen: set[str] = set()
+    for match in LAZY_IMG_ATTR_RE.finditer(page_html or ""):
+        url = normalize_image_url(match.group(1), base)
+        if url and url not in seen and not is_logo_image(url):
+            seen.add(url)
+            yield url
+    for match in IMG_SRC_RE.finditer(page_html or ""):
+        url = normalize_image_url(match.group(1), base)
+        if url and url not in seen and not is_logo_image(url):
+            seen.add(url)
+            yield url
+
+
+def pick_topical_page_image(page_html: str, base: str = "") -> str:
+    """Prefer a real photo over a wordmark og:image; keep mixed banners otherwise.
+
+    Related-card <img> tags on GTF pages can outrank a good wide banner if we
+    always take the highest score. Only override og:image when it looks like a
+    title lock and the alternative is clearly a photo.
+    """
+    og = extract_og_image(page_html, base)
+    if og and is_logo_image(og):
+        og = ""
+    photos = [url for url in iter_page_content_images(page_html, base) if url != og]
+    best_photo = max(photos, key=topical_image_score) if photos else ""
+    if og and not is_likely_wordmark_banner(og):
+        return og
+    if best_photo and topical_image_score(best_photo) >= 6:
+        return best_photo
+    return og or best_photo
 
 
 def upgrade_wsimg_width(url: str, target: int = 1095) -> str:
@@ -572,7 +655,7 @@ def enrich_missing_images(
     limit: int = 16,
     deadline_sec: float = 75.0,
 ) -> int:
-    """Fill empty imageUrl from article og:image (needed for PenangToday).
+    """Fill empty imageUrl from the article page, preferring topical photos.
 
     Bounded by request timeout, item limit, and a hard wall-clock deadline so
     --publish finishes in minutes even when remote hosts stall.
@@ -611,12 +694,7 @@ def enrich_missing_images(
             continue
         attempted += 1
         html_text = fetch_url_text(source_url, timeout, user_agent)
-        image = extract_og_image(html_text, source_url)
-        if is_logo_image(image):
-            # Builder sites set og:image to the brand logo on listing pages.
-            image = ""
-        if not image:
-            image = first_content_img(html_text, source_url)
+        image = pick_topical_page_image(html_text, source_url)
         if image:
             item["imageUrl"] = image
             filled += 1
@@ -625,11 +703,16 @@ def enrich_missing_images(
 
 
 def apply_fallback_images(items: list[dict[str, Any]]) -> int:
-    """Use parser-supplied card art where og:image enrichment came back empty."""
+    """Use parser-supplied card art where enrichment found no topical photo."""
     used = 0
     for item in items:
         fallback = item.pop("fallbackImageUrl", "")
-        if fallback and not item.get("imageUrl"):
+        if (
+            fallback
+            and not item.get("imageUrl")
+            and not is_logo_image(fallback)
+            and not is_likely_wordmark_banner(fallback)
+        ):
             item["imageUrl"] = fallback
             used += 1
     return used
@@ -959,7 +1042,7 @@ def gtf_card_posters(text: str, base: str) -> dict[str, str]:
     posters: dict[str, str] = {}
     for match in GTF_LOOP_BG_RE.finditer(text):
         url = normalize_image_url(match.group(2), base)
-        if url and not is_logo_image(url):
+        if url and not is_logo_image(url) and not is_likely_wordmark_banner(url):
             posters.setdefault(match.group(1), url)
     return posters
 

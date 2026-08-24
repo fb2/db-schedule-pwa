@@ -954,6 +954,16 @@ PRODUCT_SPECIFIC_NOTES = {
     "【中国・四国】広島お好み焼 肉玉そば": (
         "Hiroshima-style okonomiyaki layers the savory pancake over fried soba noodles."
     ),
+    # Week of 2026-08-24
+    "なべやき屋キンレイ ナガラ食品監修 和風だし香るホルモン鍋焼うどん": (
+        "Nabeyaki udon served hotpot-style; horumon here means stewed offal, not hormones."
+    ),
+    "ぼんご監修 大きなおむすび 生たらこと漬けまぐろ入りまぐろたたき": (
+        "A large Bongo rice ball pairing fresh tarako with tuna tataki."
+    ),
+    "麺屋極鶏 鶏だく だく郎": (
+        "Packaged ramen from Menya Gokukei, loaded with extra chicken."
+    ),
 }
 
 PRODUCT_SPECIFIC_TITLES = {
@@ -1094,6 +1104,56 @@ PRODUCT_SPECIFIC_TITLES = {
     "おおきなおむすび上伊那産アスパラとベーコン": (
         "Large rice ball with Kami-Ina asparagus and bacon"
     ),
+    # Week of 2026-08-24 — Lawson
+    "なべやき屋キンレイ ナガラ食品監修 和風だし香るホルモン鍋焼うどん": (
+        "Kinrei x Nagara horumon nabeyaki udon"
+    ),
+    "ティラミスパフェ": "Tiramisu parfait",
+    "おかズドン!黒胡椒にんにくだれ鶏唐揚弁当": (
+        "Okazu Don black-pepper garlic karaage bento"
+    ),
+    "くるみパン 4個入": "Walnut bread, 4 pieces",
+    "チョコバナナ": "Chocolate banana",
+    "フィッシュバーガー タルタルソース": "Fish burger with tartar sauce",
+    "大きなおにぎり 辛旨キムチチャーハン": (
+        "Large rice ball, spicy kimchi fried rice"
+    ),
+    "白いティラミスクレープ": "White tiramisu crepe",
+    "魏さんの本格よだれ鶏": "Wei's Sichuan chili chicken",
+    "鶏肉とザーサイの湯葉巻き": "Chicken and zha cai yuba rolls",
+    # Week of 2026-08-24 — FamilyMart
+    "ぼんご監修 大きなおむすび 煮たまごと肉そぼろマヨ": (
+        "Bongo large rice ball with egg and meat soboro mayo"
+    ),
+    "ぼんご監修 大きなおむすび 生たらこと漬けまぐろ入りまぐろたたき": (
+        "Bongo large rice ball with tarako and tuna tataki"
+    ),
+    "【東京都の一部・神奈川県の一部】国産鶏むね肉と小松菜の豆乳担担春雨スープ": (
+        "Soy-milk tantan harusame soup with chicken and komatsuna"
+    ),
+    "【東海】冷しうどん弁当": "Chilled udon bento",
+    "【関東】ピリ辛仕立ての冷しラー油ねぎそば": (
+        "Chilled spicy chili-oil negi soba"
+    ),
+    "【関東・関西、中国・四国】鶏の旨みと白髪ねぎの香り 冷し鶏ねぎうどん": (
+        "Chilled chicken and shredded-negi udon"
+    ),
+    "【関西】冷し肉ぶっかけうどん": "Chilled broth-poured meat udon",
+    "ねぎ盛り！チャーシューの冷しまぜそば": (
+        "Chilled maze-soba with extra negi and chashu"
+    ),
+    "大盛冷しぶっかけうどん": "Large chilled broth-poured udon",
+    "お手軽！明太子パスタ": "Easy mentaiko pasta",
+    "こしあんまん（ごま風味）": "Koshian bun with sesame",
+    "シルバニアファミリー キラキラくじ～ほしぞらパジャマパーティ～": (
+        "Sylvanian Families glitter lottery: starry pajama party"
+    ),
+    "麺屋極鶏 鶏だく だく郎": "Menya Gokukei extra-chicken Dakuro ramen",
+    # Week of 2026-08-24 — 7-Eleven
+    "あじとや監修 黒糖キーマチキンカレー": "Ajitoya brown-sugar keema chicken curry",
+    "おおきなおむすび チャーシューわさび": "Large rice ball with chashu and wasabi",
+    "焼肉＆唐揚げごはん": "Yakiniku and karaage rice",
+    "ROLLサンド バジルチキンとトマト": "ROLL sandwich with basil chicken and tomato",
 }
 
 
