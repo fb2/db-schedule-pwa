@@ -105,6 +105,7 @@ onAuthStateChanged(auth, async user => {
   try {
     await Promise.all([loadRecipes(), loadShortlist()]);
     render();
+    openPendingRecipe();
   } catch (error) {
     signedInControls.hidden = true;
     recipes.length = 0;
@@ -256,24 +257,64 @@ window.toggleShortlist = async function toggleShortlist(id) {
   render();
 };
 
+function isCustomRecipe(recipe) {
+  return recipe.custom === true || String(recipe.id || "").startsWith("custom-");
+}
+
+function recipeDeepLink(id) {
+  const url = new URL(window.location.href);
+  url.hash = "";
+  url.search = "";
+  url.searchParams.set("recipe", id);
+  return url.toString();
+}
+
+function recipeShareUrl(recipe) {
+  if (isCustomRecipe(recipe)) return recipeDeepLink(recipe.id);
+  return recipe.url || recipeDeepLink(recipe.id);
+}
+
+function consumeRecipeQuery() {
+  const url = new URL(window.location.href);
+  if (!url.searchParams.has("recipe")) return;
+  url.searchParams.delete("recipe");
+  const query = url.searchParams.toString();
+  history.replaceState(null, "", `${url.pathname}${query ? `?${query}` : ""}${url.hash}`);
+}
+
+function openPendingRecipe() {
+  const id = new URLSearchParams(window.location.search).get("recipe");
+  if (!id) return;
+  if (byId.has(id)) {
+    openRecipe(id);
+  } else {
+    setStatus(`Recipe not found: ${id}`);
+  }
+  consumeRecipeQuery();
+}
+
 window.shareRecipe = async function shareRecipe(id) {
   const recipe = byId.get(id);
   if (!recipe) return;
-  const text = `${recipe.title}\n${recipe.url}`;
+  const url = recipeShareUrl(recipe);
+  if (!url) return;
   if (navigator.share) {
     try {
-      await navigator.share({ title: recipe.title, text, url: recipe.url });
+      await navigator.share({ title: recipe.title, url });
       return;
     } catch (error) {
       if (error.name === "AbortError") return;
     }
   }
-  await copyText(text);
+  await copyText(`${recipe.title}\n${url}`);
   alert("Recipe link copied.");
 };
 
 async function shareShortlist() {
-  const lines = [...shortlist].map(id => byId.get(id)).filter(Boolean).map(recipe => `${recipe.title}\n${recipe.url}`);
+  const lines = [...shortlist]
+    .map(id => byId.get(id))
+    .filter(Boolean)
+    .map(recipe => `${recipe.title}\n${recipeShareUrl(recipe)}`);
   if (!lines.length) return;
   const text = lines.join("\n\n");
   if (navigator.share) {

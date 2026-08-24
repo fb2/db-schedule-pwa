@@ -20,6 +20,7 @@ from pathlib import Path
 
 
 DEFAULT_RECIPES_DIR = Path("/Users/fbalazs/Library/CloudStorage/Dropbox/Claude/Personal/Recipes/recipes_data")
+DEFAULT_CUSTOM_DIR = Path(__file__).resolve().parents[1] / "private" / "custom-recipes"
 DEFAULT_OUTPUT = Path(__file__).resolve().parents[1] / "private" / "recipe-import.private.json"
 
 
@@ -118,9 +119,74 @@ def load_recipes(recipes_dir: Path, size: int, quality: int) -> list[dict]:
     return sorted(recipes_by_id.values(), key=lambda item: item["title"].casefold())
 
 
+def load_custom_recipes(custom_dir: Path, size: int, quality: int) -> list[dict]:
+    if not custom_dir.exists():
+        return []
+
+    recipes: list[dict] = []
+    for path in sorted(custom_dir.glob("*.json")):
+        if path.name.endswith(".import.json"):
+            continue
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        recipe_id = clean_text(raw.get("id")) or path.stem
+        ingredients = [
+            {
+                "section": clean_text(item.get("section")),
+                "text": ingredient_text(item),
+            }
+            for item in raw.get("ingredients") or []
+            if ingredient_text(item)
+        ]
+        instructions = [
+            {
+                "section": clean_text(step.get("section")),
+                "number": step.get("number"),
+                "description": clean_text(step.get("description")),
+            }
+            for step in raw.get("instructions") or []
+            if clean_text(step.get("description"))
+        ]
+        tips = [clean_text(tip) for tip in raw.get("tips") or [] if clean_text(tip)]
+        tags = [clean_text(tag) for tag in raw.get("tags") or [] if clean_text(tag)]
+        rating = raw.get("rating") or {}
+        image_file = clean_text(raw.get("image_file"))
+        image = ""
+        if image_file:
+            image = make_thumbnail_data_url(custom_dir / image_file, size=size, quality=quality)
+
+        recipes.append({
+            "id": recipe_id,
+            "title": clean_text(raw.get("title")),
+            "url": clean_text(raw.get("url")),
+            "description": clean_text(raw.get("description")),
+            "author": clean_text(raw.get("author")),
+            "yield": clean_text(raw.get("yield")),
+            "times": raw.get("times") or {},
+            "ingredients": ingredients,
+            "instructions": instructions,
+            "tips": tips,
+            "tags": tags,
+            "rating": {
+                "average": rating.get("average"),
+                "count": rating.get("count"),
+            },
+            "image": image,
+            "imageCredit": clean_text(raw.get("image_credit") or raw.get("imageCredit")),
+        })
+    return recipes
+
+
+def merge_recipes(base: list[dict], extra: list[dict]) -> list[dict]:
+    by_id = {item["id"]: item for item in base}
+    for item in extra:
+        by_id[item["id"]] = item
+    return sorted(by_id.values(), key=lambda item: item["title"].casefold())
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build the private recipe Firestore import JSON.")
     parser.add_argument("--recipes-dir", type=Path, default=DEFAULT_RECIPES_DIR)
+    parser.add_argument("--custom-dir", type=Path, default=DEFAULT_CUSTOM_DIR)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--thumb-size", type=int, default=360)
     parser.add_argument("--quality", type=int, default=58)
@@ -131,7 +197,10 @@ def main() -> None:
     if not args.recipes_dir.exists():
         raise SystemExit(f"Recipe data directory not found: {args.recipes_dir}")
 
-    recipes = load_recipes(args.recipes_dir, size=args.thumb_size, quality=args.quality)
+    recipes = merge_recipes(
+        load_recipes(args.recipes_dir, size=args.thumb_size, quality=args.quality),
+        load_custom_recipes(args.custom_dir, size=args.thumb_size, quality=args.quality),
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(recipes, ensure_ascii=False, indent=2), encoding="utf-8")
 
