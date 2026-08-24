@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="A visual shelf of physical film discs, with a random picker." />
+    <link rel="canonical" href="https://fb-personal-utilities.web.app/utilities/movie-shelf/" />
+    <meta property="og:title" content="Movie Shelf" />
+    <meta property="og:description" content="A visual shelf of physical film discs, with a random picker." />
+    <meta property="og:url" content="https://fb-personal-utilities.web.app/utilities/movie-shelf/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Movie Shelf" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Movie Shelf" />
+    <meta name="twitter:description" content="A visual shelf of physical film discs, with a random picker." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Movie Shelf" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icon.svg" />
-    <link rel="stylesheet" href="./styles.css?v=6" />
+    <link rel="stylesheet" href="./styles.css?v=9" />
     <title>Movie Shelf</title>
   </head>
   <body>
@@ -24,7 +33,6 @@
       </label>
       <div id="home-chips" class="chips" role="group" aria-label="Home filter"></div>
       <div class="chrome-btns">
-        <button id="quiz-btn" type="button">Quiz</button>
         <button id="stats-btn" type="button">Stats</button>
       </div>
     </header>
@@ -46,6 +54,7 @@
     <div id="actions">
       <button id="btn-browse" type="button">Browse</button>
       <button id="btn-pick" type="button">Pick a film</button>
+      <button id="quiz-btn" type="button">Quiz</button>
     </div>
 
     <aside id="details">
@@ -127,9 +136,9 @@
       </div>
     </div>
 
-    <script src="./movies.js?v=6"></script>
-    <script src="./trivia.js?v=6"></script>
-    <script src="./quiz.js?v=6" onerror="window.QUIZ_QUESTIONS=null"></script>
-    <script src="./app.js?v=6"></script>
+    <script src="./movies.js?v=9"></script>
+    <script src="./trivia.js?v=9"></script>
+    <script src="./quiz.js?v=9" onerror="window.QUIZ_QUESTIONS=null"></script>
+    <script src="./app.js?v=9"></script>
   </body>
 </html>

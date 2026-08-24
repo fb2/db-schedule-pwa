@@ -1,12 +1,12 @@
-const CACHE_NAME = "movie-shelf-v6";
+const CACHE_NAME = "movie-shelf-v9";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=6",
-  "./app.js?v=6",
-  "./movies.js?v=6",
-  "./trivia.js?v=6",
-  "./quiz.js?v=6",
+  "./styles.css?v=9",
+  "./app.js?v=9",
+  "./movies.js?v=9",
+  "./trivia.js?v=9",
+  "./quiz.js?v=9",
   "./manifest.webmanifest",
   "./icon.svg",
 ];
