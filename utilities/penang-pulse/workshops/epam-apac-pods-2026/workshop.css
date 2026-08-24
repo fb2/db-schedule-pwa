@@ -10,6 +10,8 @@
   --pin-food: #c45c26;
   --pin-sight: #2a5f9e;
   --pin-transit: #5a4a8a;
+  --page-gutter: max(32px, env(safe-area-inset-left, 0px));
+  --page-gutter-end: max(32px, env(safe-area-inset-right, 0px));
   color-scheme: light;
 }
 
@@ -40,12 +42,26 @@ a {
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter-end);
+}
+
+.wsection.wrap,
+.wfooter.wrap,
+.hero-inner.wrap,
+.band-inner.wrap {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter-end);
 }
 
 @media (min-width: 860px) {
   .wrap {
-    padding: 0 32px;
+    --page-gutter: 32px;
+    --page-gutter-end: 32px;
   }
 }
 
@@ -56,7 +72,7 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 20px;
+  padding: 12px var(--page-gutter-end) 12px var(--page-gutter);
 }
 
 .topbar .back {
@@ -198,7 +214,7 @@ a {
 
 .hero-credit {
   position: absolute;
-  right: 12px;
+  right: var(--page-gutter-end);
   bottom: 8px;
   font-size: 0.66rem;
   letter-spacing: 0.04em;
@@ -208,7 +224,7 @@ a {
 /* ---------- Section scaffolding ---------- */
 
 .wsection {
-  padding: 52px 0 0;
+  padding-top: 52px;
 }
 
 .wsection:last-of-type {
@@ -749,6 +765,15 @@ figcaption {
   background: linear-gradient(180deg, rgba(15, 110, 110, 0.06) 0%, rgba(250, 250, 248, 0) 100%);
 }
 
+@media (max-width: 719px) {
+  .tips-list li {
+    padding: 16px 18px 18px;
+    border-radius: 10px;
+    border-top-color: rgba(15, 110, 110, 0.45);
+    background: rgba(15, 110, 110, 0.06);
+  }
+}
+
 .tips-list strong {
   display: block;
   margin-bottom: 4px;
@@ -918,7 +943,8 @@ figcaption {
 
 .wfooter {
   margin-top: 56px;
-  padding: 22px 0 44px;
+  padding-top: 22px;
+  padding-bottom: 44px;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.85rem;
