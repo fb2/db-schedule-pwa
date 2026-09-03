@@ -191,6 +191,12 @@ PRIORITY_JP_PHRASES = [
     ("ピリッと旨辛ビビンバおむすび", "spicy bibimbap rice ball"),
     ("パイン 塩パインアメ", "Pine salted pineapple candy"),
     ("具だくさん生姜スープ", "ginger soup with lots of ingredients"),
+    ("ファミマ45周年記念！「ファミマとコラボ祭」", "Famima 45th collab"),
+    ("とろ〜り月見", "melty tsukimi"),
+    ("ラインソックス", "line socks"),
+    ("ショートソックス", "short socks"),
+    ("そばめし", "sobameshi"),
+    ("苺ジャム", "strawberry jam"),
     ("サラダROLL 照焼チキン", "teriyaki chicken vegetable roll"),
     ("サラダROLL 豚しゃぶ", "pork shabu vegetable roll"),
     ("しそひじきおむすび", "shiso hijiki rice ball"),
@@ -362,6 +368,8 @@ PHRASE_TRANSLATIONS = {
     "ふわもち": "fluffy-chewy",
     "ふんわり": "fluffy",
     "とろける": "melting",
+    "ぶっ濃い濃厚": "extra-rich",
+    "ぶっ濃い": "extra-thick",
     "濃厚": "rich",
     "濃い": "rich",
     "濃密": "dense",
@@ -436,6 +444,7 @@ PHRASE_TRANSLATIONS = {
     "たらこ": "cod roe",
     "明太子": "spicy cod roe",
     "たくあん": "pickled daikon",
+    "マーガリン": "margarine",
     "ガリ": "pickled ginger",
     "ねぎ": "green onion",
     "オクラ": "okra",
@@ -453,6 +462,15 @@ PHRASE_TRANSLATIONS = {
     "えび塩味": "shrimp salt flavor",
     "塩パインアメ": "salted pineapple candy",
     "パインアメ": "Pineame pineapple candy",
+    "ジャム": "jam",
+    "コッペ": "koppe bun",
+    "つくね": "tsukune",
+    "エクレア": "eclair",
+    "バウム": "baumkuchen",
+    "パイの実": "Pie no Mi",
+    "どん兵衛": "Donbei",
+    "どんぎつね": "Dongitsune",
+    "日清": "Nissin",
     "塩": "salt",
     "塩レモン": "salt lemon",
     "梅しそ": "plum and shiso",
@@ -798,8 +816,8 @@ def translate_qualifier_text(text: str) -> str:
         return qualifier
     if "監修" in text:
         return qualifier
-    # Campaign banners (bonus size, sales) are nationwide promotions, not regional limits.
-    if re.search(r"増量|作戦|キャンペーン|セール|お値段", text):
+    # Campaign banners (bonus size, sales, anniversary collabs) are not regional limits.
+    if re.search(r"増量|作戦|キャンペーン|セール|お値段|周年|コラボ祭", text):
         return qualifier
     return f"{qualifier} regional"
 
@@ -963,6 +981,22 @@ PRODUCT_SPECIFIC_NOTES = {
     ),
     "麺屋極鶏 鶏だく だく郎": (
         "Packaged ramen from Menya Gokukei, loaded with extra chicken."
+    ),
+    # Week of 2026-09-03
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清焼そばU.F.O. ぶっ濃い濃厚そばめし": (
+        "Sobameshi is fried noodles chopped into rice; this UFO cup is extra-rich."
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清のどん兵衛 どんぎつねむすび（東）": (
+        "A Donbei kitsune-udon flavored rice ball; East Japan broth style."
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清のどん兵衛 どんぎつねむすび（西）": (
+        "A Donbei kitsune-udon flavored rice ball; West Japan broth style."
+    ),
+    "韓国コチュジャン使用 ピリ辛ホルモンミックス": (
+        "Horumon here means stewed offal, not hormones."
+    ),
+    "とろ〜り月見おにぎり(ベーコン・チーズ・マヨネーズ)": (
+        "Tsukimi means a runny egg-yolk topping, the autumn moon-viewing style."
     ),
 }
 
@@ -1154,6 +1188,105 @@ PRODUCT_SPECIFIC_TITLES = {
     "おおきなおむすび チャーシューわさび": "Large rice ball with chashu and wasabi",
     "焼肉＆唐揚げごはん": "Yakiniku and karaage rice",
     "ROLLサンド バジルチキンとトマト": "ROLL sandwich with basil chicken and tomato",
+    # Week of 2026-09-03 — FamilyMart
+    "ラインソックス 2026 秋の色/ブラック": "Line socks, 2026 autumn colors (black)",
+    "ラインソックス 2026 秋の色/ホワイト": "Line socks, 2026 autumn colors (white)",
+    "ショートソックス セドナピンク": "Short socks, Sedona pink",
+    "ショートソックス ブルーコーン": "Short socks, blue corn",
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】エバラ監修 ファミチキ（焼肉のたれ味）": (
+        "Ebara Famichiki, yakiniku tare"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】クランキー&ホイップサンド": (
+        "Crunky and whipped-cream sandwich"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】ゴディバ監修 オペラチョコレートフラッペ": (
+        "GODIVA Opera chocolate frappe"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】パイの実みたいなデニッシュ": (
+        "Pie no Mi-style danish"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】パンチョ監修 大盛 太麺！チーズナポリタン": (
+        "Pancho large thick-noodle cheese Napolitan"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】ミルクチョコレートエクレア": (
+        "Milk chocolate eclair"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】冷やして食べる森永ミルクココアバウム": (
+        "Chilled Morinaga milk cocoa baumkuchen"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清のどん兵衛 どんぎつねむすび（東）": (
+        "Donbei Dongitsune rice ball (East)"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清のどん兵衛 どんぎつねむすび（西）": (
+        "Donbei Dongitsune rice ball (West)"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】日清焼そばU.F.O. ぶっ濃い濃厚そばめし": (
+        "Nissin UFO extra-rich sobameshi"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】暴君ハバネロ ウマ辛たこ焼": (
+        "Bokun Habanero spicy takoyaki"
+    ),
+    "【ファミマ45周年記念！「ファミマとコラボ祭」】蒟蒻畑ゼリードリンク ぶどう味": (
+        "Konnyaku-batake grape jelly drink"
+    ),
+    "ふくちゃんラーメン監修 スープにこだわった豚骨ラーメン": (
+        "Fukuchan tonkotsu ramen"
+    ),
+    "中華くらげ入り きゅうりと春雨のサラダ": (
+        "Cucumber and harusame salad with jellyfish"
+    ),
+    "いなり&サラダ巻セット": "Inari and salad-roll set",
+    "てんこ盛！トマトパスタ&ハンバーグ・唐揚弁当": (
+        "Loaded tomato pasta, hamburg, and karaage bento"
+    ),
+    "どこでもついんどぅ！たまごっち": "Tamagotchi Anywhere Twindu",
+    "ホットはちみつゆず 490ml": "Hot honey yuzu 490ml",
+    "ホットレモン 490ml": "Hot lemon 490ml",
+    "ポテトとベーコンのクリームグラタン": "Potato and bacon cream gratin",
+    "極旨 黒豚まん": "Extra-tasty black pork bun",
+    "極旨 黒豚まんカレー": "Extra-tasty black pork curry bun",
+    "生フランスパン（カスタード&ホイップ）": (
+        "Fresh French bread with custard and cream"
+    ),
+    "赤城 ドットポン": "Akagi Dot Pon ice cream",
+    "韓国コチュジャン使用 ピリ辛ホルモンミックス": (
+        "Spicy horumon mix with gochujang"
+    ),
+    "サンリオくじ「ハンギョドン当りくじ」": "Sanrio Hangyodon lottery",
+    "カップヌードル HUMAN MADE": "Cup Noodle HUMAN MADE",
+    "キャラポトレ ケロロ軍曹": "Chara-Potre Sgt. Frog",
+    # Week of 2026-09-03 — Lawson
+    "ふわふわコッペ 苺ジャム&マーガリン": (
+        "Fluffy koppe bun, strawberry jam and margarine"
+    ),
+    "ふわふわコッペ 粒あん&マーガリン": (
+        "Fluffy koppe bun, chunky anko and margarine"
+    ),
+    "ぶどうコッペ シュガーマーガリン": "Grape koppe bun with sugar margarine",
+    "ブルボン つぶじゃりグミ いちご味": "Bourbon Tsubujari strawberry gummies",
+    "どらもっち モンブラン": "Doramocchi Mont Blanc",
+    "UHA味覚糖 モッチュ ブルーベリー味": "UHA Motchu blueberry",
+    "とろ〜り月見おにぎり(ベーコン・チーズ・マヨネーズ)": (
+        "Melty tsukimi rice ball with bacon, cheese, and mayo"
+    ),
+    "とろ〜り月見つくね": "Melty tsukimi tsukune",
+    "とろ〜り月見つくねバーガー": "Melty tsukimi tsukune burger",
+    "とろ〜り月見つくね丼": "Melty tsukimi tsukune rice bowl",
+    "とろ〜り月見カレーパン": "Melty tsukimi curry bread",
+    "とろ〜り月見ミートチーズパン": "Melty tsukimi meat and cheese bread",
+    "ベーコンエッグバーガー": "Bacon egg burger",
+    "メープルとくるみのスコーン 4個入": "Maple walnut scones, 4 pieces",
+    "月見仕立てのメンチカツ": "Tsukimi-style menchi-katsu",
+    "牛すき焼き うどん入り": "Beef sukiyaki with udon",
+    # Week of 2026-09-03 — 7-Eleven
+    "東北限定 三陸産わかめのおむすび": "Tohoku-only Sanriku wakame rice ball",
+    "おおきなおむすび 昆布ご飯とツナマヨネーズ": (
+        "Large rice ball, kombu rice and tuna mayo"
+    ),
+    "おおきなおむすび 高菜ご飯と明太子": (
+        "Large rice ball, takana rice and mentaiko"
+    ),
+    "大和芋とろろの麦とろ丼": "Yamato yam tororo barley rice bowl",
 }
 
 

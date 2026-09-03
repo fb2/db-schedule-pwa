@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from typing import Any
-from urllib.parse import unquote, urljoin
+from urllib.parse import unquote, urljoin, urlparse
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -52,10 +52,12 @@ PAST_EVENT_RECAP_RE = re.compile(
     r"last night|last (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|"
     r"yesterday|over the weekend|"
     r"drew crowds|drew locals|drew thousands|drew revellers|"
-    r"attracted (?:crowds|thousands|locals|visitors)|"
-    r"descended on|packed the|filled the|"
+    r"attracted (?:crowds|thousands|locals|visitors|more than)|"
+    r"descended on|packed the|filled the|came alive|"
     r"wrapped up|came to a close|kicked off yesterday|"
-    r"earlier today|earlier this (?:week|month)"
+    r"earlier today|earlier this (?:week|month)|"
+    r"raises? rm|raising (?:an impressive )?rm|"
+    r"gathered (?:at|for)|recently for a|celebration lunch"
     r")\b",
     re.I,
 )
@@ -149,9 +151,11 @@ EVENT_NEWS_NOISE_RE = re.compile(
     r"\b("
     r"deploys gps tracking|scales up .*training|wedding venue guide|"
     r"on track for .*completion|proposed acquisition|launches? .*campaign|"
-    r"medal haul|double-gold|tourism (?:roadshow|road show)"
+    r"medal haul|double-gold|tourism (?:roadshow|road show)|"
+    r"ultimate .+ events list|events list september|"
+    r"gets citizenship|citizenship programme|motorcycle oil"
     r")\b|"
-    r"(旅游路演|旅游推介|率团赴)",
+    r"(旅游路演|旅游推介|率团赴|免费更换摩托车机油|更换摩托车机油)",
     re.I,
 )
 # Consumer-facing interests to surface near the top of Happening soon.
@@ -1278,11 +1282,18 @@ def parse_chinapress_category(
             title = clean_text(alt.group(1) if alt else "")
         if len(title) < 6 or href in seen:
             continue
-        seen.add(href)
-        kind = classify_food_kind(title, default_kind="revisit")
         published = None
         if len(ymd) == 8 and ymd.isdigit():
             published = f"{ymd[0:4]}-{ymd[4:6]}-{ymd[6:8]}"
+            try:
+                pub_date = dt.date.fromisoformat(published)
+            except ValueError:
+                pub_date = None
+            # Dated China Press cards are news, not evergreen reviews.
+            if pub_date and pub_date < utc_now().date() - dt.timedelta(days=180):
+                continue
+        seen.add(href)
+        kind = classify_food_kind(title, default_kind="revisit")
         items.append(
             {
                 "id": slug_id(kind, title, published),
@@ -1356,17 +1367,52 @@ def parse_penangfoodie_home(text: str, source_name: str, source_id: str, page_ur
     return items
 
 
+def _title_key(title: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", (title or "").lower())
+
+
+def _is_near_title_dup(left: str, right: str) -> bool:
+    if not left or not right:
+        return False
+    if left == right:
+        return True
+    return len(min(left, right, key=len)) >= 20 and (left in right or right in left)
+
+
+def _is_listing_url(url: str) -> bool:
+    """True for venue/programme indexes that many events share."""
+    path = urlparse(url).path.rstrip("/").lower()
+    return path in {"", "/events", "/programme"} or path.endswith("/events")
+
+
 def dedupe_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    seen: set[str] = set()
+    seen_keys: list[str] = []
+    seen_urls: set[str] = set()
     out: list[dict[str, Any]] = []
     for item in items:
         title = item.get("title") or ""
         if is_junk_title(title):
             continue
-        key = re.sub(r"[^a-z0-9]+", "", title.lower())
-        if not key or key in seen:
+        key = _title_key(title)
+        url = (item.get("sourceUrl") or "").rstrip("/")
+        if not key:
             continue
-        seen.add(key)
+        if url and not _is_listing_url(url) and url in seen_urls:
+            continue
+        match_idx = next((i for i, seen in enumerate(seen_keys) if _is_near_title_dup(key, seen)), None)
+        if match_idx is not None:
+            existing = out[match_idx]
+            # Prefer the listing that actually has a calendar date.
+            if existing.get("startDate") or not item.get("startDate"):
+                continue
+            out[match_idx] = item
+            seen_keys[match_idx] = key
+            if url:
+                seen_urls.add(url)
+            continue
+        seen_keys.append(key)
+        if url:
+            seen_urls.add(url)
         out.append(item)
     return out
 

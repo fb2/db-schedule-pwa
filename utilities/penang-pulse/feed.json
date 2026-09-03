@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-24T12:34:53.179209+00:00",
-  "weekLabel": "Week of 24 Aug",
-  "intro": "15 events, 10 food picks, and 15 worth revisiting.",
+  "generatedAt": "2026-09-03T03:29:44.255853+00:00",
+  "weekLabel": "Week of 3 Sep",
+  "intro": "15 events, 10 food picks, and 9 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,8 +12,8 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 54561,
-      "itemCount": 8,
+      "bytes": 249578,
+      "itemCount": 9,
       "parser": "rss_items"
     },
     {
@@ -24,7 +24,7 @@
       "url": "https://penangtoday.my/topic/food/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 41828,
+      "bytes": 48941,
       "itemCount": 8,
       "parser": "rss_items"
     },
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 135973,
-      "itemCount": 10,
+      "bytes": 144965,
+      "itemCount": 12,
       "parser": "hin_events_html"
     },
     {
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 597968,
+      "bytes": 600139,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -60,7 +60,7 @@
       "url": "https://georgetownfestival.com/",
       "ok": true,
       "status": 200,
-      "bytes": 148652,
+      "bytes": 148395,
       "itemCount": 4,
       "parser": "gtf_html"
     },
@@ -72,7 +72,7 @@
       "url": "https://georgetownfestival.com/programme/",
       "ok": true,
       "status": 200,
-      "bytes": 172190,
+      "bytes": 172554,
       "itemCount": 6,
       "parser": "gtf_html"
     },
@@ -82,10 +82,10 @@
       "tier": "B",
       "kind": "revisit",
       "url": "https://smartdory.com/",
-      "ok": true,
-      "status": 200,
-      "bytes": 87425,
-      "itemCount": 5,
+      "ok": false,
+      "status": 503,
+      "bytes": 2104,
+      "itemCount": 0,
       "parser": "wordpress_home_html"
     },
     {
@@ -96,8 +96,8 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 73231,
-      "itemCount": 4,
+      "bytes": 73484,
+      "itemCount": 0,
       "parser": "chinapress_category_html"
     },
     {
@@ -120,8 +120,8 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 75686,
-      "itemCount": 2,
+      "bytes": 62676,
+      "itemCount": 3,
       "parser": "rss_items"
     },
     {
@@ -132,7 +132,7 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 25106,
+      "bytes": 28849,
       "itemCount": 3,
       "parser": "rss_items"
     },
@@ -144,12 +144,39 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 208744,
+      "bytes": 208555,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
   ],
   "items": [
+    {
+      "id": "event-penang-shorts-film-documentary-festival-94139bed3c",
+      "kind": "event",
+      "title": "Penang Shorts Film & Documentary Festival",
+      "summary": "11 - 13 September 2026 Hin Bus Depot & COEX at Kilang Besi Free entry for all. Seats are limited and registration is required.",
+      "detail": "11 - 13 September 2026 Hin Bus Depot & COEX at Kilang Besi Free entry for all. Seats are limited and registration is required.",
+      "startDate": "2026-09-11",
+      "endDate": "2026-09-13",
+      "dateLabel": "11–13 Sep · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_789973014_18370040062215675_70248.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "http://www.penangshorts.com",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "festival",
+        "culture",
+        "movies"
+      ],
+      "interest": [
+        "festival",
+        "culture",
+        "movies"
+      ],
+      "interestScore": 100
+    },
     {
       "id": "event-george-town-literary-festival-2026-returns-with--484b9ff0c4",
       "kind": "event",
@@ -206,6 +233,35 @@
       "interestScore": 100
     },
     {
+      "id": "event-paya-terubong-fringe-festival-f262cec18b",
+      "kind": "event",
+      "title": "Paya Terubong Fringe Festival",
+      "summary": "Paya Terubong Fringe Festival transforms the neighbourhood into a vibrant open-air stage where the performing arts come alive. Featuring a lively programme of music, rhythm, fire and live performances, the festival invit…",
+      "detail": "Paya Terubong Fringe Festival transforms the neighbourhood into a vibrant open-air stage where the performing arts come alive. Featuring a lively programme of music, rhythm, fire and live performances, the festival invites audiences of all ages to gather, explore, and experience the joy of the arts in the heart of the community.",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "George Town Festival",
+      "area": "George Town",
+      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/09/PTFF_Resize_web-1920x815.48.jpg",
+      "sourceUrl": "https://georgetownfestival.com/programme/paya-terubong-fringe-festival/",
+      "sourceName": "George Town Festival",
+      "sourceId": "georgetown_festival",
+      "category": "Arts",
+      "topics": [
+        "family",
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "family",
+        "festival",
+        "music",
+        "culture"
+      ],
+      "interestScore": 100
+    },
+    {
       "id": "event-six-to-eleven-cdea8f9b86",
       "kind": "event",
       "title": "Six to Eleven",
@@ -233,56 +289,6 @@
       "interestScore": 100
     },
     {
-      "id": "event-artisan-ii-a-solo-exhibition-by-low-chee-peng-1f55c75870",
-      "kind": "event",
-      "title": "“Artisan II”, a solo exhibition by Low Chee Peng",
-      "summary": "1 August - 30 August O Sculpture Studio Presented as part of George Town Festival 2026 Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
-      "detail": "1 August - 30 August O Sculpture Studio Presented as part of George Town Festival 2026 Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
-      "startDate": "2026-08-01",
-      "endDate": "2026-08-30",
-      "dateLabel": "Ongoing · until 30 Aug · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_748278439_18601275514022625_91763.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/p/Da0dRhGtB3a/?hl=en",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "festival",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "culture"
-      ],
-      "interestScore": 96
-    },
-    {
-      "id": "event-kopi-karya-e03b52b0d6",
-      "kind": "event",
-      "title": "Kopi & Karya",
-      "summary": "Step beyond the stage with “Kopi & Karya”, a festival F&B trail that transforms George Town’s cafés into spaces of creativity and connection. Discover exclusive festival-inspired drinks and artisan bakes crafted by 10 lo…",
-      "detail": "Step beyond the stage with “Kopi & Karya”, a festival F&B trail that transforms George Town’s cafés into spaces of creativity and connection. Discover exclusive festival-inspired drinks and artisan bakes crafted by 10 local cafés, each offering a delicious interpretation of this year’s theme, “Beyond Boundaries”. From comforting cups of coffee to inventive sweet treats, every stop is a chance to experience the city through its flavours. Because at George Town Festival, art isn’t just something you watch—it is something you taste.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/08/GTF2026_KopiKarya4.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/kopi-karya/",
-      "sourceName": "George Town Festival Programme",
-      "sourceId": "georgetown_festival_programme",
-      "category": "Arts",
-      "topics": [
-        "festival",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "culture"
-      ],
-      "interestScore": 90
-    },
-    {
       "id": "event-cerita-kita-gr-gallery-photography-exhibition-by-1cb54d8aff",
       "kind": "event",
       "title": "Cerita Kita GR Gallery (Photography Exhibition by Ricoh Malaysia)",
@@ -290,33 +296,10 @@
       "detail": "26 August - 6 September 2026 Hin Bus Depot Gallery Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday) Free entry for all!",
       "startDate": "2026-08-26",
       "endDate": "2026-09-06",
-      "dateLabel": "26 Aug – 6 Sep · Hin Bus Depot",
+      "dateLabel": "Ongoing · until 6 Sep · Hin Bus Depot",
       "area": "George Town",
       "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_770751526_1650536807076983_705256.jpg/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 68
-    },
-    {
-      "id": "event-gr-fans-meet-by-ricoh-malaysia-3fccaa27a6",
-      "kind": "event",
-      "title": "GR Fans Meet by Ricoh Malaysia",
-      "summary": "Saturday 5 September 2026 Tangga, COEX @Kilang Besi 2:00pm - 5:00pm Free entry for all!",
-      "detail": "Saturday 5 September 2026 Tangga, COEX @Kilang Besi 2:00pm - 5:00pm Free entry for all!",
-      "startDate": "2026-09-05",
-      "endDate": "2026-09-05",
-      "dateLabel": "5 Sep · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_765887023_1650536790410318_386323.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSce7l6ft7zI9KOhATNawT1J2qDZjIPJzZdSHNwbzJxhEMK4sg/viewform?usp=send_form",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
@@ -375,28 +358,27 @@
       "interestScore": 68
     },
     {
-      "id": "event-penang-signature-gold-gems-and-jewellery-fair-20-d5c31e0a2d",
+      "id": "event-cocktail-garden-by-penang-cocktail-week-7a8a60426e",
       "kind": "event",
-      "title": "Penang Signature Gold, Gems and Jewellery Fair 2026 at Setia SPICE Convention Centre",
-      "summary": "By V. Sivaji With approximately 80% of Malaysia’s gold and jewellery shipments coming from manufacturers and exporters based in Penang, it is only fair to state that Penang leads in terms of making innovative and skilled…",
-      "detail": "By V. Sivaji With approximately 80% of Malaysia’s gold and jewellery shipments coming from manufacturers and exporters based in Penang, it is only fair to state that Penang leads in terms of making innovative and skilled gold ornaments. In line with this, the 10th edition of the Penang Signature Gold, Gems and Jewellery Fair 2026 […] The post Penang Signature Gold, Gems and Jewellery Fair 2026 at Setia SPICE Convention Centre appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/08/G-2-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/penang-signature-gold-gems-and-jewellery-fair-2026-at-setia-spice-convention-centre/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Sat, 22 Aug 2026 00:12:46 +0000",
+      "title": "Cocktail Garden by Penang Cocktail Week",
+      "summary": "Sunday 20 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 10:00pm Ticketed event. RM38 per person. Entry included ONE drink.",
+      "detail": "Sunday 20 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 10:00pm Ticketed event. RM38 per person. Entry included ONE drink.",
+      "startDate": "2026-09-20",
+      "endDate": "2026-09-20",
+      "dateLabel": "20 Sep · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_790562781_18039882389820557_44928.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://shop.penangcocktailweek.com/products/pcw-cocktail-garden-2026-at-hin-bus-depot-1",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
       "topics": [
-        "fair"
+        "culture"
       ],
       "interest": [
-        "fair"
+        "culture"
       ],
-      "interestScore": 64
+      "interestScore": 68
     },
     {
       "id": "event-artisan-ii-678e043915",
@@ -456,8 +438,8 @@
       "area": "George Town",
       "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Convergev2_Resize_web-1920x815.48.jpg",
       "sourceUrl": "https://georgetownfestival.com/programme/converge-%e5%8c%af%e8%81%9a/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
+      "sourceName": "George Town Festival Programme",
+      "sourceId": "georgetown_festival_programme",
       "category": "Arts",
       "topics": [
         "culture"
@@ -491,44 +473,44 @@
       "interestScore": 62
     },
     {
-      "id": "event-100-b69fad5e22",
+      "id": "event-penang-international-orchid-show-2026-returns-to-40fd2ca0ae",
       "kind": "event",
-      "title": "槟将办100小时不间断印度棍术接力 挑战马来西亚纪录大全",
-      "summary": "图说：黄汉伟（左4）为100小时不间断印度棍术表演接力活动打气。右3为博尔卡莱印度棍术协会主席卡威古玛。 ///// 槟城博尔卡莱印度棍术协会（Porr Kalai Silambam）将于8月28日至9月1日，在马来西亚理科大学举办“100小时不间断印度棍术表演接力”活动，挑战马来西亚纪录大全，来自全国多个州属及联邦直辖区的印度棍术好手将参与其中。 槟州旅游与创意经济行政议员黄汉伟今日在新闻发布会上表示，这项活动并非一般的印度棍术表演，…",
-      "detail": "图说：黄汉伟（左4）为100小时不间断印度棍术表演接力活动打气。右3为博尔卡莱印度棍术协会主席卡威古玛。 ///// 槟城博尔卡莱印度棍术协会（Porr Kalai Silambam）将于8月28日至9月1日，在马来西亚理科大学举办“100小时不间断印度棍术表演接力”活动，挑战马来西亚纪录大全，来自全国多个州属及联邦直辖区的印度棍术好手将参与其中。 槟州旅游与创意经济行政议员黄汉伟今日在新闻发布会上表示，这项活动并非一般的印度棍术表演，而是一项结合体育与文化遗产的大型计划。 他说，约150人参与这项活动，他们来自槟城、吉打、霹雳、玻璃市、登嘉楼、森美兰、马六甲、彭亨、雪兰莪及吉隆坡的参与，充分显示全国印度棍术社群对这项活动的关注与支持。 “值得一提的是，许多参赛者刚完成雪兰莪大马运动会赛事，如今继续投入这项具有历史意义的活动，展现了他们的纪律、毅力及对印度棍术的热爱。” 他指出，参赛者不只是为了表演而来，同时代表各自州属，并共同为马来西亚印度棍术发展开启新篇章。 黄汉伟说，槟城印度棍术的发展已迈入令人鼓舞的新阶段，印度棍术于2026年正式列为槟州文化遗产，是极具里程碑意义的发展。 “州文化遗产的认可，将有助于确保印度棍术持续获得保存、发展，并传承给下一代。” 他同时肯定博尔卡莱印度棍术协会长期以来在槟城社区所扮演的积极角色，除了推动印度棍术活动，也积极参与青年发展、文化、体育及社区计划，并与州政府合作落实各项倡议。 “博尔卡莱印度棍术协会是非政府组织成为政府策略伙伴的典范，尤其是在青年发展、文化、遗产及创意经济领域。” 他指出，要完成100小时不间断表演绝非易事，需要周密策划、高度纪律、充沛的身心力量，以及完善的参赛者、教练和志愿者管理、安全措施和各方协调。 黄汉伟认为，从旅游与创意经济角度来看，这类活动具有很高价值，州政府希望文化遗产不仅作为历史被铭记，更能持续活跃、发展",
+      "title": "Penang International Orchid Show 2026 Returns To Straits Quay This September",
+      "summary": "The Penang International Orchid Show 2026 returns to Straits Quay from 5 to 13 September, offering nine days of competitive displays, rare blooms, and live judging sessions. The waterfront venue in Tanjung Tokong will ho…",
+      "detail": "The Penang International Orchid Show 2026 returns to Straits Quay from 5 to 13 September, offering nine days of competitive displays, rare blooms, and live judging sessions. The waterfront venue in Tanjung Tokong will host the annual event, which has grown into one of the region’s most anticipated orchid showcases. Organised by the Federation of […]",
+      "startDate": "2026-09-05",
+      "endDate": "2026-09-13",
+      "dateLabel": "5–13 Sep",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://penangtoday.my/news/9387/penang-international-orchid-show-2026-returns-to-straits-quay-this-september/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Thu, 27 Aug 2026 08:56:20 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 46
+    },
+    {
+      "id": "event-two-cars-up-for-grabs-at-love-penang-run-2026-09d9ca185c",
+      "kind": "event",
+      "title": "Two Cars Up For Grabs At Love Penang Run 2026",
+      "summary": "Two Perodua Axia cars are up for grabs in the Love Penang Run 2026 lucky draw, the state government announced today as registration opens for the fifth edition of the community running event. Chief Minister Chow Kon Yeow…",
+      "detail": "Two Perodua Axia cars are up for grabs in the Love Penang Run 2026 lucky draw, the state government announced today as registration opens for the fifth edition of the community running event. Chief Minister Chow Kon Yeow said the cars are sponsored by Penang Forward Sports Club (PFSC) adviser Datuk Tom Khoo, adding that […]",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/%e5%8d%b0%e5%ba%a6-2/",
-      "sourceName": "Buletin Mutiara",
-      "sourceId": "buletin_mutiara",
+      "sourceUrl": "https://penangtoday.my/news/9395/two-cars-up-for-grabs-at-love-penang-run-2026/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Mon, 24 Aug 2026 06:33:05 +0000",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 58
-    },
-    {
-      "id": "food-hin-friday-market-e0e1531511",
-      "kind": "food",
-      "title": "Hin Friday Market",
-      "summary": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot",
-      "detail": "Every Friday of the month 7, 14, 21 & 28 August 2026 12:00pm - 7:00pm Deck & Lawn, Hin Bus Depot",
-      "startDate": "2026-08-28",
-      "endDate": "2026-08-28",
-      "dateLabel": "28 Aug · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Hin%20Friday%20Market%20August.png/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/hinfridaymarket/",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Markets"
+      "publishedAt": "Thu, 27 Aug 2026 13:38:51 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
     },
     {
       "id": "food-sembang-selasa-with-hafiz-wina-of-lunasinar-mark-6522d8519d",
@@ -609,6 +591,23 @@
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
+    },
+    {
+      "id": "food-le-a-at-pizzeria-turns-batu-ferringhi-sunset-int-c25f671d0d",
+      "kind": "food",
+      "title": "LEÑA at Pizzeria Turns Batu Ferringhi Sunset Into a Full Night of Fire-Led Dining",
+      "summary": "There is a version of Batu Ferringhi that most visitors never see. It arrives after sunset, when the familiar daytime restaurant along the beachfront quietly changes character. Pizzeria, known through the day for casual …",
+      "detail": "There is a version of Batu Ferringhi that most visitors never see. It arrives after sunset, when the familiar daytime restaurant along the beachfront quietly changes character. Pizzeria, known through the day for casual pizza and pasta, gives way to LEÑA at Pizzeria: a fire-led dining concept at Hard Rock Hotel Penang that trades the […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Recently · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/pxl_20260826_1031074755615501418657834860.jpg",
+      "sourceUrl": "https://penangtoday.my/featured/9439/lena-at-pizzeria-turns-a-batu-ferringhi-sunset-into-a-full-night-of-fire-led-dining/",
+      "sourceName": "PenangToday Food",
+      "sourceId": "penangtoday_food",
+      "category": "Food",
+      "publishedAt": "Wed, 02 Sep 2026 10:03:43 +0000"
     },
     {
       "id": "food-lavender-bakery-d7e612e18f",
@@ -723,22 +722,6 @@
       "category": "Food"
     },
     {
-      "id": "revisit-15-best-penang-breakfast-guide-2024-edition-206422a763",
-      "kind": "revisit",
-      "title": "15 Best Penang Breakfast Guide (2024 Edition)",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2023/04/penang-breakfast-guide-2/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
       "id": "revisit-15-best-supper-spots-in-penang-65ca216355",
       "kind": "revisit",
       "title": "15 Best Supper Spots In Penang",
@@ -819,70 +802,6 @@
       "category": "Food"
     },
     {
-      "id": "revisit-e-o-buffet-lunch-at-sarkies-is-this-penang-s-bes-406660fc68",
-      "kind": "revisit",
-      "title": "E&O Buffet Lunch at Sarkies | Is This Penang’s Best Buffet?",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2021/12/eo-buffet-lunch-at-sarkies-restaurant/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
-      "id": "revisit-malaya-kopi-penang-at-loke-thye-kee-6d19ed3245",
-      "kind": "revisit",
-      "title": "Malaya Kopi Penang at Loke Thye Kee",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2026/07/malaya-kopi-penang-at-loke-thye-kee/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
-      "id": "revisit-penang-avatar-secret-garden-night-park-0319d87ea9",
-      "kind": "revisit",
-      "title": "Penang Avatar Secret Garden 阿凡达神秘花园 Night Park",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2017/06/penang-avatar-secret-garden-night-park/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
-      "id": "revisit-searching-for-the-best-heritage-boutique-hotel-i-ebb9e67206",
-      "kind": "revisit",
-      "title": "Searching for the Best Heritage Boutique Hotel in Penang?",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2026/08/best-heritage-boutique-hotel-in-penang/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
       "id": "revisit-top-13-places-for-the-best-tau-sar-piah-in-penan-6902cadfb5",
       "kind": "revisit",
       "title": "Top 13 Places For The Best Tau Sar Piah In Penang",
@@ -897,31 +816,15 @@
       "sourceName": "Penang Foodie",
       "sourceId": "penang_foodie",
       "category": "Food"
-    },
-    {
-      "id": "revisit-200-0475ae0020",
-      "kind": "revisit",
-      "title": "北海新芭观音亭斗母宫新春夜市正式开跑 超过200个摊位等着你来逛！",
-      "summary": "China Press Penang food & lifestyle highlight.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://penang.chinapress.com.my/20231229/%e5%8c%97%e6%b5%b7%e6%96%b0%e8%8a%ad%e8%a7%82%e9%9f%b3%e4%ba%ad%e6%96%97%e6%af%8d%e5%ae%ab%e6%96%b0%e6%98%a5%e5%a4%9c%e5%b8%82%e6%ad%a3%e5%bc%8f%e5%bc%80%e8%b7%91%ef%bc%8c%e8%b6%85%e8%bf%87200/",
-      "sourceName": "China Press Penang 吃喝玩乐",
-      "sourceId": "china_press_penang",
-      "category": "Food",
-      "publishedAt": "2023-12-29"
     }
   ],
   "warnings": [
+    "fetch failed for smartdory (status=503)",
     "fetch failed for mypenang_events (status=404)",
     "dropped 3 corporate/institutional PR item(s)",
-    "dropped 5 food opening(s) older than ~2 months",
-    "dropped 2 past-tense event recap(s)",
-    "dropped 5 ended dated item(s) (endDate before today)",
-    "dropped 4 industry/trade event(s) from consumer feed"
+    "dropped 4 food opening(s) older than ~2 months",
+    "dropped 4 past-tense event recap(s)",
+    "dropped 6 ended dated item(s) (endDate before today)",
+    "dropped 1 industry/trade event(s) from consumer feed"
   ]
 }
