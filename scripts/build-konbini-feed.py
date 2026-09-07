@@ -1287,6 +1287,57 @@ PRODUCT_SPECIFIC_TITLES = {
         "Large rice ball, takana rice and mentaiko"
     ),
     "大和芋とろろの麦とろ丼": "Yamato yam tororo barley rice bowl",
+    # Week of 2026-09-07 — Lawson
+    "ほうじ茶ワッフルコーン": "Hojicha waffle cone",
+    "アサヒ 贅沢搾りプレミアム 黄金桃": "Asahi Zeitaku Shibori Premium golden peach",
+    "ヨーグルトスムージー マンゴーミックス": "Yogurt smoothie, mango mix",
+    "meiji チョコクロワッサン チョコ入りホイップ": (
+        "Meiji chocolate croissant with chocolate whipped cream"
+    ),
+    "meiji 白いちぎりパン ホワイトチョコ入りホイップ": (
+        "Meiji white tear-bread with white-chocolate cream"
+    ),
+    "もっちりとしたアップルシナモンパン 4個入": (
+        "Chewy apple cinnamon bread, 4 pieces"
+    ),
+    "0秒パスタサラダ ビビンパ風": "0-second pasta salad, bibimbap-style",
+    "おつまみタンスティック チーズ": "Cheese tongue snack sticks",
+    "とろける月見パンケーキ": "Melty tsukimi pancakes",
+    "チョコチップスナック 6本入": "Chocolate chip snack sticks, 6 pieces",
+    "バター香るスナックスティック 6本入": "Buttery snack sticks, 6 pieces",
+    "北海道産じゃがいものコロッケパン": "Hokkaido potato croquette bread",
+    "手巻寿司 チキンてりたま": "Hand-rolled sushi, chicken teriyaki and egg",
+    "特撰 豚まん(塩)": "Premium pork bun (salt)",
+    "特撰 豚まん(醤油)": "Premium pork bun (soy sauce)",
+    "生パスタ ポルチーニ香るきのこクリーム": (
+        "Fresh pasta with porcini mushroom cream"
+    ),
+    "食感を楽しむ!ゆずポン酢仕立てのネバネバご飯": (
+        "Sticky rice with yuzu ponzu"
+    ),
+    # Week of 2026-09-07 — FamilyMart
+    "ひざつき さっぱり青じそじゃがあられ": (
+        "Hizatsuki refreshing aojiso potato arare"
+    ),
+    "アトリオン ヨーグレットBIG": "Atrion Yoguretto BIG",
+    "カンロ とろみ～グミ レモン味": "Kanro toromi gummy, lemon",
+    "長袖アウターTシャツ スモーキーブルー": (
+        "Long-sleeve outer T-shirt, smoky blue"
+    ),
+    "どかっと満足パン（チーズ&ハンバーグ）": (
+        "Loaded satisfaction bread with cheese and hamburg"
+    ),
+    "クランベリー&チーズクリームパン4個入": (
+        "Cranberry and cheese cream bread, 4 pieces"
+    ),
+    "アークナイツ CUP COFFEE TUMBLER BOOK ラテラーノ": (
+        "Arknights CUP COFFEE TUMBLER BOOK, Laterano"
+    ),
+    "アークナイツ CUP COFFEE TUMBLER BOOK リー探偵事務所": (
+        "Arknights CUP COFFEE TUMBLER BOOK, Lee's Detective Agency"
+    ),
+    # Week of 2026-09-07 — 7-Eleven
+    "味付海苔 海老マヨネーズ": "Seasoned-nori rice ball, shrimp mayo",
 }
 
 

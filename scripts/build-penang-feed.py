@@ -55,10 +55,12 @@ PAST_EVENT_RECAP_RE = re.compile(
     r"attracted (?:crowds|thousands|locals|visitors|more than)|"
     r"descended on|packed the|filled the|came alive|"
     r"wrapped up|came to a close|kicked off yesterday|"
-    r"earlier today|earlier this (?:week|month)|"
+    r"earlier today|earlier this (?:week|month)|this morning|"
+    r"came together|"
     r"raises? rm|raising (?:an impressive )?rm|"
     r"gathered (?:at|for)|recently for a|celebration lunch"
-    r")\b",
+    r")\b|"
+    r"(颁奖典礼)",
     re.I,
 )
 # Future/upcoming language that should keep an item despite weak past-ish verbs.
@@ -153,9 +155,11 @@ EVENT_NEWS_NOISE_RE = re.compile(
     r"on track for .*completion|proposed acquisition|launches? .*campaign|"
     r"medal haul|double-gold|tourism (?:roadshow|road show)|"
     r"ultimate .+ events list|events list september|"
-    r"gets citizenship|citizenship programme|motorcycle oil"
+    r"gets citizenship|citizenship programme|motorcycle oil|"
+    r"peka b40|hari buletin"
     r")\b|"
-    r"(旅游路演|旅游推介|率团赴|免费更换摩托车机油|更换摩托车机油)",
+    r"(旅游路演|旅游推介|率团赴|免费更换摩托车机油|更换摩托车机油|"
+    r"潮商杯)",
     re.I,
 )
 # Consumer-facing interests to surface near the top of Happening soon.

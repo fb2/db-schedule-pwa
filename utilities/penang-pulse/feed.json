@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-03T03:29:44.255853+00:00",
-  "weekLabel": "Week of 3 Sep",
-  "intro": "15 events, 10 food picks, and 9 worth revisiting.",
+  "generatedAt": "2026-09-07T03:52:23.774812+00:00",
+  "weekLabel": "Week of 7 Sep",
+  "intro": "14 events, 10 food picks, and 14 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 144965,
-      "itemCount": 12,
+      "bytes": 132394,
+      "itemCount": 9,
       "parser": "hin_events_html"
     },
     {
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 600139,
+      "bytes": 595630,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -82,10 +82,10 @@
       "tier": "B",
       "kind": "revisit",
       "url": "https://smartdory.com/",
-      "ok": false,
-      "status": 503,
-      "bytes": 2104,
-      "itemCount": 0,
+      "ok": true,
+      "status": 200,
+      "bytes": 87221,
+      "itemCount": 5,
       "parser": "wordpress_home_html"
     },
     {
@@ -96,7 +96,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 73484,
+      "bytes": 73284,
       "itemCount": 0,
       "parser": "chinapress_category_html"
     },
@@ -120,8 +120,8 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 62676,
-      "itemCount": 3,
+      "bytes": 65553,
+      "itemCount": 2,
       "parser": "rss_items"
     },
     {
@@ -132,8 +132,8 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 28849,
-      "itemCount": 3,
+      "bytes": 23764,
+      "itemCount": 2,
       "parser": "rss_items"
     },
     {
@@ -144,7 +144,7 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 208555,
+      "bytes": 208657,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
@@ -289,40 +289,17 @@
       "interestScore": 100
     },
     {
-      "id": "event-cerita-kita-gr-gallery-photography-exhibition-by-1cb54d8aff",
+      "id": "event-reverse-verification-a-wearable-sculpture-concep-8ad29ca25b",
       "kind": "event",
-      "title": "Cerita Kita GR Gallery (Photography Exhibition by Ricoh Malaysia)",
-      "summary": "26 August - 6 September 2026 Hin Bus Depot Gallery Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday) Free entry for all!",
-      "detail": "26 August - 6 September 2026 Hin Bus Depot Gallery Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday) Free entry for all!",
-      "startDate": "2026-08-26",
-      "endDate": "2026-09-06",
-      "dateLabel": "Ongoing · until 6 Sep · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_770751526_1650536807076983_705256.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 68
-    },
-    {
-      "id": "event-gr-gallery-cerita-kita-673e412498",
-      "kind": "event",
-      "title": "GR GALLERY Cerita Kita",
-      "summary": "BETWEEN STREETS & SHUTTER Stories of cities, told by GR users. Saturday 5 September 2026 Tangga, COEX @Kilang Besi 2:00pm - 5:00pm Registration is required. Free entry for all!",
-      "detail": "BETWEEN STREETS & SHUTTER Stories of cities, told by GR users. Saturday 5 September 2026 Tangga, COEX @Kilang Besi 2:00pm - 5:00pm Registration is required. Free entry for all!",
+      "title": "REVERSE VERIFICATION, A wearable sculpture concept by Zack Low, produced by Sputnik Forest",
+      "summary": "5 - 27 September 2026 O Sculpture Studio Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
+      "detail": "5 - 27 September 2026 O Sculpture Studio Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
       "startDate": "2026-09-05",
-      "endDate": "2026-09-05",
-      "dateLabel": "5 Sep · Hin Bus Depot",
+      "endDate": "2026-09-27",
+      "dateLabel": "Ongoing · until 27 Sep · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/R2GR%20Gallery%20%40%20HBD.png/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSce7l6ft7zI9KOhATNawT1J2qDZjIPJzZdSHNwbzJxhEMK4sg/viewform?usp=send_form",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_790476423_18117810731484694_39845.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/osculpture/?hl=en",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
@@ -480,9 +457,9 @@
       "detail": "The Penang International Orchid Show 2026 returns to Straits Quay from 5 to 13 September, offering nine days of competitive displays, rare blooms, and live judging sessions. The waterfront venue in Tanjung Tokong will host the annual event, which has grown into one of the region’s most anticipated orchid showcases. Organised by the Federation of […]",
       "startDate": "2026-09-05",
       "endDate": "2026-09-13",
-      "dateLabel": "5–13 Sep",
+      "dateLabel": "Ongoing · until 13 Sep",
       "area": "Penang",
-      "imageUrl": "",
+      "imageUrl": "https://penangtoday.my/ipsostuh/poish-2026-primary.jpeg",
       "sourceUrl": "https://penangtoday.my/news/9387/penang-international-orchid-show-2026-returns-to-straits-quay-this-september/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -490,7 +467,7 @@
       "publishedAt": "Thu, 27 Aug 2026 08:56:20 +0000",
       "topics": [],
       "interest": [],
-      "interestScore": 46
+      "interestScore": 50
     },
     {
       "id": "event-two-cars-up-for-grabs-at-love-penang-run-2026-09d9ca185c",
@@ -502,7 +479,7 @@
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "",
+      "imageUrl": "https://penangtoday.my/ipsostuh/lovepenangrun-og.jpg",
       "sourceUrl": "https://penangtoday.my/news/9395/two-cars-up-for-grabs-at-love-penang-run-2026/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
@@ -510,7 +487,7 @@
       "publishedAt": "Thu, 27 Aug 2026 13:38:51 +0000",
       "topics": [],
       "interest": [],
-      "interestScore": 40
+      "interestScore": 44
     },
     {
       "id": "food-sembang-selasa-with-hafiz-wina-of-lunasinar-mark-6522d8519d",
@@ -722,6 +699,22 @@
       "category": "Food"
     },
     {
+      "id": "revisit-15-best-penang-breakfast-guide-2024-edition-206422a763",
+      "kind": "revisit",
+      "title": "15 Best Penang Breakfast Guide (2024 Edition)",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2023/04/penang-breakfast-guide-2/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
       "id": "revisit-15-best-supper-spots-in-penang-65ca216355",
       "kind": "revisit",
       "title": "15 Best Supper Spots In Penang",
@@ -802,6 +795,70 @@
       "category": "Food"
     },
     {
+      "id": "revisit-e-o-buffet-lunch-at-sarkies-is-this-penang-s-bes-406660fc68",
+      "kind": "revisit",
+      "title": "E&O Buffet Lunch at Sarkies | Is This Penang’s Best Buffet?",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2021/12/eo-buffet-lunch-at-sarkies-restaurant/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
+      "id": "revisit-malaya-kopi-penang-at-loke-thye-kee-6d19ed3245",
+      "kind": "revisit",
+      "title": "Malaya Kopi Penang at Loke Thye Kee",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2026/07/malaya-kopi-penang-at-loke-thye-kee/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
+      "id": "revisit-penang-avatar-secret-garden-night-park-0319d87ea9",
+      "kind": "revisit",
+      "title": "Penang Avatar Secret Garden 阿凡达神秘花园 Night Park",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2017/06/penang-avatar-secret-garden-night-park/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
+      "id": "revisit-searching-for-the-best-heritage-boutique-hotel-i-ebb9e67206",
+      "kind": "revisit",
+      "title": "Searching for the Best Heritage Boutique Hotel in Penang?",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2026/08/best-heritage-boutique-hotel-in-penang/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
       "id": "revisit-top-13-places-for-the-best-tau-sar-piah-in-penan-6902cadfb5",
       "kind": "revisit",
       "title": "Top 13 Places For The Best Tau Sar Piah In Penang",
@@ -819,12 +876,11 @@
     }
   ],
   "warnings": [
-    "fetch failed for smartdory (status=503)",
     "fetch failed for mypenang_events (status=404)",
     "dropped 3 corporate/institutional PR item(s)",
     "dropped 4 food opening(s) older than ~2 months",
-    "dropped 4 past-tense event recap(s)",
-    "dropped 6 ended dated item(s) (endDate before today)",
+    "dropped 3 past-tense event recap(s)",
+    "dropped 5 ended dated item(s) (endDate before today)",
     "dropped 1 industry/trade event(s) from consumer feed"
   ]
 }
