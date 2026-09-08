@@ -1805,7 +1805,10 @@ def series_page(slug: str, flash: str = "") -> bytes:
         draft_badge = (
             ' <span class="badge draft">draft</span>' if ep.get("draft") else ""
         )
-        if not publish_anchor and not ep.get("draft"):
+        # Last non-draft wins — episodes are oldest-first, so this is the
+        # latest tasting. Using the first episode made every series publish
+        # look like jawa-mee-33 even when a new bowl had just gone live.
+        if not ep.get("draft"):
             publish_anchor = ep["slug"]
         items.append(
             "<li>"
@@ -2185,7 +2188,10 @@ def build_page() -> bytes:
 
 
 def publish_page(slug: str, result: dict[str, Any]) -> bytes:
-    live = f"{LIVE_HOST}/guides/{slug}/"
+    episode_live = f"{LIVE_HOST}/guides/{slug}/"
+    intent = str(result.get("intent") or "")
+    series_slug = str(result.get("series") or "")
+    series_title = str(result.get("seriesTitle") or series_slug)
     steps_html = []
     for step in result.get("steps") or []:
         name = html.escape(str(step.get("name") or ""))
@@ -2200,24 +2206,49 @@ def publish_page(slug: str, result: dict[str, Any]) -> bytes:
         )
     flash = str(result.get("flash") or "")
     mee_hint = ""
-    if (result.get("series") or "") == "mee-myself-and-i":
+    if series_slug == "mee-myself-and-i":
         mee_hint = (
             '<p class="hint">Mee series: tick '
             "<code>utilities/penang-pulse/MEE-CHECKLIST.md</code> "
-            "(Tried / Optional revisits) from the published episode.</p>"
+            "(Tried / Optional revisits) from the published episode, "
+            "then update the Mee-Search graph so Bowl Orbit lists the dish.</p>"
         )
+    if intent == "series" and series_slug:
+        series_live = f"{LIVE_HOST}/guides/series/{series_slug}/"
+        page_title = f"Publish · {series_title}"
+        lede = (
+            f"Publish handoff for <code>{html.escape(series_slug)}</code> "
+            f"(latest episode <code>{html.escape(slug)}</code>)."
+        )
+        links = (
+            f'<p>Series: <a href="{html.escape(series_live)}" target="_blank" '
+            f'rel="noopener">{html.escape(series_live)}</a></p>'
+            f'<p>Latest episode: <a href="{html.escape(episode_live)}" '
+            f'target="_blank" rel="noopener">{html.escape(episode_live)}</a></p>'
+        )
+        back_href = f"/series?slug={urllib.parse.quote(series_slug)}"
+        back_label = "← Series"
+    else:
+        page_title = f"Publish · {slug}"
+        lede = f"Publish handoff for <code>{html.escape(slug)}</code>."
+        links = (
+            f'<p><a href="{html.escape(episode_live)}" target="_blank" '
+            f'rel="noopener">{html.escape(episode_live)}</a></p>'
+        )
+        back_href = f"/edit?slug={urllib.parse.quote(slug)}"
+        back_label = "← Editor"
     body = f"""
-    <p class="lede">Publish handoff for <code>{html.escape(slug)}</code>.</p>
+    <p class="lede">{lede}</p>
     <p class="hint">Build rebuilt all guides · deploy covers all of penangpulse.com</p>
     {mee_hint}
-    <p><a href="{html.escape(live)}" target="_blank" rel="noopener">{html.escape(live)}</a></p>
+    {links}
     {"".join(steps_html) or '<p class="muted">No steps ran.</p>'}
     <div class="row">
-      <a class="btn" href="/edit?slug={urllib.parse.quote(slug)}">← Editor</a>
+      <a class="btn" href="{html.escape(back_href)}">{html.escape(back_label)}</a>
       <a class="btn secondary" href="/">Desk</a>
     </div>
     """
-    return page_shell(f"Publish · {slug}", body, flash)
+    return page_shell(page_title, body, flash)
 
 
 def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
@@ -2251,6 +2282,9 @@ def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
     series_slug = (fields.get("series") or "").strip()
     series_title = (fields.get("seriesTitle") or series_slug).strip()
     result["series"] = series_slug
+    result["seriesTitle"] = series_title
+    result["intent"] = intent
+    result["title"] = title
 
     # Ensure tasting/order sync before build
     apply_tasting_fields(fields)
@@ -2370,7 +2404,13 @@ def run_publish(slug: str, intent: str = "") -> dict[str, Any]:
 
     live = f"{LIVE_HOST}/guides/{slug}/"
     if deploy_code == 0:
-        bits = [f"Published → {live}"]
+        if intent == "series" and series_slug:
+            bits = [
+                f"Published → {LIVE_HOST}/guides/series/{series_slug}/",
+                f"Latest → {live}",
+            ]
+        else:
+            bits = [f"Published → {live}"]
         if not push_ok:
             bits.append("PUSH_SKIPPED")
         result["flash"] = " · ".join(bits)

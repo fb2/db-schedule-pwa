@@ -97,7 +97,7 @@ Server endpoint `POST /publish` (editor, or series actions bar with `intent=seri
 4. Commit with `Publish <title> guide.` (or `Publish <series> series guides.` from the series page); skip if nothing staged
 5. `git push origin main` — continue on failure (`PUSH_SKIPPED`)
 6. `npx firebase-tools deploy --only hosting:penang-pulse` — whole host target
-7. Result page with step logs + live URL
+7. Result page with step logs + live URL (series publish anchors on the **latest** non-draft episode, not the first)
 
 Requires local git credentials for push and Firebase CLI login for deploy. This CMS is trusted/local-only and shells out from the repo root.
 

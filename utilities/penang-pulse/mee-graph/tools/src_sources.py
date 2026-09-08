@@ -643,6 +643,15 @@ SOURCES = {
              "in Myanmar the dish is a breakfast staple. Does not license a mohinga-to-laksa "
              "transmission claim.",
     ),
+    "pp-field-asam-laksa": dict(
+        title="Penang Pulse field note - 'Asam Laksa at Under the Tree Food Court', "
+              "Mee Myself and I ep.18, 8 Sep 2026",
+        url="https://penangpulse.com/guides/asam-laksa-at-under-the-tree-food-court/",
+        tier="community",
+        note="First-hand tasting note. Sour fish-and-tamarind broth over thick rice noodles "
+             "at Under the Tree, Pulau Tikus. Contrasts with coconut laksa; does not resolve "
+             "the Penang-vs-Kedah direction-of-travel question.",
+    ),
 
     # ----------------------------------------------------------------- media
     "cnn-go-2011": dict(

@@ -21,11 +21,11 @@ Informal checklist toward ~20+ bowls. Island first, a few mainland variety picks
 - [x] **Koay Teow Th’ng** (Ah Liang) — Pulau Tikus Hidden Food Court · 11 Aug 2026
 - [x] **Mee Sotong Sambal** (Jones Road / Mee Goreng Sotong) — Sin Hup Aun Cafe · 12 Aug 2026
 - [x] **Mohinga** — Mingalarpar (Pulau Tikus) · 13 Aug 2026
+- [x] **Asam Laksa** — Under the Tree Food Court (Pulau Tikus) · 8 Sep 2026
 
 ## Island classics still to try
 
 - [ ] **White Curry Mee** — paler / silkier coconut; spice mostly on the side (distinct from the Restoran 77 bowl)
-- [ ] **Asam Laksa** — noodle-adjacent, still counts for the series
 - [ ] **Mee Goreng Mamak** — plainer mamak goreng (Jones Road Mee Sotong already covered)
 - [ ] **Maggi goreng** — late-night / mamak energy
 - [ ] **Bee Hoon** — fried or soup (pick a clear style per episode)

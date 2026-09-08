@@ -3,7 +3,7 @@
     "title": "Mee-Search — culture graph",
     "subtitle": "Where the bowls of Penang actually come from, and how confident we are about each claim",
     "project": "Penang Pulse / Mee Myself and I",
-    "built": "2026-08-13",
+    "built": "2026-09-08",
     "version": "1.0.0",
     "license": "Research dataset compiled for the Penang Pulse project. Source claims belong to the cited works; the graph structure, confidence ratings and flags are this project's editorial judgement.",
     "howToRead": [
@@ -68,8 +68,8 @@
       "disputed": "sources actively contradict each other; the graph carries the disagreement rather than resolving it"
     },
     "checklist": {
-      "tried": 17,
-      "planned": 28
+      "tried": 18,
+      "planned": 27
     }
   },
   "sources": {
@@ -695,6 +695,13 @@
       "url": "https://penangpulse.com/guides/burmese-mohinga-at-mingalarpar-restaurant/",
       "tier": "community",
       "note": "First-hand tasting note. Lunch bowl at a Burmese restaurant in Pulau Tikus; in Myanmar the dish is a breakfast staple. Does not license a mohinga-to-laksa transmission claim."
+    },
+    "pp-field-asam-laksa": {
+      "id": "pp-field-asam-laksa",
+      "title": "Penang Pulse field note - 'Asam Laksa at Under the Tree Food Court', Mee Myself and I ep.18, 8 Sep 2026",
+      "url": "https://penangpulse.com/guides/asam-laksa-at-under-the-tree-food-court/",
+      "tier": "community",
+      "note": "First-hand tasting note. Sour fish-and-tamarind broth over thick rice noodles at Under the Tree, Pulau Tikus. Contrasts with coconut laksa; does not resolve the Penang-vs-Kedah direction-of-travel question."
     },
     "cnn-go-2011": {
       "id": "cnn-go-2011",
@@ -4693,7 +4700,7 @@
       "zh": "亞參叻沙",
       "malay": "laksa asam / laksa Pulau Pinang",
       "penangStatus": "core",
-      "tryStatus": "to-try",
+      "tryStatus": "tried",
       "style": "soup",
       "blurb": "Poached and flaked ikan kembung in a broth soured with tamarind and asam gelugur, spiced with a rempah of dried chilli, shallot, lemongrass, galangal and belacan. Thick round rice noodles. A garnish battery of shredded pineapple, cucumber, raw onion, mint, sliced bunga kantan, and a dark dollop of hae ko swirled in at the end. NO coconut milk at all - the single most important contrast with the entire curry-laksa family.",
       "penangVariation": "Against laksa Kedah, the differences are precise and small: Penang shreds the fish into visible strands where Kedah pounds it into the broth; Penang leads with tamarind juice where Kedah leads with dried gelugur slices; Penang uses fresh red chilli where Kedah uses dried; Penang adds pineapple, bunga kantan and hae ko where Kedah adds daun selom and sambal kelapa. Against Johor laksa - grilled wolf herring, thick coconut gravy, served with spaghetti - it is a different animal entirely.",
@@ -4703,7 +4710,8 @@
         "wiki-laksa",
         "hutton-nyonya",
         "season-with-spice-asam-laksa",
-        "ummi-laksa-guide"
+        "ummi-laksa-guide",
+        "pp-field-asam-laksa"
       ],
       "flags": [
         "penang-first-framing-is-probable-prominence-bias"
@@ -6140,6 +6148,18 @@
       "tone": "#3f7f9f"
     },
     {
+      "id": "v-under-the-tree",
+      "type": "venue",
+      "label": "Under the Tree Food Court",
+      "area": "Pulau Tikus, Penang",
+      "role": "series venue",
+      "blurb": "Open-air hawker tables under a real tree - the series' first Penang Asam Laksa bowl.",
+      "kind": "hawker",
+      "cluster": "place",
+      "colour": "#3f7f9f",
+      "tone": "#3f7f9f"
+    },
+    {
       "id": "ep-01-jawa-mee",
       "type": "episode",
       "label": "Jawa Mee at 33 Best Food Hub",
@@ -6392,23 +6412,28 @@
       "tone": "#2f7f5f"
     },
     {
+      "id": "ep-18-asam-laksa",
+      "type": "episode",
+      "label": "Asam Laksa at Under the Tree",
+      "date": "2026-09-08",
+      "venue": "v-under-the-tree",
+      "postSlug": "asam-laksa-at-under-the-tree-food-court",
+      "seriesOrder": 18,
+      "styleNote": "sour fish broth, no coconut",
+      "note": "The island's signature sour-fish laksa, held off until ep.18. Same thick rice noodles as coconut laksa, a completely different broth.",
+      "dish": "d-asam-laksa",
+      "status": "tried",
+      "cluster": "series",
+      "colour": "#2f7f5f",
+      "tone": "#2f7f5f"
+    },
+    {
       "id": "ep-p-white-curry-mee",
       "type": "episode",
       "label": "White Curry Mee",
       "status": "planned",
       "note": "Paler, silkier coconut; spice mostly on the side. Distinct from the Restoran 77 bowl.",
       "dish": "d-white-curry-mee",
-      "cluster": "series",
-      "colour": "#2f7f5f",
-      "tone": "#2f7f5f"
-    },
-    {
-      "id": "ep-p-asam-laksa",
-      "type": "episode",
-      "label": "Asam Laksa",
-      "status": "planned",
-      "note": "Noodle-adjacent, still counts for the series.",
-      "dish": "d-asam-laksa",
       "cluster": "series",
       "colour": "#2f7f5f",
       "tone": "#2f7f5f"
@@ -15437,19 +15462,27 @@
     },
     {
       "type": "of_dish",
-      "source": "ep-p-white-curry-mee",
-      "target": "d-white-curry-mee",
+      "source": "ep-18-asam-laksa",
+      "target": "d-asam-laksa",
       "weight": 1.0,
       "confidence": "high",
       "id": "e0958"
     },
     {
-      "type": "of_dish",
-      "source": "ep-p-asam-laksa",
-      "target": "d-asam-laksa",
+      "type": "tasted_at",
+      "source": "ep-18-asam-laksa",
+      "target": "v-under-the-tree",
       "weight": 1.0,
       "confidence": "high",
       "id": "e0959"
+    },
+    {
+      "type": "of_dish",
+      "source": "ep-p-white-curry-mee",
+      "target": "d-white-curry-mee",
+      "weight": 1.0,
+      "confidence": "high",
+      "id": "e0960"
     },
     {
       "type": "of_dish",
@@ -15457,7 +15490,7 @@
       "target": "d-mee-goreng-mamak",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0960"
+      "id": "e0961"
     },
     {
       "type": "of_dish",
@@ -15465,7 +15498,7 @@
       "target": "d-maggi-goreng",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0961"
+      "id": "e0962"
     },
     {
       "type": "of_dish",
@@ -15473,7 +15506,7 @@
       "target": "d-char-bee-hoon",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0962"
+      "id": "e0963"
     },
     {
       "type": "of_dish",
@@ -15481,7 +15514,7 @@
       "target": "d-koay-chiap",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0963"
+      "id": "e0964"
     },
     {
       "type": "of_dish",
@@ -15489,7 +15522,7 @@
       "target": "d-bak-chor-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0964"
+      "id": "e0965"
     },
     {
       "type": "of_dish",
@@ -15497,7 +15530,7 @@
       "target": "d-duck-koay-teow",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0965"
+      "id": "e0966"
     },
     {
       "type": "of_dish",
@@ -15505,7 +15538,7 @@
       "target": "d-beef-noodles-my",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0966"
+      "id": "e0967"
     },
     {
       "type": "of_dish",
@@ -15513,7 +15546,7 @@
       "target": "d-fish-head-bee-hoon",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0967"
+      "id": "e0968"
     },
     {
       "type": "of_dish",
@@ -15521,7 +15554,7 @@
       "target": "d-chee-cheong-fun",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0968"
+      "id": "e0969"
     },
     {
       "type": "of_dish",
@@ -15529,7 +15562,7 @@
       "target": "d-pan-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0969"
+      "id": "e0970"
     },
     {
       "type": "of_dish",
@@ -15537,7 +15570,7 @@
       "target": "d-mee-soto",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0970"
+      "id": "e0971"
     },
     {
       "type": "of_dish",
@@ -15545,7 +15578,7 @@
       "target": "d-you-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0971"
+      "id": "e0972"
     },
     {
       "type": "of_dish",
@@ -15553,7 +15586,7 @@
       "target": "d-yi-mein",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0972"
+      "id": "e0973"
     },
     {
       "type": "of_dish",
@@ -15561,7 +15594,7 @@
       "target": "d-ipoh-hor-fun",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0973"
+      "id": "e0974"
     },
     {
       "type": "of_dish",
@@ -15569,7 +15602,7 @@
       "target": "d-tom-yum-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0974"
+      "id": "e0975"
     },
     {
       "type": "of_dish",
@@ -15577,7 +15610,7 @@
       "target": "d-thai-boat-noodles",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0975"
+      "id": "e0976"
     },
     {
       "type": "of_dish",
@@ -15585,7 +15618,7 @@
       "target": "d-sarawak-laksa",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0976"
+      "id": "e0977"
     },
     {
       "type": "of_dish",
@@ -15593,7 +15626,7 @@
       "target": "d-bihun-goreng",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0977"
+      "id": "e0978"
     },
     {
       "type": "of_dish",
@@ -15601,7 +15634,7 @@
       "target": "d-curry-mee-penang",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0978"
+      "id": "e0979"
     },
     {
       "type": "of_dish",
@@ -15609,7 +15642,7 @@
       "target": "d-wantan-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0979"
+      "id": "e0980"
     },
     {
       "type": "of_dish",
@@ -15617,7 +15650,7 @@
       "target": "d-char-bee-hoon",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0980"
+      "id": "e0981"
     },
     {
       "type": "of_dish",
@@ -15625,7 +15658,7 @@
       "target": "d-char-kway-teow",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0981"
+      "id": "e0982"
     },
     {
       "type": "of_dish",
@@ -15633,7 +15666,7 @@
       "target": "d-chilli-pan-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0982"
+      "id": "e0983"
     },
     {
       "type": "of_dish",
@@ -15641,7 +15674,7 @@
       "target": "d-longevity-mee-sua",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0983"
+      "id": "e0984"
     },
     {
       "type": "of_dish",
@@ -15649,7 +15682,7 @@
       "target": "d-mee-suah-koh",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0984"
+      "id": "e0985"
     },
     {
       "type": "of_dish",
@@ -15657,7 +15690,7 @@
       "target": "d-wantan-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0985"
+      "id": "e0986"
     },
     {
       "type": "revisit_of",
@@ -15665,7 +15698,7 @@
       "target": "ep-08-wantan-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0986"
+      "id": "e0987"
     },
     {
       "type": "of_dish",
@@ -15673,7 +15706,7 @@
       "target": "d-curry-mee-penang",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0987"
+      "id": "e0988"
     },
     {
       "type": "revisit_of",
@@ -15681,7 +15714,7 @@
       "target": "ep-09-curry-mee",
       "weight": 1.0,
       "confidence": "high",
-      "id": "e0988"
+      "id": "e0989"
     },
     {
       "type": "migrated_via",
@@ -15693,7 +15726,7 @@
       "sources": [
         "wiki-1867-riots"
       ],
-      "id": "e0989"
+      "id": "e0990"
     },
     {
       "type": "migrated_via",
@@ -15706,7 +15739,7 @@
         "wiki-1867-riots",
         "voon-2024-hakka"
       ],
-      "id": "e0990"
+      "id": "e0991"
     },
     {
       "type": "illustrates",
@@ -15718,7 +15751,7 @@
       "sources": [
         "wiki-1867-riots"
       ],
-      "id": "e0991"
+      "id": "e0992"
     },
     {
       "type": "migrated_via",
@@ -15731,7 +15764,7 @@
         "nlb-chinese-immigrants-1877",
         "kuchler-1965"
       ],
-      "id": "e0992"
+      "id": "e0993"
     },
     {
       "type": "migrated_via",
@@ -15742,7 +15775,7 @@
       "sources": [
         "nlb-chinese-immigrants-1877"
       ],
-      "id": "e0993"
+      "id": "e0994"
     },
     {
       "type": "illustrates",
@@ -15754,7 +15787,7 @@
       "sources": [
         "kuchler-1965"
       ],
-      "id": "e0994"
+      "id": "e0995"
     },
     {
       "type": "migrated_via",
@@ -15765,7 +15798,7 @@
       "sources": [
         "kuchler-1965"
       ],
-      "id": "e0995"
+      "id": "e0996"
     },
     {
       "type": "migrated_via",
@@ -15777,7 +15810,7 @@
       "sources": [
         "wiki-boat-noodles"
       ],
-      "id": "e0996"
+      "id": "e0997"
     },
     {
       "type": "enabled_by",
@@ -15788,7 +15821,7 @@
       "sources": [
         "wiki-boat-noodles"
       ],
-      "id": "e0997"
+      "id": "e0998"
     },
     {
       "type": "enabled_by",
@@ -15799,7 +15832,7 @@
       "sources": [
         "wiki-boat-noodles"
       ],
-      "id": "e0998"
+      "id": "e0999"
     },
     {
       "type": "carried_by",
@@ -15811,7 +15844,7 @@
       "sources": [
         "wiki-kolo-mee"
       ],
-      "id": "e0999"
+      "id": "e1000"
     },
     {
       "type": "settled_in",
@@ -15819,7 +15852,7 @@
       "target": "r-kuching",
       "weight": 0.6,
       "confidence": "high",
-      "id": "e1000"
+      "id": "e1001"
     },
     {
       "type": "originates_in",
@@ -15831,7 +15864,7 @@
       "sources": [
         "wiki-kolo-mee"
       ],
-      "id": "e1001"
+      "id": "e1002"
     },
     {
       "type": "home_region",
@@ -15843,7 +15876,7 @@
       "sources": [
         "oed-curry"
       ],
-      "id": "e1002"
+      "id": "e1003"
     },
     {
       "type": "enabled_by",
@@ -15854,7 +15887,7 @@
       "sources": [
         "oed-curry"
       ],
-      "id": "e1003"
+      "id": "e1004"
     },
     {
       "type": "uses_noodle",
@@ -15866,7 +15899,7 @@
       "sources": [
         "wiki-penang-cuisine"
       ],
-      "id": "e1004"
+      "id": "e1005"
     },
     {
       "type": "contributed_by",
@@ -15878,7 +15911,7 @@
       "sources": [
         "wiki-penang-cuisine"
       ],
-      "id": "e1005"
+      "id": "e1006"
     },
     {
       "type": "reference_stall_for",
@@ -15890,7 +15923,7 @@
       "sources": [
         "pp-field-mee-sotong"
       ],
-      "id": "e1006"
+      "id": "e1007"
     },
     {
       "type": "tasted_at",
@@ -15902,7 +15935,7 @@
       "sources": [
         "pp-field-mee-sotong"
       ],
-      "id": "e1007"
+      "id": "e1008"
     },
     {
       "type": "reference_stall_for",
@@ -15914,7 +15947,19 @@
       "sources": [
         "pp-field-mohinga"
       ],
-      "id": "e1008"
+      "id": "e1009"
+    },
+    {
+      "type": "reference_stall_for",
+      "source": "v-under-the-tree",
+      "target": "d-asam-laksa",
+      "weight": 0.85,
+      "confidence": "high",
+      "note": "The series' first Penang Asam Laksa bowl - sour fish broth, no coconut, under the tree.",
+      "sources": [
+        "pp-field-asam-laksa"
+      ],
+      "id": "e1010"
     },
     {
       "type": "reference_stall_for",
@@ -15922,7 +15967,7 @@
       "target": "d-kl-hokkien-mee",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1009"
+      "id": "e1011"
     },
     {
       "type": "reference_stall_for",
@@ -15930,7 +15975,7 @@
       "target": "d-chilli-pan-mee",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1010"
+      "id": "e1012"
     },
     {
       "type": "reference_stall_for",
@@ -15938,7 +15983,7 @@
       "target": "d-curry-mee-penang",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1011"
+      "id": "e1013"
     },
     {
       "type": "reference_stall_for",
@@ -15946,7 +15991,7 @@
       "target": "d-white-curry-mee",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1012"
+      "id": "e1014"
     },
     {
       "type": "reference_stall_for",
@@ -15954,7 +15999,7 @@
       "target": "d-mee-sotong",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1013"
+      "id": "e1015"
     },
     {
       "type": "reference_stall_for",
@@ -15962,7 +16007,7 @@
       "target": "d-mee-goreng-mamak",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1014"
+      "id": "e1016"
     },
     {
       "type": "reference_stall_for",
@@ -15970,7 +16015,7 @@
       "target": "d-duck-koay-teow",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1015"
+      "id": "e1017"
     },
     {
       "type": "reference_stall_for",
@@ -15978,7 +16023,7 @@
       "target": "d-sarawak-laksa",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1016"
+      "id": "e1018"
     },
     {
       "type": "reference_stall_for",
@@ -15986,7 +16031,7 @@
       "target": "d-beef-noodles-my",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1017"
+      "id": "e1019"
     },
     {
       "type": "reference_stall_for",
@@ -15994,7 +16039,7 @@
       "target": "d-ipoh-hor-fun",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1018"
+      "id": "e1020"
     },
     {
       "type": "reference_stall_for",
@@ -16002,7 +16047,7 @@
       "target": "d-tom-yum-mee",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1019"
+      "id": "e1021"
     },
     {
       "type": "reference_stall_for",
@@ -16010,7 +16055,7 @@
       "target": "d-pan-mee",
       "weight": 0.8,
       "confidence": "medium",
-      "id": "e1020"
+      "id": "e1022"
     }
   ]
 }

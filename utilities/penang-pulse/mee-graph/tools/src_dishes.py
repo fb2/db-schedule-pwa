@@ -310,7 +310,7 @@ D("d-pan-mee", "Pan Mee / Ban Mian", zh="板麵", pojh="pán-mī",
 
 # ==================================== PENANG - STILL TO TRY
 D("d-asam-laksa", "Penang Asam Laksa", zh="亞參叻沙", malay="laksa asam / laksa Pulau Pinang",
-  penangStatus="core", tryStatus="to-try", style="soup",
+  penangStatus="core", tryStatus="tried", style="soup",
   blurb="Poached and flaked ikan kembung in a broth soured with tamarind and asam gelugur, "
         "spiced with a rempah of dried chilli, shallot, lemongrass, galangal and belacan. Thick "
         "round rice noodles. A garnish battery of shredded pineapple, cucumber, raw onion, mint, "
@@ -330,7 +330,7 @@ D("d-asam-laksa", "Penang Asam Laksa", zh="亞參叻沙", malay="laksa asam / la
         "as variant; that is almost certainly an artefact of Penang's tourism prominence rather "
         "than evidence. The graph encodes the uncertainty rather than picking a side.",
   confidence="medium", sources=["wiki-laksa", "hutton-nyonya", "season-with-spice-asam-laksa",
-                                "ummi-laksa-guide"],
+                                "ummi-laksa-guide", "pp-field-asam-laksa"],
   flags=["penang-first-framing-is-probable-prominence-bias"])
 
 D("d-white-curry-mee", "Penang White Curry Mee", malay="mi kari putih",
@@ -1097,6 +1097,9 @@ V("v-mingalarpar", "Mingalarpar", area="Pulau Tikus, Penang", role="series venue
   kind="restaurant",
   blurb="A small Burmese restaurant rather than a hawker stall - which is how Mohinga actually "
         "shows up in Penang. The series' first Burmese-carried bowl.")
+V("v-under-the-tree", "Under the Tree Food Court", area="Pulau Tikus, Penang",
+  role="series venue",
+  blurb="Open-air hawker tables under a real tree - the series' first Penang Asam Laksa bowl.")
 
 
 # ================================================================ EPISODES
@@ -1167,12 +1170,16 @@ EP("ep-17-mohinga", "Burmese Mohinga at Mingalarpar", "d-mohinga",
    styleNote="fish broth, rice vermicelli",
    note="The first Burmese-carried bowl in the series. A restaurant lunch, not a hawker "
         "breakfast - which is how Mohinga actually appears in Penang.")
+EP("ep-18-asam-laksa", "Asam Laksa at Under the Tree", "d-asam-laksa",
+   date="2026-09-08", venue="v-under-the-tree",
+   postSlug="asam-laksa-at-under-the-tree-food-court", seriesOrder=18,
+   styleNote="sour fish broth, no coconut",
+   note="The island's signature sour-fish laksa, held off until ep.18. Same thick rice noodles "
+        "as coconut laksa, a completely different broth.")
 
 # planned episodes - island classics
 EP("ep-p-white-curry-mee", "White Curry Mee", "d-white-curry-mee", status="planned",
    note="Paler, silkier coconut; spice mostly on the side. Distinct from the Restoran 77 bowl.")
-EP("ep-p-asam-laksa", "Asam Laksa", "d-asam-laksa", status="planned",
-   note="Noodle-adjacent, still counts for the series.")
 EP("ep-p-mee-goreng-mamak", "Mee Goreng Mamak", "d-mee-goreng-mamak", status="planned")
 EP("ep-p-maggi-goreng", "Maggi Goreng", "d-maggi-goreng", status="planned",
    note="Late-night / mamak energy.")

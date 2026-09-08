@@ -1250,6 +1250,7 @@ _EPISODES = [
      "ep-10-koay-teow-thng"),
     ("ep-16-mee-sotong", "d-mee-sotong", "v-sin-hup-aun", None),
     ("ep-17-mohinga", "d-mohinga", "v-mingalarpar", None),
+    ("ep-18-asam-laksa", "d-asam-laksa", "v-under-the-tree", None),
 ]
 for ep, dish, venue, revisit in _EPISODES:
     E("of_dish", ep, dish, weight=1.0, confidence="high")
@@ -1259,7 +1260,6 @@ for ep, dish, venue, revisit in _EPISODES:
 
 _PLANNED = [
     ("ep-p-white-curry-mee", "d-white-curry-mee", None),
-    ("ep-p-asam-laksa", "d-asam-laksa", None),
     ("ep-p-mee-goreng-mamak", "d-mee-goreng-mamak", None),
     ("ep-p-maggi-goreng", "d-maggi-goreng", None),
     ("ep-p-bee-hoon", "d-char-bee-hoon", None),
@@ -1358,6 +1358,9 @@ E("reference_stall_for", "v-mingalarpar", "d-mohinga", weight=0.85, confidence="
   note="The series' Penang Mohinga bowl. A restaurant, not a hawker stall - which is how "
        "Burmese food actually shows up here.",
   sources=["pp-field-mohinga"])
+E("reference_stall_for", "v-under-the-tree", "d-asam-laksa", weight=0.85, confidence="high",
+  note="The series' first Penang Asam Laksa bowl - sour fish broth, no coconut, under the tree.",
+  sources=["pp-field-asam-laksa"])
 
 for v, d in [
     ("v-kim-lian-kee", "d-kl-hokkien-mee"),
