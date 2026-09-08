@@ -46,6 +46,7 @@ For private or DB-backed utilities:
 - Put allowlisted emails and access checks in `firestore.rules`, not front-end JS.
 - Use narrow Firestore collections/rules for the utility.
 - Deploy Firebase Hosting for DB-backed utilities; GitHub Pages is not enough.
+- Auth buttons: on every `onAuthStateChanged` (signed-in, signed-out, unauthorized), call a `setSignedInUi(isSignedIn)` helper that sets both `hidden` and `style.display` on `#signInBtn` / `#signOutBtn`. Setting the email label without toggling the buttons is a recurring bug. Copy the helper from Recipe Book / KCRW / Expense Helper / Travel / Phrase Cards.
 
 Avoid storing private data in service worker caches, localStorage, or IndexedDB unless the user explicitly accepts the risk.
 
@@ -87,6 +88,7 @@ Only deploy Firestore rules when rules changed.
 - Recipe Book: `/utilities/recipe-book/`
 - KCRW Tracklists: `/utilities/kcrw-tracklists/`
 - Expense Helper: `/utilities/expense-helper/`
+- Phrase Cards: `/utilities/phrase-cards/`
 - Reciprocity Timer: `/utilities/reciprocity-timer/`
 - Movie Shelf: `/utilities/movie-shelf/`
 - Konbini Radar: `/utilities/konbini-radar/`, `https://konbiniradar.com/`, and `https://fb-konbini-radar.web.app/`

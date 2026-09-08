@@ -1,0 +1,463 @@
+{
+  "packId": "malay-survival",
+  "language": "ms",
+  "locale": "ms-MY",
+  "voice": "ms-MY-Wavenet-A",
+  "title": "Malay 15-min",
+  "days": [
+    {
+      "id": "ms-d01",
+      "day": 1,
+      "title": "Introductions",
+      "theme": "polite",
+      "lines": [
+        {"id": "ms-d01-01", "text": "Saya adalah [name].", "speak": "Saya adalah Ali.", "formal": "Saya adalah [name].", "meaning": "I am [name].", "stress": "SAH-yah ah-DAH-lah", "audioPath": "phraseAudio/ms/ms-d01-01.mp3"},
+        {"id": "ms-d01-02", "text": "Nama saya [name].", "speak": "Nama saya Ali.", "formal": "Nama saya [name].", "meaning": "My name is [name].", "stress": "NAH-mah SAH-yah", "audioPath": "phraseAudio/ms/ms-d01-02.mp3"},
+        {"id": "ms-d01-03", "text": "Nama anda apa?", "speak": "Nama anda apa?", "meaning": "What's your name?", "stress": "NAH-mah AHN-dah AH-pah", "audioPath": "phraseAudio/ms/ms-d01-03.mp3"},
+        {"id": "ms-d01-04", "text": "Senang bertemu anda.", "speak": "Senang bertemu anda.", "meaning": "Nice to meet you.", "stress": "seh-NAHNG ber-teh-MOO AHN-dah", "audioPath": "phraseAudio/ms/ms-d01-04.mp3"},
+        {"id": "ms-d01-05", "text": "Anda adalah guru saya.", "speak": "Anda adalah guru saya.", "meaning": "You are my teacher.", "stress": "AHN-dah ah-DAH-lah GOO-roo SAH-yah", "audioPath": "phraseAudio/ms/ms-d01-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d02",
+      "day": 2,
+      "title": "Greetings",
+      "theme": "polite",
+      "lines": [
+        {"id": "ms-d02-01", "text": "Selamat pagi!", "speak": "Selamat pagi!", "meaning": "Good morning!", "stress": "suh-LAH-maht PAH-gee", "audioPath": "phraseAudio/ms/ms-d02-01.mp3"},
+        {"id": "ms-d02-02", "text": "Selamat petang!", "speak": "Selamat petang!", "meaning": "Good afternoon / evening!", "stress": "suh-LAH-maht peh-TAHNG", "audioPath": "phraseAudio/ms/ms-d02-02.mp3"},
+        {"id": "ms-d02-03", "text": "Apa khabar?", "speak": "Apa khabar?", "meaning": "How are you?", "stress": "AH-pah KAH-bar", "audioPath": "phraseAudio/ms/ms-d02-03.mp3"},
+        {"id": "ms-d02-04", "text": "Saya baik, terima kasih.", "speak": "Saya baik, terima kasih.", "meaning": "I'm good, thank you.", "stress": "SAH-yah BYE-ek, teh-REE-mah KAH-seeh", "audioPath": "phraseAudio/ms/ms-d02-04.mp3"},
+        {"id": "ms-d02-05", "text": "Dan anda?", "speak": "Dan anda?", "meaning": "And you?", "stress": "dahn AHN-dah", "audioPath": "phraseAudio/ms/ms-d02-05.mp3"},
+        {"id": "ms-d02-06", "text": "Anda cakap Melayu?", "speak": "Anda cakap Melayu?", "meaning": "Do you speak Malay?", "stress": "AHN-dah CHA-kap meh-LAH-yoo", "audioPath": "phraseAudio/ms/ms-d02-06.mp3"},
+        {"id": "ms-d02-07", "text": "Sedikit sahaja, saya sedang belajar.", "speak": "Sedikit sahaja, saya sedang belajar.", "meaning": "Very little, I'm just learning.", "stress": "seh-DEE-keet sah-HAH-jah", "audioPath": "phraseAudio/ms/ms-d02-07.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d03",
+      "day": 3,
+      "title": "Thanks, please, yes / no",
+      "theme": "polite",
+      "lines": [
+        {"id": "ms-d03-01", "text": "Terima kasih.", "speak": "Terima kasih.", "meaning": "Thank you.", "stress": "teh-REE-mah KAH-seeh", "audioPath": "phraseAudio/ms/ms-d03-01.mp3"},
+        {"id": "ms-d03-02", "text": "Sama-sama.", "speak": "Sama-sama.", "meaning": "You're welcome.", "stress": "SAH-mah SAH-mah", "audioPath": "phraseAudio/ms/ms-d03-02.mp3"},
+        {"id": "ms-d03-03", "text": "Tolong.", "speak": "Tolong.", "meaning": "Please / Help!", "stress": "TOH-long", "audioPath": "phraseAudio/ms/ms-d03-03.mp3"},
+        {"id": "ms-d03-04", "text": "Boleh tolong saya?", "speak": "Boleh tolong saya?", "meaning": "Can you help me?", "stress": "BOH-leh TOH-long SAH-yah", "audioPath": "phraseAudio/ms/ms-d03-04.mp3"},
+        {"id": "ms-d03-05", "text": "Ya.", "speak": "Ya.", "meaning": "Yes.", "stress": "YAH", "audioPath": "phraseAudio/ms/ms-d03-05.mp3"},
+        {"id": "ms-d03-06", "text": "Tidak.", "speak": "Tidak.", "formal": "Tidak.", "meaning": "No.", "stress": "TEE-dahk", "audioPath": "phraseAudio/ms/ms-d03-06.mp3"},
+        {"id": "ms-d03-07", "text": "Tidak apa.", "speak": "Tidak apa.", "formal": "Tidak apa.", "meaning": "No problem / It's okay.", "stress": "TEE-dahk AH-pah", "audioPath": "phraseAudio/ms/ms-d03-07.mp3"},
+        {"id": "ms-d03-08", "text": "Tak apa lah!", "speak": "Tak apa lah!", "formal": "Tidak apa.", "meaning": "No problem (spoken).", "stress": "tahk AH-pah lah", "audioPath": "phraseAudio/ms/ms-d03-08.mp3"},
+        {"id": "ms-d03-09", "text": "Boleh boleh!", "speak": "Boleh boleh!", "meaning": "Sure! / Can do!", "stress": "BOH-leh BOH-leh", "audioPath": "phraseAudio/ms/ms-d03-09.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d04",
+      "day": 4,
+      "title": "Numbers 1–10 + how much",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d04-01", "text": "satu, dua, tiga, empat, lima", "speak": "satu, dua, tiga, empat, lima", "meaning": "1, 2, 3, 4, 5", "stress": "SAH-too DOO-ah TEE-gah EM-paht LEE-mah", "audioPath": "phraseAudio/ms/ms-d04-01.mp3"},
+        {"id": "ms-d04-02", "text": "enam, tujuh, lapan, sembilan, sepuluh", "speak": "enam, tujuh, lapan, sembilan, sepuluh", "meaning": "6, 7, 8, 9, 10", "stress": "EH-nahm TOO-joo LAH-pahn sem-BEE-lahn seh-POO-loo", "audioPath": "phraseAudio/ms/ms-d04-02.mp3"},
+        {"id": "ms-d04-03", "text": "Berapa?", "speak": "Berapa?", "meaning": "How much?", "stress": "beh-RAH-pah", "audioPath": "phraseAudio/ms/ms-d04-03.mp3"},
+        {"id": "ms-d04-04", "text": "Berapa ringgit?", "speak": "Berapa ringgit?", "meaning": "How much in ringgit?", "stress": "beh-RAH-pah RING-git", "audioPath": "phraseAudio/ms/ms-d04-04.mp3"},
+        {"id": "ms-d04-05", "text": "Murah sikit boleh?", "speak": "Murah sikit boleh?", "meaning": "A bit cheaper, can?", "stress": "MOO-rah SEE-keet BOH-leh", "audioPath": "phraseAudio/ms/ms-d04-05.mp3"},
+        {"id": "ms-d04-06", "text": "Mahal lah!", "speak": "Mahal lah!", "meaning": "So expensive lah!", "stress": "mah-HAHL lah", "audioPath": "phraseAudio/ms/ms-d04-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d05",
+      "day": 5,
+      "title": "I want / this / order",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d05-01", "text": "Saya mahu ini.", "speak": "Saya mahu ini.", "formal": "Saya mahu ini.", "meaning": "I want this.", "stress": "SAH-yah MAH-hoo EE-nee", "audioPath": "phraseAudio/ms/ms-d05-01.mp3"},
+        {"id": "ms-d05-02", "text": "Yang ini.", "speak": "Yang ini.", "meaning": "This one.", "stress": "yahng EE-nee", "audioPath": "phraseAudio/ms/ms-d05-02.mp3"},
+        {"id": "ms-d05-03", "text": "Makan di sini.", "speak": "Makan di sini.", "meaning": "Eat here.", "stress": "MAH-kahn dee SEE-nee", "audioPath": "phraseAudio/ms/ms-d05-03.mp3"},
+        {"id": "ms-d05-04", "text": "Bungkus.", "speak": "Bungkus.", "meaning": "Takeaway / wrap it.", "stress": "BOONG-koos", "audioPath": "phraseAudio/ms/ms-d05-04.mp3"},
+        {"id": "ms-d05-05", "text": "Menu ada?", "speak": "Menu ada?", "meaning": "Do you have a menu?", "stress": "MEH-noo AH-dah", "audioPath": "phraseAudio/ms/ms-d05-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d06",
+      "day": 6,
+      "title": "Taste / extras",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d06-01", "text": "Pedas.", "speak": "Pedas.", "meaning": "Spicy.", "stress": "peh-DAHS", "audioPath": "phraseAudio/ms/ms-d06-01.mp3"},
+        {"id": "ms-d06-02", "text": "Kurang pedas.", "speak": "Kurang pedas.", "meaning": "Less spicy.", "stress": "KOO-rahng peh-DAHS", "audioPath": "phraseAudio/ms/ms-d06-02.mp3"},
+        {"id": "ms-d06-03", "text": "Tak mahu pedas.", "speak": "Tak mahu pedas.", "formal": "Tidak mahu pedas.", "meaning": "I don't want it spicy.", "stress": "tahk MAH-hoo peh-DAHS", "audioPath": "phraseAudio/ms/ms-d06-03.mp3"},
+        {"id": "ms-d06-04", "text": "Tambah telur.", "speak": "Tambah telur.", "meaning": "Add egg.", "stress": "TAHM-bah teh-LOOR", "audioPath": "phraseAudio/ms/ms-d06-04.mp3"},
+        {"id": "ms-d06-05", "text": "Nasi atau mee?", "speak": "Nasi atau mee?", "meaning": "Rice or noodles?", "stress": "NAH-see ah-TAU mee", "audioPath": "phraseAudio/ms/ms-d06-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d07",
+      "day": 7,
+      "title": "Drinks",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d07-01", "text": "Teh tarik, terima kasih.", "speak": "Teh tarik, terima kasih.", "meaning": "Pulled tea, thank you.", "stress": "teh TAH-rik", "audioPath": "phraseAudio/ms/ms-d07-01.mp3"},
+        {"id": "ms-d07-02", "text": "Kopi-O.", "speak": "Kopi O.", "meaning": "Black coffee (kopitiam).", "stress": "KOH-pee OH", "audioPath": "phraseAudio/ms/ms-d07-02.mp3"},
+        {"id": "ms-d07-03", "text": "Air kosong.", "speak": "Air kosong.", "meaning": "Plain water.", "stress": "AH-yer KOH-song", "audioPath": "phraseAudio/ms/ms-d07-03.mp3"},
+        {"id": "ms-d07-04", "text": "Tak mahu ais.", "speak": "Tak mahu ais.", "formal": "Tidak mahu ais.", "meaning": "No ice.", "stress": "tahk MAH-hoo ice", "audioPath": "phraseAudio/ms/ms-d07-04.mp3"},
+        {"id": "ms-d07-05", "text": "Satu lagi, boleh?", "speak": "Satu lagi, boleh?", "meaning": "One more, can?", "stress": "SAH-too LAH-gee BOH-leh", "audioPath": "phraseAudio/ms/ms-d07-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d08",
+      "day": 8,
+      "title": "At the table",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d08-01", "text": "Sedap!", "speak": "Sedap!", "meaning": "Delicious!", "stress": "seh-DAHP", "audioPath": "phraseAudio/ms/ms-d08-01.mp3"},
+        {"id": "ms-d08-02", "text": "Lagi satu.", "speak": "Lagi satu.", "meaning": "One more.", "stress": "LAH-gee SAH-too", "audioPath": "phraseAudio/ms/ms-d08-02.mp3"},
+        {"id": "ms-d08-03", "text": "Boleh kongsikan?", "speak": "Boleh kongsikan?", "meaning": "Can we share?", "stress": "BOH-leh kong-SEE-kahn", "audioPath": "phraseAudio/ms/ms-d08-03.mp3"},
+        {"id": "ms-d08-04", "text": "Kira, terima kasih.", "speak": "Kira, terima kasih.", "meaning": "The bill, please.", "stress": "KEE-rah", "audioPath": "phraseAudio/ms/ms-d08-04.mp3"},
+        {"id": "ms-d08-05", "text": "Cukup.", "speak": "Cukup.", "meaning": "That's enough.", "stress": "CHOO-koop", "audioPath": "phraseAudio/ms/ms-d08-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d09",
+      "day": 9,
+      "title": "Dietary",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d09-01", "text": "Saya tak makan babi.", "speak": "Saya tak makan babi.", "formal": "Saya tidak makan babi.", "meaning": "I don't eat pork.", "stress": "SAH-yah tahk MAH-kahn BAH-bee", "audioPath": "phraseAudio/ms/ms-d09-01.mp3"},
+        {"id": "ms-d09-02", "text": "Ada ayam?", "speak": "Ada ayam?", "meaning": "Is there chicken?", "stress": "AH-dah AH-yahm", "audioPath": "phraseAudio/ms/ms-d09-02.mp3"},
+        {"id": "ms-d09-03", "text": "Sayur sahaja.", "speak": "Sayur sahaja.", "meaning": "Vegetables only.", "stress": "SAH-yoor sah-HAH-jah", "audioPath": "phraseAudio/ms/ms-d09-03.mp3"},
+        {"id": "ms-d09-04", "text": "Ada kacang?", "speak": "Ada kacang?", "meaning": "Does it have nuts / beans?", "stress": "AH-dah KAH-chahng", "audioPath": "phraseAudio/ms/ms-d09-04.mp3"},
+        {"id": "ms-d09-05", "text": "Saya ada alahan.", "speak": "Saya ada alahan.", "meaning": "I have an allergy.", "stress": "SAH-yah AH-dah ah-LAH-hahn", "audioPath": "phraseAudio/ms/ms-d09-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d10",
+      "day": 10,
+      "title": "Recycle: food",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d10-01", "text": "Saya mahu ini.", "speak": "Saya mahu ini.", "meaning": "I want this.", "stress": "SAH-yah MAH-hoo EE-nee", "audioPath": "phraseAudio/ms/ms-d10-01.mp3"},
+        {"id": "ms-d10-02", "text": "Berapa ringgit?", "speak": "Berapa ringgit?", "meaning": "How much in ringgit?", "stress": "beh-RAH-pah RING-git", "audioPath": "phraseAudio/ms/ms-d10-02.mp3"},
+        {"id": "ms-d10-03", "text": "Terima kasih.", "speak": "Terima kasih.", "meaning": "Thank you.", "stress": "teh-REE-mah KAH-seeh", "audioPath": "phraseAudio/ms/ms-d10-03.mp3"},
+        {"id": "ms-d10-04", "text": "Bungkus.", "speak": "Bungkus.", "meaning": "Takeaway.", "stress": "BOONG-koos", "audioPath": "phraseAudio/ms/ms-d10-04.mp3"},
+        {"id": "ms-d10-05", "text": "Kurang pedas.", "speak": "Kurang pedas.", "meaning": "Less spicy.", "stress": "KOO-rahng peh-DAHS", "audioPath": "phraseAudio/ms/ms-d10-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d11",
+      "day": 11,
+      "title": "Grab",
+      "theme": "travel",
+      "lines": [
+        {"id": "ms-d11-01", "text": "Saya nak ke George Town.", "speak": "Saya nak ke George Town.", "formal": "Saya hendak ke George Town.", "meaning": "I want to go to George Town.", "stress": "SAH-yah nahk keh", "audioPath": "phraseAudio/ms/ms-d11-01.mp3"},
+        {"id": "ms-d11-02", "text": "Tunggu di sini.", "speak": "Tunggu di sini.", "meaning": "Wait here.", "stress": "TOONG-goo dee SEE-nee", "audioPath": "phraseAudio/ms/ms-d11-02.mp3"},
+        {"id": "ms-d11-03", "text": "Berhenti di sini, terima kasih.", "speak": "Berhenti di sini, terima kasih.", "meaning": "Stop here, thank you.", "stress": "ber-HEN-tee dee SEE-nee", "audioPath": "phraseAudio/ms/ms-d11-03.mp3"},
+        {"id": "ms-d11-04", "text": "Berapa lama lagi?", "speak": "Berapa lama lagi?", "meaning": "How much longer?", "stress": "beh-RAH-pah LAH-mah LAH-gee", "audioPath": "phraseAudio/ms/ms-d11-04.mp3"},
+        {"id": "ms-d11-05", "text": "Saya turun sini.", "speak": "Saya turun sini.", "meaning": "I'll get off here.", "stress": "SAH-yah TOO-roon SEE-nee", "audioPath": "phraseAudio/ms/ms-d11-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d12",
+      "day": 12,
+      "title": "Directions",
+      "theme": "travel",
+      "lines": [
+        {"id": "ms-d12-01", "text": "Di mana?", "speak": "Di mana?", "meaning": "Where?", "stress": "dee MAH-nah", "audioPath": "phraseAudio/ms/ms-d12-01.mp3"},
+        {"id": "ms-d12-02", "text": "Jalan terus.", "speak": "Jalan terus.", "meaning": "Go straight.", "stress": "JAH-lahn teh-ROOS", "audioPath": "phraseAudio/ms/ms-d12-02.mp3"},
+        {"id": "ms-d12-03", "text": "Belok kiri.", "speak": "Belok kiri.", "meaning": "Turn left.", "stress": "beh-LOHK KEE-ree", "audioPath": "phraseAudio/ms/ms-d12-03.mp3"},
+        {"id": "ms-d12-04", "text": "Belok kanan.", "speak": "Belok kanan.", "meaning": "Turn right.", "stress": "beh-LOHK KAH-nahn", "audioPath": "phraseAudio/ms/ms-d12-04.mp3"},
+        {"id": "ms-d12-05", "text": "Dekat sini?", "speak": "Dekat sini?", "meaning": "Nearby?", "stress": "deh-KAHT SEE-nee", "audioPath": "phraseAudio/ms/ms-d12-05.mp3"},
+        {"id": "ms-d12-06", "text": "Saya sesat.", "speak": "Saya sesat.", "meaning": "I'm lost.", "stress": "SAH-yah seh-SAHT", "audioPath": "phraseAudio/ms/ms-d12-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d13",
+      "day": 13,
+      "title": "Places",
+      "theme": "travel",
+      "lines": [
+        {"id": "ms-d13-01", "text": "Tandas di mana?", "speak": "Tandas di mana?", "meaning": "Where is the toilet?", "stress": "TAHN-dahs dee MAH-nah", "audioPath": "phraseAudio/ms/ms-d13-01.mp3"},
+        {"id": "ms-d13-02", "text": "Farmasi di mana?", "speak": "Farmasi di mana?", "meaning": "Where is the pharmacy?", "stress": "far-MAH-see dee MAH-nah", "audioPath": "phraseAudio/ms/ms-d13-02.mp3"},
+        {"id": "ms-d13-03", "text": "Ada klinik dekat sini?", "speak": "Ada klinik dekat sini?", "meaning": "Is there a clinic nearby?", "stress": "AH-dah KLEE-nik", "audioPath": "phraseAudio/ms/ms-d13-03.mp3"},
+        {"id": "ms-d13-04", "text": "ATM ada?", "speak": "ATM ada?", "meaning": "Is there an ATM?", "stress": "A-T-M AH-dah", "audioPath": "phraseAudio/ms/ms-d13-04.mp3"},
+        {"id": "ms-d13-05", "text": "Masjid di mana?", "speak": "Masjid di mana?", "meaning": "Where is the mosque?", "stress": "MAHS-jid dee MAH-nah", "audioPath": "phraseAudio/ms/ms-d13-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d14",
+      "day": 14,
+      "title": "Time",
+      "theme": "time",
+      "lines": [
+        {"id": "ms-d14-01", "text": "Sekarang.", "speak": "Sekarang.", "meaning": "Now.", "stress": "seh-KAH-rahng", "audioPath": "phraseAudio/ms/ms-d14-01.mp3"},
+        {"id": "ms-d14-02", "text": "Nanti.", "speak": "Nanti.", "meaning": "Later.", "stress": "NAHN-tee", "audioPath": "phraseAudio/ms/ms-d14-02.mp3"},
+        {"id": "ms-d14-03", "text": "Tunggu sebentar.", "speak": "Tunggu sebentar.", "meaning": "Wait a moment.", "stress": "TOONG-goo seh-BEN-tar", "audioPath": "phraseAudio/ms/ms-d14-03.mp3"},
+        {"id": "ms-d14-04", "text": "Pukul berapa?", "speak": "Pukul berapa?", "meaning": "What time?", "stress": "POO-kool beh-RAH-pah", "audioPath": "phraseAudio/ms/ms-d14-04.mp3"},
+        {"id": "ms-d14-05", "text": "Awal sikit.", "speak": "Awal sikit.", "meaning": "A bit early.", "stress": "AH-wahl SEE-keet", "audioPath": "phraseAudio/ms/ms-d14-05.mp3"},
+        {"id": "ms-d14-06", "text": "Saya lewat.", "speak": "Saya lewat.", "meaning": "I'm late.", "stress": "SAH-yah leh-WAHT", "audioPath": "phraseAudio/ms/ms-d14-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d15",
+      "day": 15,
+      "title": "Open / closed",
+      "theme": "time",
+      "lines": [
+        {"id": "ms-d15-01", "text": "Buka?", "speak": "Buka?", "meaning": "Open?", "stress": "BOO-kah", "audioPath": "phraseAudio/ms/ms-d15-01.mp3"},
+        {"id": "ms-d15-02", "text": "Tutup?", "speak": "Tutup?", "meaning": "Closed?", "stress": "TOO-toop", "audioPath": "phraseAudio/ms/ms-d15-02.mp3"},
+        {"id": "ms-d15-03", "text": "Pukul berapa buka?", "speak": "Pukul berapa buka?", "meaning": "What time do you open?", "stress": "POO-kool beh-RAH-pah BOO-kah", "audioPath": "phraseAudio/ms/ms-d15-03.mp3"},
+        {"id": "ms-d15-04", "text": "Hari ini tutup.", "speak": "Hari ini tutup.", "meaning": "Closed today.", "stress": "HAH-ree EE-nee TOO-toop", "audioPath": "phraseAudio/ms/ms-d15-04.mp3"},
+        {"id": "ms-d15-05", "text": "Esok datang.", "speak": "Esok datang.", "meaning": "Come tomorrow.", "stress": "EH-sohk DAH-tahng", "audioPath": "phraseAudio/ms/ms-d15-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d16",
+      "day": 16,
+      "title": "Looking / size",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d16-01", "text": "Saya tengok-tengok dulu.", "speak": "Saya tengok-tengok dulu.", "meaning": "I'm just looking first.", "stress": "SAH-yah TENG-ok TENG-ok DOO-loo", "audioPath": "phraseAudio/ms/ms-d16-01.mp3"},
+        {"id": "ms-d16-02", "text": "Boleh cuba?", "speak": "Boleh cuba?", "meaning": "Can I try?", "stress": "BOH-leh CHOO-bah", "audioPath": "phraseAudio/ms/ms-d16-02.mp3"},
+        {"id": "ms-d16-03", "text": "Saiz ini.", "speak": "Saiz ini.", "meaning": "This size.", "stress": "size EE-nee", "audioPath": "phraseAudio/ms/ms-d16-03.mp3"},
+        {"id": "ms-d16-04", "text": "Ada lebih besar?", "speak": "Ada lebih besar?", "meaning": "Do you have a bigger one?", "stress": "AH-dah LEH-beh beh-SAR", "audioPath": "phraseAudio/ms/ms-d16-04.mp3"},
+        {"id": "ms-d16-05", "text": "Ada lebih kecil?", "speak": "Ada lebih kecil?", "meaning": "Do you have a smaller one?", "stress": "AH-dah LEH-beh kech-CHIL", "audioPath": "phraseAudio/ms/ms-d16-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d17",
+      "day": 17,
+      "title": "This / that / colour",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d17-01", "text": "Yang ini.", "speak": "Yang ini.", "meaning": "This one.", "stress": "yahng EE-nee", "audioPath": "phraseAudio/ms/ms-d17-01.mp3"},
+        {"id": "ms-d17-02", "text": "Yang itu.", "speak": "Yang itu.", "meaning": "That one.", "stress": "yahng EE-too", "audioPath": "phraseAudio/ms/ms-d17-02.mp3"},
+        {"id": "ms-d17-03", "text": "Ada warna lain?", "speak": "Ada warna lain?", "meaning": "Is there another colour?", "stress": "AH-dah WAR-nah LAH-een", "audioPath": "phraseAudio/ms/ms-d17-03.mp3"},
+        {"id": "ms-d17-04", "text": "Hitam.", "speak": "Hitam.", "meaning": "Black.", "stress": "HEE-tahm", "audioPath": "phraseAudio/ms/ms-d17-04.mp3"},
+        {"id": "ms-d17-05", "text": "Putih.", "speak": "Putih.", "meaning": "White.", "stress": "POO-teeh", "audioPath": "phraseAudio/ms/ms-d17-05.mp3"},
+        {"id": "ms-d17-06", "text": "Merah.", "speak": "Merah.", "meaning": "Red.", "stress": "meh-RAH", "audioPath": "phraseAudio/ms/ms-d17-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d18",
+      "day": 18,
+      "title": "Bargain",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d18-01", "text": "Mahal lah!", "speak": "Mahal lah!", "meaning": "So expensive lah!", "stress": "mah-HAHL lah", "audioPath": "phraseAudio/ms/ms-d18-01.mp3"},
+        {"id": "ms-d18-02", "text": "Murah sikit boleh?", "speak": "Murah sikit boleh?", "meaning": "A bit cheaper, can?", "stress": "MOO-rah SEE-keet BOH-leh", "audioPath": "phraseAudio/ms/ms-d18-02.mp3"},
+        {"id": "ms-d18-03", "text": "Harga terakhir berapa?", "speak": "Harga terakhir berapa?", "meaning": "What's the last price?", "stress": "HAR-gah teh-RAH-keer beh-RAH-pah", "audioPath": "phraseAudio/ms/ms-d18-03.mp3"},
+        {"id": "ms-d18-04", "text": "Saya fikir dulu.", "speak": "Saya fikir dulu.", "meaning": "I'll think first.", "stress": "SAH-yah FEE-keer DOO-loo", "audioPath": "phraseAudio/ms/ms-d18-04.mp3"},
+        {"id": "ms-d18-05", "text": "Kalau begitu, tak apa.", "speak": "Kalau begitu, tak apa.", "formal": "Kalau begitu, tidak apa.", "meaning": "If that's so, never mind.", "stress": "KAH-lau beh-GEE-too tahk AH-pah", "audioPath": "phraseAudio/ms/ms-d18-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d19",
+      "day": 19,
+      "title": "Money 11–100",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d19-01", "text": "sebelas, dua belas, tiga belas", "speak": "sebelas, dua belas, tiga belas", "meaning": "11, 12, 13", "stress": "seh-beh-LAHS", "audioPath": "phraseAudio/ms/ms-d19-01.mp3"},
+        {"id": "ms-d19-02", "text": "dua puluh", "speak": "dua puluh", "meaning": "20", "stress": "DOO-ah POO-loo", "audioPath": "phraseAudio/ms/ms-d19-02.mp3"},
+        {"id": "ms-d19-03", "text": "lima puluh", "speak": "lima puluh", "meaning": "50", "stress": "LEE-mah POO-loo", "audioPath": "phraseAudio/ms/ms-d19-03.mp3"},
+        {"id": "ms-d19-04", "text": "seratus", "speak": "seratus", "meaning": "100", "stress": "seh-RAH-toos", "audioPath": "phraseAudio/ms/ms-d19-04.mp3"},
+        {"id": "ms-d19-05", "text": "Dua puluh ringgit.", "speak": "Dua puluh ringgit.", "meaning": "Twenty ringgit.", "stress": "DOO-ah POO-loo RING-git", "audioPath": "phraseAudio/ms/ms-d19-05.mp3"},
+        {"id": "ms-d19-06", "text": "Boleh bayar kad?", "speak": "Boleh bayar kad?", "meaning": "Can I pay by card?", "stress": "BOH-leh BAH-yar kahd", "audioPath": "phraseAudio/ms/ms-d19-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d20",
+      "day": 20,
+      "title": "Recycle: shop + ride",
+      "theme": "shop",
+      "lines": [
+        {"id": "ms-d20-01", "text": "Berapa?", "speak": "Berapa?", "meaning": "How much?", "stress": "beh-RAH-pah", "audioPath": "phraseAudio/ms/ms-d20-01.mp3"},
+        {"id": "ms-d20-02", "text": "Berhenti di sini, terima kasih.", "speak": "Berhenti di sini, terima kasih.", "meaning": "Stop here, thank you.", "stress": "ber-HEN-tee dee SEE-nee", "audioPath": "phraseAudio/ms/ms-d20-02.mp3"},
+        {"id": "ms-d20-03", "text": "Ada lebih besar?", "speak": "Ada lebih besar?", "meaning": "Do you have a bigger one?", "stress": "AH-dah LEH-beh beh-SAR", "audioPath": "phraseAudio/ms/ms-d20-03.mp3"},
+        {"id": "ms-d20-04", "text": "Harga terakhir berapa?", "speak": "Harga terakhir berapa?", "meaning": "What's the last price?", "stress": "HAR-gah teh-RAH-keer", "audioPath": "phraseAudio/ms/ms-d20-04.mp3"},
+        {"id": "ms-d20-05", "text": "Boleh bayar kad?", "speak": "Boleh bayar kad?", "meaning": "Can I pay by card?", "stress": "BOH-leh BAH-yar kahd", "audioPath": "phraseAudio/ms/ms-d20-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d21",
+      "day": 21,
+      "title": "People",
+      "theme": "people",
+      "lines": [
+        {"id": "ms-d21-01", "text": "Ini isteri saya.", "speak": "Ini isteri saya.", "meaning": "This is my wife.", "stress": "EE-nee ees-TEH-ree SAH-yah", "audioPath": "phraseAudio/ms/ms-d21-01.mp3"},
+        {"id": "ms-d21-02", "text": "Ini suami saya.", "speak": "Ini suami saya.", "meaning": "This is my husband.", "stress": "EE-nee soo-AH-mee SAH-yah", "audioPath": "phraseAudio/ms/ms-d21-02.mp3"},
+        {"id": "ms-d21-03", "text": "Ini anak saya.", "speak": "Ini anak saya.", "meaning": "This is my child.", "stress": "EE-nee AH-nahk SAH-yah", "audioPath": "phraseAudio/ms/ms-d21-03.mp3"},
+        {"id": "ms-d21-04", "text": "Berapa orang?", "speak": "Berapa orang?", "meaning": "How many people?", "stress": "beh-RAH-pah OH-rahng", "audioPath": "phraseAudio/ms/ms-d21-04.mp3"},
+        {"id": "ms-d21-05", "text": "Untuk dua orang.", "speak": "Untuk dua orang.", "meaning": "For two people.", "stress": "OON-took DOO-ah OH-rahng", "audioPath": "phraseAudio/ms/ms-d21-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d22",
+      "day": 22,
+      "title": "Stay / wifi",
+      "theme": "stay",
+      "lines": [
+        {"id": "ms-d22-01", "text": "Ada wifi?", "speak": "Ada wifi?", "meaning": "Is there wifi?", "stress": "AH-dah WAI-fai", "audioPath": "phraseAudio/ms/ms-d22-01.mp3"},
+        {"id": "ms-d22-02", "text": "Password wifi apa?", "speak": "Password wifi apa?", "meaning": "What's the wifi password?", "stress": "PASS-word WAI-fai AH-pah", "audioPath": "phraseAudio/ms/ms-d22-02.mp3"},
+        {"id": "ms-d22-03", "text": "Kunci bilik.", "speak": "Kunci bilik.", "meaning": "Room key.", "stress": "KOON-chee BEE-lik", "audioPath": "phraseAudio/ms/ms-d22-03.mp3"},
+        {"id": "ms-d22-04", "text": "Terlalu bising.", "speak": "Terlalu bising.", "meaning": "Too noisy.", "stress": "ter-LAH-loo BEE-sing", "audioPath": "phraseAudio/ms/ms-d22-04.mp3"},
+        {"id": "ms-d22-05", "text": "Boleh tukar bilik?", "speak": "Boleh tukar bilik?", "meaning": "Can we change rooms?", "stress": "BOH-leh TOO-kar BEE-lik", "audioPath": "phraseAudio/ms/ms-d22-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d23",
+      "day": 23,
+      "title": "Weather",
+      "theme": "daily",
+      "lines": [
+        {"id": "ms-d23-01", "text": "Panas hari ni.", "speak": "Panas hari ni.", "formal": "Panas hari ini.", "meaning": "It's hot today.", "stress": "PAH-nahs HAH-ree nee", "audioPath": "phraseAudio/ms/ms-d23-01.mp3"},
+        {"id": "ms-d23-02", "text": "Hujan.", "speak": "Hujan.", "meaning": "Rain / It's raining.", "stress": "HOO-jahn", "audioPath": "phraseAudio/ms/ms-d23-02.mp3"},
+        {"id": "ms-d23-03", "text": "Ada payung?", "speak": "Ada payung?", "meaning": "Is there an umbrella?", "stress": "AH-dah PAH-yoong", "audioPath": "phraseAudio/ms/ms-d23-03.mp3"},
+        {"id": "ms-d23-04", "text": "Sejuk sikit.", "speak": "Sejuk sikit.", "meaning": "A bit cold.", "stress": "seh-JOOK SEE-keet", "audioPath": "phraseAudio/ms/ms-d23-04.mp3"},
+        {"id": "ms-d23-05", "text": "Jalan licin.", "speak": "Jalan licin.", "meaning": "The road is slippery.", "stress": "JAH-lahn LEE-chin", "audioPath": "phraseAudio/ms/ms-d23-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d24",
+      "day": 24,
+      "title": "I don't understand",
+      "theme": "repair",
+      "lines": [
+        {"id": "ms-d24-01", "text": "Saya tak faham.", "speak": "Saya tak faham.", "formal": "Saya tidak faham.", "meaning": "I don't understand.", "stress": "SAH-yah tahk FAH-hahm", "audioPath": "phraseAudio/ms/ms-d24-01.mp3"},
+        {"id": "ms-d24-02", "text": "Perlahan-lahan, boleh?", "speak": "Perlahan-lahan, boleh?", "meaning": "Slowly, can you?", "stress": "per-LAH-hahn LAH-hahn", "audioPath": "phraseAudio/ms/ms-d24-02.mp3"},
+        {"id": "ms-d24-03", "text": "Boleh ulang?", "speak": "Boleh ulang?", "meaning": "Can you repeat?", "stress": "BOH-leh OO-lahng", "audioPath": "phraseAudio/ms/ms-d24-03.mp3"},
+        {"id": "ms-d24-04", "text": "Cakap English boleh?", "speak": "Cakap English boleh?", "meaning": "Can you speak English?", "stress": "CHA-kap ING-lish BOH-leh", "audioPath": "phraseAudio/ms/ms-d24-04.mp3"},
+        {"id": "ms-d24-05", "text": "Maaf.", "speak": "Maaf.", "meaning": "Sorry.", "stress": "MAH-ahf", "audioPath": "phraseAudio/ms/ms-d24-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d25",
+      "day": 25,
+      "title": "Help",
+      "theme": "repair",
+      "lines": [
+        {"id": "ms-d25-01", "text": "Tolong.", "speak": "Tolong.", "meaning": "Help / please.", "stress": "TOH-long", "audioPath": "phraseAudio/ms/ms-d25-01.mp3"},
+        {"id": "ms-d25-02", "text": "Saya perlukan bantuan.", "speak": "Saya perlukan bantuan.", "meaning": "I need help.", "stress": "SAH-yah per-LOO-kahn bahn-TOO-ahn", "audioPath": "phraseAudio/ms/ms-d25-02.mp3"},
+        {"id": "ms-d25-03", "text": "Ada masalah.", "speak": "Ada masalah.", "meaning": "There's a problem.", "stress": "AH-dah mah-SAH-lah", "audioPath": "phraseAudio/ms/ms-d25-03.mp3"},
+        {"id": "ms-d25-04", "text": "Sila panggil hospital.", "speak": "Sila panggil hospital.", "meaning": "Please call the hospital.", "stress": "SEE-lah PAHNG-gil", "audioPath": "phraseAudio/ms/ms-d25-04.mp3"},
+        {"id": "ms-d25-05", "text": "Terima kasih banyak-banyak.", "speak": "Terima kasih banyak-banyak.", "meaning": "Thank you very much.", "stress": "teh-REE-mah KAH-seeh BAHN-yak", "audioPath": "phraseAudio/ms/ms-d25-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d26",
+      "day": 26,
+      "title": "Phone",
+      "theme": "daily",
+      "lines": [
+        {"id": "ms-d26-01", "text": "Boleh scan QR?", "speak": "Boleh scan QR?", "meaning": "Can I scan the QR?", "stress": "BOH-leh scan Q-R", "audioPath": "phraseAudio/ms/ms-d26-01.mp3"},
+        {"id": "ms-d26-02", "text": "Hantar WhatsApp, boleh?", "speak": "Hantar WhatsApp, boleh?", "meaning": "Can you send a WhatsApp?", "stress": "HAHN-tar WHAT-sapp", "audioPath": "phraseAudio/ms/ms-d26-02.mp3"},
+        {"id": "ms-d26-03", "text": "Nombor saya ini.", "speak": "Nombor saya ini.", "meaning": "This is my number.", "stress": "NOM-bor SAH-yah EE-nee", "audioPath": "phraseAudio/ms/ms-d26-03.mp3"},
+        {"id": "ms-d26-04", "text": "Line putus.", "speak": "Line putus.", "meaning": "The line dropped.", "stress": "line POO-toos", "audioPath": "phraseAudio/ms/ms-d26-04.mp3"},
+        {"id": "ms-d26-05", "text": "Ada charging?", "speak": "Ada charging?", "meaning": "Is there a charger / charging?", "stress": "AH-dah CHAR-jing", "audioPath": "phraseAudio/ms/ms-d26-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d27",
+      "day": 27,
+      "title": "Can / tomorrow",
+      "theme": "time",
+      "lines": [
+        {"id": "ms-d27-01", "text": "Boleh ke?", "speak": "Boleh ke?", "meaning": "Can you? / Is it possible?", "stress": "BOH-leh keh", "audioPath": "phraseAudio/ms/ms-d27-01.mp3"},
+        {"id": "ms-d27-02", "text": "Hari ini tak boleh.", "speak": "Hari ini tak boleh.", "formal": "Hari ini tidak boleh.", "meaning": "Not possible today.", "stress": "HAH-ree EE-nee tahk BOH-leh", "audioPath": "phraseAudio/ms/ms-d27-02.mp3"},
+        {"id": "ms-d27-03", "text": "Esok boleh?", "speak": "Esok boleh?", "meaning": "Tomorrow, can?", "stress": "EH-sohk BOH-leh", "audioPath": "phraseAudio/ms/ms-d27-03.mp3"},
+        {"id": "ms-d27-04", "text": "Nanti saya datang.", "speak": "Nanti saya datang.", "meaning": "I'll come later.", "stress": "NAHN-tee SAH-yah DAH-tahng", "audioPath": "phraseAudio/ms/ms-d27-04.mp3"},
+        {"id": "ms-d27-05", "text": "Janji pukul tiga.", "speak": "Janji pukul tiga.", "meaning": "Let's say three o'clock.", "stress": "JAHN-jee POO-kool TEE-gah", "audioPath": "phraseAudio/ms/ms-d27-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d28",
+      "day": 28,
+      "title": "Feelings",
+      "theme": "body",
+      "lines": [
+        {"id": "ms-d28-01", "text": "Saya lapar.", "speak": "Saya lapar.", "meaning": "I'm hungry.", "stress": "SAH-yah LAH-par", "audioPath": "phraseAudio/ms/ms-d28-01.mp3"},
+        {"id": "ms-d28-02", "text": "Saya kenyang.", "speak": "Saya kenyang.", "meaning": "I'm full.", "stress": "SAH-yah ken-YAHNG", "audioPath": "phraseAudio/ms/ms-d28-02.mp3"},
+        {"id": "ms-d28-03", "text": "Saya penat.", "speak": "Saya penat.", "meaning": "I'm tired.", "stress": "SAH-yah peh-NAHT", "audioPath": "phraseAudio/ms/ms-d28-03.mp3"},
+        {"id": "ms-d28-04", "text": "Saya kurang sihat.", "speak": "Saya kurang sihat.", "meaning": "I'm not feeling well.", "stress": "SAH-yah KOO-rahng SEE-hat", "audioPath": "phraseAudio/ms/ms-d28-04.mp3"},
+        {"id": "ms-d28-05", "text": "Sakit kepala.", "speak": "Sakit kepala.", "meaning": "Headache.", "stress": "SAH-kit keh-PAH-lah", "audioPath": "phraseAudio/ms/ms-d28-05.mp3"},
+        {"id": "ms-d28-06", "text": "Sakit perut.", "speak": "Sakit perut.", "meaning": "Stomach ache.", "stress": "SAH-kit peh-ROOT", "audioPath": "phraseAudio/ms/ms-d28-06.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d29",
+      "day": 29,
+      "title": "Small talk",
+      "theme": "people",
+      "lines": [
+        {"id": "ms-d29-01", "text": "Dari mana?", "speak": "Dari mana?", "meaning": "Where from?", "stress": "DAH-ree MAH-nah", "audioPath": "phraseAudio/ms/ms-d29-01.mp3"},
+        {"id": "ms-d29-02", "text": "Saya dari Hungari.", "speak": "Saya dari Hungari.", "meaning": "I'm from Hungary.", "stress": "SAH-yah DAH-ree hoong-GAH-ree", "audioPath": "phraseAudio/ms/ms-d29-02.mp3"},
+        {"id": "ms-d29-03", "text": "Sudah lama di Malaysia?", "speak": "Sudah lama di Malaysia?", "meaning": "Have you been in Malaysia long?", "stress": "SOO-dah LAH-mah dee mah-LAY-sia", "audioPath": "phraseAudio/ms/ms-d29-03.mp3"},
+        {"id": "ms-d29-04", "text": "Saya tinggal di Pulau Pinang.", "speak": "Saya tinggal di Pulau Pinang.", "meaning": "I live in Penang.", "stress": "SAH-yah TEENG-gahl dee POO-lau PEE-nahng", "audioPath": "phraseAudio/ms/ms-d29-04.mp3"},
+        {"id": "ms-d29-05", "text": "Saya sedang belajar Bahasa Melayu.", "speak": "Saya sedang belajar Bahasa Melayu.", "meaning": "I'm learning Malay.", "stress": "SAH-yah seh-DAHNG beh-LAH-jar", "audioPath": "phraseAudio/ms/ms-d29-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d30",
+      "day": 30,
+      "title": "Hawker drill",
+      "theme": "food",
+      "lines": [
+        {"id": "ms-d30-01", "text": "Saya mahu ini.", "speak": "Saya mahu ini.", "meaning": "I want this.", "stress": "SAH-yah MAH-hoo EE-nee", "audioPath": "phraseAudio/ms/ms-d30-01.mp3"},
+        {"id": "ms-d30-02", "text": "Tak mahu ais.", "speak": "Tak mahu ais.", "meaning": "No ice.", "stress": "tahk MAH-hoo ice", "audioPath": "phraseAudio/ms/ms-d30-02.mp3"},
+        {"id": "ms-d30-03", "text": "Kira, terima kasih.", "speak": "Kira, terima kasih.", "meaning": "The bill, please.", "stress": "KEE-rah", "audioPath": "phraseAudio/ms/ms-d30-03.mp3"},
+        {"id": "ms-d30-04", "text": "Sedap!", "speak": "Sedap!", "meaning": "Delicious!", "stress": "seh-DAHP", "audioPath": "phraseAudio/ms/ms-d30-04.mp3"},
+        {"id": "ms-d30-05", "text": "Terima kasih.", "speak": "Terima kasih.", "meaning": "Thank you.", "stress": "teh-REE-mah KAH-seeh", "audioPath": "phraseAudio/ms/ms-d30-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d31",
+      "day": 31,
+      "title": "With kids",
+      "theme": "people",
+      "lines": [
+        {"id": "ms-d31-01", "text": "Untuk kanak-kanak.", "speak": "Untuk kanak-kanak.", "meaning": "For children.", "stress": "OON-took KAH-nahk KAH-nahk", "audioPath": "phraseAudio/ms/ms-d31-01.mp3"},
+        {"id": "ms-d31-02", "text": "Tak pedas, ya?", "speak": "Tak pedas, ya?", "formal": "Tidak pedas, ya?", "meaning": "Not spicy, okay?", "stress": "tahk peh-DAHS yah", "audioPath": "phraseAudio/ms/ms-d31-02.mp3"},
+        {"id": "ms-d31-03", "text": "Lagi satu untuk anak saya.", "speak": "Lagi satu untuk anak saya.", "meaning": "One more for my child.", "stress": "LAH-gee SAH-too OON-took AH-nahk", "audioPath": "phraseAudio/ms/ms-d31-03.mp3"},
+        {"id": "ms-d31-04", "text": "Hati-hati.", "speak": "Hati-hati.", "meaning": "Careful.", "stress": "HAH-tee HAH-tee", "audioPath": "phraseAudio/ms/ms-d31-04.mp3"},
+        {"id": "ms-d31-05", "text": "Perlahan-lahan.", "speak": "Perlahan-lahan.", "meaning": "Slowly.", "stress": "per-LAH-hahn LAH-hahn", "audioPath": "phraseAudio/ms/ms-d31-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d32",
+      "day": 32,
+      "title": "Bus / taxi",
+      "theme": "travel",
+      "lines": [
+        {"id": "ms-d32-01", "text": "Stesen di mana?", "speak": "Stesen di mana?", "meaning": "Where is the station?", "stress": "steh-SEN dee MAH-nah", "audioPath": "phraseAudio/ms/ms-d32-01.mp3"},
+        {"id": "ms-d32-02", "text": "Naik di sini?", "speak": "Naik di sini?", "meaning": "Do I get on here?", "stress": "NAH-eek dee SEE-nee", "audioPath": "phraseAudio/ms/ms-d32-02.mp3"},
+        {"id": "ms-d32-03", "text": "Saya nak turun di Komtar.", "speak": "Saya nak turun di Komtar.", "formal": "Saya hendak turun di Komtar.", "meaning": "I want to get off at Komtar.", "stress": "SAH-yah nahk TOO-roon", "audioPath": "phraseAudio/ms/ms-d32-03.mp3"},
+        {"id": "ms-d32-04", "text": "Ada teksi?", "speak": "Ada teksi?", "meaning": "Is there a taxi?", "stress": "AH-dah TEK-see", "audioPath": "phraseAudio/ms/ms-d32-04.mp3"},
+        {"id": "ms-d32-05", "text": "Berapa tambang?", "speak": "Berapa tambang?", "meaning": "How much is the fare?", "stress": "beh-RAH-pah TAHM-bahng", "audioPath": "phraseAudio/ms/ms-d32-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d33",
+      "day": 33,
+      "title": "Pharmacy",
+      "theme": "body",
+      "lines": [
+        {"id": "ms-d33-01", "text": "Ubat untuk demam.", "speak": "Ubat untuk demam.", "meaning": "Medicine for fever.", "stress": "OO-baht OON-took deh-MAHM", "audioPath": "phraseAudio/ms/ms-d33-01.mp3"},
+        {"id": "ms-d33-02", "text": "Ubat batuk.", "speak": "Ubat batuk.", "meaning": "Cough medicine.", "stress": "OO-baht BAH-took", "audioPath": "phraseAudio/ms/ms-d33-02.mp3"},
+        {"id": "ms-d33-03", "text": "Boleh beli sekarang?", "speak": "Boleh beli sekarang?", "meaning": "Can I buy it now?", "stress": "BOH-leh beh-neh LEE seh-KAH-rahng", "audioPath": "phraseAudio/ms/ms-d33-03.mp3"},
+        {"id": "ms-d33-04", "text": "Berapa kali sehari?", "speak": "Berapa kali sehari?", "meaning": "How many times a day?", "stress": "beh-RAH-pah KAH-lee seh-HAH-ree", "audioPath": "phraseAudio/ms/ms-d33-04.mp3"},
+        {"id": "ms-d33-05", "text": "Selepas makan.", "speak": "Selepas makan.", "meaning": "After food.", "stress": "seh-LEH-pahs MAH-kahn", "audioPath": "phraseAudio/ms/ms-d33-05.mp3"}
+      ]
+    },
+    {
+      "id": "ms-d34",
+      "day": 34,
+      "title": "Close",
+      "theme": "polite",
+      "lines": [
+        {"id": "ms-d34-01", "text": "Maaf, Bahasa Melayu saya belum lancar.", "speak": "Maaf, Bahasa Melayu saya belum lancar.", "meaning": "Sorry, my Malay is not fluent yet.", "stress": "MAH-ahf ... beh-LOOM LAHN-char", "audioPath": "phraseAudio/ms/ms-d34-01.mp3"},
+        {"id": "ms-d34-02", "text": "Saya masih belajar.", "speak": "Saya masih belajar.", "meaning": "I'm still learning.", "stress": "SAH-yah MAH-seeh beh-LAH-jar", "audioPath": "phraseAudio/ms/ms-d34-02.mp3"},
+        {"id": "ms-d34-03", "text": "Terima kasih banyak-banyak.", "speak": "Terima kasih banyak-banyak.", "meaning": "Thank you very much.", "stress": "teh-REE-mah KAH-seeh BAHN-yak", "audioPath": "phraseAudio/ms/ms-d34-03.mp3"},
+        {"id": "ms-d34-04", "text": "Jumpa lagi.", "speak": "Jumpa lagi.", "meaning": "See you again.", "stress": "JOOM-pah LAH-gee", "audioPath": "phraseAudio/ms/ms-d34-04.mp3"},
+        {"id": "ms-d34-05", "text": "Tak apa lah, terima kasih.", "speak": "Tak apa lah, terima kasih.", "formal": "Tidak apa, terima kasih.", "meaning": "It's fine, thank you.", "stress": "tahk AH-pah lah", "audioPath": "phraseAudio/ms/ms-d34-05.mp3"}
+      ]
+    }
+  ]
+}

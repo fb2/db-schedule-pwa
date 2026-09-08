@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1b3a4b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Phrase Cards">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Phrase Cards</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css?v=3">
+</head>
+<body>
+  <header>
+    <div class="top-row">
+      <div>
+        <p class="eyebrow">Private Utility</p>
+        <h1>Phrase Cards</h1>
+      </div>
+      <div class="auth-actions">
+        <span id="userLabel" class="user-label">Signed out</span>
+        <button id="signInBtn" type="button">Sign in</button>
+        <button id="signOutBtn" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+
+    <div id="signedInControls" hidden>
+      <div class="tabs">
+        <button id="studyTab" type="button" class="active">Study</button>
+        <button id="daysTab" type="button">Days</button>
+      </div>
+    </div>
+
+    <div class="meta-bar">
+      <span id="status">Sign in with Google to study Malay phrases.</span>
+      <span id="offlineNote"></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="studyView" hidden>
+      <div class="day-nav">
+        <button id="prevDayBtn" class="secondary" type="button">Previous</button>
+        <p id="dayNavLabel" class="day-nav-label"></p>
+        <button id="nextDayBtn" class="secondary" type="button">Next day</button>
+      </div>
+      <p id="sessionMeta" class="session-meta"></p>
+      <article id="card" class="phrase-card" hidden>
+        <p id="cardEyebrow" class="card-eyebrow"></p>
+        <p id="cardFront" class="card-front"></p>
+        <div id="cardBack" class="card-back" hidden></div>
+        <div class="play-row">
+          <button id="playBtn" class="secondary" type="button">Play</button>
+          <button id="slowBtn" class="secondary" type="button">Slow</button>
+          <button id="flipBtn" class="secondary" type="button">Meaning</button>
+        </div>
+        <div class="grade-row">
+          <button id="againBtn" type="button">Again</button>
+          <button id="gotItBtn" type="button">Got it</button>
+        </div>
+      </article>
+      <div id="sessionEmpty" class="done-panel" hidden>
+        <p class="empty">This day is done. Use Next day, or open Days.</p>
+        <ul id="dayRecap" class="day-recap"></ul>
+      </div>
+    </section>
+
+    <section id="daysView" hidden>
+      <div id="dayList" class="day-list"></div>
+    </section>
+
+    <p id="signedOutEmpty" class="empty">Sign in with an allowlisted Google account.</p>
+  </main>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    }
+  </script>
+  <script type="module" src="./app.js?v=3"></script>
+</body>
+</html>

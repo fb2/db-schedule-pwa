@@ -14,6 +14,10 @@ service firebase.storage {
       allow read, write: if isAllowedUser();
     }
 
+    match /phraseAudio/{language}/{fileName} {
+      allow read, write: if isAllowedUser();
+    }
+
     match /{allPaths=**} {
       allow read, write: if false;
     }

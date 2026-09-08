@@ -26,6 +26,10 @@ service cloud.firestore {
       allow read, write: if isAllowedUser();
     }
 
+    match /travelExperiences/{guideId} {
+      allow read, write: if isAllowedUser();
+    }
+
     match /expenseBuckets/{bucketId} {
       allow read, write: if isAllowedUser();
 
@@ -36,6 +40,14 @@ service cloud.firestore {
 
     match /users/{userId}/{document=**} {
       allow read, write: if isAllowedUser() && request.auth.uid == userId;
+    }
+
+    match /phrasePacks/{packId} {
+      allow read, write: if isAllowedUser();
+    }
+
+    match /phraseLessons/{dayId} {
+      allow read, write: if isAllowedUser();
     }
 
     match /{document=**} {

@@ -32,6 +32,7 @@ REQUIRED_PATHS = {
         "travel/index.html",
         "travel/app.js",
         "travel/plan-view.js",
+        "travel/experience-view.js",
         "travel/styles.css",
         "travel/sw.js",
         "travel/manifest.webmanifest",
@@ -58,6 +59,15 @@ REQUIRED_PATHS = {
         "utilities/expense-helper/sw.js",
         "utilities/expense-helper/manifest.webmanifest",
         "utilities/expense-helper/icon.svg",
+    ],
+    "Phrase Cards": [
+        "utilities/phrase-cards/index.html",
+        "utilities/phrase-cards/app.js",
+        "utilities/phrase-cards/styles.css",
+        "utilities/phrase-cards/sw.js",
+        "utilities/phrase-cards/manifest.webmanifest",
+        "utilities/phrase-cards/icon.svg",
+        "utilities/phrase-cards/lessons.json",
     ],
     "Reciprocity Timer": [
         "utilities/reciprocity-timer/index.html",

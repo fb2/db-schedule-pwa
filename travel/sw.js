@@ -1,10 +1,11 @@
-const CACHE_NAME = "travel-plans-v4";
+const CACHE_NAME = "travel-plans-v7";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=4",
-  "./app.js?v=4",
-  "./plan-view.js?v=4",
+  "./styles.css?v=7",
+  "./app.js?v=7",
+  "./plan-view.js?v=5",
+  "./experience-view.js?v=7",
   "./manifest.webmanifest",
   "./icon.svg"
 ];

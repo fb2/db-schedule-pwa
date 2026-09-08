@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=4">
+  <link rel="stylesheet" href="./styles.css?v=7">
 </head>
 <body>
   <header>
@@ -35,8 +35,9 @@
       </label>
       <button id="nextMonthBtn" class="icon-button" type="button" aria-label="Next month">›</button>
       <button id="refreshBtn" class="icon-button" type="button" aria-label="Refresh plans">↻</button>
-      <label class="icon-button import-label" aria-label="Upload text files">
-        <input id="importFile" type="file" accept="text/plain,.txt" multiple>
+      <button id="experienceBtn" class="icon-button experience-toolbar" type="button" aria-label="Experiences" hidden>Ex</button>
+      <label class="icon-button import-label" aria-label="Upload text files or experience guides">
+        <input id="importFile" type="file" accept="text/plain,.txt,.md,text/markdown" multiple>
         <span aria-hidden="true">＋</span>
       </label>
     </div>
@@ -53,11 +54,28 @@
     <p id="empty" class="empty">Sign in with an allowed Google account to view private travel plans.</p>
   </main>
 
+  <div id="experienceBackdrop" class="xp-backdrop" hidden></div>
+  <aside id="experiencePanel" class="xp-panel" hidden role="dialog" aria-labelledby="xpTitle" aria-modal="true">
+    <div class="xp-handle" aria-hidden="true"></div>
+    <header class="xp-head">
+      <div class="xp-head-copy">
+        <p class="xp-kicker">Experiences</p>
+        <h2 id="xpTitle"></h2>
+        <p id="xpDates" class="xp-dates"></p>
+        <p id="xpSubtitle" class="xp-subtitle"></p>
+      </div>
+      <button id="xpCloseBtn" class="icon-button" type="button" aria-label="Close experiences">×</button>
+    </header>
+    <div id="xpSwitcher" class="xp-switcher" hidden></div>
+    <div id="xpNav" class="xp-nav"></div>
+    <div id="xpBody" class="xp-body"></div>
+  </aside>
+
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
     }
   </script>
-  <script type="module" src="./app.js?v=4"></script>
+  <script type="module" src="./app.js?v=7"></script>
 </body>
 </html>

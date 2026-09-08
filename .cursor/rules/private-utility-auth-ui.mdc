@@ -1,0 +1,22 @@
+---
+description: Always toggle Sign in / Sign out buttons on Firebase private utilities
+globs: utilities/**/app.js,travel/app.js
+alwaysApply: false
+---
+
+# Private Utility Auth Buttons
+
+When a Google-auth private utility has `#signInBtn` and `#signOutBtn`, update both on every auth state change. Showing the email while leaving Sign in visible is a recurring bug.
+
+Required helper (same as Recipe Book / KCRW / Expense Helper / Travel):
+
+```js
+function setSignedInUi(isSignedIn) {
+  signInBtn.hidden = isSignedIn;
+  signOutBtn.hidden = !isSignedIn;
+  signInBtn.style.display = isSignedIn ? "none" : "";
+  signOutBtn.style.display = isSignedIn ? "" : "none";
+}
+```
+
+Call it from `onAuthStateChanged` for signed-in, signed-out, and unauthorized. Setting `userLabel` is not enough. Keep both `hidden` and `style.display` because `button { display: inline-flex }` can override `[hidden]` in apps that lack `!important`.

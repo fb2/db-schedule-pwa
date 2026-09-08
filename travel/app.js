@@ -7,12 +7,22 @@ import {
   sectionTiming,
   todayIso,
   weekTiming
-} from "./plan-view.js?v=4";
+} from "./plan-view.js?v=5";
+import {
+  bestGuideForSection,
+  formatGuideDates,
+  guidesForMonth,
+  looksLikeExperience,
+  parseExperienceGuide,
+  renderExperienceBody,
+  renderExperienceNav
+} from "./experience-view.js?v=7";
 
 const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 const FIREBASE_AUTH_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 const FIREBASE_FIRESTORE_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 const PLAN_CACHE_VERSION = "travel.plans.v1";
+const EXPERIENCE_CACHE_VERSION = "travel.experiences.v1";
 const LAST_USER_KEY = "travel.lastUser.v1";
 const FB_CONFIG_KEY = "travel.firebaseConfig.v1";
 const BROWSE_MONTH_KEY = "travel.browseMonth.v1";
@@ -46,9 +56,12 @@ let plansById = new Map();
 let activeMonthId = "";
 let cachedUserEmail = "";
 let lastCacheAt = "";
+let experiences = [];
 let viewMode = readBrowseMonth() ? "browse" : "now";
 let explicitSignOut = false;
 let didInitialFocus = false;
+let openGuideId = "";
+let experienceRestoreFocus = null;
 
 const userLabel = document.getElementById("userLabel");
 const signInBtn = document.getElementById("signInBtn");
@@ -65,6 +78,16 @@ const nowRail = document.getElementById("nowRail");
 const monthOverview = document.getElementById("monthOverview");
 const weekList = document.getElementById("weekList");
 const empty = document.getElementById("empty");
+const experienceBtn = document.getElementById("experienceBtn");
+const experienceBackdrop = document.getElementById("experienceBackdrop");
+const experiencePanel = document.getElementById("experiencePanel");
+const xpCloseBtn = document.getElementById("xpCloseBtn");
+const xpTitle = document.getElementById("xpTitle");
+const xpDates = document.getElementById("xpDates");
+const xpSubtitle = document.getElementById("xpSubtitle");
+const xpSwitcher = document.getElementById("xpSwitcher");
+const xpNav = document.getElementById("xpNav");
+const xpBody = document.getElementById("xpBody");
 
 boot();
 
@@ -74,6 +97,7 @@ async function boot() {
   if (cached) {
     cachedUserEmail = cached.userEmail || "";
     applyPlans(cached.plans, { fromCache: true, cachedAt: cached.cachedAt });
+    applyExperiences(readExperienceCache(cachedUserEmail)?.experiences || []);
     userLabel.textContent = cachedUserEmail || "Cached plans";
     setAppState("ready", cachedStatus(cached.cachedAt, "Checking for updates…"));
     render();
@@ -110,6 +134,38 @@ function bindEvents() {
     const card = event.target.closest("[data-section-id]");
     if (!card) return;
     openSection(card.dataset.monthId, card.dataset.sectionId);
+  });
+  experienceBtn.addEventListener("click", () => {
+    const guides = monthGuides();
+    if (!guides.length) return;
+    openExperience(guides[0].id);
+  });
+  weekList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-open-guide]");
+    if (!button) return;
+    event.preventDefault();
+    event.stopPropagation();
+    experienceRestoreFocus = button;
+    openExperience(button.dataset.openGuide, { sectionId: button.dataset.sectionId });
+  });
+  experienceBackdrop.addEventListener("click", closeExperience);
+  xpCloseBtn.addEventListener("click", closeExperience);
+  experiencePanel.addEventListener("click", (event) => {
+    const switcher = event.target.closest("[data-open-guide]");
+    if (switcher) {
+      openExperience(switcher.dataset.openGuide);
+      return;
+    }
+    const jump = event.target.closest("[data-xp-jump]");
+    if (jump) {
+      scrollExperienceTo(jump.dataset.xpJump);
+      return;
+    }
+    const day = event.target.closest("[data-xp-day]");
+    if (day) scrollExperienceTo(`xp-day-${day.dataset.xpDay}`, day.dataset.xpDay);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && openGuideId) closeExperience();
   });
 }
 
@@ -170,7 +226,9 @@ async function handleAuthChange(user) {
     if (explicitSignOut) {
       plans = [];
       plansById = new Map();
+      experiences = [];
       activeMonthId = "";
+      closeExperience();
       setAppState("signed-out", "Sign in with Google to load private travel plans.");
       render();
       return;
@@ -193,6 +251,7 @@ async function handleAuthChange(user) {
     plansById = new Map();
     cachedUserEmail = user.email;
     if (other) applyPlans(other.plans, { fromCache: true, cachedAt: other.cachedAt });
+    applyExperiences(readExperienceCache(user.email)?.experiences || []);
   } else {
     cachedUserEmail = user.email;
     writeLastUser(user.email);
@@ -213,13 +272,21 @@ async function refreshPlans({ background = false } = {}) {
   if (!background) setAppState("loading", "Loading private travel plans...");
 
   try {
-    const snapshot = await store.getDocs(store.collection(db, "travelPlans"));
+    const [snapshot, experienceSnap] = await Promise.all([
+      store.getDocs(store.collection(db, "travelPlans")),
+      store.getDocs(store.collection(db, "travelExperiences")).catch(() => ({ docs: [] }))
+    ]);
     const next = snapshot.docs
       .map((item) => ({ id: item.id, ...serializeData(item.data()) }))
       .sort((a, b) => String(a.monthId || a.id).localeCompare(String(b.monthId || b.id)));
+    const nextGuides = experienceSnap.docs
+      .map((item) => hydrateExperience({ id: item.id, ...serializeData(item.data()) }))
+      .sort((a, b) => String(a.startDate || "").localeCompare(String(b.startDate || "")));
     const changed = plansSignature(next) !== plansSignature(plans);
     writePlanCache(currentUser.email, next);
+    writeExperienceCache(currentUser.email, nextGuides);
     applyPlans(next);
+    applyExperiences(nextGuides);
     setAppState(
       "ready",
       next.length
@@ -250,35 +317,71 @@ async function importMonthFiles(event) {
   const files = [...(event.target.files || [])];
   event.target.value = "";
   if (!files.length || !currentUser || !db || !store) return;
-  if (!confirm(`Upload ${files.length} travel plan file${files.length === 1 ? "" : "s"}? Re-uploading a month replaces the stored version.`)) return;
+
+  const classified = [];
+  for (const file of files) {
+    const text = await file.text();
+    classified.push({ file, text, experience: looksLikeExperience(file.name, text) });
+  }
+  const planCount = classified.filter((item) => !item.experience).length;
+  const guideCount = classified.filter((item) => item.experience).length;
+  const confirmMessage = [
+    planCount ? `${planCount} month plan${planCount === 1 ? "" : "s"}` : "",
+    guideCount ? `${guideCount} experience guide${guideCount === 1 ? "" : "s"}` : ""
+  ].filter(Boolean).join(" and ");
+  if (!confirm(`Upload ${confirmMessage}? Re-uploading replaces that month or guide.`)) return;
 
   setAppState("loading", `Reading ${files.length} file${files.length === 1 ? "" : "s"}...`);
   try {
-    const imported = [];
-    for (const file of files) {
-      const text = await file.text();
-      const plan = parseTravelPlan(file.name, text);
+    const importedMonths = [];
+    const importedGuides = [];
+    for (const item of classified) {
+      if (item.experience) {
+        const guide = parseExperienceGuide(item.file.name, item.text);
+        const { chapters: _chapters, ...stored } = guide;
+        const payload = {
+          ...cleanObject(stored),
+          sourceFilename: item.file.name,
+          importedBy: currentUser.email || currentUser.uid,
+          updatedAt: store.serverTimestamp(),
+          importedAt: store.serverTimestamp()
+        };
+        assertDocSize(item.file.name, payload);
+        await store.setDoc(store.doc(db, "travelExperiences", guide.id), payload);
+        importedGuides.push(guide);
+        continue;
+      }
+      const plan = parseTravelPlan(item.file.name, item.text);
       const payload = {
         ...cleanObject(plan),
-        sourceFilename: file.name,
+        sourceFilename: item.file.name,
         importedBy: currentUser.email || currentUser.uid,
         updatedAt: store.serverTimestamp(),
         importedAt: store.serverTimestamp()
       };
-      const bytes = new TextEncoder().encode(JSON.stringify(payload)).length;
-      if (bytes > MAX_DOC_BYTES) {
-        throw new Error(`${file.name} is too large for a single Firestore document.`);
-      }
+      assertDocSize(item.file.name, payload);
       await store.setDoc(store.doc(db, "travelPlans", plan.monthId), payload);
-      imported.push(plan.monthId);
+      importedMonths.push(plan.monthId);
     }
-    setBrowseMonth(imported.at(-1) || activeMonthId);
-    setStatus(`Imported ${imported.length} month plan${imported.length === 1 ? "" : "s"}.`);
+    if (importedMonths.length) setBrowseMonth(importedMonths.at(-1) || activeMonthId);
+    const bits = [
+      importedMonths.length ? `${importedMonths.length} month plan${importedMonths.length === 1 ? "" : "s"}` : "",
+      importedGuides.length ? `${importedGuides.length} experience guide${importedGuides.length === 1 ? "" : "s"}` : ""
+    ].filter(Boolean);
+    setStatus(`Imported ${bits.join(" and ")}.`);
     await refreshPlans({ background: false });
+    if (importedGuides.length) openExperience(importedGuides.at(-1).id);
   } catch (error) {
     console.error(error);
     setAppState("ready", `Import failed: ${error.message}`);
     render();
+  }
+}
+
+function assertDocSize(filename, payload) {
+  const bytes = new TextEncoder().encode(JSON.stringify(payload)).length;
+  if (bytes > MAX_DOC_BYTES) {
+    throw new Error(`${filename} is too large for a single Firestore document.`);
   }
 }
 
@@ -588,12 +691,15 @@ function render() {
       : currentUser
         ? "No travel plans uploaded yet. Upload one or more monthly text files."
         : "Sign in with an allowed Google account to view private travel plans.";
+    renderExperienceControls();
     return;
   }
 
   renderNowRail();
   renderOverview(activePlan);
   renderWeeks(activePlan);
+  renderExperienceControls();
+  if (openGuideId) renderExperiencePanel(openGuideId);
   if (viewMode === "now" && !didInitialFocus) {
     didInitialFocus = true;
     requestAnimationFrame(() => scrollToFocus(true));
@@ -709,6 +815,7 @@ function sectionHtml(section, event, today) {
   if (!section) return "";
   const timing = sectionTiming(section, today);
   const body = section.body ? `<div class="detail-flow">${formatSectionBody(section.body)}</div>` : "";
+  const guide = experienceChipHtml(section);
   const head = `
     <div>
       <h3>${escapeHtml(section.title)}</h3>
@@ -721,16 +828,19 @@ function sectionHtml(section, event, today) {
       ${event.status.confirmed ? chipHtml("confirmed", "Confirmed") : ""}
       ${event.status.tbc ? chipHtml("tbc", "TBC") : ""}
     </div>`;
+  const actions = guide ? `<div class="section-actions">${guide}</div>` : "";
 
   if (timing === "past") {
     return `<details class="section-card past ${escapeAttr(event.category)}" id="sec-${escapeAttr(section.id)}">
       <summary class="section-head">${head}</summary>
+      ${actions}
       ${body}
     </details>`;
   }
 
   return `<article class="section-card ${escapeAttr(timing)} ${escapeAttr(event.category)}" id="sec-${escapeAttr(section.id)}">
     <div class="section-head">${head}</div>
+    ${actions}
     ${body}
   </article>`;
 }
@@ -828,6 +938,105 @@ function hydratePlan(plan) {
   return next;
 }
 
+function experienceChipHtml(section) {
+  const guide = bestGuideForSection(section, experiences);
+  if (!guide) return "";
+  return `<button type="button" class="experience-chip" data-open-guide="${escapeAttr(guide.id)}" data-section-id="${escapeAttr(section.id)}">Guide</button>`;
+}
+
+function monthGuides() {
+  return guidesForMonth(experiences, activeMonthId);
+}
+
+function renderExperienceControls() {
+  const guides = monthGuides();
+  const visible = guides.length > 0 && authState !== "unauthorized";
+  experienceBtn.hidden = !visible;
+  experienceBtn.disabled = !visible;
+  experienceBtn.title = guides.length === 1
+    ? `${guides[0].title} experiences`
+    : `${guides.length} experience guides`;
+}
+
+function openExperience(guideId, { sectionId = "" } = {}) {
+  const guide = experiences.find((item) => item.id === guideId) || monthGuides()[0];
+  if (!guide) return;
+  openGuideId = guide.id;
+  const section = (plansById.get(activeMonthId)?.sections || []).find((item) => item.id === sectionId);
+  const activeDay = section?.startDate && section.startDate >= guide.startDate && section.startDate <= guide.endDate
+    ? section.startDate
+    : "";
+  document.body.classList.add("xp-open");
+  experienceBackdrop.hidden = false;
+  experiencePanel.hidden = false;
+  renderExperiencePanel(guide.id, activeDay);
+  requestAnimationFrame(() => xpCloseBtn.focus());
+}
+
+function closeExperience() {
+  const restore = experienceRestoreFocus;
+  openGuideId = "";
+  experienceRestoreFocus = null;
+  document.body.classList.remove("xp-open");
+  experienceBackdrop.hidden = true;
+  experiencePanel.hidden = true;
+  if (restore?.isConnected) restore.focus();
+}
+
+function renderExperiencePanel(guideId, activeDay = "") {
+  const guide = experiences.find((item) => item.id === guideId);
+  if (!guide) {
+    closeExperience();
+    return;
+  }
+  const guides = monthGuides();
+  xpTitle.textContent = guide.title;
+  xpDates.textContent = formatGuideDates(guide);
+  xpSubtitle.textContent = guide.subtitle || "";
+  xpSubtitle.hidden = !guide.subtitle;
+  if (guides.length > 1) {
+    xpSwitcher.hidden = false;
+    xpSwitcher.innerHTML = guides.map((item) => (
+      `<button type="button" class="xp-switch${item.id === guide.id ? " is-active" : ""}" data-open-guide="${escapeAttr(item.id)}">${escapeHtml(item.title)}</button>`
+    )).join("");
+  } else {
+    xpSwitcher.hidden = true;
+    xpSwitcher.innerHTML = "";
+  }
+  xpNav.innerHTML = renderExperienceNav(guide, { activeDay, guideCount: 1 });
+  xpBody.innerHTML = renderExperienceBody(guide);
+}
+
+function scrollExperienceTo(targetId, activeDay = "") {
+  const dayId = activeDay ? `xp-day-${activeDay}` : targetId;
+  const preferred = dayId
+    ? experiencePanel.querySelector(`.is-shape #${CSS.escape(dayId)}`)
+    : null;
+  const target = preferred
+    || (targetId ? experiencePanel.querySelector(`#${CSS.escape(targetId)}`) : null);
+  if (target) target.scrollIntoView({ block: "start", behavior: "smooth" });
+  if (activeDay) {
+    xpNav.querySelectorAll(".xp-day").forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.xpDay === activeDay);
+    });
+  }
+}
+
+function hydrateExperience(doc) {
+  if (!doc?.rawMarkdown) return doc;
+  try {
+    const parsed = parseExperienceGuide(doc.sourceFilename || `${doc.id}.md`, doc.rawMarkdown);
+    return { ...doc, ...parsed, id: doc.id };
+  } catch {
+    return doc;
+  }
+}
+
+function applyExperiences(list) {
+  experiences = (list || []).map(hydrateExperience);
+  if (openGuideId && !experiences.some((guide) => guide.id === openGuideId)) closeExperience();
+}
+
 function applyPlans(list, { fromCache = false, cachedAt = "" } = {}) {
   plans = (list || []).map(hydratePlan);
   plansById = new Map(plans.map((plan) => [plan.monthId || plan.id, plan]));
@@ -872,6 +1081,34 @@ function readPlanCache(email = readLastUser()) {
     return data;
   } catch {
     return null;
+  }
+}
+
+function experienceCacheKey(email) {
+  return `${EXPERIENCE_CACHE_VERSION}:${email || "local"}`;
+}
+
+function readExperienceCache(email = readLastUser()) {
+  try {
+    const raw = localStorage.getItem(experienceCacheKey(email));
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (!Array.isArray(data?.experiences)) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function writeExperienceCache(email, list) {
+  const payload = { userEmail: email || "", experiences: list, cachedAt: new Date().toISOString() };
+  try {
+    localStorage.setItem(experienceCacheKey(email), JSON.stringify(payload));
+  } catch {
+    const slim = list.map(({ chapters, ...rest }) => rest);
+    try {
+      localStorage.setItem(experienceCacheKey(email), JSON.stringify({ ...payload, experiences: slim }));
+    } catch { /* ignore */ }
   }
 }
 
