@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-07T03:52:23.774812+00:00",
-  "weekLabel": "Week of 7 Sep",
-  "intro": "14 events, 10 food picks, and 14 worth revisiting.",
+  "generatedAt": "2026-09-23T17:19:10.462801+00:00",
+  "weekLabel": "Week of 23 Sep",
+  "intro": "6 events, 7 food picks, and 14 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,7 +12,7 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 249578,
+      "bytes": 277496,
       "itemCount": 9,
       "parser": "rss_items"
     },
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 132394,
-      "itemCount": 9,
+      "bytes": 137192,
+      "itemCount": 10,
       "parser": "hin_events_html"
     },
     {
@@ -48,8 +48,8 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 595630,
-      "itemCount": 5,
+      "bytes": 600446,
+      "itemCount": 1,
       "parser": "smartlocal_cafes_html"
     },
     {
@@ -60,7 +60,7 @@
       "url": "https://georgetownfestival.com/",
       "ok": true,
       "status": 200,
-      "bytes": 148395,
+      "bytes": 148587,
       "itemCount": 4,
       "parser": "gtf_html"
     },
@@ -72,7 +72,7 @@
       "url": "https://georgetownfestival.com/programme/",
       "ok": true,
       "status": 200,
-      "bytes": 172554,
+      "bytes": 172746,
       "itemCount": 6,
       "parser": "gtf_html"
     },
@@ -84,8 +84,8 @@
       "url": "https://smartdory.com/",
       "ok": true,
       "status": 200,
-      "bytes": 87221,
-      "itemCount": 5,
+      "bytes": 88049,
+      "itemCount": 6,
       "parser": "wordpress_home_html"
     },
     {
@@ -96,7 +96,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 73284,
+      "bytes": 74103,
       "itemCount": 0,
       "parser": "chinapress_category_html"
     },
@@ -120,8 +120,8 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 65553,
-      "itemCount": 2,
+      "bytes": 77292,
+      "itemCount": 0,
       "parser": "rss_items"
     },
     {
@@ -132,8 +132,8 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 23764,
-      "itemCount": 2,
+      "bytes": 20058,
+      "itemCount": 1,
       "parser": "rss_items"
     },
     {
@@ -144,147 +144,37 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 208657,
+      "bytes": 209488,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
   ],
   "items": [
     {
-      "id": "event-penang-shorts-film-documentary-festival-94139bed3c",
+      "id": "event-sunway-carnival-mall-marks-mid-autumn-with-moonl-963ff4e271",
       "kind": "event",
-      "title": "Penang Shorts Film & Documentary Festival",
-      "summary": "11 - 13 September 2026 Hin Bus Depot & COEX at Kilang Besi Free entry for all. Seats are limited and registration is required.",
-      "detail": "11 - 13 September 2026 Hin Bus Depot & COEX at Kilang Besi Free entry for all. Seats are limited and registration is required.",
-      "startDate": "2026-09-11",
-      "endDate": "2026-09-13",
-      "dateLabel": "11–13 Sep · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_789973014_18370040062215675_70248.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "http://www.penangshorts.com",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "festival",
-        "culture",
-        "movies"
-      ],
-      "interest": [
-        "festival",
-        "culture",
-        "movies"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-george-town-literary-festival-2026-returns-with--484b9ff0c4",
-      "kind": "event",
-      "title": "George Town Literary Festival 2026 Returns with ‘Cosmopolises’ Theme and International Line-Up",
-      "summary": "The George Town Literary Festival (GTLF), organised by the Penang Institute, has unveiled key programme highlights and its main speaker line-up for its 2026 edition. Themed “Cosmopolises”, the festival will run from 27 t…",
-      "detail": "The George Town Literary Festival (GTLF), organised by the Penang Institute, has unveiled key programme highlights and its main speaker line-up for its 2026 edition. Themed “Cosmopolises”, the festival will run from 27 to 29 November in George Town, Penang, maintaining its role as a premier platform for literary and cultural exchange. Apart from selected […]",
-      "startDate": "2026-11-27",
-      "endDate": "2026-11-29",
-      "dateLabel": "27–29 Nov",
+      "title": "Sunway Carnival Mall marks Mid-Autumn with Moonlit Togetherness celebration",
+      "summary": "Mid-Autumn returns to Seberang Jaya this month, and Sunway Carnival Mall is marking the occasion with a full slate of workshops, performances and festive shopping under the theme Moonlit Togetherness · 月下相聚. The festival…",
+      "detail": "Mid-Autumn returns to Seberang Jaya this month, and Sunway Carnival Mall is marking the occasion with a full slate of workshops, performances and festive shopping under the theme Moonlit Togetherness · 月下相聚. The festival has long centred on family, food and the moon, and this year’s programme leans into all three. Rather than a single […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/pxl_20260805_0324565283812039741537503637.jpg",
-      "sourceUrl": "https://penangtoday.my/art/9030/george-town-literary-festival-2026-returns-with-cosmopolises-theme-and-international-line-up/",
+      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20260905_160330.jpg",
+      "sourceUrl": "https://penangtoday.my/featured/9490/sunway-carnival-mall-marks-mid-autumn-with-moonlit-togetherness-celebration/",
       "sourceName": "PenangToday Events",
       "sourceId": "penangtoday_events",
       "category": "Events",
-      "publishedAt": "Wed, 05 Aug 2026 14:32:04 +0000",
-      "topics": [
-        "festival",
-        "literary",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "literary",
-        "culture"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-gtf-x-asaf-88568f1e7f",
-      "kind": "event",
-      "title": "GTF x ASAF",
-      "summary": "George Town Festival joins hands with Ansan Street Arts Festival (ASAF), one of South Korea’s leading outdoor performing arts festivals, for a vibrant cross-cultural exchange that transforms public spaces into stages for…",
-      "detail": "George Town Festival joins hands with Ansan Street Arts Festival (ASAF), one of South Korea’s leading outdoor performing arts festivals, for a vibrant cross-cultural exchange that transforms public spaces into stages for imagination, connection, and discovery. Bringing together a diverse programme of street theatre, site-specific dance, physical theatre, and non-verbal performance, GTF × ASAF celebrates the power of the performing arts to transcend language and cultural boundaries. From poetic reflections on memory and identity to contemporary reinterpretations of folklore, magical family adventures, and playful encounters in unexpected places, each performance invites audiences to experience the city through fresh perspectives. Presented in public spaces and accessible to audiences of all",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Performance-Photos7.png",
-      "sourceUrl": "https://georgetownfestival.com/programme/gtf-x-asaf/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
-      "category": "Arts",
+      "publishedAt": "Thu, 10 Sep 2026 10:53:22 +0000",
       "topics": [
         "family",
         "festival",
-        "culture"
+        "food"
       ],
       "interest": [
         "family",
         "festival",
-        "culture"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-paya-terubong-fringe-festival-f262cec18b",
-      "kind": "event",
-      "title": "Paya Terubong Fringe Festival",
-      "summary": "Paya Terubong Fringe Festival transforms the neighbourhood into a vibrant open-air stage where the performing arts come alive. Featuring a lively programme of music, rhythm, fire and live performances, the festival invit…",
-      "detail": "Paya Terubong Fringe Festival transforms the neighbourhood into a vibrant open-air stage where the performing arts come alive. Featuring a lively programme of music, rhythm, fire and live performances, the festival invites audiences of all ages to gather, explore, and experience the joy of the arts in the heart of the community.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/09/PTFF_Resize_web-1920x815.48.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/paya-terubong-fringe-festival/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
-      "category": "Arts",
-      "topics": [
-        "family",
-        "festival",
-        "music",
-        "culture"
-      ],
-      "interest": [
-        "family",
-        "festival",
-        "music",
-        "culture"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-six-to-eleven-cdea8f9b86",
-      "kind": "event",
-      "title": "Six to Eleven",
-      "summary": "As the sun begins to set and the city comes alive, “Six to Eleven” transforms the opening weekend of George Town Festival into an evening of music, light, movement, and shared celebration.",
-      "detail": "As the sun begins to set and the city comes alive, “Six to Eleven” transforms the opening weekend of George Town Festival into an evening of music, light, movement, and shared celebration.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Six-to-Eleven-Poster_Resize_web-1920x815.48.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/six-to-eleven/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
-      "category": "Arts",
-      "topics": [
-        "festival",
-        "music",
-        "culture"
-      ],
-      "interest": [
-        "festival",
-        "music",
-        "culture"
+        "food"
       ],
       "interestScore": 100
     },
@@ -312,17 +202,17 @@
       "interestScore": 68
     },
     {
-      "id": "event-the-drawing-room-hin-illustrators-group-exhibiti-d22f2bc5af",
+      "id": "event-playground-01-performance-by-shu-may-dance-compa-71d989be82",
       "kind": "event",
-      "title": "The Drawing Room (Hin Illustrators Group Exhibition)",
-      "summary": "8 - 13 September 2026 Hin Bus Depot Gallery 2:00pm - 5:00pm Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday) Free entry for all!",
-      "detail": "8 - 13 September 2026 Hin Bus Depot Gallery 2:00pm - 5:00pm Viewing hours: 12:00pm-7:00pm (Monday - Friday) 10:00am-7:00pm (Saturday & Sunday) Free entry for all!",
-      "startDate": "2026-09-08",
-      "endDate": "2026-09-13",
-      "dateLabel": "8–13 Sep · Hin Bus Depot",
+      "title": "\"PLAYGROUND 01\" Performance by SHU-MAY Dance Company",
+      "summary": "Sunday 27 September 2026 M Box, Hin Bus Depot 7:15pm Free entry for all. No registration required.",
+      "detail": "Sunday 27 September 2026 M Box, Hin Bus Depot 7:15pm Free entry for all. No registration required.",
+      "startDate": "2026-09-27",
+      "endDate": "2026-09-27",
+      "dateLabel": "27 Sep · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/The%20Drawing%20Room_Hin%20Bus%20Depot.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://hinbusdepot.com/events",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Playground.png/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/shumaydance/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
@@ -335,17 +225,17 @@
       "interestScore": 68
     },
     {
-      "id": "event-cocktail-garden-by-penang-cocktail-week-7a8a60426e",
+      "id": "event-memories-in-analogue-zine-launch-roundtable-disc-2beb8b602c",
       "kind": "event",
-      "title": "Cocktail Garden by Penang Cocktail Week",
-      "summary": "Sunday 20 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 10:00pm Ticketed event. RM38 per person. Entry included ONE drink.",
-      "detail": "Sunday 20 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 10:00pm Ticketed event. RM38 per person. Entry included ONE drink.",
-      "startDate": "2026-09-20",
-      "endDate": "2026-09-20",
-      "dateLabel": "20 Sep · Hin Bus Depot",
+      "title": "'Memories in Analogue' Zine Launch & Roundtable Discussion by Papillon Artelier",
+      "summary": "Sunday 27 September 2026 Hin Bus Depot Gallery 3:00pm Free entry for all. Registration is required.",
+      "detail": "Sunday 27 September 2026 Hin Bus Depot Gallery 3:00pm Free entry for all. Registration is required.",
+      "startDate": "2026-09-27",
+      "endDate": "2026-09-27",
+      "dateLabel": "27 Sep · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_790562781_18039882389820557_44928.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://shop.penangcocktailweek.com/products/pcw-cocktail-garden-2026-at-hin-bus-depot-1",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_809632651_1062183993186252_601873.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://tr.ee/QcTjkiv93S",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
@@ -358,19 +248,19 @@
       "interestScore": 68
     },
     {
-      "id": "event-artisan-ii-678e043915",
+      "id": "event-interconnect-to-disconnect-exhibition-af72869f7a",
       "kind": "event",
-      "title": "Artisan II",
-      "summary": "Step into the forgotten workshops of George Town in “Artisan II” by Low Chee Peng. Inspired by the city’s master craftsmen and the traditional trades that once filled its streets, this immersive exhibition captures the s…",
-      "detail": "Step into the forgotten workshops of George Town in “Artisan II” by Low Chee Peng. Inspired by the city’s master craftsmen and the traditional trades that once filled its streets, this immersive exhibition captures the spirit of artisans whose skills were passed down through generations. As these workshops disappear from the urban landscape, “Artisan II” invites audiences to rediscover the people, places, and heritage that helped shape the soul of George Town.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
+      "title": "Interconnect to Disconnect Exhibition",
+      "summary": "27 September - 10th October, 2026 Hin Bus Depot Viewing hours: 11:00am - 5:00pm (Monday - Friday) 10:00am - 5:00pm (Saturday & Sunday) Free entry for all.",
+      "detail": "27 September - 10th October, 2026 Hin Bus Depot Viewing hours: 11:00am - 5:00pm (Monday - Friday) 10:00am - 5:00pm (Saturday & Sunday) Free entry for all.",
+      "startDate": "2026-09-27",
+      "endDate": "2026-10-10",
+      "dateLabel": "27 Sep – 10 Oct · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/06/GTF2026_ArtisanII_Web_1920x815.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/artisan-ii/",
-      "sourceName": "George Town Festival",
-      "sourceId": "georgetown_festival",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Interconnect_Main%20Poster%20(Edited).png/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/papillon_artelier",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
       "category": "Arts",
       "topics": [
         "culture"
@@ -378,96 +268,7 @@
       "interest": [
         "culture"
       ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-collodion-silver-glass-contemporary-wet-plate-ph-0cf7dd661c",
-      "kind": "event",
-      "title": "Collodion, Silver, Glass: Contemporary Wet Plate Photography",
-      "summary": "Step into the captivating world of “Collodion, Silver, Glass: Contemporary Wet Plate Photography”, where nineteenth-century photographic techniques meet contemporary artistic vision. Featuring the work of Steve Tan (陈兴国)…",
-      "detail": "Step into the captivating world of “Collodion, Silver, Glass: Contemporary Wet Plate Photography”, where nineteenth-century photographic techniques meet contemporary artistic vision. Featuring the work of Steve Tan (陈兴国), Malaysia’s only professional wet plate photographer, this exhibition showcases hauntingly beautiful portraits and still lifes created through a painstaking process that transforms glass, silver, and light into timeless images. Alongside the exhibition, audiences can discover the craftsmanship behind this rare medium through demonstrations and workshops, offering a glimpse into one of photography’s earliest—and most enchanting—forms.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Wet-Plate-Workshop-Photo.jpeg",
-      "sourceUrl": "https://georgetownfestival.com/programme/collodion-silver-glass-contemporary-wet-plate-photography/",
-      "sourceName": "George Town Festival Programme",
-      "sourceId": "georgetown_festival_programme",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-converge-88c22b3033",
-      "kind": "event",
-      "title": "Converge 匯聚",
-      "summary": "Emerging from the earth like a living organism, “Converge” by Taiwanese artist Kuei-Chih Lee transforms Taman Kejiranan Macallum into a space where nature, people, and the city come together. Inspired by George Town’s hi…",
-      "detail": "Emerging from the earth like a living organism, “Converge” by Taiwanese artist Kuei-Chih Lee transforms Taman Kejiranan Macallum into a space where nature, people, and the city come together. Inspired by George Town’s history as a port city shaped by migration and cultural exchange, the large-scale installation reflects on coexistence through five sculptural forms that rise organically from the ground. Intertwining like a growing settlement, the structures merge into a single collective form, echoing the many communities, languages, and traditions that have long flourished in Penang.",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/07/Convergev2_Resize_web-1920x815.48.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/converge-%e5%8c%af%e8%81%9a/",
-      "sourceName": "George Town Festival Programme",
-      "sourceId": "georgetown_festival_programme",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-the-natural-history-museum-of-yeahnahnesia-by-yo-c72ab5e298",
-      "kind": "event",
-      "title": "The Natural History Museum of Yeahnahnesia by Yok and Sheryo",
-      "summary": "Cultprint, Penang hosts “The Natural History Museum of Yeahnahnesia”, presented by artist duo Yok & Sheryo, curated by Deborah Lim, and realised in collaboration with SPUTNIKFOREST. The museum brings together a collectio…",
-      "detail": "Cultprint, Penang hosts “The Natural History Museum of Yeahnahnesia”, presented by artist duo Yok & Sheryo, curated by Deborah Lim, and realised in collaboration with SPUTNIKFOREST. The museum brings together a collection of rare artefacts, specimens and cultural objects—many exhibited publicly for the first time—offering an introduction to the island nation of Yeahnahnesia. Entrusted to the artists by the island’s guardians, these objects reveal its natural history, rituals and traditions, offering insight into a civilisation shaped by balance, playfulness and unhurried living. Visitors are invited to explore the museum’s collections through paintings, sculpture, installation and environmental design, encountering endemic species, ceremonial objects and enduring traditions that reveal the",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "George Town Festival",
-      "area": "George Town",
-      "imageUrl": "https://georgetownfestival.com/wp-content/uploads/2026/05/YokSheryo_The-Natural-History-Museum-of-Yeahnahnesia_Poster_1920x815.48px.jpg",
-      "sourceUrl": "https://georgetownfestival.com/programme/the-natural-history-museum-of-yeahnahnesia-by-yok-and-sheryo/",
-      "sourceName": "George Town Festival Programme",
-      "sourceId": "georgetown_festival_programme",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 62
-    },
-    {
-      "id": "event-penang-international-orchid-show-2026-returns-to-40fd2ca0ae",
-      "kind": "event",
-      "title": "Penang International Orchid Show 2026 Returns To Straits Quay This September",
-      "summary": "The Penang International Orchid Show 2026 returns to Straits Quay from 5 to 13 September, offering nine days of competitive displays, rare blooms, and live judging sessions. The waterfront venue in Tanjung Tokong will ho…",
-      "detail": "The Penang International Orchid Show 2026 returns to Straits Quay from 5 to 13 September, offering nine days of competitive displays, rare blooms, and live judging sessions. The waterfront venue in Tanjung Tokong will host the annual event, which has grown into one of the region’s most anticipated orchid showcases. Organised by the Federation of […]",
-      "startDate": "2026-09-05",
-      "endDate": "2026-09-13",
-      "dateLabel": "Ongoing · until 13 Sep",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/poish-2026-primary.jpeg",
-      "sourceUrl": "https://penangtoday.my/news/9387/penang-international-orchid-show-2026-returns-to-straits-quay-this-september/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Thu, 27 Aug 2026 08:56:20 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 50
+      "interestScore": 68
     },
     {
       "id": "event-two-cars-up-for-grabs-at-love-penang-run-2026-09d9ca185c",
@@ -490,68 +291,52 @@
       "interestScore": 44
     },
     {
-      "id": "food-sembang-selasa-with-hafiz-wina-of-lunasinar-mark-6522d8519d",
+      "id": "food-lunasinar-market-79b2591971",
       "kind": "food",
-      "title": "Sembang Selasa with Hafiz & Wina of LunaSinar Market",
-      "summary": "Tuesday 8 September 2026 Deck, Hin Bus Depot 8:00pm - 9:00pm Free entry for all! *The talk will be livestreamed on Instagram on the day itself, with the recording made available on our feed afterwards for those who are u…",
-      "detail": "Tuesday 8 September 2026 Deck, Hin Bus Depot 8:00pm - 9:00pm Free entry for all! *The talk will be livestreamed on Instagram on the day itself, with the recording made available on our feed afterwards for those who are unable to join the livestream.",
-      "startDate": "2026-09-08",
-      "endDate": "2026-09-08",
-      "dateLabel": "8 Sep · Hin Bus Depot",
+      "title": "LunaSinar Market",
+      "summary": "Saturday 26 September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 26 September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-09-26",
+      "endDate": "2026-09-26",
+      "dateLabel": "26 Sep · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/WF_Sembang%20Selasa%20at%20Hin%20Bus%20Depot%20with%20Luna%20S.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://hinbusdepot.com/events",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_786755312_17959514781189414_43667.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/lunasinarrr/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
     },
     {
-      "id": "food-kung-bros-collectors-market-40cb10e495",
+      "id": "food-grow-community-market-542a66ebb5",
+      "kind": "food",
+      "title": "Grow Community Market",
+      "summary": "Saturday 3 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 3 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-10-03",
+      "endDate": "2026-10-03",
+      "dateLabel": "3 Oct · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_801668031_1713801344079821_792503.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/growcommunitymarket/",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Markets"
+    },
+    {
+      "id": "food-kung-bros-collectors-market-2a87d820de",
       "kind": "food",
       "title": "Kung Bros Collectors Market",
-      "summary": "Saturday 12 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
-      "detail": "Saturday 12 September 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
-      "startDate": "2026-09-12",
-      "endDate": "2026-09-12",
-      "dateLabel": "12 Sep · Hin Bus Depot",
+      "summary": "Saturday 10 October 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 10 October 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-10-10",
+      "endDate": "2026-10-10",
+      "dateLabel": "10 Oct · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_776291669_17970218232129380_70473.jpg/:/rs=w:1095,cg:true,m",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_815138892_17975233590129380_44278.jpg/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://www.instagram.com/kung.bros.collectors.market/?hl=en",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
-    },
-    {
-      "id": "food-the-makers-market-714ecb8312",
-      "kind": "food",
-      "title": "The Makers Market",
-      "summary": "Saturday 19 September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "detail": "Saturday 19 September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "startDate": "2026-09-19",
-      "endDate": "2026-09-19",
-      "dateLabel": "19 Sep · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Makers%20Market_September%202026_Hin%20Bus%20Depot.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/themakersmarket_hin/",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Markets"
-    },
-    {
-      "id": "food-burger-lobster-8ad52a274b",
-      "kind": "food",
-      "title": "Burger & Lobster",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image2-19.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#1_Burger_Lobster",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
     },
     {
       "id": "food-hin-weekend-markets-54f3fd0d38",
@@ -587,68 +372,36 @@
       "publishedAt": "Wed, 02 Sep 2026 10:03:43 +0000"
     },
     {
-      "id": "food-lavender-bakery-d7e612e18f",
+      "id": "food-the-country-loaf-b7958185e7",
       "kind": "food",
-      "title": "Lavender Bakery",
+      "title": "The Country Loaf",
       "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
       "detail": "",
       "startDate": null,
       "endDate": null,
-      "dateLabel": "New opening · August",
+      "dateLabel": "New opening · September",
       "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image6-16.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#3_Lavender_Bakery",
+      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image1-14.png",
+      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#1_The_Country_Loaf",
       "sourceName": "The Smart Local Penang Cafes",
       "sourceId": "smartlocal_cafes",
       "category": "Food"
     },
     {
-      "id": "food-mcna-coffeebar-5e9fe4099c",
+      "id": "food-the-makers-market-a48b97833b",
       "kind": "food",
-      "title": "MCNA Coffeebar",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
+      "title": "The Makers Market",
+      "summary": "Saturday 17September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 17September 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
       "startDate": null,
       "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image7-12.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#5_MCNA_Coffeebar",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
-    },
-    {
-      "id": "food-nami-coffee-727d17da7d",
-      "kind": "food",
-      "title": "Nami Coffee",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image3-14.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#4_Nami_Coffee",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
-    },
-    {
-      "id": "food-zus-signature-coffee-5b79933acd",
-      "kind": "food",
-      "title": "ZUS Signature Coffee",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image5-1-1.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#2_ZUS_Signature_Coffee",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
+      "dateLabel": "Ongoing · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/IG%20Makers%20October_-01.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/themakersmarket_hin/",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Markets"
     },
     {
       "id": "revisit-10-best-bars-speakeasy-you-must-visit-in-penang-d4e5894396",
@@ -715,22 +468,6 @@
       "category": "Food"
     },
     {
-      "id": "revisit-15-best-supper-spots-in-penang-65ca216355",
-      "kind": "revisit",
-      "title": "15 Best Supper Spots In Penang",
-      "summary": "Penang Foodie roundup or review.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://penangfoodie.com/15-best-supper-spots-in-penang/",
-      "sourceName": "Penang Foodie",
-      "sourceId": "penang_foodie",
-      "category": "Food"
-    },
-    {
       "id": "revisit-26-best-cafes-in-penang-that-deserve-a-spot-on-y-8dfada5be5",
       "kind": "revisit",
       "title": "26 Best Cafes In Penang That Deserve A Spot On Your Feed 2026 Edition",
@@ -779,6 +516,22 @@
       "category": "Food"
     },
     {
+      "id": "revisit-ali-bihun-singapore-jelutong-rm2-50-fried-noodle-3e69c41494",
+      "kind": "revisit",
+      "title": "Ali Bihun Singapore Jelutong RM2.50 Fried Noodles in Penang",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2026/09/ali-bihun-singapore-jelutong-penang/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
       "id": "revisit-cake-cafes-penang-551df242c2",
       "kind": "revisit",
       "title": "Cake Cafes Penang",
@@ -811,9 +564,9 @@
       "category": "Food"
     },
     {
-      "id": "revisit-malaya-kopi-penang-at-loke-thye-kee-6d19ed3245",
+      "id": "revisit-hurried-guest-penang-small-bowl-chinese-food-und-70ee43f385",
       "kind": "revisit",
-      "title": "Malaya Kopi Penang at Loke Thye Kee",
+      "title": "Hurried Guest Penang Small Bowl Chinese Food Under RM40",
       "summary": "Local food write-up from SmartDory.",
       "detail": "",
       "startDate": null,
@@ -821,7 +574,23 @@
       "dateLabel": "Worth a revisit · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2026/07/malaya-kopi-penang-at-loke-thye-kee/",
+      "sourceUrl": "https://smartdory.com/2026/09/hurried-guest-penang/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
+      "id": "revisit-new-cafes-in-penang-worth-checking-out-9d2b7cd8f3",
+      "kind": "revisit",
+      "title": "New Cafes in Penang Worth Checking Out",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2026/09/new-cafes-in-penang/",
       "sourceName": "SmartDory",
       "sourceId": "smartdory",
       "category": "Food"
@@ -838,22 +607,6 @@
       "area": "Penang",
       "imageUrl": "",
       "sourceUrl": "https://smartdory.com/2017/06/penang-avatar-secret-garden-night-park/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
-      "id": "revisit-searching-for-the-best-heritage-boutique-hotel-i-ebb9e67206",
-      "kind": "revisit",
-      "title": "Searching for the Best Heritage Boutique Hotel in Penang?",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2026/08/best-heritage-boutique-hotel-in-penang/",
       "sourceName": "SmartDory",
       "sourceId": "smartdory",
       "category": "Food"
@@ -877,10 +630,10 @@
   ],
   "warnings": [
     "fetch failed for mypenang_events (status=404)",
-    "dropped 3 corporate/institutional PR item(s)",
-    "dropped 4 food opening(s) older than ~2 months",
-    "dropped 3 past-tense event recap(s)",
-    "dropped 5 ended dated item(s) (endDate before today)",
+    "dropped 4 corporate/institutional PR item(s)",
+    "dropped 5 food opening(s) older than ~2 months",
+    "dropped 2 past-tense event recap(s)",
+    "dropped 11 ended dated item(s) (endDate before today)",
     "dropped 1 industry/trade event(s) from consumer feed"
   ]
 }

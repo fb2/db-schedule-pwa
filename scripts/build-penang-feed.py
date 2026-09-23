@@ -26,22 +26,24 @@ TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 # Full cross-month/year range: "15 June 2025 - 30 September 2026"
 FULL_DATE_RANGE_RE = re.compile(
-    r"\b(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\s*[–\-]\s*"
-    r"(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\s*[–\-]\s*"
+    r"(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
     re.I,
 )
 # Same-month day range: "25–30 Sep". (?<!\d) avoids "2025 - 30 Sep" → 25–30 Sep.
 DATE_RANGE_RE = re.compile(
-    r"(?<!\d)(\d{1,2})\s*[–\-]\s*(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    r"(?<!\d)(\d{1,2})(?:st|nd|rd|th)?\s*[–\-]\s*(\d{1,2})(?:st|nd|rd|th)?\s+"
+    r"([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
     re.I,
 )
 # "from 1 to 9 August" / "1 to 9 August 2026"
 DATE_RANGE_TO_RE = re.compile(
-    r"\b(?:from\s+)?(\d{1,2})\s+to\s+(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
+    r"\b(?:from\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+to\s+(\d{1,2})(?:st|nd|rd|th)?\s+"
+    r"([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?",
     re.I,
 )
 SINGLE_DATE_RE = re.compile(
-    r"\b(\d{1,2})\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\b",
+    r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3,9})(?:\s*,?\s*(\d{4}))?\b",
     re.I,
 )
 # Past-tense / after-the-fact event write-ups (especially undated RSS recaps).
@@ -146,6 +148,10 @@ PROMO_NOISE_RE = re.compile(
     r"\bappoints?\b[^.]{0,60}\bchef\b|\bnew executive chef\b|"
     r"\bfreehold\b|\bleasehold\b|\bserviced apartments?\b|\bcondominium\b|"
     r"\bproperty launch\b|"
+    r"\blaunches? .{0,60}residences?\b|"
+    r"\bijm land\b|"
+    r"\b\d+\s+take[- ]up\b|"
+    r"\bproperty (?:developer|development)\b|"
     r"(人才计划|人才培育|谅解备忘录)",
     re.I,
 )
@@ -1109,6 +1115,13 @@ def parse_gtf(text: str, source_name: str, source_id: str, page_url: str, defaul
             return
         seen_urls.add(href)
         start, end, label = parse_dates_from_text(title, default_year)
+        if not start:
+            # Programme cards rarely carry dates; use the known GTF window so
+            # ended-festival leftovers drop after 9 Aug instead of sitting in
+            # Happening soon as undated "Date TBA" items.
+            start = f"{default_year}-08-01"
+            end = f"{default_year}-08-09"
+            label = f"1–9 Aug {default_year}"
         items.append(
             {
                 "id": slug_id("event", title, start),

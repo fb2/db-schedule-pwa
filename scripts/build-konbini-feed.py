@@ -192,6 +192,9 @@ PRIORITY_JP_PHRASES = [
     ("パイン 塩パインアメ", "Pine salted pineapple candy"),
     ("具だくさん生姜スープ", "ginger soup with lots of ingredients"),
     ("ファミマ45周年記念！「ファミマとコラボ祭」", "Famima 45th collab"),
+    ("ファミマのおいも収穫祭", "Famima sweet-potato harvest"),
+    ("中華蕎麦とみ田監修", "Chuka Soba Tomita-supervised"),
+    ("お手軽！", "Easy"),
     ("とろ〜り月見", "melty tsukimi"),
     ("ラインソックス", "line socks"),
     ("ショートソックス", "short socks"),
@@ -562,6 +565,7 @@ PHRASE_TRANSLATIONS = {
     "スナック": "snack",
     "ファミマ味": "Famima-flavor",
     "ファミマ": "Famima",
+    "お手軽": "easy",
     "ファミチキ": "Famichiki",
     "サッポロ一番": "Sapporo Ichiban",
     "サンヨー食品": "Sanyo Foods",
@@ -817,7 +821,7 @@ def translate_qualifier_text(text: str) -> str:
     if "監修" in text:
         return qualifier
     # Campaign banners (bonus size, sales, anniversary collabs) are not regional limits.
-    if re.search(r"増量|作戦|キャンペーン|セール|お値段|周年|コラボ祭", text):
+    if re.search(r"増量|作戦|キャンペーン|セール|お値段|周年|コラボ祭|収穫祭", text):
         return qualifier
     return f"{qualifier} regional"
 
@@ -880,6 +884,8 @@ SANITIZE_ENGLISH_PATTERNS = [
     # Half-width / broken tokenizer cases where "latte" drops out.
     (re.compile(r"\bsalt vanilla\b(?!\s+latte\b)", re.I), "salted vanilla latte"),
     (re.compile(r"\bsalted vanilla\b(?!\s+latte\b)(?=\s|$|\d)", re.I), "salted vanilla latte"),
+    (re.compile(r"^\s*!+\s*"), ""),
+    (re.compile(r"\bchicken!\s+chicken\b", re.I), "chicken"),
 ]
 
 
@@ -998,6 +1004,15 @@ PRODUCT_SPECIFIC_NOTES = {
     "とろ〜り月見おにぎり(ベーコン・チーズ・マヨネーズ)": (
         "Tsukimi means a runny egg-yolk topping, the autumn moon-viewing style."
     ),
+    "中華蕎麦とみ田監修 冷し辛豚まぜ麺": (
+        "Chuka Soba Tomita supervises this chilled spicy pork mixed-noodle bowl."
+    ),
+    "ごぼう巻": "An autumn oden ingredient from Lawson's oden counter.",
+    "大きな結び白滝": "An autumn oden ingredient from Lawson's oden counter.",
+    "沖縄厚揚": "An autumn oden ingredient from Lawson's oden counter.",
+    "沖縄風ソーキ": "An autumn oden ingredient from Lawson's oden counter.",
+    "沖縄風テビチ": "An autumn oden ingredient from Lawson's oden counter.",
+    "牛すじ": "An autumn oden ingredient from Lawson's oden counter.",
 }
 
 PRODUCT_SPECIFIC_TITLES = {
@@ -1338,6 +1353,92 @@ PRODUCT_SPECIFIC_TITLES = {
     ),
     # Week of 2026-09-07 — 7-Eleven
     "味付海苔 海老マヨネーズ": "Seasoned-nori rice ball, shrimp mayo",
+    # Week of 2026-09-23 — 7-Eleven
+    "中華蕎麦とみ田監修 冷し辛豚まぜ麺": "Tomita chilled spicy pork maze-men",
+    "鶏の旨み！鶏そぼろごはん（もち麦）": "Chicken soboro rice with mochi barley",
+    "炭火焼き鳥 もも３本・皮２本入り": "Charcoal yakitori, 3 thigh and 2 skin",
+    "肉乗せ炒飯＆焼きそば弁当": "Fried rice with pork and yakisoba bento",
+    "舞茸御飯幕の内 さつまいもかき揚げ": "Maitake rice makunouchi, sweet-potato kakiage",
+    "おでかけ おにぎりランチ": "Takeout rice-ball lunch",
+    "ガーリックオニオンのグリルチキン弁当": "Garlic-onion grilled chicken bento",
+    "味付海苔おにぎり具たっぷりめんたいマヨ": "Seasoned-nori rice ball, extra mentaiko mayo",
+    "枝豆ごはんおむすび（だし飯）": "Edamame rice ball (dashi rice)",
+    "鶏ガラだしのコク 麻婆丼": "Rich chicken-broth mapo rice bowl",
+    "鶏釜めし仕立て（もち麦）": "Chicken kamameshi-style rice with mochi barley",
+    "香ばし野菜のあんかけ中華丼": "Toasted-vegetable an-kake rice bowl",
+    # Week of 2026-09-23 — FamilyMart
+    "お手軽！冷しぶっかけそば": "Easy chilled broth-poured soba",
+    "春日井 グミだよ。ぶどう味": "Kasugai Gumi dayo grape gummies",
+    "にふぉるめーしょん ハイキュー!! シールウエハースvol.2": "Haikyu!! sticker wafers vol.2",
+    "一番くじ アニメ『呪術廻戦』5周年FINAL！": "Ichiban Kuji: Jujutsu Kaisen 5th anniversary",
+    "サンリオキャラクターズ アクリルブローチ クリームinスナックVol.3": (
+        "Sanrio acrylic brooch, cream-in-snack Vol.3"
+    ),
+    "ドン・ルセロ カヴァ ブリュット 750ml": "Don Lucero Cava Brut 750ml",
+    "ベーコンとほうれん草のトマトクリームドリア": "Bacon and spinach tomato-cream doria",
+    "Dr.STONE んまほっぺ マスコットぬいぐるみ": "Dr.STONE mascot plush",
+    "VIS ハートカットポーチ 全2種": "VIS heart-cut pouch, 2 kinds",
+    "VIS ハートカット財布ミニ 全2種": "VIS heart-cut mini wallet, 2 kinds",
+    "Wペッパーつくね串": "Double-pepper tsukune skewer",
+    "【ファミマのおいも収穫祭】おいものカヌレ ～キャラメルソースがけ～": (
+        "Sweet-potato canelé with caramel sauce"
+    ),
+    "【ファミマのおいも収穫祭】さつまいもスティック6本入": "Sweet-potato sticks, 6 pieces",
+    "【ファミマのおいも収穫祭】もっちおいもパン（紅はるか）": (
+        "Chewy sweet-potato bread (Beni Haruka)"
+    ),
+    "【ファミマのおいも収穫祭】キャラメル香るおいものクロワッサン（紅はるか）": (
+        "Caramel sweet-potato croissant (Beni Haruka)"
+    ),
+    "【ファミマのおいも収穫祭】ザクほろシュー（お芋クリーム）": (
+        "Crunchy cream puff with sweet-potato cream"
+    ),
+    "【ファミマのおいも収穫祭】セイワ食品 芋けんぴチョコ": "Seiwa sweet-potato kenpi chocolate",
+    "【ファミマのおいも収穫祭】ピザサンド さつまいもチーズ": (
+        "Pizza sandwich, sweet potato and cheese"
+    ),
+    "【ファミマのおいも収穫祭】マイナット おいもチップス キャラメル味": (
+        "Minato sweet-potato chips, caramel"
+    ),
+    "【ファミマのおいも収穫祭】井村屋 紅はるかの焼いも最中": (
+        "Imuraya Beni Haruka baked-imo monaka"
+    ),
+    "【ファミマのおいも収穫祭】紅はるかのスイートポテトケーキ ～テリーヌ仕立て～": (
+        "Beni Haruka sweet-potato terrine cake"
+    ),
+    "【ファミマのおいも収穫祭】赤城 たべる牧場やきいも": (
+        "Akagi Taberu Bokujou baked sweet-potato ice"
+    ),
+    "【北海道・東北・関東】マイプロテインバナナミルク": "Myprotein banana milk",
+    "【北海道・東海】青磯海苔 海老天むす": "Aoiso nori shrimp-tempura rice ball",
+    "【北陸】煮たまごおむすび（富山ブラック）": "Boiled-egg rice ball (Toyama Black)",
+    "【東海】ごはん280g!デミハンバーグ&から揚げ弁当": (
+        "Large-rice demi hamburg and karaage bento"
+    ),
+    "【東海・北陸】国産豚肉の炭火焼き": "Charcoal-grilled domestic pork",
+    "【東海・北陸】甘辛仕立て！辛みそ鍋": "Sweet-spicy chili-miso hot pot",
+    "【関東の一部・東海】牛乳入りパン（信州産牛乳入りホイップ）": (
+        "Milk bread with Shinshu milk cream"
+    ),
+    "【関東・東海・北陸】たっぷりタルタルチキン南蛮": "Extra-tartar chicken nanban",
+    "【関西】特製濃厚ソースのオムスパ": "Omurice pasta with rich special sauce",
+    "しっかり食感で旨み広がる親鶏の炙り焼き": "Seared mature chicken with firm bite",
+    "しめさば寿司": "Shime-saba sushi",
+    "チキン南蛮巻（タルタルソース入り）": "Chicken nanban roll with tartar",
+    "トルティーヤ ヤンニョムチキンと豚プルコギ": (
+        "Tortilla with yangnyeom chicken and pork bulgogi"
+    ),
+    "ボロネーゼ風ラザニア": "Bolognese-style lasagna",
+    "燻製あい鴨ロース串": "Smoked duck loin skewer",
+    "食物繊維4.1gほうれん草のごま和え": "Spinach goma-ae, 4.1g fiber",
+    "鶏ハツ&キャベツ（塩だれ）": "Chicken hearts and cabbage (salt tare)",
+    # Week of 2026-09-23 — Lawson oden
+    "ごぼう巻": "Burdock roll (oden)",
+    "大きな結び白滝": "Large knotted shirataki (oden)",
+    "沖縄厚揚": "Okinawa-style thick fried tofu (oden)",
+    "沖縄風ソーキ": "Okinawa-style soki spare ribs (oden)",
+    "沖縄風テビチ": "Okinawa-style tebichi pig's trotter (oden)",
+    "牛すじ": "Beef sinew (oden)",
 }
 
 
