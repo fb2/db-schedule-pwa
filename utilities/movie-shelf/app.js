@@ -40,6 +40,19 @@
   let query = "";
   let matchSet = null;
   let mode = "sphere";
+  let anim = readAnim();
+  let flowPhase = 0;
+  let flowFrom = 0;
+  let flowTarget = 0;
+  let flowDur = 48;
+  let flowHits = [];
+  let flowCX = 0;
+  let spotIds = [];
+  let spotMode = "in";
+  let spotMark = 0;
+  let spotAlpha = 0;
+  let spotHits = [];
+  let spotWasIdle = false;
   let state = "idle";
   let selectedIdx = -1;
   let angleY = 0;
@@ -198,7 +211,7 @@
       }
       lastIdle = now;
     }
-    draw();
+    draw(now);
     const keep = spinning || drag;
     if (!keep && state === "done") {
       loopOn = false;
@@ -212,7 +225,377 @@
     ctx.fillRect(x, y, w, h);
   }
 
-  function draw() {
+  function readAnim() {
+    const v = (new URLSearchParams(location.search).get("anim") || "").toLowerCase();
+    if (v === "infinity" || v === "flow" || v === "eight") return "infinity";
+    return "sphere";
+  }
+
+  function writeAnim(next) {
+    const url = new URL(location.href);
+    url.searchParams.set("anim", next);
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  }
+
+  function syncAnimSwitch() {
+    document.getElementById("anim-sphere").classList.toggle("active", anim === "sphere");
+    document.getElementById("anim-infinity").classList.toggle("active", anim === "infinity");
+    document.getElementById("anim-sphere").setAttribute("aria-pressed", anim === "sphere" ? "true" : "false");
+    document.getElementById("anim-infinity").setAttribute("aria-pressed", anim === "infinity" ? "true" : "false");
+  }
+
+  function setAnim(next) {
+    if (next !== "infinity") next = "sphere";
+    if (next === anim && state === "idle") {
+      writeAnim(anim);
+      syncAnimSwitch();
+      return;
+    }
+    anim = next;
+    state = "idle";
+    selectedIdx = -1;
+    detailsEl.classList.remove("open");
+    document.getElementById("trivia").style.opacity = "";
+    pickBtn.disabled = false;
+    writeAnim(anim);
+    syncAnimSwitch();
+    requestDraw();
+  }
+
+  let flowGeo = null;
+  let flowGeoKey = "";
+
+  function flowGeometry(ampX, ampY) {
+    const key = ampX.toFixed(1) + ":" + ampY.toFixed(1);
+    if (flowGeo && flowGeoKey === key) return flowGeo;
+    const steps = 640;
+    const pts = new Array(steps + 1);
+    let total = 0;
+    let prevX = ampX;
+    let prevY = 0;
+    for (let i = 0; i <= steps; i++) {
+      const t = (i / steps) * Math.PI * 2;
+      const x = Math.cos(t) * ampX;
+      const y = Math.sin(2 * t) * ampY;
+      if (i) total += Math.hypot(x - prevX, y - prevY);
+      pts[i] = { x, y, t, depth: (Math.cos(t) + 1) / 2, len: total };
+      prevX = x;
+      prevY = y;
+    }
+    flowGeoKey = key;
+    flowGeo = { pts, total };
+    return flowGeo;
+  }
+
+  function sampleFlow(geo, dist) {
+    const total = geo.total || 1;
+    let d = dist % total;
+    if (d < 0) d += total;
+    const pts = geo.pts;
+    let lo = 0;
+    let hi = pts.length - 1;
+    while (lo < hi - 1) {
+      const mid = (lo + hi) >> 1;
+      if (pts[mid].len < d) lo = mid;
+      else hi = mid;
+    }
+    const a = pts[lo];
+    const b = pts[hi];
+    const span = b.len - a.len || 1;
+    const u = Math.max(0, Math.min(1, (d - a.len) / span));
+    const mag = Math.hypot(b.x - a.x, b.y - a.y) || 1;
+    return {
+      x: a.x + (b.x - a.x) * u,
+      y: a.y + (b.y - a.y) * u,
+      t: a.t + (b.t - a.t) * u,
+      depth: a.depth + (b.depth - a.depth) * u,
+      tx: (b.x - a.x) / mag,
+      ty: (b.y - a.y) / mag,
+    };
+  }
+
+  function mod(a, m) {
+    return ((a % m) + m) % m;
+  }
+
+  function drawField() {
+    if (!n) return;
+    if (state === "idle" && !drag) angleY += 0.0032;
+    const savedCX = viewCX;
+    viewCX = flowCX || W / 2;
+    workPts.set(basePts);
+    rotatePtsX(workPts, IDLE_ANGLE_X);
+    rotatePtsY(workPts, angleY);
+    for (let i = 0; i < n; i++) {
+      sortBuf[i].i = i;
+      sortBuf[i].z = workPts[i * 3 + 2];
+    }
+    sortBuf.sort((a, b) => a.z - b.z);
+    const searching = Boolean(query.trim());
+    for (let s = 0; s < n; s++) {
+      const { i, z } = sortBuf[s];
+      const isMatch = !matchSet || matchSet.has(i);
+      const x = workPts[i * 3];
+      const y = workPts[i * 3 + 1];
+      const { sx, sy, scale } = project(x, y, z);
+      const w = CARD_W * scale * 0.7;
+      const h = CARD_H * scale * 0.7;
+      if (w < 3.5) continue;
+      let alpha = 0.045 + ((z + 1) / 2) * 0.2;
+      if (matchSet && !isMatch) alpha *= 0.12;
+      if (searching && isMatch) alpha = Math.max(alpha, 0.5);
+      ctx.globalAlpha = alpha;
+      const dx = sx - w / 2;
+      const dy = sy - h / 2;
+      if (images[i]) ctx.drawImage(images[i], dx, dy, w, h);
+      else drawPlaceholder(dx, dy, w, h, i);
+    }
+    ctx.globalAlpha = 1;
+    viewCX = savedCX;
+  }
+
+  function drawFlow() {
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, W, H);
+    const pool = filteredIndices();
+    flowHits = [];
+
+    if (state === "idle" && !drag) {
+      flowPhase += 0.012;
+    } else if (state === "seek" || state === "spindown" || state === "fast" || state === "spinup") {
+      spinT++;
+      const progress = Math.min(1, spinT / flowDur);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      flowPhase = flowFrom + (flowTarget - flowFrom) * eased;
+      if (progress >= 1) {
+        flowPhase = flowTarget;
+        state = "done";
+        showDetails(selectedIdx);
+      }
+    }
+
+    const wantCX = state === "done" && W > 720 ? (W - 280) / 2 : W / 2;
+    if (!flowCX) flowCX = wantCX;
+    flowCX += (wantCX - flowCX) * (state === "done" ? 1 : 0.18);
+    drawField();
+    if (!pool.length) return;
+
+    const len = pool.length;
+    const topLimit = 118;
+    const bottomLimit = 188;
+    const usable = Math.max(160, H - topLimit - bottomLimit);
+    const ampY = usable * 0.4;
+    const ampX = Math.min(Math.max(120, W * 0.5 - 72), 460);
+    const cy = topLimit + usable / 2;
+    const geo = flowGeometry(ampX, ampY);
+    const spacing = CARD_W + 10;
+    const count = Math.max(12, Math.round(geo.total / spacing));
+    const scale = geo.total / count;
+    const shift = Math.round(count / 2);
+    const qEdge = Math.floor(flowPhase) - shift;
+    const cards = [];
+
+    for (let k = 0; k < count; k++) {
+      const q = qEdge - k;
+      const arc = mod((flowPhase - q) * scale, geo.total);
+      const p = sampleFlow(geo, arc);
+      cards.push({
+        i: pool[mod(q + count, len)],
+        q,
+        depth: p.depth,
+        weave: Math.sin(p.t),
+        w: CARD_W,
+        h: CARD_H,
+        sx: flowCX + p.x,
+        sy: cy + p.y,
+      });
+    }
+    cards.sort((a, b) => a.weave - b.weave || a.q - b.q);
+
+    for (const c of cards) {
+      const frontPick = state === "done" && c.i === selectedIdx && c.depth > 0.92;
+      if (frontPick) continue;
+      const dx = c.sx - c.w / 2;
+      const dy = c.sy - c.h / 2;
+      ctx.globalAlpha = 0.74 + (c.weave + 1) * 0.13;
+      if (images[c.i]) ctx.drawImage(images[c.i], dx, dy, c.w, c.h);
+      else drawPlaceholder(dx, dy, c.w, c.h, c.i);
+      flowHits.push({ i: c.i, x: dx, y: dy, w: c.w, h: c.h, depth: c.weave });
+    }
+
+    if (state === "done" && selectedIdx >= 0) {
+      const front = cards.reduce((best, c) => (!best || c.depth > best.depth ? c : best), null);
+      if (front) {
+        const w = front.w * 1.04;
+        const h = front.h * 1.04;
+        const dx = front.sx - w / 2;
+        const dy = front.sy - h / 2;
+        ctx.globalAlpha = 1;
+        if (images[front.i]) ctx.drawImage(images[front.i], dx, dy, w, h);
+        else drawPlaceholder(dx, dy, w, h, front.i);
+        ctx.strokeStyle = "#d4a553";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(dx, dy, w, h);
+        flowHits.push({ i: front.i, x: dx, y: dy, w, h, depth: 2 });
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function flyToFlow(idx, roulette) {
+    const pool = filteredIndices();
+    const pos = pool.indexOf(idx);
+    if (pos < 0) return;
+    selectedIdx = idx;
+    pickBtn.disabled = true;
+    detailsEl.classList.remove("open");
+    document.getElementById("trivia").style.opacity = "0";
+    const len = pool.length;
+    const mod = ((flowPhase % len) + len) % len;
+    const at = Math.floor(mod);
+    const frac = mod - at;
+    let forward = pos - at;
+    if (forward < 0) forward += len;
+    let delta = forward - frac;
+    if (!roulette && delta > len / 2) delta -= len;
+    if (roulette) delta += len * (1 + Math.floor(Math.random() * 2));
+    if (Math.abs(delta) < 0.02) {
+      state = "done";
+      showDetails(idx);
+      requestDraw();
+      return;
+    }
+    flowFrom = flowPhase;
+    flowTarget = flowPhase + delta;
+    flowDur = roulette ? Math.min(130, 54 + Math.abs(delta) * 3.2) : Math.max(26, Math.min(64, Math.abs(delta) * 16));
+    state = "seek";
+    spinT = 0;
+    requestDraw();
+  }
+
+  function smoothStep(t) {
+    const x = Math.max(0, Math.min(1, t));
+    return x * x * (3 - 2 * x);
+  }
+
+  function shuffleIds(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+    return a;
+  }
+
+  function pickSpot() {
+    const pool = filteredIndices();
+    let src = pool.filter((i) => spotIds.indexOf(i) === -1);
+    if (src.length < Math.min(3, pool.length)) src = pool;
+    spotIds = shuffleIds(src).slice(0, Math.min(3, src.length));
+  }
+
+  function tickSpot(now) {
+    const idle = state === "idle";
+    if (!idle) {
+      spotWasIdle = false;
+      spotAlpha = 0;
+      spotHits = [];
+      return;
+    }
+    if (!spotWasIdle || !spotIds.length) {
+      spotWasIdle = true;
+      pickSpot();
+      spotMode = "in";
+      spotMark = now;
+      spotAlpha = 0;
+    }
+    const pool = filteredIndices();
+    if (spotIds.some((id) => pool.indexOf(id) === -1)) {
+      pickSpot();
+      spotMode = "in";
+      spotMark = now;
+    }
+    const elapsed = now - spotMark;
+    if (spotMode === "in") {
+      spotAlpha = smoothStep(elapsed / 900);
+      if (elapsed >= 900) {
+        spotAlpha = 1;
+        spotMode = "hold";
+        spotMark = now;
+      }
+    } else if (spotMode === "hold") {
+      spotAlpha = 1;
+      if (elapsed >= 10000) {
+        spotMode = "out";
+        spotMark = now;
+      }
+    } else {
+      spotAlpha = 1 - smoothStep(elapsed / 900);
+      if (elapsed >= 900) {
+        pickSpot();
+        spotMode = "in";
+        spotMark = now;
+        spotAlpha = 0;
+      }
+    }
+  }
+
+  function drawSpot(now) {
+    spotHits = [];
+    if (anim !== "sphere") return;
+    tickSpot(now);
+    if (spotAlpha < 0.02 || !spotIds.length || state !== "idle") return;
+    const count = spotIds.length;
+    const gapRatio = 0.2;
+    let spotW = Math.round(Math.min(118, Math.max(84, Math.min(W, H) * 0.11)));
+    let gap = Math.round(spotW * gapRatio);
+    const maxRow = Math.max(120, W - 64);
+    if (count * spotW + (count - 1) * gap > maxRow) {
+      spotW = Math.floor((maxRow - (count - 1) * gap) / count);
+      gap = Math.round(spotW * gapRatio);
+    }
+    const spotH = Math.round(spotW * (CARD_H / CARD_W));
+    const totalW = count * spotW + (count - 1) * gap;
+    const cx = viewCX || W / 2;
+    const cy = H * 0.47;
+    const xStart = cx - totalW / 2;
+    const y = cy - spotH / 2;
+
+    const grad = ctx.createRadialGradient(cx, cy, spotW * 0.2, cx, cy, totalW * 0.7);
+    grad.addColorStop(0, `rgba(0,0,0,${0.46 * spotAlpha})`);
+    grad.addColorStop(0.6, `rgba(0,0,0,${0.16 * spotAlpha})`);
+    grad.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = grad;
+    ctx.fillRect(cx - totalW, cy - spotH, totalW * 2, spotH * 2);
+
+    for (let k = 0; k < count; k++) {
+      const i = spotIds[k];
+      const x = xStart + k * (spotW + gap);
+      ctx.globalAlpha = spotAlpha;
+      if (images[i]) ctx.drawImage(images[i], x, y, spotW, spotH);
+      else drawPlaceholder(x, y, spotW, spotH, i);
+      spotHits.push({ i, x, y, w: spotW, h: spotH });
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function spotAt(mx, my) {
+    if (anim !== "sphere" || state !== "idle" || spotAlpha < 0.4) return -1;
+    for (let i = spotHits.length - 1; i >= 0; i--) {
+      const c = spotHits[i];
+      if (mx >= c.x && mx <= c.x + c.w && my >= c.y && my <= c.y + c.h) return c.i;
+    }
+    return -1;
+  }
+
+  function draw(now) {
+    if (anim === "infinity") {
+      drawFlow();
+      return;
+    }
     ctx.fillStyle = "#000";
     ctx.fillRect(0, 0, W, H);
 
@@ -332,10 +715,15 @@
       ctx.lineWidth = 2;
       ctx.strokeRect(sx - w / 2, sy - h / 2, w, h);
     }
+    drawSpot(now || performance.now());
     ctx.globalAlpha = 1;
   }
 
   function flyTo(idx, roulette) {
+    if (anim === "infinity") {
+      flyToFlow(idx, roulette);
+      return;
+    }
     if (idx < 0) return;
     if (!roulette && state === "done" && selectedIdx === idx) {
       showDetails(idx);
@@ -397,6 +785,20 @@
   }
 
   function coverAtPointer(mx, my) {
+    if (anim === "infinity") {
+      let hit = -1;
+      let best = -1;
+      for (const c of flowHits) {
+        if (mx < c.x || mx > c.x + c.w || my < c.y || my > c.y + c.h) continue;
+        if (c.depth >= best) {
+          best = c.depth;
+          hit = c.i;
+        }
+      }
+      return hit;
+    }
+    const featured = spotAt(mx, my);
+    if (featured >= 0) return featured;
     let hit = -1;
     let hitZ = Infinity;
     for (let i = 0; i < n; i++) {
@@ -415,12 +817,22 @@
     return hit;
   }
 
-  function openBrowse(indices) {
+  function recentIndices() {
+    const rows = [];
+    for (let i = 0; i < n; i++) if (MOVIES[i].added) rows.push(i);
+    rows.sort((a, b) => {
+      if (MOVIES[a].added !== MOVIES[b].added) return MOVIES[a].added < MOVIES[b].added ? 1 : -1;
+      return MOVIES[a].t.localeCompare(MOVIES[b].t);
+    });
+    return rows;
+  }
+
+  function openBrowse(indices, heading) {
     mode = "browse";
     loopOn = false;
     detailsEl.classList.remove("open");
     const list = indices || visiblePool();
-    browseMeta.textContent = list.length === 1 ? "1 disc" : `${list.length} discs`;
+    browseMeta.textContent = heading || (list.length === 1 ? "1 disc" : `${list.length} discs`);
     browseTrack.replaceChildren();
     const frag = document.createDocumentFragment();
     for (const i of list) {
@@ -602,10 +1014,27 @@
     requestDraw();
   });
   canvas.addEventListener("pointermove", (e) => {
-    if (!drag) return;
+    if (!drag) {
+      canvas.style.cursor =
+        anim === "sphere" && spotAt(e.clientX, e.clientY) >= 0 ? "pointer" : "";
+      return;
+    }
     const dx = e.clientX - lastMX;
     const dy = e.clientY - lastMY;
     if (Math.abs(dx) + Math.abs(dy) > 3) moved = true;
+    if (anim === "infinity") {
+      if (state === "done") {
+        detailsEl.classList.remove("open");
+        document.getElementById("trivia").style.opacity = "";
+        state = "idle";
+        selectedIdx = -1;
+        pickBtn.disabled = false;
+      }
+      flowPhase -= dx * 0.012;
+      lastMX = e.clientX;
+      lastMY = e.clientY;
+      return;
+    }
     angleY += dx * 0.005;
     angleX += dy * 0.005;
     angleX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, angleX));
@@ -626,9 +1055,17 @@
     drag = false;
   });
 
+  document.getElementById("anim-sphere").addEventListener("click", () => setAnim("sphere"));
+  document.getElementById("anim-infinity").addEventListener("click", () => setAnim("infinity"));
+
   pickBtn.addEventListener("click", pickFilm);
   document.getElementById("btn-again").addEventListener("click", closeDetails);
   document.getElementById("btn-browse").addEventListener("click", () => openBrowse());
+  document.getElementById("btn-recent").addEventListener("click", () => {
+    const list = recentIndices();
+    const count = list.length === 1 ? "1 disc" : `${list.length} discs`;
+    openBrowse(list, list.length ? `Recently added · ${count}` : "Recently added");
+  });
   document.getElementById("browse-close").addEventListener("click", closeBrowse);
   searchEl.addEventListener("input", onSearch);
   searchEl.addEventListener("keydown", (e) => {
@@ -846,6 +1283,7 @@
   }
 
   buildChips();
+  syncAnimSwitch();
   resize();
   requestDraw();
   loadPosters();

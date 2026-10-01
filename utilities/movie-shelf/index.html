@@ -20,7 +20,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./icon.svg" />
-    <link rel="stylesheet" href="./styles.css?v=9" />
+    <link rel="stylesheet" href="./styles.css?v=18" />
     <title>Movie Shelf</title>
   </head>
   <body>
@@ -38,6 +38,10 @@
     </header>
 
     <div id="title-bar"><h1>Film Collection</h1></div>
+    <div id="anim-switch" role="group" aria-label="Animation">
+      <button id="anim-sphere" type="button">Sphere</button>
+      <button id="anim-infinity" type="button">Infinity</button>
+    </div>
     <div id="loading">
       <div class="spinner"></div>
       <span id="loading-msg">Loading posters…</span>
@@ -46,13 +50,14 @@
     <div id="browse" hidden>
       <div id="browse-meta"></div>
       <div id="browse-track"></div>
-      <button id="browse-close" type="button">Back to sphere</button>
+      <button id="browse-close" type="button">Back</button>
     </div>
 
     <div id="trivia"><div id="trivia-text"></div></div>
 
     <div id="actions">
       <button id="btn-browse" type="button">Browse</button>
+      <button id="btn-recent" type="button">Recent</button>
       <button id="btn-pick" type="button">Pick a film</button>
       <button id="quiz-btn" type="button">Quiz</button>
     </div>
@@ -136,9 +141,9 @@
       </div>
     </div>
 
-    <script src="./movies.js?v=9"></script>
-    <script src="./trivia.js?v=9"></script>
-    <script src="./quiz.js?v=9" onerror="window.QUIZ_QUESTIONS=null"></script>
-    <script src="./app.js?v=9"></script>
+    <script src="./movies.js?v=18"></script>
+    <script src="./trivia.js?v=18"></script>
+    <script src="./quiz.js?v=18" onerror="window.QUIZ_QUESTIONS=null"></script>
+    <script src="./app.js?v=18"></script>
   </body>
 </html>

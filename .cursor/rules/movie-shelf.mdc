@@ -1,0 +1,28 @@
+---
+description: Movie Shelf is the only film collection app. New discs and location moves go there, then to Firebase Hosting.
+alwaysApply: true
+---
+
+# Movie Shelf
+
+The film collection lives only in `utilities/movie-shelf/`, online at `https://fb-personal-utilities.web.app/utilities/movie-shelf/`.
+
+`MovieCollection/` (`movie-randomizer.html`, `movie-collection.md`, `shelf-taxonomy.md`) is an older prototype. Do not add discs, change locations, or add features there.
+
+Catalogue source is `utilities/movie-shelf/collection.json`. After any catalogue edit, rebuild with `python3 scripts/build-movie-shelf.py`. The local CMS is `python3 scripts/movie-shelf-editor/server.py` (http://127.0.0.1:8766/).
+
+## Move a disc
+
+Change `home` on the existing movie (`hk` = Hong Kong · Coral Court, `penang` = Penang · Tanjung Bungah). Do not add a second copy. Leave `added` unset. A move is not a new disc.
+
+## Add a new disc
+
+Add one object to `collection.json` (or use the CMS). Include title, year, Letterboxd URL, `home`, poster, and `added` as `YYYY-MM-DD` (the day it joined the collection). Dated discs show under **Recent** on the shelf. The CMS stamps `added` automatically.
+
+## Publish
+
+A catalogue or shell edit is unfinished until the live site shows it. Writing files, or writing this rule, is not publishing.
+
+In the same turn, deploy `npx firebase-tools deploy --only hosting:main`, then fetch `https://fb-personal-utilities.web.app/utilities/movie-shelf/` (and `movies.js` for a disc or a move) and confirm the change is there. If deploy is blocked pending approval, request that approval in the same turn. Do not end the turn with only a local copy.
+
+Posters are gitignored, so GitHub Pages is not the live shelf. Shell changes still bump `CACHE_NAME` in `utilities/movie-shelf/sw.js` and the `?v=` query strings in `index.html`. An already-open or installed copy can keep the previous page until it is fully closed and reopened.

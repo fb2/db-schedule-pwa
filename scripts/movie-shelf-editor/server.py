@@ -10,6 +10,7 @@ No git commit, no email/author metadata.
 
 from __future__ import annotations
 
+import datetime
 import json
 import os
 import pathlib
@@ -344,6 +345,7 @@ class Handler(BaseHTTPRequestHandler):
                         "l": letterboxd,
                         "poster": poster,
                         "kind": "disc",
+                        "added": datetime.date.today().isoformat(),
                     }
                 )
                 def sort_key(movie: dict) -> tuple:

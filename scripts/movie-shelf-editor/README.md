@@ -28,7 +28,7 @@ Open http://127.0.0.1:8766/
 | Action | Effect |
 | --- | --- |
 | **Save homes** | Writes `utilities/movie-shelf/collection.json` and regenerates `movies.js` |
-| **Add film** | Appends a disc, fetches a TMDB poster to gitignored `posters/` |
+| **Add film** | Appends a disc with today's `added` date, fetches a TMDB poster to gitignored `posters/`. Dated discs show under Recent on the shelf. |
 | **Deploy** | `npx firebase-tools deploy --only hosting` — uploads shell + posters from disk. No git commit. |
 
 Local preview: `python3 -m http.server 5173` then `/utilities/movie-shelf/`.
