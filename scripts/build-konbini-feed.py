@@ -143,6 +143,10 @@ CATEGORY_TRANSLATIONS = {
     "中国・四国限定 おむすび": "Chugoku/Shikoku-only rice ball",
     "関東限定 お弁当": "Kanto-only bento",
     "東海限定 お弁当": "Tokai-only bento",
+    "加工食品": "Processed food",
+    "冷凍食品": "Frozen food",
+    "お酒": "Alcohol",
+    "スキンケア・コスメ": "Skincare and cosmetics",
 }
 # Longer phrases first; applied before PHRASE_TRANSLATIONS (see translate_japanese_text).
 PRIORITY_JP_PHRASES = [
@@ -342,6 +346,13 @@ PHRASE_TRANSLATIONS = {
     "沖縄": "Okinawa",
     "全国": "Nationwide",
     "ゴディバ": "GODIVA",
+    "ショコラテリーヌ": "chocolate terrine",
+    "ショコラ": "chocolate",
+    "どらもっち": "doramocchi",
+    "まぐろたたき": "minced tuna",
+    "クリームチーズ": "cream cheese",
+    "チェダーチーズ": "cheddar",
+    "鴨だし": "duck dashi",
     "森半": "Morihan",
     "八天堂": "Hattendo",
     "天下一品": "Tenkaippin",
@@ -1013,6 +1024,25 @@ PRODUCT_SPECIFIC_NOTES = {
     "沖縄風ソーキ": "An autumn oden ingredient from Lawson's oden counter.",
     "沖縄風テビチ": "An autumn oden ingredient from Lawson's oden counter.",
     "牛すじ": "An autumn oden ingredient from Lawson's oden counter.",
+    # Week of 2026-10-17
+    "Uchi Café×ゴディバ どらもっち ショコラ&ショコラ": (
+        "GODIVA-supervised doramocchi with two layers: fresh chocolate paste and chocolate cream."
+    ),
+    "【東京都の一部・神奈川県の一部】国産鶏むね肉とゆで玉子のトーストサンド クリームチーズソースとチェダーチーズ": (
+        "Sold only in parts of central Tokyo and central Yokohama and Kawasaki, not all of Kanto."
+    ),
+    "【静岡県の一部】直巻 焼津港水揚げまぐろ まぐろたたき": (
+        "Tuna landed at Yaizu port. FamilyMart lists the sales area as Kanto, and it is not sold in western Shizuoka."
+    ),
+    "オーベルジーヌ監修 チキン焼カレー": (
+        "Supervised by the Aubergine restaurant; the name is the restaurant, not the vegetable."
+    ),
+    "笠原将弘シェフ監修 つくねと野菜の和風甘酢あん": (
+        "Tsukune is a chicken meatball. Chef Masahiro Kasahara supervises this one, with vegetables in a Japanese sweet-vinegar sauce."
+    ),
+    "サクッと!からあげクン じゃがりこ明太チーズもんじゃ味": (
+        "Karaage-kun is Lawson's fried chicken, here in Calbee Jagariko's mentaiko-cheese monjayaki flavor."
+    ),
 }
 
 PRODUCT_SPECIFIC_TITLES = {
@@ -1439,6 +1469,25 @@ PRODUCT_SPECIFIC_TITLES = {
     "沖縄風ソーキ": "Okinawa-style soki spare ribs (oden)",
     "沖縄風テビチ": "Okinawa-style tebichi pig's trotter (oden)",
     "牛すじ": "Beef sinew (oden)",
+    # Week of 2026-10-17 — chain leaders and repeated-word titles
+    "Uchi Café×ゴディバ どらもっち ショコラ&ショコラ": "Uchi Café x GODIVA chocolate doramocchi",
+    "Uchi Café×ゴディバ ショコラテリーヌクレープ": "Uchi Café x GODIVA chocolate terrine crepe",
+    "Uchi Café×ゴディバ ショコラパフェ": "Uchi Café x GODIVA chocolate parfait",
+    "【関東】らぁ麺Q監修 至高の一杯冷し煮干し醤油らぁ麺": "Raamen Q chilled niboshi-shoyu ramen",
+    "【東京都の一部・神奈川県の一部】国産鶏むね肉とゆで玉子のトーストサンド クリームチーズソースとチェダーチーズ": (
+        "Chicken and egg toast sandwich with cream cheese and cheddar"
+    ),
+    "【静岡県の一部】直巻 焼津港水揚げまぐろ まぐろたたき": "Hand-rolled Yaizu tuna with minced tuna",
+    "だしの旨み鴨だしそば 大盛": "Large duck-dashi soba",
+    "きまぐれクック監修 小海老ごはんの海老マヨネーズ": "Kimagure Cook shrimp-rice with shrimp mayonnaise",
+    "きまぐれクック監修 手巻寿司ごろっとまぐろのねぎとろ": "Kimagure Cook tuna negitoro hand roll",
+    "きまぐれクック監修 青いホイップのフルーツサンド": "Kimagure Cook fruit sandwich with blue whipped cream",
+    "オーベルジーヌ監修 チキン焼カレー": "Aubergine chicken yaki curry",
+    "笠原将弘シェフ監修 つくねと野菜の和風甘酢あん": "Chef Kasahara tsukune with Japanese sweet-vinegar sauce",
+    "プロテインバー チョコレート味": "Chocolate protein bar",
+    "ロイヤルミルクコーヒー": "Royal milk coffee",
+    "サクッと!からあげクン じゃがりこ明太チーズもんじゃ味": "Karaage-kun Jagariko mentaiko-cheese monjayaki",
+    "チョコとマカダミアのソフトクッキー": "Chocolate macadamia soft cookie",
 }
 
 
@@ -2035,6 +2084,18 @@ def parse_setusoku_bogo_context(
     return context_entries, offer_entries, warnings
 
 
+# FamilyMart writes "nationwide" by listing every sales area instead of 全国.
+NATIONWIDE_REGION_MARKERS = {"北海道", "東北", "関東", "東海", "北陸", "関西", "中国・四国", "九州", "沖縄"}
+
+
+def is_effectively_nationwide(regions_ja: list[str]) -> bool:
+    if not regions_ja:
+        return False
+    if "全国" in regions_ja:
+        return True
+    return NATIONWIDE_REGION_MARKERS.issubset(set(regions_ja))
+
+
 def tag_product(product: dict[str, Any], _keyword_contexts: dict[str, str]) -> None:
     text = f"{product['nameJa']} {product.get('categoryJa', '')} {' '.join(product.get('regionsJa', []))}"
     tags = set(product.get("tags", []))
@@ -2050,7 +2111,7 @@ def tag_product(product: dict[str, Any], _keyword_contexts: dict[str, str]) -> N
         tags.add("renewal")
     if any(token in text for token in ("一番くじ", "ソックス", "ウエハース", "玩具", "グッズ", "イタジャガ", "わっふれーむ")):
         tags.add("merch")
-    if product.get("regionsJa") and "全国" not in product["regionsJa"]:
+    if product.get("regionsJa") and not is_effectively_nationwide(product["regionsJa"]):
         tags.add("regional")
     for signal in product.get("localSignals", []):
         if signal.get("dealTag"):
@@ -2195,7 +2256,7 @@ def score_product(product: dict[str, Any], today: dt.date) -> None:
         score += min(12, 4 * len(product["localSignals"]))
         reasons.append("mentioned by Japanese local/context source")
 
-    if product.get("regionsJa") == ["全国"]:
+    if is_effectively_nationwide(product.get("regionsJa") or []):
         score += 4
         reasons.append("national availability")
 

@@ -118,7 +118,7 @@ REVIEW_HINTS = re.compile(
 )
 NOISE_FOOD = re.compile(
     r"\b(closure|hygiene|violation|gazettes|tourism chief|missing|4d|magnum|grant|privacy policy|"
-    r"itinerary|shenzhen|massage chair)\b",
+    r"itinerary|shenzhen|massage chair|cooking show)\b",
     re.I,
 )
 EVENT_HINTS = re.compile(
@@ -152,7 +152,8 @@ PROMO_NOISE_RE = re.compile(
     r"\bijm land\b|"
     r"\b\d+\s+take[- ]up\b|"
     r"\bproperty (?:developer|development)\b|"
-    r"(人才计划|人才培育|谅解备忘录)",
+    r"(人才计划|人才培育|谅解备忘录)|"
+    r"\bchest hair\b|\bself-service plate\b|\bplate return\b|创刊",
     re.I,
 )
 EVENT_NEWS_NOISE_RE = re.compile(
@@ -162,10 +163,11 @@ EVENT_NEWS_NOISE_RE = re.compile(
     r"medal haul|double-gold|tourism (?:roadshow|road show)|"
     r"ultimate .+ events list|events list september|"
     r"gets citizenship|citizenship programme|motorcycle oil|"
-    r"peka b40|hari buletin"
+    r"peka b40|hari buletin|"
+    r"coachbuild|project nightingale"
     r")\b|"
     r"(旅游路演|旅游推介|率团赴|免费更换摩托车机油|更换摩托车机油|"
-    r"潮商杯)",
+    r"潮商杯|首长杯)",
     re.I,
 )
 # Consumer-facing interests to surface near the top of Happening soon.
@@ -1298,6 +1300,14 @@ def parse_chinapress_category(
             alt = re.search(r'alt="([^"]+)"', inner, re.I)
             title = clean_text(alt.group(1) if alt else "")
         if len(title) < 6 or href in seen:
+            continue
+        # Category chrome leaks politics and admin. Keep food, reviews, and events.
+        if not (
+            FOOD_HINTS.search(title)
+            or REVIEW_HINTS.search(title)
+            or OPENING_HINTS.search(title)
+            or EVENT_HINTS.search(title)
+        ):
             continue
         published = None
         if len(ymd) == 8 and ymd.isdigit():
