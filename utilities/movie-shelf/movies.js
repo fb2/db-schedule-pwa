@@ -537,6 +537,16 @@ window.MOVIES = [
     "kind": "disc"
   },
   {
+    "id": "danger-diabolik-4k-1968",
+    "t": "Danger: Diabolik (4K)",
+    "y": 1968,
+    "home": "penang",
+    "l": "https://letterboxd.com/film/danger-diabolik/",
+    "poster": "danger-diabolik-4k-1968.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
+  },
+  {
     "id": "dark-angel-1990",
     "t": "Dark Angel",
     "y": 1990,
@@ -1592,6 +1602,26 @@ window.MOVIES = [
     "kind": "disc"
   },
   {
+    "id": "nemesis-1992",
+    "t": "Nemesis",
+    "y": 1992,
+    "home": "penang",
+    "l": "https://letterboxd.com/film/nemesis/",
+    "poster": "nemesis-1992.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "nemesis-2-3-4-1995",
+    "t": "Nemesis 2, 3, 4",
+    "y": 1995,
+    "home": "penang",
+    "l": "https://letterboxd.com/film/nemesis-2-nebula/",
+    "poster": "nemesis-2-3-4-1995.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
+  },
+  {
     "id": "neon-city-1991",
     "t": "Neon City",
     "y": 1991,
@@ -1779,6 +1809,16 @@ window.MOVIES = [
     "l": "https://letterboxd.com/film/paris-texas/",
     "poster": "paris-texas-1984.jpg",
     "kind": "disc"
+  },
+  {
+    "id": "payback-1999",
+    "t": "Payback",
+    "y": 1999,
+    "home": "penang",
+    "l": "https://letterboxd.com/film/payback/",
+    "poster": "payback-1999.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
   },
   {
     "id": "perfect-days-2023",
@@ -2159,6 +2199,16 @@ window.MOVIES = [
     "kind": "disc"
   },
   {
+    "id": "soylent-green-1973",
+    "t": "Soylent Green",
+    "y": 1973,
+    "home": "penang",
+    "l": "https://letterboxd.com/film/soylent-green/",
+    "poster": "soylent-green-1973.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
+  },
+  {
     "id": "spawn-1997",
     "t": "Spawn",
     "y": 1997,
@@ -2311,6 +2361,16 @@ window.MOVIES = [
     "l": "https://letterboxd.com/film/tenet/",
     "poster": "tenet-2020.jpg",
     "kind": "disc"
+  },
+  {
+    "id": "tequila-sunrise-1988",
+    "t": "Tequila Sunrise",
+    "y": 1988,
+    "home": "hk",
+    "l": "https://letterboxd.com/film/tequila-sunrise/",
+    "poster": "tequila-sunrise-1988.jpg",
+    "kind": "disc",
+    "added": "2026-10-17"
   },
   {
     "id": "the-terminator-1984",
