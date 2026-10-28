@@ -914,7 +914,7 @@ MAX_PRODUCT_TITLE_CHARS = 60
 
 # Product names that are category-sized English tokens (misleading when JP title is specific).
 _GENERIC_TITLE_BODY_RE = re.compile(
-    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?|rice ball|salt)$",
+    r"^(?:salad|snack|desserts?|bread|item|sandwich|pasta|ramen|udon|soba|donuts?|coffee|cake|curry|noodles?|noodle|bento|sushi|drinks?|rice ball|salt|supervised|soup|shrimp|chicken|beef|pork|burger|daifuku|dashi)$",
     re.IGNORECASE,
 )
 _GENERIC_TITLE_WITH_NUMBER_RE = re.compile(
@@ -1488,6 +1488,48 @@ PRODUCT_SPECIFIC_TITLES = {
     "ロイヤルミルクコーヒー": "Royal milk coffee",
     "サクッと!からあげクン じゃがりこ明太チーズもんじゃ味": "Karaage-kun Jagariko mentaiko-cheese monjayaki",
     "チョコとマカダミアのソフトクッキー": "Chocolate macadamia soft cookie",
+    # Week of 2026-10-28 — chain leaders and titles the glossary collapsed
+    "Uchi Café×ゴディバ もち食感ロール ドゥーブルショコラ 4個入": (
+        "Uchi Café x GODIVA double-chocolate mochi roll, 4 pieces"
+    ),
+    "Uchi Café×ゴディバ ショコラクッキーシュー": "Uchi Café x GODIVA chocolate cookie choux",
+    "Uchi Café×ゴディバ ショコラロールケーキ": "Uchi Café x GODIVA chocolate roll cake",
+    "飯田商店監修 飯田将太のチャーシュー麺": "Iida Shoten supervised Shota Iida chashu noodles",
+    "天ぷらあら木監修 天まき": "Tempura Araki supervised tempura roll",
+    "Afternoon Tea監修 黒糖ロイヤルミルクティー 370g": "Afternoon Tea brown-sugar royal milk tea 370g",
+    "ドズル社×はぴだんぶい ぬいぐるみヘアゴム": "Dozle x Hapidanbui plush hair tie",
+    "ドズル社×はぴだんぶい アクリルカラビナA": "Dozle x Hapidanbui acrylic carabiner A",
+    "ドズル社×はぴだんぶい アクリルカラビナB": "Dozle x Hapidanbui acrylic carabiner B",
+    "ドズル社×はぴだんぶい アクリルスタンド": "Dozle x Hapidanbui acrylic stand",
+    "ドズル社×はぴだんぶい ポテトスティック": "Dozle x Hapidanbui potato stick",
+    "きまぐれクック監修 お好み焼 カンジャンケジャン風ソース": (
+        "Kimagure Cook okonomiyaki with ganjang-gejang-style sauce"
+    ),
+    "日清食品 きまぐれクック監修 鯛だし醤油らぁ麺": "Nissin Kimagure Cook sea-bream dashi shoyu ramen",
+    "魁力屋監修 京都背脂醤油ラーメン": "Kairikiya supervised Kyoto back-fat shoyu ramen",
+    "ラーメンＷａｌｋｅｒ監修 博多豚骨×札幌味噌ラーメン": "Ramen Walker Hakata tonkotsu x Sapporo miso ramen",
+    "冷やして食べるくりーむ大福 カスタード": "Chilled custard cream daifuku",
+    "春日井 つぶグミサンダー": "Kasugai Tsubugumi Thunder gummies",
+    "スイートポテト蒸しケーキ 4個入": "Sweet-potato steamed cake, 4 pieces",
+    "ミニいなり寿司5ヶ入": "Mini inari sushi, 5 pieces",
+    "国産親鳥の炭火焼（柚子こしょう付）": "Charcoal-grilled domestic chicken with yuzu kosho",
+    "にゅ～!たまごっちフレンズ": "Nyu! Tamagotchi Friends",
+    "ミルフィーユチキンカツ": "Mille-feuille chicken katsu",
+    "リュウジの至高のレシピ とろたま牛すきまん": "Ryuji's recipe beef sukiyaki bun with soft egg",
+    "リュウジの至高のレシピ ニラだれ鶏": "Ryuji's recipe chicken with garlic-chive sauce",
+    "リュウジの至高のレシピ 辛旨チゲスープ": "Ryuji's recipe spicy chige soup",
+    "コーンスープ": "Corn soup",
+    "海老のビスク風": "Shrimp bisque-style soup",
+    "カンロ ノンシュガースーパーメントールのど飴 57g": "Kanro sugar-free super menthol throat candy 57g",
+    "サッポロ 小悪魔グレフルサワー 350ml": "Sapporo Koakuma grapefruit sour 350ml",
+    "サッポロ 小悪魔グレフルサワー 500ml": "Sapporo Koakuma grapefruit sour 500ml",
+    "ドカ盛コンボ! デミカツカレーピラフ&ナポリタン": "Large combo: demi-katsu curry pilaf and napolitan",
+    "バタースコッチバーガー": "Butterscotch burger",
+    "栗大福": "Chestnut daifuku",
+    "甘旨!豚角煮": "Pork kakuni",
+    "飲むおだし": "Drinkable dashi",
+    "直火炙り焼豚と香ばし炒めのチャーハン": "Grilled chashu fried rice",
+    "鶏めし御飯幕の内": "Chicken-rice makunouchi bento",
 }
 
 
@@ -2749,6 +2791,12 @@ def main() -> int:
             warnings.extend(parser_warnings)
         elif source["parser"] == "lawson_weekly":
             lawson_weekly_html = decode_html(raw_path)
+            for snap in manifest.get("lawsonListSnapshots") or []:
+                if not snap.get("ok"):
+                    continue
+                extra_path = ROOT / (snap.get("rawPath") or "")
+                if extra_path.is_file():
+                    lawson_weekly_html += "\n" + decode_html(extra_path)
             parsed, parser_warnings = parse_lawson(lawson_weekly_html, parser.events, source, today)
             source_summary["productCount"] = len(parsed)
             products.extend(parsed)

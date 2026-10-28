@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-17T10:28:53.559720+00:00",
-  "weekLabel": "Week of 17 Oct",
-  "intro": "5 events, 10 food picks, and 14 worth revisiting.",
+  "generatedAt": "2026-10-28T01:28:16.397161+00:00",
+  "weekLabel": "Week of 28 Oct",
+  "intro": "13 events, 13 food picks, and 14 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,7 +12,7 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 11837,
+      "bytes": 11782,
       "itemCount": 10,
       "parser": "rss_items"
     },
@@ -24,8 +24,8 @@
       "url": "https://penangtoday.my/topic/food/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 11758,
-      "itemCount": 7,
+      "bytes": 11723,
+      "itemCount": 9,
       "parser": "rss_items"
     },
     {
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 138810,
-      "itemCount": 10,
+      "bytes": 132961,
+      "itemCount": 9,
       "parser": "hin_events_html"
     },
     {
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 600657,
+      "bytes": 600283,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -84,7 +84,7 @@
       "url": "https://smartdory.com/",
       "ok": true,
       "status": 200,
-      "bytes": 88005,
+      "bytes": 92726,
       "itemCount": 6,
       "parser": "wordpress_home_html"
     },
@@ -96,7 +96,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 75473,
+      "bytes": 75456,
       "itemCount": 0,
       "parser": "chinapress_category_html"
     },
@@ -120,8 +120,8 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 73825,
-      "itemCount": 0,
+      "bytes": 67098,
+      "itemCount": 4,
       "parser": "rss_items"
     },
     {
@@ -132,8 +132,8 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 27244,
-      "itemCount": 2,
+      "bytes": 22871,
+      "itemCount": 3,
       "parser": "rss_items"
     },
     {
@@ -144,7 +144,7 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 209115,
+      "bytes": 209212,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
@@ -179,11 +179,88 @@
       "interestScore": 100
     },
     {
+      "id": "event-screening-palestine-cinema-days-eb27fb3c19",
+      "kind": "event",
+      "title": "[Screening] Palestine Cinema Days",
+      "summary": "Monday 2 November 2026 Deck, Hin Bus Depot 8:00pm - 10:00pm Free entry for all!",
+      "detail": "Monday 2 November 2026 Deck, Hin Bus Depot 8:00pm - 10:00pm Free entry for all!",
+      "startDate": "2026-11-02",
+      "endDate": "2026-11-02",
+      "dateLabel": "2 Nov · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_844759027_18376108558215675_42156.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdhkfdp36JEhxzuUT62ILO8trWPHi19TV9WjZlKjBKMmKIoEQ/viewform",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture",
+        "movies"
+      ],
+      "interest": [
+        "culture",
+        "movies"
+      ],
+      "interestScore": 88
+    },
+    {
+      "id": "event-gurney-plaza-brings-deepavali-in-splendour-celeb-e1ec7a4763",
+      "kind": "event",
+      "title": "Gurney Plaza brings Deepavali in Splendour celebration",
+      "summary": "Penang’s popular shopping mall, Gurney Plaza launched its “Deepavali in Splendour” promotion at its main atrium with colourful traditional dance performance against a backdrop of their vibrant festive decorations. At the…",
+      "detail": "Penang’s popular shopping mall, Gurney Plaza launched its “Deepavali in Splendour” promotion at its main atrium with colourful traditional dance performance against a backdrop of their vibrant festive decorations. At the heart of the festive decoration is a magnificent peacock illuminated with neon lights perched in a graceful posture. As the festive mood and music took […] The post Gurney Plaza brings Deepavali in Splendour celebration appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/10/G-2-1.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/gurney-plaza-brings-deepavali-in-splendour-celebration/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Sat, 24 Oct 2026 13:18:34 +0000",
+      "topics": [
+        "music",
+        "culture"
+      ],
+      "interest": [
+        "music",
+        "culture"
+      ],
+      "interestScore": 84
+    },
+    {
+      "id": "event-20th-battle-of-the-chefs-opens-with-penang-food--3ef6c7b714",
+      "kind": "event",
+      "title": "20TH Battle Of The Chefs Opens With Penang Food Heritage In Focus",
+      "summary": "Penang’s food culture sits at the centre of the state’s tourism appeal, and the 20th Battle of the Chefs carries that message to cooks from Malaysia and abroad. The competition opened with a call to protect traditional r…",
+      "detail": "Penang’s food culture sits at the centre of the state’s tourism appeal, and the 20th Battle of the Chefs carries that message to cooks from Malaysia and abroad. The competition opened with a call to protect traditional recipes while raising professional standards. Wong Hon Wai, Penang State EXCO for Tourism and Creative Economy, said the […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20261022_104817.jpg",
+      "sourceUrl": "https://penangtoday.my/news/10043/20th-battle-of-the-chefs-opens-with-penang-food-heritage-in-focus/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Thu, 22 Oct 2026 05:51:27 +0000",
+      "topics": [
+        "food",
+        "culture"
+      ],
+      "interest": [
+        "food",
+        "culture"
+      ],
+      "interestScore": 80
+    },
+    {
       "id": "event-how-long-have-you-been-here-a-solo-exhibition-by-e730548bd7",
       "kind": "event",
       "title": "How Long Have You Been Here (A Solo Exhibition by Hoo Fan Chon)",
-      "summary": "3 October - 15 November 2026 Hin Bus Depot Gallery Opening Reception: Saturday, 3 October 2026 at 8:00pm All are welcome. Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
-      "detail": "3 October - 15 November 2026 Hin Bus Depot Gallery Opening Reception: Saturday, 3 October 2026 at 8:00pm All are welcome. Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "summary": "3 October - 15 November 2026 Hin Bus Depot Gallery Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "detail": "3 October - 15 November 2026 Hin Bus Depot Gallery Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
       "startDate": "2026-10-03",
       "endDate": "2026-11-15",
       "dateLabel": "Ongoing · until 15 Nov · Hin Bus Depot",
@@ -249,6 +326,92 @@
       "interestScore": 68
     },
     {
+      "id": "event-talk-on-paper-and-on-the-ground-migrant-workers--9b3b29a3fd",
+      "kind": "event",
+      "title": "[Talk] ON PAPER AND ON THE GROUND: Migrant Workers' Rights in Malaysia",
+      "summary": "Saturday 31 October 2026 Ruang Kongsi, COEX at Kilang Besi 3:00pm - 4:30pm Free entry for all! Pre-registration is required.",
+      "detail": "Saturday 31 October 2026 Ruang Kongsi, COEX at Kilang Besi 3:00pm - 4:30pm Free entry for all! Pre-registration is required.",
+      "startDate": "2026-10-31",
+      "endDate": "2026-10-31",
+      "dateLabel": "31 Oct · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_867638595_18161046685519341_91885.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeD9pYa8L1OjAPHJmdWFDn_pqb6g_fzjGH1o7gNeaxOuyoeiA/viewform",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 68
+    },
+    {
+      "id": "event-group-exhibition-thread-harbour-094e42cf98",
+      "kind": "event",
+      "title": "[Group Exhibition] Thread & Harbour",
+      "summary": "20 November - 27 December 2026 Hin Bus Depot Gallery Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "detail": "20 November - 27 December 2026 Hin Bus Depot Gallery Viewing Hours: 12:00pm - 7:00pm (Mon-Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "startDate": "2026-11-20",
+      "endDate": "2026-12-27",
+      "dateLabel": "20 Nov – 27 Dec · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Thread%20%26%20Harbour_Hin%20Bus%20Depot-fcc2193.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts",
+      "topics": [
+        "culture"
+      ],
+      "interest": [
+        "culture"
+      ],
+      "interestScore": 68
+    },
+    {
+      "id": "event-penang-unity-council-and-sunshine-square-honor-y-3c38807776",
+      "kind": "event",
+      "title": "Penang Unity Council and Sunshine Square Honor Young Artists at 2026 Unity Colouring Contest",
+      "summary": "In a vibrant celebration of harmony, creativity, and community spirit, the Penang Unity Council (Majlis Perundingan Muhibbah Negeri Pulau Pinang — MPNPP), in collaboration with Sunshine Square, successfully hosted the Cl…",
+      "detail": "In a vibrant celebration of harmony, creativity, and community spirit, the Penang Unity Council (Majlis Perundingan Muhibbah Negeri Pulau Pinang — MPNPP), in collaboration with Sunshine Square, successfully hosted the Closing and Prize Giving Ceremony of the 2026 Unity Colouring Contest for World Happiness. Cantering on the inspiring theme “Harmony for a Better World,” the […] The post Penang Unity Council and Sunshine Square Honor Young Artists at 2026 Unity Colouring Contest appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/10/Unity-2.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/penang-unity-council-and-sunshine-square-honor-young-artists-at-2026-unity-colouring-contest/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Wed, 28 Oct 2026 00:05:36 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
+      "id": "event-shuck-catch-fresh-harima-oysters-at-caf-168-s-we-df5b450677",
+      "kind": "event",
+      "title": "Shuck & Catch: Fresh Harima Oysters at Café 168’s Weekend Seafood Buffet",
+      "summary": "Café 168 at G Hotel Gurney has launched a new weekend dinner for seafood lovers. Shuck & Catch is the latest edition of the café’s signature Let’s Meat & Sea Buffet Dinner. It runs every Friday and Saturday, from 6:30 PM…",
+      "detail": "Café 168 at G Hotel Gurney has launched a new weekend dinner for seafood lovers. Shuck & Catch is the latest edition of the café’s signature Let’s Meat & Sea Buffet Dinner. It runs every Friday and Saturday, from 6:30 PM to 10:00 PM, on Level 3. Fresh Japanese Harima oysters lead the spread, followed […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20261009_180804_ENHANCE002_COVER.jpg",
+      "sourceUrl": "https://penangtoday.my/food/10027/shuck-catch-fresh-harima-oysters-at-cafe-168s-weekend-seafood-buffet/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Wed, 21 Oct 2026 13:45:04 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 44
+    },
+    {
       "id": "event-two-cars-up-for-grabs-at-love-penang-run-2026-09d9ca185c",
       "kind": "event",
       "title": "Two Cars Up For Grabs At Love Penang Run 2026",
@@ -269,33 +432,53 @@
       "interestScore": 44
     },
     {
-      "id": "food-the-makers-market-2b95ea7d11",
+      "id": "event-ai-10-15-38eeac50e5",
+      "kind": "event",
+      "title": "槟岛市厅AI 城市倡议取成效 首长：交通拥堵减10%至15%",
+      "summary": "槟州首长曹观友表示，人工智能（AI）已经逐渐应用在城市管理上，数码部资料显示，在“AI城市倡议”下，槟岛市政厅交通管理取得成效，交通拥堵减少了10%至15%。 他说，州政府推动科技发展，正是希望它能够帮助解决问题，让公共服务更有效率，人民生活更方便，而上述科技运用在交通管理，正是最好范例之一。 “科技发展一日千里，尤其是人工智能的崛起，正在改变我们每个人的生活；作为马来西亚的工业与科技重镇，槟城一直走在科技发展最前沿。” 无论如何，他说…",
+      "detail": "槟州首长曹观友表示，人工智能（AI）已经逐渐应用在城市管理上，数码部资料显示，在“AI城市倡议”下，槟岛市政厅交通管理取得成效，交通拥堵减少了10%至15%。 他说，州政府推动科技发展，正是希望它能够帮助解决问题，让公共服务更有效率，人民生活更方便，而上述科技运用在交通管理，正是最好范例之一。 “科技发展一日千里，尤其是人工智能的崛起，正在改变我们每个人的生活；作为马来西亚的工业与科技重镇，槟城一直走在科技发展最前沿。” 无论如何，他说，他推动科技发展外，懂得运用这些科技的人才才是最核心资源，槟州要走入高科技时代，就必须着重于培养更多相关人才，参与槟城发展。 他是于周二晚，受邀出席槟城肇庆府会馆成立 166 周年、青年团 24 周年，以及妇女组周年纪念的联欢晚宴上，致词时这么表示。 ………………………………… 科技须正确道德观驾驭 ………………………………… 他补充，先进的科技也必须拥有正确道德观驾驭，不然这些科技将很容易导人误入歧途，如利用科技制造假消息、进行诈骗和误导民众等。 因此，他认为，在大力培养科技人才的同时，也必须注重人文素养的灌输；科技发展得越快，越要保有独立思考和判断能力，学会不轻信和查清网络资讯。 他也在会上，和与会者分享一则新闻，既儿子投诉母亲沉迷Ai短片，每天动辄花上15小时刷剧，让家人感到崩溃，而这也是科技与人文素养必须同步的原因之一。 另外，他赞扬该会馆成立至今166年，经历了好几代人努力，从先辈南来谋生到同乡互助，直至如今在推动文化、教育和公益活动发挥作用，社会贡献良多。 “只要时间允许，我都会尽量抽出时间出席各大小社团组织的活动，和各领域领袖交流进一步了解大家的需求与想法，综合大家的意见来改善及推动槟城发展。” ……………………………………… 林国强：敦睦乡谊奠定基业 ……………………………………… 槟城肇庆府会馆会长拿督林国强说，该会馆自先贤",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://www.buletinmutiara.com/10%e8%87%b315/",
+      "sourceName": "Buletin Mutiara",
+      "sourceId": "buletin_mutiara",
+      "category": "Events",
+      "publishedAt": "Tue, 27 Oct 2026 14:31:19 +0000",
+      "topics": [],
+      "interest": [],
+      "interestScore": 40
+    },
+    {
+      "id": "food-grow-market-1c7c172940",
       "kind": "food",
-      "title": "The Makers Market",
-      "summary": "Saturday 17 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "detail": "Saturday 17 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "startDate": "2026-10-17",
-      "endDate": "2026-10-17",
-      "dateLabel": "17 Oct · Hin Bus Depot",
+      "title": "Grow Market",
+      "summary": "Saturday 7 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 7 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-11-07",
+      "endDate": "2026-11-07",
+      "dateLabel": "7 Nov · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/IG%20Makers%20October_-01.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/themakersmarket_hin/",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_844965729_1752012320258723_684443.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/p/DeZIE4RiEkI/?hl=en",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
     },
     {
-      "id": "food-lunasinar-market-e533793d66",
+      "id": "food-the-makers-market-ea16ed96e0",
       "kind": "food",
-      "title": "LunaSinar Market",
-      "summary": "Saturday 24 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "detail": "Saturday 24 October 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
-      "startDate": "2026-10-24",
-      "endDate": "2026-10-24",
-      "dateLabel": "24 Oct · Hin Bus Depot",
+      "title": "The Makers Market",
+      "summary": "Saturday 21 November 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 21 November 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-11-21",
+      "endDate": "2026-11-21",
+      "dateLabel": "21 Nov · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_833135716_17964964101189414_90883.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/lunasinarrr/",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Makers%20Deepavali-01.png/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/themakersmarket_hin/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
@@ -310,7 +493,7 @@
       "endDate": null,
       "dateLabel": "Recently · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20260923_195659.jpg",
+      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20260923_195637.jpg",
       "sourceUrl": "https://penangtoday.my/featured/9925/aliyaa-brings-premium-sri-lankan-dining-to-george-towns-heritage-enclave/",
       "sourceName": "PenangToday Food",
       "sourceId": "penangtoday_food",
@@ -334,6 +517,23 @@
       "category": "Food"
     },
     {
+      "id": "food-gurney-food-complex-gets-rm455-055-upgrade-after-facaf015f9",
+      "kind": "food",
+      "title": "Gurney Food Complex Gets RM455,055 Upgrade After 40 Years",
+      "summary": "The Kompleks Makanan Persiaran Gurney has completed a RM455,055 upgrade funded by the Ministry of Housing and Local Government (KPKT), roughly 40 years after the food complex opened. Works ran for five months this year, …",
+      "detail": "The Kompleks Makanan Persiaran Gurney has completed a RM455,055 upgrade funded by the Ministry of Housing and Local Government (KPKT), roughly 40 years after the food complex opened. Works ran for five months this year, from 1 May to 30 September, and were handled by the Penang Island City Council (MBPP), Penang Property Talk reported. […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Recently · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/source-buletinmutiara-gurney-food-complex-refresh.jpg",
+      "sourceUrl": "https://penangtoday.my/news/10076/gurney-food-complex-gets-rm455055-upgrade-after-40-years/",
+      "sourceName": "PenangToday Food",
+      "sourceId": "penangtoday_food",
+      "category": "Food",
+      "publishedAt": "Sat, 24 Oct 2026 09:02:49 +0000"
+    },
+    {
       "id": "food-hin-weekend-markets-54f3fd0d38",
       "kind": "food",
       "title": "Hin Weekend Markets",
@@ -348,6 +548,23 @@
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
+    },
+    {
+      "id": "food-k-drama-star-lee-junho-falls-for-nasi-lemak-and--c69ae25e1a",
+      "kind": "food",
+      "title": "K-Drama Star Lee Junho Falls For Nasi Lemak And Roti Tisu During KL Visit",
+      "summary": "South Korean singer-actor Lee Junho, 36, has named nasi lemak and roti tisu as the dishes he enjoyed most during his stay in Kuala Lumpur. The star of Typhoon Family said he tried both during the trip, according to NST, …",
+      "detail": "South Korean singer-actor Lee Junho, 36, has named nasi lemak and roti tisu as the dishes he enjoyed most during his stay in Kuala Lumpur. The star of Typhoon Family said he tried both during the trip, according to NST, and that the flatbread left the deeper impression of the two. “Yesterday, I had the […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Recently · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/source-nst-lee-junho-nasi-lemak.jpg",
+      "sourceUrl": "https://penangtoday.my/news/10100/k-drama-star-lee-junho-falls-for-nasi-lemak-and-roti-tisu-during-kl-visit/",
+      "sourceName": "PenangToday Food",
+      "sourceId": "penangtoday_food",
+      "category": "Food",
+      "publishedAt": "Mon, 26 Oct 2026 02:38:24 +0000"
     },
     {
       "id": "food-le-a-at-pizzeria-turns-batu-ferringhi-sunset-int-c25f671d0d",
@@ -413,6 +630,23 @@
       "sourceName": "The Smart Local Penang Cafes",
       "sourceId": "smartlocal_cafes",
       "category": "Food"
+    },
+    {
+      "id": "food-two-festivals-one-plate-penang-s-vegetarian-food-3668713088",
+      "kind": "food",
+      "title": "Two Festivals, One Plate: Penang’s Vegetarian Food Culture In The Spotlight",
+      "summary": "Penang’s food shops went meat-free for nine days this month, and two faiths did it at once. The Nine Emperor Gods Festival and Navarathiri ran side by side across the state, each asking devotees to give up meat for the d…",
+      "detail": "Penang’s food shops went meat-free for nine days this month, and two faiths did it at once. The Nine Emperor Gods Festival and Navarathiri ran side by side across the state, each asking devotees to give up meat for the duration. The Nine Emperor Gods Festival was observed by the Chinese community from 10 to […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Recently · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/source-thesun-nine-emperor-veg.jpg",
+      "sourceUrl": "https://penangtoday.my/news/9996/two-festivals-one-plate-penangs-vegetarian-food-culture-in-the-spotlight/",
+      "sourceName": "PenangToday Food",
+      "sourceId": "penangtoday_food",
+      "category": "Food",
+      "publishedAt": "Tue, 20 Oct 2026 05:52:34 +0000"
     },
     {
       "id": "food-zus-signature-coffee-5b79933acd",
@@ -575,22 +809,6 @@
       "category": "Food"
     },
     {
-      "id": "revisit-e-o-buffet-lunch-at-sarkies-is-this-penang-s-bes-406660fc68",
-      "kind": "revisit",
-      "title": "E&O Buffet Lunch at Sarkies | Is This Penang’s Best Buffet?",
-      "summary": "Local food write-up from SmartDory.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Worth a revisit · Penang",
-      "area": "Penang",
-      "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2021/12/eo-buffet-lunch-at-sarkies-restaurant/",
-      "sourceName": "SmartDory",
-      "sourceId": "smartdory",
-      "category": "Food"
-    },
-    {
       "id": "revisit-penang-avatar-secret-garden-night-park-0319d87ea9",
       "kind": "revisit",
       "title": "Penang Avatar Secret Garden 阿凡达神秘花园 Night Park",
@@ -607,9 +825,9 @@
       "category": "Food"
     },
     {
-      "id": "revisit-sing-kee-dim-sum-old-school-dim-sum-in-penang-f3a41c0dce",
+      "id": "revisit-rm4-duck-meat-koay-teow-th-ng-at-mayloon-caf-pen-8cc64732cf",
       "kind": "revisit",
-      "title": "Sing Kee Dim Sum - Old School Dim Sum in Penang",
+      "title": "RM4 Duck Meat Koay Teow Th’ng at Mayloon Café, Penang",
       "summary": "Local food write-up from SmartDory.",
       "detail": "",
       "startDate": null,
@@ -617,7 +835,7 @@
       "dateLabel": "Worth a revisit · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://smartdory.com/2026/09/sing-kee-dim-sum-penang/",
+      "sourceUrl": "https://smartdory.com/2026/10/rm4-duck-meat-koay-teow-thng-penang/",
       "sourceName": "SmartDory",
       "sourceId": "smartdory",
       "category": "Food"
@@ -639,6 +857,22 @@
       "category": "Food"
     },
     {
+      "id": "revisit-what-to-eat-in-penang-c4c5c58d19",
+      "kind": "revisit",
+      "title": "What to Eat in Penang",
+      "summary": "Local food write-up from SmartDory.",
+      "detail": "",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Worth a revisit · Penang",
+      "area": "Penang",
+      "imageUrl": "",
+      "sourceUrl": "https://smartdory.com/2026/01/eating-in-malaysia-travel-guide/",
+      "sourceName": "SmartDory",
+      "sourceId": "smartdory",
+      "category": "Food"
+    },
+    {
       "id": "revisit-yonny-at-gurney-plaza-penang-8d78d5dd12",
       "kind": "revisit",
       "title": "YONNY 鱼你 at Gurney Plaza, Penang",
@@ -657,10 +891,8 @@
   ],
   "warnings": [
     "fetch failed for mypenang_events (status=404)",
-    "dropped 7 corporate/institutional PR item(s)",
-    "dropped 1 food opening(s) older than ~2 months",
-    "dropped 2 past-tense event recap(s)",
-    "dropped 15 ended dated item(s) (endDate before today)",
-    "dropped 1 industry/trade event(s) from consumer feed"
+    "dropped 4 corporate/institutional PR item(s)",
+    "dropped 4 past-tense event recap(s)",
+    "dropped 10 ended dated item(s) (endDate before today)"
   ]
 }

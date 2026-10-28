@@ -26,11 +26,58 @@ LAWSON_DETAIL_HREF_RE = re.compile(
     r'<a\s+href="(/recommend/(?:original|new)/detail/\d+_\d+\.html)"',
     re.IGNORECASE,
 )
+# /recommend/new/ resolves to a single launch day. Sibling lists in the date nav
+# hold the rest of the week (the Tuesday drop is usually the large one).
+LAWSON_LIST_LINK_RE = re.compile(
+    r'href="(/recommend/new/list/\d+_\d+\.html)"[^>]*>(\d{1,2})/(\d{1,2})発売',
+    re.IGNORECASE,
+)
+LAWSON_ACTIVE_DATE_RE = re.compile(
+    r'class="active"[^>]*>(\d{1,2})/(\d{1,2})発売',
+    re.IGNORECASE,
+)
+LAWSON_LIST_WINDOW_DAYS = 6
 MAX_LAWSON_DETAIL_FETCHES = 120
 
 
 def utc_now() -> dt.datetime:
     return dt.datetime.now(dt.timezone.utc)
+
+
+def lawson_list_date(month: int, day: int, today: dt.date) -> dt.date | None:
+    """Month/day from the Lawson date nav, rolled back a year if it would be in the future."""
+    try:
+        candidate = dt.date(today.year, month, day)
+    except ValueError:
+        return None
+    if candidate > today + dt.timedelta(days=2):
+        try:
+            return dt.date(today.year - 1, month, day)
+        except ValueError:
+            return None
+    return candidate
+
+
+def lawson_recent_list_urls(html: str, today: dt.date) -> list[str]:
+    """Other launch-day list URLs within a week of the page's active date."""
+    active = LAWSON_ACTIVE_DATE_RE.search(html or "")
+    if not active:
+        return []
+    anchor = lawson_list_date(int(active.group(1)), int(active.group(2)), today)
+    if anchor is None:
+        return []
+    earliest = anchor - dt.timedelta(days=LAWSON_LIST_WINDOW_DAYS)
+    urls: list[str] = []
+    seen: set[str] = set()
+    for match in LAWSON_LIST_LINK_RE.finditer(html or ""):
+        when = lawson_list_date(int(match.group(2)), int(match.group(3)), today)
+        if when is None or when < earliest or when > anchor:
+            continue
+        absolute = urllib.parse.urljoin("https://www.lawson.co.jp/", match.group(1))
+        if absolute not in seen:
+            seen.add(absolute)
+            urls.append(absolute)
+    return urls
 
 
 def fetch(url: str, timeout: int) -> tuple[int | None, str, bytes]:
@@ -106,6 +153,7 @@ def main() -> int:
         "configPath": str(config_path.relative_to(ROOT)),
         "draftDir": str(draft_dir.relative_to(ROOT)),
         "sources": [],
+        "lawsonListSnapshots": [],
         "lawsonDetailSnapshots": [],
     }
 
@@ -152,15 +200,44 @@ def main() -> int:
         if source_id == "lawson_new" and ok and body:
             detail_dir = raw_dir / "lawson_details"
             detail_dir.mkdir(parents=True, exist_ok=True)
-            html_text = body.decode("utf-8", errors="replace")
+            html_parts = [body.decode("utf-8", errors="replace")]
+            list_dir = raw_dir / "lawson_lists"
+            today = utc_now().date()
+            extra_lists = lawson_recent_list_urls(html_parts[0], today)
+            if extra_lists:
+                list_dir.mkdir(parents=True, exist_ok=True)
+                print(f"lawson_new: fetching {len(extra_lists)} recent launch-day lists")
+            for list_index, list_url in enumerate(extra_lists):
+                if list_index:
+                    time.sleep(args.sleep)
+                slug = urllib.parse.urlparse(list_url).path.strip("/").replace("/", "_")
+                list_path = list_dir / f"{slug}.html"
+                l_status, l_ctype, l_body = fetch(list_url, args.timeout)
+                l_ok = bool(l_status and 200 <= l_status < 400 and l_body)
+                list_path.write_bytes(l_body)
+                manifest["lawsonListSnapshots"].append(
+                    {
+                        "url": list_url,
+                        "rawPath": str(list_path.relative_to(ROOT)),
+                        "status": l_status,
+                        "ok": l_ok,
+                        "contentType": l_ctype,
+                        "bytes": len(l_body),
+                    }
+                )
+                tag = "ok" if l_ok else "warn"
+                print(f"  {tag}: lawson list {list_index + 1}/{len(extra_lists)} status={l_status} bytes={len(l_body)}")
+                if l_ok:
+                    html_parts.append(l_body.decode("utf-8", errors="replace"))
             detail_urls: list[str] = []
             seen: set[str] = set()
-            for match in LAWSON_DETAIL_HREF_RE.finditer(html_text):
-                rel = match.group(1)
-                absolute = urllib.parse.urljoin("https://www.lawson.co.jp/", rel)
-                if absolute not in seen:
-                    seen.add(absolute)
-                    detail_urls.append(absolute)
+            for html_text in html_parts:
+                for match in LAWSON_DETAIL_HREF_RE.finditer(html_text):
+                    rel = match.group(1)
+                    absolute = urllib.parse.urljoin("https://www.lawson.co.jp/", rel)
+                    if absolute not in seen:
+                        seen.add(absolute)
+                        detail_urls.append(absolute)
             detail_urls = detail_urls[:MAX_LAWSON_DETAIL_FETCHES]
             print(f"lawson_new: fetching {len(detail_urls)} detail pages")
             for detail_index, detail_url in enumerate(detail_urls):
