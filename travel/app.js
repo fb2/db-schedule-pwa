@@ -7,7 +7,7 @@ import {
   sectionTiming,
   todayIso,
   weekTiming
-} from "./plan-view.js?v=5";
+} from "./plan-view.js?v=8";
 import {
   bestGuideForSection,
   formatGuideDates,
@@ -16,7 +16,7 @@ import {
   parseExperienceGuide,
   renderExperienceBody,
   renderExperienceNav
-} from "./experience-view.js?v=7";
+} from "./experience-view.js?v=8";
 
 const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 const FIREBASE_AUTH_URL = "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
@@ -25,6 +25,7 @@ const PLAN_CACHE_VERSION = "travel.plans.v1";
 const EXPERIENCE_CACHE_VERSION = "travel.experiences.v1";
 const LAST_USER_KEY = "travel.lastUser.v1";
 const FB_CONFIG_KEY = "travel.firebaseConfig.v1";
+const NETWORK_WAIT_MS = 8000;
 const BROWSE_MONTH_KEY = "travel.browseMonth.v1";
 const MAX_DOC_BYTES = 900_000;
 const MONTHS = new Map([
@@ -91,6 +92,44 @@ const xpBody = document.getElementById("xpBody");
 
 boot();
 
+function withTimeout(promise, ms) {
+  return new Promise((resolve, reject) => {
+    const error = new Error("timeout");
+    error.timeout = true;
+    const timer = setTimeout(() => reject(error), ms);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (reason) => {
+        clearTimeout(timer);
+        reject(reason);
+      }
+    );
+  });
+}
+
+function showCachedOffline() {
+  setAppState("ready", cachedStatus(lastCacheAt, "Offline — showing cached plans."));
+  render();
+}
+
+function watchOutcome(promise) {
+  const outcome = { state: "pending" };
+  const tracked = promise.then(
+    (value) => {
+      outcome.state = "ok";
+      return value;
+    },
+    (error) => {
+      outcome.state = "error";
+      throw error;
+    }
+  );
+  return { tracked, outcome };
+}
+
 async function boot() {
   bindEvents();
   const cached = readPlanCache();
@@ -99,19 +138,34 @@ async function boot() {
     applyPlans(cached.plans, { fromCache: true, cachedAt: cached.cachedAt });
     applyExperiences(readExperienceCache(cachedUserEmail)?.experiences || []);
     userLabel.textContent = cachedUserEmail || "Cached plans";
-    setAppState("ready", cachedStatus(cached.cachedAt, "Checking for updates…"));
+    setAppState(
+      "ready",
+      cachedStatus(cached.cachedAt, navigator.onLine ? "Checking for updates…" : "Offline — showing cached plans.")
+    );
     render();
   } else {
     setAppState("starting", "Loading Firebase...");
   }
 
+  const starting = watchOutcome(initFirebase());
   try {
-    await initFirebase();
+    await withTimeout(starting.tracked, NETWORK_WAIT_MS);
   } catch (error) {
-    console.error(error);
+    if (error?.timeout && starting.outcome.state === "ok") return;
+    if (error?.timeout) {
+      starting.tracked.then(
+        () => {},
+        (lateError) => {
+          console.error(lateError);
+          if (starting.outcome.state === "ok" || plans.length || currentUser) return;
+          setAppState("offline", "Firebase is unavailable here. Open this app from Firebase Hosting.");
+        }
+      );
+    } else {
+      console.error(error);
+    }
     if (plans.length) {
-      setAppState("ready", cachedStatus(lastCacheAt, "Offline — showing cached plans."));
-      render();
+      showCachedOffline();
       return;
     }
     setAppState("offline", "Firebase is unavailable here. Open this app from Firebase Hosting.");
@@ -258,6 +312,10 @@ async function handleAuthChange(user) {
   }
 
   if (plans.length) {
+    if (!navigator.onLine) {
+      showCachedOffline();
+      return;
+    }
     setAppState("ready", cachedStatus(lastCacheAt, "Checking for updates…"));
     render();
     refreshPlans({ background: true });
@@ -269,48 +327,87 @@ async function handleAuthChange(user) {
 
 async function refreshPlans({ background = false } = {}) {
   if (!currentUser || !db || !store) return;
+  if (plans.length && !navigator.onLine) {
+    showCachedOffline();
+    return;
+  }
   if (!background) setAppState("loading", "Loading private travel plans...");
 
+  const load = watchOutcome(fetchAndApplyPlans());
   try {
-    const [snapshot, experienceSnap] = await Promise.all([
-      store.getDocs(store.collection(db, "travelPlans")),
-      store.getDocs(store.collection(db, "travelExperiences")).catch(() => ({ docs: [] }))
-    ]);
-    const next = snapshot.docs
-      .map((item) => ({ id: item.id, ...serializeData(item.data()) }))
-      .sort((a, b) => String(a.monthId || a.id).localeCompare(String(b.monthId || b.id)));
-    const nextGuides = experienceSnap.docs
-      .map((item) => hydrateExperience({ id: item.id, ...serializeData(item.data()) }))
-      .sort((a, b) => String(a.startDate || "").localeCompare(String(b.startDate || "")));
-    const changed = plansSignature(next) !== plansSignature(plans);
-    writePlanCache(currentUser.email, next);
-    writeExperienceCache(currentUser.email, nextGuides);
-    applyPlans(next);
-    applyExperiences(nextGuides);
-    setAppState(
-      "ready",
-      next.length
-        ? `${next.length} private month plan${next.length === 1 ? "" : "s"} · ${changed ? "updated" : "up to date"}`
-        : "No travel plans uploaded yet."
-    );
-    render();
-    if (viewMode === "now") requestAnimationFrame(() => scrollToFocus(true));
+    await withTimeout(load.tracked, NETWORK_WAIT_MS);
   } catch (error) {
-    console.error(error);
+    if (error?.timeout && load.outcome.state === "ok") return;
+    if (error?.timeout) {
+      load.tracked.then(
+        () => {},
+        (lateError) => {
+          console.error(lateError);
+          if (load.outcome.state === "ok" || plans.length) return;
+          failPlanLoad(lateError);
+        }
+      );
+    } else {
+      console.error(error);
+    }
     if (plans.length) {
       setAppState(
         "ready",
-        cachedStatus(lastCacheAt, permissionDenied(error) ? "This account cannot refresh plans." : "Could not refresh — showing cache.")
+        cachedStatus(
+          lastCacheAt,
+          error?.timeout
+            ? "Offline — showing cached plans."
+            : permissionDenied(error)
+              ? "This account cannot refresh plans."
+              : "Could not refresh — showing cache."
+        )
       );
       render();
       return;
     }
-    const message = permissionDenied(error)
-      ? "This Google account is not allowed to access private travel plans."
-      : "Could not load private travel plans.";
-    setAppState(permissionDenied(error) ? "unauthorized" : "error", message);
-    render();
+    if (error?.timeout) {
+      setAppState("error", "Could not load private travel plans.");
+      render();
+      return;
+    }
+    failPlanLoad(error);
   }
+}
+
+async function fetchAndApplyPlans() {
+  const user = currentUser;
+  const [snapshot, experienceSnap] = await Promise.all([
+    store.getDocs(store.collection(db, "travelPlans")),
+    store.getDocs(store.collection(db, "travelExperiences")).catch(() => ({ docs: [] }))
+  ]);
+  if (!user || currentUser !== user) return;
+  const next = snapshot.docs
+    .map((item) => ({ id: item.id, ...serializeData(item.data()) }))
+    .sort((a, b) => String(a.monthId || a.id).localeCompare(String(b.monthId || b.id)));
+  const nextGuides = experienceSnap.docs
+    .map((item) => hydrateExperience({ id: item.id, ...serializeData(item.data()) }))
+    .sort((a, b) => String(a.startDate || "").localeCompare(String(b.startDate || "")));
+  const changed = plansSignature(next) !== plansSignature(plans);
+  writePlanCache(user.email, next);
+  writeExperienceCache(user.email, nextGuides);
+  applyPlans(next);
+  applyExperiences(nextGuides);
+  setAppState(
+    "ready",
+    next.length
+      ? `${next.length} private month plan${next.length === 1 ? "" : "s"} · ${changed ? "updated" : "up to date"}`
+      : "No travel plans uploaded yet."
+  );
+  render();
+  if (viewMode === "now") requestAnimationFrame(() => scrollToFocus(true));
+}
+
+function failPlanLoad(error) {
+  const message = permissionDenied(error)
+    ? "This Google account is not allowed to access private travel plans."
+    : "Could not load private travel plans.";
+  setAppState(permissionDenied(error) ? "unauthorized" : "error", message);
+  render();
 }
 
 async function importMonthFiles(event) {
