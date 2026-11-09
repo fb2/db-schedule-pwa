@@ -572,6 +572,21 @@ PHRASE_TRANSLATIONS = {
     "カフェラテ": "café latte",
     "ラテ": "latte",
     "ミルク": "milk",
+    "ホイップクリーム": "whipped cream",
+    "バターチキン": "butter chicken",
+    "アラビアータ": "arrabbiata",
+    "ペペロンチーノ": "peperoncino",
+    "クロワッサン": "croissant",
+    "マシュマロ": "marshmallow",
+    "ドーナツ": "donut",
+    "ラザニア": "lasagna",
+    "ちゃんぽん": "champon",
+    "チャーハン": "fried rice",
+    "炒飯": "fried rice",
+    "ガーリック": "garlic",
+    "タルト": "tart",
+    "個入り": "pieces",
+    "個入": "pieces",
     "バニラ": "vanilla",
     "スナック": "snack",
     "ファミマ味": "Famima-flavor",
@@ -837,22 +852,31 @@ def translate_qualifier_text(text: str) -> str:
     return f"{qualifier} regional"
 
 
-def translate_japanese_text(text: str, fallback: str = "item") -> str:
-    """Best-effort glossary translation for public English feed fields."""
-    if not text:
-        return ""
+def prepare_japanese_for_glossary(text: str) -> str:
     value = clean_text(text)
     value = unicodedata.normalize("NFKC", value)
     value = value.translate(str.maketrans("０１２３４５６７８９", "0123456789"))
     value = re.sub(r"【([^】]+)】", lambda match: f" {translate_qualifier_text(match.group(1))} ", value)
     value = value.replace("＆", " and ").replace("&", " and ").replace("　", " ")
     value = value.replace("（", " (").replace("）", ") ")
+    return value
+
+
+def substitute_japanese_glossary(value: str) -> str:
     for japanese, english in sorted(PRIORITY_JP_PHRASES, key=lambda item: len(item[0]), reverse=True):
         jp_key = unicodedata.normalize("NFKC", japanese)
         value = re.sub(re.escape(jp_key), f" {english} ", value)
     for japanese, english in sorted(PHRASE_TRANSLATIONS.items(), key=lambda item: len(item[0]), reverse=True):
         jp_key = unicodedata.normalize("NFKC", japanese)
         value = re.sub(re.escape(jp_key), f" {english} ", value)
+    return value
+
+
+def translate_japanese_text(text: str, fallback: str = "item") -> str:
+    """Best-effort glossary translation for public English feed fields."""
+    if not text:
+        return ""
+    value = substitute_japanese_glossary(prepare_japanese_for_glossary(text))
     value = value.replace("・", " ")
     value = re.sub(r"[\u3040-\u30ff\u3400-\u9fff]+", " ", value)
     value = re.sub(r"\s+", " ", value)
@@ -1549,18 +1573,129 @@ PRODUCT_SPECIFIC_TITLES = {
     "味仙本店監修 激辛台湾ラーメン エイリアン": "Misen extra-hot Taiwan ramen Alien",
     "おおきなおむすび きのこ炊き込み押麦ごはん": "Large rice ball with mushroom barley rice",
     "だし飯おむすび 枝豆ごはん": "Dashi rice ball with edamame rice",
+    # Week of 2026-11-09 — glossary leftovers and shelf-category stand-ins
+    "ベーコンの旨みとクセになる辛み完熟トマトのアラビアータ": "Spicy ripe-tomato arrabbiata",
+    "ミルクホイップクリームドーナツ4個入": "Milk whipped-cream donuts, 4 pieces",
+    "大きなショコラタルト": "Large chocolate tart",
+    "コクと深みのカレーうどん": "Rich curry udon",
+    "砂肝ペペロンチーノ": "Chicken-gizzard peperoncino",
+    "からアゲ串": "Karaage skewer",
+    "クワトロチーズラザニア": "Four-cheese lasagna",
+    "トマトの旨み広がる バターチキンカレー": "Butter chicken curry",
+    "ハンバーグ＆唐揚げ弁当": "Hamburger-steak and karaage bento",
+    "ガーリックトマトのグリルチキン弁当": "Garlic-tomato grilled chicken bento",
+    "ガーリックトマトチキンサンド": "Garlic tomato chicken sandwich",
+    "BIG ザクッとポテト こだわりの塩味": "BIG crunchy potato, salt flavor",
+    "BIG ザクッとポテト 旨味コンソメ味": "BIG crunchy potato, consomme flavor",
+    "ご褒美スティックケーキ とろける生マシュマロ": "Treat stick cake with melting fresh marshmallow",
+    "どらもっち あんこ&ホイップ": "Doramocchi red-bean paste and whipped cream",
+    "もちもち水餃子の中華スープ": "Chewy boiled-dumpling Chinese soup",
+    "カバラン トリプルシェリーカスク 200ml": "Kavalan Triple Sherry Cask 200ml",
+    "カバラン トリプルシェリーカスク シングルモルト ハイボール 320ml": (
+        "Kavalan Triple Sherry Cask single-malt highball 320ml"
+    ),
+    "キャラメルパフェ": "Caramel parfait",
+    "クレープケーキ チョコ": "Chocolate crepe cake",
+    "チョコクロワッサン": "Chocolate croissant",
+    "チョコマシュマロ": "Chocolate marshmallow",
+    "ハムたまごサンド": "Ham and egg sandwich",
+    "彩り5種のフルーツ&ナッツ": "Five kinds of fruit and nuts",
+    "玉ねぎがおいしい!オニオンブレッド": "Onion bread",
+    "NL バランスサポートブレッド チョコ&バナナ 2個入": (
+        "NL balance-support bread, chocolate and banana, 2 pieces"
+    ),
+    "NL ブランパン 2個入": "NL bran bread, 2 pieces",
+    "おぼれる!明太子フランス": "Mentaiko French bread",
+    "スプーンで食べる きのこのピリ辛アラビアータ": "Spicy mushroom arrabbiata, eaten with a spoon",
+    "海老と根菜かき揚げの天丼": "Shrimp and root-vegetable kakiage tendon",
+    "にふぉるめーしょん鬼滅の刃シールウエハース其ノ十六": "Niformation Demon Slayer sticker wafers, Vol. 16",
+    "ロッテ ワッフルコーン クッキー&クリーム": "Lotte waffle-cone cookies and cream",
+    "【東京都の一部・神奈川県の一部】国産ブロッコリーとグリル豆腐のあごだし和え": (
+        "Broccoli and grilled tofu with flying-fish dashi"
+    ),
+    "ふわもち食感明太フランス": "Fluffy-chewy mentaiko French bread",
+    "もっちベーコンエッグパン4個入": "Chewy bacon-and-egg bread, 4 pieces",
+    "も～っちり食感クロワッサンロール（ダブルキャラメル）": "Chewy double-caramel croissant roll",
+    "大盛！やみつき香ばし炒飯": "Large-serving aromatic fried rice",
+    "海鮮の旨みが広がる特製焼きちゃんぽん": "Special grilled seafood champon",
+    "Happyくじ『DISNEY クリスマスオーナメントくじ』": "Happy Kuji Disney Christmas ornament lottery",
+    "たまごっち チョコレートマスコットチャーム": "Tamagotchi chocolate mascot charm",
+    "たまごっち 刺繍CANバッジVol.2": "Tamagotchi embroidery can badge Vol. 2",
+    "だし香る！とろーりたこ焼き": "Melty takoyaki with aromatic dashi",
+    "キャンパスソフトリングノート A6 B罫 コンビニグラデーション": (
+        "Campus soft-ring notebook A6 B-ruled, konbini gradient"
+    ),
+    "キャンパスソフトリングノート A6 B罫 ラインソックス": "Campus notebook-style A6 B-ruled line socks",
+    "サッポロ ビアサプライズコクの神髄 350ml": "Sapporo Beer Surprise Kokunoshinzui 350ml",
+    "サッポロ ビアサプライズコクの神髄 500ml": "Sapporo Beer Surprise Kokunoshinzui 500ml",
+    "サンリオ当りくじ「ハローキティ当りくじ」": "Sanrio Hello Kitty prize lottery",
+    "茶流彩彩 コーン茶 600ml": "Charyu Saisai corn tea 600ml",
+    "【四国】ホットサンド はみだしドッグ（油淋鶏）": "Overflowing hot dog with yurinchi chicken",
+    "カルビー まるでカリカリチーズのようなポテトチップスブラックペッパー味": (
+        "Calbee crispy-cheese-style potato chips, black pepper"
+    ),
+    "パンどろぼうVSにせパンどろぼう バスボール": "Pan Dorobo vs fake Pan Dorobo bath ball",
+    "冷やして食べるとろけるくりーむパンミルク": "Chilled melting cream-bread milk",
+    "旨味噌炒めの五目あんかけ飯": "Savory miso-fried five-ingredient ankake rice",
+    "蒸し鶏と塩昆布のやみつきキャベツ": "Steamed chicken and salt-kelp cabbage",
+    "醤のコクと旨み 麻婆茄子丼": "Mapo eggplant rice bowl",
+    "野菜の旨み うま煮チャーハン": "Simmered-vegetable fried rice",
+    "ダブルソーセージエッグマフィン": "Double sausage-and-egg muffin",
+    "ビーフ＆マッケンチーズ": "Beef and mac and cheese",
+    "おむすび２個入り わかめ・とり五目": "Wakame and chicken-gomoku rice balls, 2 pieces",
+    "塩だれ仕立ての長禅寺菜炒飯おむすび": "Chozenji-na fried-rice ball with salt sauce",
+    "甘辛仕立てのエビチリチャーハン＆塩焼きそば": "Sweet-spicy shrimp-chili fried rice and salt yakisoba",
 }
 
 
-def is_obviously_generic_product_title(name: str) -> bool:
+_JP_SCRIPT_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
+_ENGLISH_WORD_RE = re.compile(r"[A-Za-z]+")
+# A couple of leftover English tokens, with most of the Japanese title still untranslated.
+_LOW_COVERAGE_MAX_TOKENS = 2
+_LOW_COVERAGE_UNTRANSLATED_RATIO = 0.5
+
+
+def untranslated_japanese_ratio(text: str) -> float:
+    original = unicodedata.normalize("NFKC", clean_text(text or ""))
+    original_count = len(_JP_SCRIPT_RE.findall(original))
+    if original_count == 0:
+        return 0.0
+    substituted = substitute_japanese_glossary(prepare_japanese_for_glossary(text))
+    remaining = len(_JP_SCRIPT_RE.findall(substituted))
+    return remaining / original_count
+
+
+def is_low_coverage_title(name: str, name_ja: str) -> bool:
+    if len(_ENGLISH_WORD_RE.findall(name or "")) > _LOW_COVERAGE_MAX_TOKENS:
+        return False
+    return untranslated_japanese_ratio(name_ja) > _LOW_COVERAGE_UNTRANSLATED_RATIO
+
+
+def is_obviously_generic_product_title(name: str, *, name_ja: str = "", category: str = "") -> bool:
     t = sanitize_english_output(name).strip().lower()
     if not t:
+        return True
+    category_norm = sanitize_english_output(category).strip().lower()
+    if category_norm and t == category_norm:
         return True
     if _GENERIC_TITLE_BODY_RE.fullmatch(t):
         return True
     if _GENERIC_TITLE_WITH_NUMBER_RE.fullmatch(t):
         return True
+    curated = PRODUCT_SPECIFIC_TITLES.get((name_ja or "").strip())
+    if curated and sanitize_english_output(curated).strip().lower() == t:
+        return False
+    if name_ja and is_low_coverage_title(name, name_ja):
+        return True
     return False
+
+
+def product_name_is_generic(product: dict[str, Any]) -> bool:
+    return is_obviously_generic_product_title(
+        product.get("name") or "",
+        name_ja=product.get("nameJa") or "",
+        category=product.get("category") or "",
+    )
 
 
 def cap_english_product_title(text: str, max_len: int = MAX_PRODUCT_TITLE_CHARS) -> str:
@@ -1574,26 +1709,23 @@ def cap_english_product_title(text: str, max_len: int = MAX_PRODUCT_TITLE_CHARS)
 
 
 def enrich_generic_product_title(product: dict[str, Any]) -> None:
-    """Promote vague English names using JP title/category when glossary leaves only a category word."""
+    """Replace a glossary leftover by translating the Japanese title again.
+
+    Shelf categories are not product names. If the title is still only a leftover
+    token, the publish filter drops the product.
+    """
     name = product.get("name") or ""
     name_ja = (product.get("nameJa") or "").strip()
-    if not is_obviously_generic_product_title(name):
+    category = product.get("category") or ""
+    if not is_obviously_generic_product_title(name, name_ja=name_ja, category=category):
         return
     if len(name_ja) < 4:
         return
 
     candidate = sanitize_english_output(translate_japanese_text(name_ja))
     if not candidate or candidate.lower() == name.lower():
-        candidate = ""
-
-    if not candidate or is_obviously_generic_product_title(candidate):
-        cat_ja = (product.get("categoryJa") or "").strip()
-        if cat_ja and cat_ja.replace(" ", "") != name_ja.replace(" ", ""):
-            alt = sanitize_english_output(translate_japanese_text(cat_ja))
-            if alt and not is_obviously_generic_product_title(alt):
-                candidate = alt
-
-    if not candidate or is_obviously_generic_product_title(candidate):
+        return
+    if is_obviously_generic_product_title(candidate, name_ja=name_ja, category=category):
         return
 
     product["name"] = cap_english_product_title(candidate)
@@ -2674,7 +2806,7 @@ def collect_content_quality_failures(
 ) -> list[str]:
     failures: list[str] = []
     for index, product in enumerate(products):
-        if is_obviously_generic_product_title(product.get("name") or ""):
+        if product_name_is_generic(product):
             failures.append(
                 format_product_content_quality_failure(
                     product,
@@ -2868,11 +3000,11 @@ def main() -> int:
         finalize_product_copy(product)
 
     generic_counts = Counter(
-        product["chain"] for product in products if is_obviously_generic_product_title(product.get("name") or "")
+        product["chain"] for product in products if product_name_is_generic(product)
     )
     if generic_counts:
         products = [
-            product for product in products if not is_obviously_generic_product_title(product.get("name") or "")
+            product for product in products if not product_name_is_generic(product)
         ]
         dropped = ", ".join(f"{chain} {count}" for chain, count in sorted(generic_counts.items()))
         warnings.append(f"Dropped products whose Japanese titles could not produce specific English names: {dropped}.")

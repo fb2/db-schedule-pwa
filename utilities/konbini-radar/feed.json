@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-09T12:13:32.250291+00:00",
+  "generatedAt": "2026-11-09T15:59:25.469901+00:00",
   "weekLabel": "Week of 2026-11-09",
   "intro": "Week of 2026-11-09: the board is led by 7-Eleven Large rice ball with mushroom barley rice, FamilyMart Kishidan x FamilyMart New Year 4649 lucky bag, Lawson Morihan matcha-chocolate azuki bun. Coverage spans 7-Eleven, FamilyMart, Lawson. Themes: collab, limited, seasonal, regional. Check limited and regional badges before planning a store run.",
   "sources": [
@@ -805,7 +805,7 @@
     {
       "id": "lawson-7a31fd4f16",
       "chain": "Lawson",
-      "name": "BIG salt",
+      "name": "BIG crunchy potato, salt flavor",
       "nameJa": "BIG ザクッとポテト こだわりの塩味",
       "category": "",
       "categoryJa": "",
@@ -842,7 +842,7 @@
     {
       "id": "lawson-6fc8ab0723",
       "chain": "Lawson",
-      "name": "BIG",
+      "name": "BIG crunchy potato, consomme flavor",
       "nameJa": "BIG ザクッとポテト 旨味コンソメ味",
       "category": "",
       "categoryJa": "",
@@ -879,7 +879,7 @@
     {
       "id": "lawson-b501c34877",
       "chain": "Lawson",
-      "name": "NL chocolate and 2",
+      "name": "NL balance-support bread, chocolate and banana, 2 pieces",
       "nameJa": "NL バランスサポートブレッド チョコ&バナナ 2個入",
       "category": "",
       "categoryJa": "",
@@ -916,7 +916,7 @@
     {
       "id": "lawson-c360e9052f",
       "chain": "Lawson",
-      "name": "NL bread 2",
+      "name": "NL bran bread, 2 pieces",
       "nameJa": "NL ブランパン 2個入",
       "category": "",
       "categoryJa": "",
@@ -953,7 +953,7 @@
     {
       "id": "lawson-be5a1498e5",
       "chain": "Lawson",
-      "name": "spicy cod roe",
+      "name": "Mentaiko French bread",
       "nameJa": "おぼれる!明太子フランス",
       "category": "",
       "categoryJa": "",
@@ -990,7 +990,7 @@
     {
       "id": "lawson-9fd76e4e11",
       "chain": "Lawson",
-      "name": "Melting",
+      "name": "Treat stick cake with melting fresh marshmallow",
       "nameJa": "ご褒美スティックケーキ とろける生マシュマロ",
       "category": "",
       "categoryJa": "",
@@ -1027,7 +1027,7 @@
     {
       "id": "lawson-65d9c6ecad",
       "chain": "Lawson",
-      "name": "Doramocchi and",
+      "name": "Doramocchi red-bean paste and whipped cream",
       "nameJa": "どらもっち あんこ&ホイップ",
       "category": "",
       "categoryJa": "",
@@ -1064,7 +1064,7 @@
     {
       "id": "lawson-7a21e72c2a",
       "chain": "Lawson",
-      "name": "Chewy soup",
+      "name": "Chewy boiled-dumpling Chinese soup",
       "nameJa": "もちもち水餃子の中華スープ",
       "category": "",
       "categoryJa": "",
@@ -1101,7 +1101,7 @@
     {
       "id": "lawson-31cb177349",
       "chain": "Lawson",
-      "name": "200ml",
+      "name": "Kavalan Triple Sherry Cask 200ml",
       "nameJa": "カバラン トリプルシェリーカスク 200ml",
       "category": "",
       "categoryJa": "",
@@ -1138,7 +1138,7 @@
     {
       "id": "lawson-c16a5ae698",
       "chain": "Lawson",
-      "name": "Highball 320ml",
+      "name": "Kavalan Triple Sherry Cask single-malt highball 320ml",
       "nameJa": "カバラン トリプルシェリーカスク シングルモルト ハイボール 320ml",
       "category": "",
       "categoryJa": "",
@@ -1175,7 +1175,7 @@
     {
       "id": "lawson-e5f541d7e2",
       "chain": "Lawson",
-      "name": "Tomato chicken sandwich",
+      "name": "Garlic tomato chicken sandwich",
       "nameJa": "ガーリックトマトチキンサンド",
       "category": "",
       "categoryJa": "",
@@ -1212,7 +1212,7 @@
     {
       "id": "lawson-c196af29e8",
       "chain": "Lawson",
-      "name": "Parfait",
+      "name": "Caramel parfait",
       "nameJa": "キャラメルパフェ",
       "category": "",
       "categoryJa": "",
@@ -1249,7 +1249,7 @@
     {
       "id": "lawson-3b2cc98297",
       "chain": "Lawson",
-      "name": "Crepe chocolate",
+      "name": "Chocolate crepe cake",
       "nameJa": "クレープケーキ チョコ",
       "category": "",
       "categoryJa": "",
@@ -1286,7 +1286,7 @@
     {
       "id": "lawson-f81b2f6ca2",
       "chain": "Lawson",
-      "name": "To eat with spicy",
+      "name": "Spicy mushroom arrabbiata, eaten with a spoon",
       "nameJa": "スプーンで食べる きのこのピリ辛アラビアータ",
       "category": "",
       "categoryJa": "",
@@ -1323,7 +1323,7 @@
     {
       "id": "lawson-77356f45c9",
       "chain": "Lawson",
-      "name": "Chocolate",
+      "name": "Chocolate croissant",
       "nameJa": "チョコクロワッサン",
       "category": "",
       "categoryJa": "",
@@ -1360,7 +1360,7 @@
     {
       "id": "lawson-7f28fa8748",
       "chain": "Lawson",
-      "name": "Chocolate",
+      "name": "Chocolate marshmallow",
       "nameJa": "チョコマシュマロ",
       "category": "",
       "categoryJa": "",
@@ -1397,7 +1397,7 @@
     {
       "id": "lawson-87cf9cd700",
       "chain": "Lawson",
-      "name": "Ham sandwich",
+      "name": "Ham and egg sandwich",
       "nameJa": "ハムたまごサンド",
       "category": "",
       "categoryJa": "",
@@ -1434,7 +1434,7 @@
     {
       "id": "lawson-5105075ca5",
       "chain": "Lawson",
-      "name": "5 and",
+      "name": "Five kinds of fruit and nuts",
       "nameJa": "彩り5種のフルーツ&ナッツ",
       "category": "",
       "categoryJa": "",
@@ -1471,7 +1471,7 @@
     {
       "id": "lawson-7030edb390",
       "chain": "Lawson",
-      "name": "Shrimp rice bowl",
+      "name": "Shrimp and root-vegetable kakiage tendon",
       "nameJa": "海老と根菜かき揚げの天丼",
       "category": "",
       "categoryJa": "",
@@ -1508,7 +1508,7 @@
     {
       "id": "lawson-108774f07c",
       "chain": "Lawson",
-      "name": "Green onion!",
+      "name": "Onion bread",
       "nameJa": "玉ねぎがおいしい!オニオンブレッド",
       "category": "",
       "categoryJa": "",
@@ -1545,7 +1545,7 @@
     {
       "id": "familymart-eea8eda34d",
       "chain": "FamilyMart",
-      "name": "Wafer snack",
+      "name": "Niformation Demon Slayer sticker wafers, Vol. 16",
       "nameJa": "にふぉるめーしょん鬼滅の刃シールウエハース其ノ十六",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -1600,7 +1600,7 @@
     {
       "id": "familymart-be4bddf734",
       "chain": "FamilyMart",
-      "name": "A6 B line socks",
+      "name": "Campus notebook-style A6 B-ruled line socks",
       "nameJa": "キャンパスソフトリングノート A6 B罫 ラインソックス",
       "category": "Category",
       "categoryJa": "コンビニエンスウェア",
@@ -1655,7 +1655,7 @@
     {
       "id": "familymart-f0cdbb546f",
       "chain": "FamilyMart",
-      "name": "And",
+      "name": "Lotte waffle-cone cookies and cream",
       "nameJa": "ロッテ ワッフルコーン クッキー&クリーム",
       "category": "Ice cream",
       "categoryJa": "アイス",
@@ -1889,7 +1889,7 @@
     {
       "id": "familymart-7e93cd397d",
       "chain": "FamilyMart",
-      "name": "Regional sandwich dashi (chicken)",
+      "name": "Overflowing hot dog with yurinchi chicken",
       "nameJa": "【四国】ホットサンド はみだしドッグ（油淋鶏）",
       "category": "Sandwiches, rolls, and burgers",
       "categoryJa": "サンドイッチ・ロールパン・バーガー",
@@ -1930,7 +1930,7 @@
     {
       "id": "familymart-db91bbfa4e",
       "chain": "FamilyMart",
-      "name": "Regional dashi",
+      "name": "Broccoli and grilled tofu with flying-fish dashi",
       "nameJa": "【東京都の一部・神奈川県の一部】国産ブロッコリーとグリル豆腐のあごだし和え",
       "category": "Chilled side dish",
       "categoryJa": "チルド惣菜",
@@ -2198,7 +2198,7 @@
     {
       "id": "familymart-979f70c918",
       "chain": "FamilyMart",
-      "name": "Fluffy-chewy",
+      "name": "Fluffy-chewy mentaiko French bread",
       "nameJa": "ふわもち食感明太フランス",
       "category": "Bakery",
       "categoryJa": "パン",
@@ -2251,7 +2251,7 @@
     {
       "id": "familymart-2b84a6e3a6",
       "chain": "FamilyMart",
-      "name": "Bread 4",
+      "name": "Chewy bacon-and-egg bread, 4 pieces",
       "nameJa": "もっちベーコンエッグパン4個入",
       "category": "Bakery",
       "categoryJa": "パン",
@@ -2304,7 +2304,7 @@
     {
       "id": "familymart-aa2d2df3b8",
       "chain": "FamilyMart",
-      "name": "~ roll ()",
+      "name": "Chewy double-caramel croissant roll",
       "nameJa": "も～っちり食感クロワッサンロール（ダブルキャラメル）",
       "category": "Bakery",
       "categoryJa": "パン",
@@ -2359,7 +2359,7 @@
     {
       "id": "familymart-d1546cefb3",
       "chain": "FamilyMart",
-      "name": "Cheese",
+      "name": "Four-cheese lasagna",
       "nameJa": "クワトロチーズラザニア",
       "category": "Soup gratin okonomiyaki",
       "categoryJa": "スープ・グラタン・お好み焼き",
@@ -2412,7 +2412,7 @@
     {
       "id": "familymart-6449044328",
       "chain": "FamilyMart",
-      "name": "Soba udon",
+      "name": "Rich curry udon",
       "nameJa": "コクと深みのカレーうどん",
       "category": "Soba udon",
       "categoryJa": "そば・うどん・中華めん",
@@ -2459,7 +2459,7 @@
     {
       "id": "familymart-1b3b3a2369",
       "chain": "FamilyMart",
-      "name": "Tomato",
+      "name": "Spicy ripe-tomato arrabbiata",
       "nameJa": "ベーコンの旨みとクセになる辛み完熟トマトのアラビアータ",
       "category": "Frozen food",
       "categoryJa": "冷凍食品",
@@ -2514,7 +2514,7 @@
     {
       "id": "familymart-4a01f393c4",
       "chain": "FamilyMart",
-      "name": "Milk 4",
+      "name": "Milk whipped-cream donuts, 4 pieces",
       "nameJa": "ミルクホイップクリームドーナツ4個入",
       "category": "Bakery",
       "categoryJa": "パン",
@@ -2567,7 +2567,7 @@
     {
       "id": "familymart-1b0b58d6f5",
       "chain": "FamilyMart",
-      "name": "Large chocolate",
+      "name": "Large chocolate tart",
       "nameJa": "大きなショコラタルト",
       "category": "Dessert",
       "categoryJa": "デザート",
@@ -2622,7 +2622,7 @@
     {
       "id": "familymart-18d5b48a33",
       "chain": "FamilyMart",
-      "name": "Large-serving!",
+      "name": "Large-serving aromatic fried rice",
       "nameJa": "大盛！やみつき香ばし炒飯",
       "category": "Bento",
       "categoryJa": "お弁当",
@@ -2677,7 +2677,7 @@
     {
       "id": "familymart-15a67609c2",
       "chain": "FamilyMart",
-      "name": "Seafood",
+      "name": "Special grilled seafood champon",
       "nameJa": "海鮮の旨みが広がる特製焼きちゃんぽん",
       "category": "Frozen food",
       "categoryJa": "冷凍食品",
@@ -2732,7 +2732,7 @@
     {
       "id": "familymart-6e75984b13",
       "chain": "FamilyMart",
-      "name": "Side dish",
+      "name": "Chicken-gizzard peperoncino",
       "nameJa": "砂肝ペペロンチーノ",
       "category": "Chilled side dish",
       "categoryJa": "チルド惣菜",
@@ -2787,7 +2787,7 @@
     {
       "id": "familymart-0c1b28c9fc",
       "chain": "FamilyMart",
-      "name": "Chicken salt kelp cabbage",
+      "name": "Steamed chicken and salt-kelp cabbage",
       "nameJa": "蒸し鶏と塩昆布のやみつきキャベツ",
       "category": "Chilled side dish",
       "categoryJa": "チルド惣菜",
@@ -2895,7 +2895,7 @@
     {
       "id": "familymart-a51cae5f45",
       "chain": "FamilyMart",
-      "name": "Happy 『DISNEY 』",
+      "name": "Happy Kuji Disney Christmas ornament lottery",
       "nameJa": "Happyくじ『DISNEY クリスマスオーナメントくじ』",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -3001,7 +3001,7 @@
     {
       "id": "familymart-0268d3eb48",
       "chain": "FamilyMart",
-      "name": "Snack side dish",
+      "name": "Karaage skewer",
       "nameJa": "からアゲ串",
       "category": "Snack side dish",
       "categoryJa": "ホットスナック・惣菜",
@@ -3054,7 +3054,7 @@
     {
       "id": "familymart-379e3e8653",
       "chain": "FamilyMart",
-      "name": "Chocolate",
+      "name": "Tamagotchi chocolate mascot charm",
       "nameJa": "たまごっち チョコレートマスコットチャーム",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -3107,7 +3107,7 @@
     {
       "id": "familymart-e6b7ce22b0",
       "chain": "FamilyMart",
-      "name": "CAN Vol.2",
+      "name": "Tamagotchi embroidery can badge Vol. 2",
       "nameJa": "たまごっち 刺繍CANバッジVol.2",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -3160,7 +3160,7 @@
     {
       "id": "familymart-a5327113e2",
       "chain": "FamilyMart",
-      "name": "Dashi aromatic!",
+      "name": "Melty takoyaki with aromatic dashi",
       "nameJa": "だし香る！とろーりたこ焼き",
       "category": "Soup gratin okonomiyaki",
       "categoryJa": "スープ・グラタン・お好み焼き",
@@ -3266,7 +3266,7 @@
     {
       "id": "familymart-19ed3d09c5",
       "chain": "FamilyMart",
-      "name": "Cheese potato chips",
+      "name": "Calbee crispy-cheese-style potato chips, black pepper",
       "nameJa": "カルビー まるでカリカリチーズのようなポテトチップスブラックペッパー味",
       "category": "Sweets",
       "categoryJa": "お菓子",
@@ -3319,7 +3319,7 @@
     {
       "id": "familymart-ae584ea79d",
       "chain": "FamilyMart",
-      "name": "A6 B",
+      "name": "Campus soft-ring notebook A6 B-ruled, konbini gradient",
       "nameJa": "キャンパスソフトリングノート A6 B罫 コンビニグラデーション",
       "category": "Category",
       "categoryJa": "コンビニエンスウェア",
@@ -3372,7 +3372,7 @@
     {
       "id": "familymart-20d3622a60",
       "chain": "FamilyMart",
-      "name": "350ml",
+      "name": "Sapporo Beer Surprise Kokunoshinzui 350ml",
       "nameJa": "サッポロ ビアサプライズコクの神髄 350ml",
       "category": "Alcohol",
       "categoryJa": "お酒",
@@ -3425,7 +3425,7 @@
     {
       "id": "familymart-912cfba933",
       "chain": "FamilyMart",
-      "name": "500ml",
+      "name": "Sapporo Beer Surprise Kokunoshinzui 500ml",
       "nameJa": "サッポロ ビアサプライズコクの神髄 500ml",
       "category": "Alcohol",
       "categoryJa": "お酒",
@@ -3478,7 +3478,7 @@
     {
       "id": "familymart-f2991ace0f",
       "chain": "FamilyMart",
-      "name": "「 」",
+      "name": "Sanrio Hello Kitty prize lottery",
       "nameJa": "サンリオ当りくじ「ハローキティ当りくじ」",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -3531,7 +3531,7 @@
     {
       "id": "familymart-97544c24ad",
       "chain": "FamilyMart",
-      "name": "Bread VS bread",
+      "name": "Pan Dorobo vs fake Pan Dorobo bath ball",
       "nameJa": "パンどろぼうVSにせパンどろぼう バスボール",
       "category": "Character lottery and entertainment goods",
       "categoryJa": "キャラクターくじ・エンタメ雑貨など",
@@ -3584,7 +3584,7 @@
     {
       "id": "familymart-252e380bf7",
       "chain": "FamilyMart",
-      "name": "Chilled melting bread milk",
+      "name": "Chilled melting cream-bread milk",
       "nameJa": "冷やして食べるとろけるくりーむパンミルク",
       "category": "Dessert",
       "categoryJa": "デザート",
@@ -3637,7 +3637,7 @@
     {
       "id": "familymart-fde7e99932",
       "chain": "FamilyMart",
-      "name": "Miso five-ingredient",
+      "name": "Savory miso-fried five-ingredient ankake rice",
       "nameJa": "旨味噌炒めの五目あんかけ飯",
       "category": "Bento",
       "categoryJa": "お弁当",
@@ -3690,7 +3690,7 @@
     {
       "id": "familymart-10ff805ac8",
       "chain": "FamilyMart",
-      "name": "600ml",
+      "name": "Charyu Saisai corn tea 600ml",
       "nameJa": "茶流彩彩 コーン茶 600ml",
       "category": "Drink",
       "categoryJa": "飲料",
@@ -3809,7 +3809,7 @@
     {
       "id": "7-eleven-d6217126fd",
       "chain": "7-Eleven",
-      "name": "Rice ball 2 wakame five-ingredient",
+      "name": "Wakame and chicken-gomoku rice balls, 2 pieces",
       "nameJa": "おむすび２個入り わかめ・とり五目",
       "category": "",
       "categoryJa": "",
@@ -3973,7 +3973,7 @@
     {
       "id": "7-eleven-2492bfb6dd",
       "chain": "7-Eleven",
-      "name": "Tomato chicken bento",
+      "name": "Garlic-tomato grilled chicken bento",
       "nameJa": "ガーリックトマトのグリルチキン弁当",
       "category": "",
       "categoryJa": "",
@@ -4040,7 +4040,7 @@
     {
       "id": "7-eleven-c8186211e9",
       "chain": "7-Eleven",
-      "name": "Tomato chicken",
+      "name": "Butter chicken curry",
       "nameJa": "トマトの旨み広がる バターチキンカレー",
       "category": "",
       "categoryJa": "",
@@ -4073,7 +4073,7 @@
     {
       "id": "7-eleven-ba3188d412",
       "chain": "7-Eleven",
-      "name": "And bento",
+      "name": "Hamburger-steak and karaage bento",
       "nameJa": "ハンバーグ＆唐揚げ弁当",
       "category": "",
       "categoryJa": "",
@@ -4202,7 +4202,7 @@
     {
       "id": "7-eleven-43106a281a",
       "chain": "7-Eleven",
-      "name": "Salt style rice ball",
+      "name": "Chozenji-na fried-rice ball with salt sauce",
       "nameJa": "塩だれ仕立ての長禅寺菜炒飯おむすび",
       "category": "",
       "categoryJa": "",
@@ -4660,7 +4660,7 @@
     {
       "id": "7-eleven-ac16db3c34",
       "chain": "7-Eleven",
-      "name": "Style and salt yakisoba",
+      "name": "Sweet-spicy shrimp-chili fried rice and salt yakisoba",
       "nameJa": "甘辛仕立てのエビチリチャーハン＆塩焼きそば",
       "category": "",
       "categoryJa": "",
@@ -4756,7 +4756,7 @@
     {
       "id": "7-eleven-b28a9a2517",
       "chain": "7-Eleven",
-      "name": "Rice bowl",
+      "name": "Mapo eggplant rice bowl",
       "nameJa": "醤のコクと旨み 麻婆茄子丼",
       "category": "",
       "categoryJa": "",
@@ -4788,7 +4788,7 @@
     {
       "id": "7-eleven-3747d1ff0b",
       "chain": "7-Eleven",
-      "name": "Vegetables",
+      "name": "Simmered-vegetable fried rice",
       "nameJa": "野菜の旨み うま煮チャーハン",
       "category": "",
       "categoryJa": "",
@@ -4884,7 +4884,7 @@
     {
       "id": "7-eleven-7e21edb25a",
       "chain": "7-Eleven",
-      "name": "Sausage",
+      "name": "Double sausage-and-egg muffin",
       "nameJa": "ダブルソーセージエッグマフィン",
       "category": "",
       "categoryJa": "",
@@ -4916,7 +4916,7 @@
     {
       "id": "7-eleven-b931b03f1b",
       "chain": "7-Eleven",
-      "name": "And cheese",
+      "name": "Beef and mac and cheese",
       "nameJa": "ビーフ＆マッケンチーズ",
       "category": "",
       "categoryJa": "",
