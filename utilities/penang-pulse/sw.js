@@ -1,9 +1,9 @@
-const CACHE_NAME = "penang-pulse-v19";
+const CACHE_NAME = "penang-pulse-v20";
 const SHELL_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=19",
-  "./app.js?v=19",
+  "./styles.css?v=20",
+  "./app.js?v=20",
   "./manifest.webmanifest",
   "./icon.svg",
   "./apple-touch-icon.png",

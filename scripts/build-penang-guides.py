@@ -44,6 +44,7 @@ GRAPH_STATS = PULSE_DIR / "mee-graph" / "data" / "graph-stats.json"
 MEE_SEARCH_SERIES = "mee-myself-and-i"
 SITE_ORIGIN = "https://penangpulse.com"
 SITE_NAME = "Penang Pulse"
+GA_MEASUREMENT_ID = "G-ERZGD4YCNK"
 SITE_AUTHOR = "Balazs Fejes"
 OG_DEFAULT_PATH = "/og-default.jpg"
 APPLE_TOUCH = "apple-touch-icon.png"
@@ -54,6 +55,18 @@ SERIES_OG_VER = "2"  # bump when regenerating series share cards (WhatsApp image
 def copyright_year() -> int:
     """Calendar year for soft © chrome (build date)."""
     return dt.date.today().year
+
+
+def ga_snippet() -> str:
+    """GA4 tag for penangpulse.com. Inline so nested guides do not depend on a relative path."""
+    mid = GA_MEASUREMENT_ID
+    return f"""    <script async src="https://www.googletagmanager.com/gtag/js?id={mid}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag("js", new Date());
+      gtag("config", "{mid}");
+    </script>"""
 
 
 def author_byline(*, series_hub: bool = False) -> str:
@@ -995,6 +1008,7 @@ def render_article(
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{html.escape(css_href, quote=True)}" />
+{ga_snippet()}
   </head>
   <body>
     <div class="guide-topbar">
@@ -1103,6 +1117,7 @@ def render_mee_search_landing(
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}" />
+{ga_snippet()}
   </head>
   <body>
     <div class="guide-topbar">
@@ -1321,6 +1336,7 @@ def render_series_index(
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../../{ARTICLE_CSS}?v={ARTICLE_CSS_VER}" />
+{ga_snippet()}
   </head>
   <body>
     <div class="guide-topbar">
