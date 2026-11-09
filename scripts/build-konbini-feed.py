@@ -1043,6 +1043,9 @@ PRODUCT_SPECIFIC_NOTES = {
     "サクッと!からあげクン じゃがりこ明太チーズもんじゃ味": (
         "Karaage-kun is Lawson's fried chicken, here in Calbee Jagariko's mentaiko-cheese monjayaki flavor."
     ),
+    "【ファミマオンライン限定】抽選販売 氣志團×ファミリーマート 新年４６４９福袋": (
+        "Famima online lottery sale for a Kishidan collaboration New Year lucky bag, not a regular store-shelf item."
+    ),
 }
 
 PRODUCT_SPECIFIC_TITLES = {
@@ -1530,6 +1533,22 @@ PRODUCT_SPECIFIC_TITLES = {
     "飲むおだし": "Drinkable dashi",
     "直火炙り焼豚と香ばし炒めのチャーハン": "Grilled chashu fried rice",
     "鶏めし御飯幕の内": "Chicken-rice makunouchi bento",
+    # Week of 2026-11-09 — chain leaders and titles the glossary collapsed
+    "森半監修 抹茶ショコラあずきまん": "Morihan matcha-chocolate azuki bun",
+    "【ファミマオンライン限定】抽選販売 氣志團×ファミリーマート 新年４６４９福袋": (
+        "Kishidan x FamilyMart New Year 4649 lucky bag"
+    ),
+    "ロメスパバルボア監修 明太子スパゲティ": "Romespa Balboa mentaiko spaghetti",
+    "【中国・四国】壱番館監修 尾道ラーメン": "Ichibankan Onomichi ramen",
+    "【関東の一部・東海】味仙本店監修 台湾はるさめスープ": "Misen Taiwanese glass-noodle soup",
+    "【関東の一部・東海】味仙本店監修 台湾ラーメン": "Misen Taiwan ramen",
+    "【関西】麺屋極鶏監修 鶏だくラーメン": "Menya Gokkei extra-chicken ramen",
+    "Afternoon Tea監修 レモンマートル香るハーブティー 600ml": "Afternoon Tea lemon-myrtle herbal tea 600ml",
+    "ぼんご監修 大きなおむすび 生たらこと鮭マヨネーズ": "Bongo large rice ball with tarako and salmon mayo",
+    "味仙本店監修 汁なし台湾ラーメン": "Misen soupless Taiwan ramen",
+    "味仙本店監修 激辛台湾ラーメン エイリアン": "Misen extra-hot Taiwan ramen Alien",
+    "おおきなおむすび きのこ炊き込み押麦ごはん": "Large rice ball with mushroom barley rice",
+    "だし飯おむすび 枝豆ごはん": "Dashi rice ball with edamame rice",
 }
 
 

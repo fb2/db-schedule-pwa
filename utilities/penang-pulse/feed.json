@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-28T01:28:16.397161+00:00",
-  "weekLabel": "Week of 28 Oct",
-  "intro": "13 events, 13 food picks, and 14 worth revisiting.",
+  "generatedAt": "2026-11-09T12:14:20.105004+00:00",
+  "weekLabel": "Week of 9 Nov",
+  "intro": "8 events, 9 food picks, and 14 worth revisiting.",
   "sources": [
     {
       "id": "penangtoday_events",
@@ -12,7 +12,7 @@
       "url": "https://penangtoday.my/topic/events/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 11782,
+      "bytes": 12024,
       "itemCount": 10,
       "parser": "rss_items"
     },
@@ -24,8 +24,8 @@
       "url": "https://penangtoday.my/topic/food/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 11723,
-      "itemCount": 9,
+      "bytes": 11842,
+      "itemCount": 10,
       "parser": "rss_items"
     },
     {
@@ -36,8 +36,8 @@
       "url": "https://hinbusdepot.com/events",
       "ok": true,
       "status": 200,
-      "bytes": 132961,
-      "itemCount": 9,
+      "bytes": 128879,
+      "itemCount": 8,
       "parser": "hin_events_html"
     },
     {
@@ -48,7 +48,7 @@
       "url": "https://thesmartlocal.my/new-cafes-restaurants-penang/",
       "ok": true,
       "status": 200,
-      "bytes": 600283,
+      "bytes": 600247,
       "itemCount": 5,
       "parser": "smartlocal_cafes_html"
     },
@@ -96,7 +96,7 @@
       "url": "https://penang.chinapress.com.my/category/%e5%90%83%e5%96%9d%e7%8e%a9%e4%b9%90/",
       "ok": true,
       "status": 200,
-      "bytes": 75456,
+      "bytes": 75435,
       "itemCount": 0,
       "parser": "chinapress_category_html"
     },
@@ -120,8 +120,8 @@
       "url": "https://penanghyperlocal.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 67098,
-      "itemCount": 4,
+      "bytes": 70857,
+      "itemCount": 2,
       "parser": "rss_items"
     },
     {
@@ -132,7 +132,7 @@
       "url": "https://www.buletinmutiara.com/feed/",
       "ok": true,
       "status": 200,
-      "bytes": 22871,
+      "bytes": 27338,
       "itemCount": 3,
       "parser": "rss_items"
     },
@@ -144,90 +144,36 @@
       "url": "https://penangfoodie.com/",
       "ok": true,
       "status": 200,
-      "bytes": 209212,
+      "bytes": 209347,
       "itemCount": 10,
       "parser": "penangfoodie_home_html"
     }
   ],
   "items": [
     {
-      "id": "event-sunway-carnival-mall-marks-mid-autumn-with-moonl-963ff4e271",
+      "id": "event-zinister-business-a-zine-exhibition-b4e7d69375",
       "kind": "event",
-      "title": "Sunway Carnival Mall marks Mid-Autumn with Moonlit Togetherness celebration",
-      "summary": "Mid-Autumn returns to Seberang Jaya this month, and Sunway Carnival Mall is marking the occasion with a full slate of workshops, performances and festive shopping under the theme Moonlit Togetherness · 月下相聚. The festival…",
-      "detail": "Mid-Autumn returns to Seberang Jaya this month, and Sunway Carnival Mall is marking the occasion with a full slate of workshops, performances and festive shopping under the theme Moonlit Togetherness · 月下相聚. The festival has long centred on family, food and the moon, and this year’s programme leans into all three. Rather than a single […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/IMG_20260905_160330.jpg",
-      "sourceUrl": "https://penangtoday.my/featured/9490/sunway-carnival-mall-marks-mid-autumn-with-moonlit-togetherness-celebration/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Thu, 10 Sep 2026 10:53:22 +0000",
-      "topics": [
-        "family",
-        "festival",
-        "food"
-      ],
-      "interest": [
-        "family",
-        "festival",
-        "food"
-      ],
-      "interestScore": 100
-    },
-    {
-      "id": "event-screening-palestine-cinema-days-eb27fb3c19",
-      "kind": "event",
-      "title": "[Screening] Palestine Cinema Days",
-      "summary": "Monday 2 November 2026 Deck, Hin Bus Depot 8:00pm - 10:00pm Free entry for all!",
-      "detail": "Monday 2 November 2026 Deck, Hin Bus Depot 8:00pm - 10:00pm Free entry for all!",
-      "startDate": "2026-11-02",
-      "endDate": "2026-11-02",
-      "dateLabel": "2 Nov · Hin Bus Depot",
+      "title": "Zinister Business: A Zine Exhibition",
+      "summary": "The Mee Myself and I zine, from the author, is there to look through at the exhibition and the shop. Exhibition . Talks . Workshops 14 - 29 November 2026 Hin Bus Depot Residency Space Viewing Hours: 12:00pm - 7:00pm (Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "detail": "The Mee Myself and I zine, from the author, is there to look through at the exhibition and the shop. Exhibition . Talks . Workshops 14 - 29 November 2026 Hin Bus Depot Residency Space Viewing Hours: 12:00pm - 7:00pm (Fri) 10:00am - 7:00pm (Sat & Sun)",
+      "startDate": "2026-11-14",
+      "endDate": "2026-11-29",
+      "dateLabel": "14–29 Nov · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_844759027_18376108558215675_42156.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdhkfdp36JEhxzuUT62ILO8trWPHi19TV9WjZlKjBKMmKIoEQ/viewform",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/Zinister%20Business_A%20Zine%20Exhibition_Hin%20Bus%20De.png/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/31adeptstore/",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
       "topics": [
-        "culture",
-        "movies"
-      ],
-      "interest": [
-        "culture",
-        "movies"
-      ],
-      "interestScore": 88
-    },
-    {
-      "id": "event-gurney-plaza-brings-deepavali-in-splendour-celeb-e1ec7a4763",
-      "kind": "event",
-      "title": "Gurney Plaza brings Deepavali in Splendour celebration",
-      "summary": "Penang’s popular shopping mall, Gurney Plaza launched its “Deepavali in Splendour” promotion at its main atrium with colourful traditional dance performance against a backdrop of their vibrant festive decorations. At the…",
-      "detail": "Penang’s popular shopping mall, Gurney Plaza launched its “Deepavali in Splendour” promotion at its main atrium with colourful traditional dance performance against a backdrop of their vibrant festive decorations. At the heart of the festive decoration is a magnificent peacock illuminated with neon lights perched in a graceful posture. As the festive mood and music took […] The post Gurney Plaza brings Deepavali in Splendour celebration appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/10/G-2-1.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/gurney-plaza-brings-deepavali-in-splendour-celebration/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Sat, 24 Oct 2026 13:18:34 +0000",
-      "topics": [
-        "music",
+        "literary",
         "culture"
       ],
       "interest": [
-        "music",
+        "literary",
         "culture"
       ],
-      "interestScore": 84
+      "interestScore": 120
     },
     {
       "id": "event-20th-battle-of-the-chefs-opens-with-penang-food--3ef6c7b714",
@@ -256,6 +202,54 @@
       "interestScore": 80
     },
     {
+      "id": "event-beyond-festivities-penang-jom-jom-deepavali-carn-9b50281a93",
+      "kind": "event",
+      "title": "Beyond Festivities, Penang Jom Jom Deepavali Carnival Shines Spotlight On Small Businesses",
+      "summary": "A ten-day Deepavali carnival in Bayan Lepas has turned a festive marketplace into a launch pad for small traders, with nearly all of its vendors selling at such an event for the first time. The Penang Jom Jom Deepavali C…",
+      "detail": "A ten-day Deepavali carnival in Bayan Lepas has turned a festive marketplace into a launch pad for small traders, with nearly all of its vendors selling at such an event for the first time. The Penang Jom Jom Deepavali Carnival 2026 features about 45 stalls, and close to 95 per cent of the traders behind […]",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penangtoday.my/ipsostuh/source-bernama-jom-jom-deepavali-carnival.jpg",
+      "sourceUrl": "https://penangtoday.my/business/10213/beyond-festivities-penang-jom-jom-deepavali-carnival-shines-spotlight-on-small-businesses/",
+      "sourceName": "PenangToday Events",
+      "sourceId": "penangtoday_events",
+      "category": "Events",
+      "publishedAt": "Mon, 02 Nov 2026 01:15:17 +0000",
+      "topics": [
+        "festival"
+      ],
+      "interest": [
+        "festival"
+      ],
+      "interestScore": 72
+    },
+    {
+      "id": "event-penang-cm-at-micci-deepavali-hamper-giveaway-c086ac12e6",
+      "kind": "event",
+      "title": "Penang CM at MICCI Deepavali hamper giveaway",
+      "summary": "Penang Chief Minister YAB Chow Kon Yeow made time to join the upcoming Deepavali festival at a hamper presentation ceremony organised by the Malaysian Indian Chamber of Commerce and Industry (MICCI), Penang Chapter, rece…",
+      "detail": "Penang Chief Minister YAB Chow Kon Yeow made time to join the upcoming Deepavali festival at a hamper presentation ceremony organised by the Malaysian Indian Chamber of Commerce and Industry (MICCI), Penang Chapter, recently. Also present at the event were State Executive Councillor for Housing and Environment YB Sundrarajoo Somu, Penang Mayor Dato’ A. Rajendran, […] The post Penang CM at MICCI Deepavali hamper giveaway appeared first on Penang Hyperlocal .",
+      "startDate": null,
+      "endDate": null,
+      "dateLabel": "Date TBA · Penang",
+      "area": "Penang",
+      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/11/Cm-2.jpg",
+      "sourceUrl": "https://penanghyperlocal.com/penang-cm-at-micci-deepavali-hamper-giveaway/",
+      "sourceName": "Penang Hyperlocal",
+      "sourceId": "penang_hyperlocal",
+      "category": "Events",
+      "publishedAt": "Tue, 03 Nov 2026 21:31:12 +0000",
+      "topics": [
+        "festival"
+      ],
+      "interest": [
+        "festival"
+      ],
+      "interestScore": 72
+    },
+    {
       "id": "event-how-long-have-you-been-here-a-solo-exhibition-by-e730548bd7",
       "kind": "event",
       "title": "How Long Have You Been Here (A Solo Exhibition by Hoo Fan Chon)",
@@ -267,76 +261,6 @@
       "area": "George Town",
       "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/How%20Long%20Have%20You%20Been%20Here_A%20Solo%20Exhibitionn.jpg/:/rs=w:1095,cg:true,m",
       "sourceUrl": "https://hinbusdepot.com/events",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 68
-    },
-    {
-      "id": "event-low-chee-peng-open-studio-95620312cf",
-      "kind": "event",
-      "title": "Low Chee Peng Open Studio",
-      "summary": "3 October - 1 November 2026 Hin Bus Depot Gallery Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
-      "detail": "3 October - 1 November 2026 Hin Bus Depot Gallery Viewing Hours: 10:00am - 6:00pm (Friday - Sunday)",
-      "startDate": "2026-10-03",
-      "endDate": "2026-11-01",
-      "dateLabel": "Ongoing · until 1 Nov · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_829340276_18121160828484694_12748.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/osculpture/?hl=en",
-      "sourceName": "Hin Bus Depot",
-      "sourceId": "hin_bus_depot",
-      "category": "Arts",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 68
-    },
-    {
-      "id": "event-penang-hokkien-gets-the-gallery-treatment-in-sum-e45975bc73",
-      "kind": "event",
-      "title": "Penang Hokkien Gets The Gallery Treatment In Sumidik’s Debut Solo Show",
-      "summary": "Penang illustrator sumidik is putting everyday Hokkien on the gallery wall with MaiKea: ‘Fear Not’, his debut solo exhibition, running from 9 to 31 October 2026 at Masshaus, 147A Lebuh Victoria. The title is a Hokkien ca…",
-      "detail": "Penang illustrator sumidik is putting everyday Hokkien on the gallery wall with MaiKea: ‘Fear Not’, his debut solo exhibition, running from 9 to 31 October 2026 at Masshaus, 147A Lebuh Victoria. The title is a Hokkien call to courage. The show grew from one fear of his: that fewer young people speak the dialect in […]",
-      "startDate": "2026-10-09",
-      "endDate": "2026-10-31",
-      "dateLabel": "Ongoing · until 31 Oct",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/img_039d57c3fef1-scaled.jpg",
-      "sourceUrl": "https://penangtoday.my/art/9675/maikkea-fear-not-sumidik-debut-solo-show-penang-hokkien/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Fri, 25 Sep 2026 06:05:30 +0000",
-      "topics": [
-        "culture"
-      ],
-      "interest": [
-        "culture"
-      ],
-      "interestScore": 68
-    },
-    {
-      "id": "event-talk-on-paper-and-on-the-ground-migrant-workers--9b3b29a3fd",
-      "kind": "event",
-      "title": "[Talk] ON PAPER AND ON THE GROUND: Migrant Workers' Rights in Malaysia",
-      "summary": "Saturday 31 October 2026 Ruang Kongsi, COEX at Kilang Besi 3:00pm - 4:30pm Free entry for all! Pre-registration is required.",
-      "detail": "Saturday 31 October 2026 Ruang Kongsi, COEX at Kilang Besi 3:00pm - 4:30pm Free entry for all! Pre-registration is required.",
-      "startDate": "2026-10-31",
-      "endDate": "2026-10-31",
-      "dateLabel": "31 Oct · Hin Bus Depot",
-      "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_867638595_18161046685519341_91885.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeD9pYa8L1OjAPHJmdWFDn_pqb6g_fzjGH1o7gNeaxOuyoeiA/viewform",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Arts",
@@ -372,26 +296,6 @@
       "interestScore": 68
     },
     {
-      "id": "event-penang-unity-council-and-sunshine-square-honor-y-3c38807776",
-      "kind": "event",
-      "title": "Penang Unity Council and Sunshine Square Honor Young Artists at 2026 Unity Colouring Contest",
-      "summary": "In a vibrant celebration of harmony, creativity, and community spirit, the Penang Unity Council (Majlis Perundingan Muhibbah Negeri Pulau Pinang — MPNPP), in collaboration with Sunshine Square, successfully hosted the Cl…",
-      "detail": "In a vibrant celebration of harmony, creativity, and community spirit, the Penang Unity Council (Majlis Perundingan Muhibbah Negeri Pulau Pinang — MPNPP), in collaboration with Sunshine Square, successfully hosted the Closing and Prize Giving Ceremony of the 2026 Unity Colouring Contest for World Happiness. Cantering on the inspiring theme “Harmony for a Better World,” the […] The post Penang Unity Council and Sunshine Square Honor Young Artists at 2026 Unity Colouring Contest appeared first on Penang Hyperlocal .",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penanghyperlocal.com/wp-content/uploads/2026/10/Unity-2.jpg",
-      "sourceUrl": "https://penanghyperlocal.com/penang-unity-council-and-sunshine-square-honor-young-artists-at-2026-unity-colouring-contest/",
-      "sourceName": "Penang Hyperlocal",
-      "sourceId": "penang_hyperlocal",
-      "category": "Events",
-      "publishedAt": "Wed, 28 Oct 2026 00:05:36 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 44
-    },
-    {
       "id": "event-shuck-catch-fresh-harima-oysters-at-caf-168-s-we-df5b450677",
       "kind": "event",
       "title": "Shuck & Catch: Fresh Harima Oysters at Café 168’s Weekend Seafood Buffet",
@@ -412,57 +316,37 @@
       "interestScore": 44
     },
     {
-      "id": "event-two-cars-up-for-grabs-at-love-penang-run-2026-09d9ca185c",
+      "id": "event-ai-203ebcf41b",
       "kind": "event",
-      "title": "Two Cars Up For Grabs At Love Penang Run 2026",
-      "summary": "Two Perodua Axia cars are up for grabs in the Love Penang Run 2026 lucky draw, the state government announced today as registration opens for the fifth edition of the community running event. Chief Minister Chow Kon Yeow…",
-      "detail": "Two Perodua Axia cars are up for grabs in the Love Penang Run 2026 lucky draw, the state government announced today as registration opens for the fifth edition of the community running event. Chief Minister Chow Kon Yeow said the cars are sponsored by Penang Forward Sports Club (PFSC) adviser Datuk Tom Khoo, adding that […]",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "Date TBA · Penang",
-      "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/lovepenangrun-og.jpg",
-      "sourceUrl": "https://penangtoday.my/news/9395/two-cars-up-for-grabs-at-love-penang-run-2026/",
-      "sourceName": "PenangToday Events",
-      "sourceId": "penangtoday_events",
-      "category": "Events",
-      "publishedAt": "Thu, 27 Aug 2026 13:38:51 +0000",
-      "topics": [],
-      "interest": [],
-      "interestScore": 44
-    },
-    {
-      "id": "event-ai-10-15-38eeac50e5",
-      "kind": "event",
-      "title": "槟岛市厅AI 城市倡议取成效 首长：交通拥堵减10%至15%",
-      "summary": "槟州首长曹观友表示，人工智能（AI）已经逐渐应用在城市管理上，数码部资料显示，在“AI城市倡议”下，槟岛市政厅交通管理取得成效，交通拥堵减少了10%至15%。 他说，州政府推动科技发展，正是希望它能够帮助解决问题，让公共服务更有效率，人民生活更方便，而上述科技运用在交通管理，正是最好范例之一。 “科技发展一日千里，尤其是人工智能的崛起，正在改变我们每个人的生活；作为马来西亚的工业与科技重镇，槟城一直走在科技发展最前沿。” 无论如何，他说…",
-      "detail": "槟州首长曹观友表示，人工智能（AI）已经逐渐应用在城市管理上，数码部资料显示，在“AI城市倡议”下，槟岛市政厅交通管理取得成效，交通拥堵减少了10%至15%。 他说，州政府推动科技发展，正是希望它能够帮助解决问题，让公共服务更有效率，人民生活更方便，而上述科技运用在交通管理，正是最好范例之一。 “科技发展一日千里，尤其是人工智能的崛起，正在改变我们每个人的生活；作为马来西亚的工业与科技重镇，槟城一直走在科技发展最前沿。” 无论如何，他说，他推动科技发展外，懂得运用这些科技的人才才是最核心资源，槟州要走入高科技时代，就必须着重于培养更多相关人才，参与槟城发展。 他是于周二晚，受邀出席槟城肇庆府会馆成立 166 周年、青年团 24 周年，以及妇女组周年纪念的联欢晚宴上，致词时这么表示。 ………………………………… 科技须正确道德观驾驭 ………………………………… 他补充，先进的科技也必须拥有正确道德观驾驭，不然这些科技将很容易导人误入歧途，如利用科技制造假消息、进行诈骗和误导民众等。 因此，他认为，在大力培养科技人才的同时，也必须注重人文素养的灌输；科技发展得越快，越要保有独立思考和判断能力，学会不轻信和查清网络资讯。 他也在会上，和与会者分享一则新闻，既儿子投诉母亲沉迷Ai短片，每天动辄花上15小时刷剧，让家人感到崩溃，而这也是科技与人文素养必须同步的原因之一。 另外，他赞扬该会馆成立至今166年，经历了好几代人努力，从先辈南来谋生到同乡互助，直至如今在推动文化、教育和公益活动发挥作用，社会贡献良多。 “只要时间允许，我都会尽量抽出时间出席各大小社团组织的活动，和各领域领袖交流进一步了解大家的需求与想法，综合大家的意见来改善及推动槟城发展。” ……………………………………… 林国强：敦睦乡谊奠定基业 ……………………………………… 槟城肇庆府会馆会长拿督林国强说，该会馆自先贤",
+      "title": "AI不能取代记者现场观察 首长：媒体须坚守新闻真实性",
+      "summary": "槟州首席部长曹观友指出，人工智能（AI）时代的来临，并不意味着记者的专业要求可以降低，反而更考验媒体工作者的判断力、核查能力及现场观察能力，以确保新闻内容准确，维护媒体公信力。 他认为，媒体工作不应局限于记者会或活动现场的新闻报道，更应进一步消化和分析新闻内容，结合自身观察，通过新闻分析及专栏评论等方式，从不同角度探讨公共课题，让公众更深入了解政府政策及其背后的原因与影响。 他说，报章言论版是重要的公共讨论平台，尤其涉及政府政策及民生课…",
+      "detail": "槟州首席部长曹观友指出，人工智能（AI）时代的来临，并不意味着记者的专业要求可以降低，反而更考验媒体工作者的判断力、核查能力及现场观察能力，以确保新闻内容准确，维护媒体公信力。 他认为，媒体工作不应局限于记者会或活动现场的新闻报道，更应进一步消化和分析新闻内容，结合自身观察，通过新闻分析及专栏评论等方式，从不同角度探讨公共课题，让公众更深入了解政府政策及其背后的原因与影响。 他说，报章言论版是重要的公共讨论平台，尤其涉及政府政策及民生课题时，媒体的深入分析有助于推动社会讨论，让公众全面了解相关议题。 曹观友是出席北马记者职工会成立70周年纪念晚宴致词时指出，随着社交媒体普及及AI技术发展，新闻生成与传播的速度越来越快，但AI并非万能，若过度依赖，可能出现图片设计失误、翻译错误及不实信息等问题。 “AI可以提升工作效率，但不能取代记者到现场观察、采访，以及对事件作出理解和判断的能力。” 他也以槟州议会直播为例，说明科技传播仍存在局限。他指出，槟州议会直播主要采用单一镜头，无法全面呈现议会厅内的情况，因此曾出现媒体根据直播画面报道议员在场聆听，实际上有关议员并未出席的情况。 他说，这也说明记者不能单纯依赖直播画面或科技提供的信息，必须通过现场观察及核实，确保报道准确。 【肯定北马记者职工会贡献】 另一方面，曹观友肯定北马记者职工会70年来维护报人权益、改善工作环境及团结新闻从业员所作出的贡献，并希望该会继续发挥桥梁作用，推动媒体行业健康发展。 他也感谢媒体长期以来对他及州政府工作的支持，并强调媒体与政府之间应保持良好沟通，让媒体提出的问题获得政府正视与回应，进而推动实际改善。 曹观友也拨款1万令吉、大山脚国会议员沈志强拨款5000令吉及以及槟州行政议员黄汉伟拨款7000令吉给予该会作为活动基金。 【连毅勇：职工会续捍卫报人权益】 北马记者职工会会长拿督连毅勇致词时指出，该会成立",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Date TBA · Penang",
       "area": "Penang",
       "imageUrl": "",
-      "sourceUrl": "https://www.buletinmutiara.com/10%e8%87%b315/",
+      "sourceUrl": "https://www.buletinmutiara.com/ai%e4%b8%8d%e8%83%bd%e5%8f%96%e4%bb%a3%e8%ae%b0%e8%80%85/",
       "sourceName": "Buletin Mutiara",
       "sourceId": "buletin_mutiara",
       "category": "Events",
-      "publishedAt": "Tue, 27 Oct 2026 14:31:19 +0000",
+      "publishedAt": "Sat, 07 Nov 2026 13:21:47 +0000",
       "topics": [],
       "interest": [],
       "interestScore": 40
     },
     {
-      "id": "food-grow-market-1c7c172940",
+      "id": "food-kung-bros-collectors-market-969604c5e8",
       "kind": "food",
-      "title": "Grow Market",
-      "summary": "Saturday 7 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
-      "detail": "Saturday 7 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
-      "startDate": "2026-11-07",
-      "endDate": "2026-11-07",
-      "dateLabel": "7 Nov · Hin Bus Depot",
+      "title": "Kung Bros Collectors Market",
+      "summary": "Saturday 14 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 14 November 2026 Deck & Lawn, Hin Bus Depot 11:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-11-14",
+      "endDate": "2026-11-14",
+      "dateLabel": "14 Nov · Hin Bus Depot",
       "area": "George Town",
-      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_844965729_1752012320258723_684443.jpg/:/rs=w:1095,cg:true,m",
-      "sourceUrl": "https://www.instagram.com/p/DeZIE4RiEkI/?hl=en",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_859611275_17980316535129380_54972.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/kung.bros.collectors.market/?hl=en",
       "sourceName": "Hin Bus Depot",
       "sourceId": "hin_bus_depot",
       "category": "Markets"
@@ -484,6 +368,22 @@
       "category": "Markets"
     },
     {
+      "id": "food-luna-sinar-market-97e035e1a8",
+      "kind": "food",
+      "title": "Luna Sinar Market",
+      "summary": "Saturday 28 November 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "detail": "Saturday 28 November 2026 Deck & Lawn, Hin Bus Depot 10:00am - 5:00pm Free entry for all!",
+      "startDate": "2026-11-28",
+      "endDate": "2026-11-28",
+      "dateLabel": "28 Nov · Hin Bus Depot",
+      "area": "George Town",
+      "imageUrl": "https://img1.wsimg.com/isteam/ip/f698e6ee-d67f-4c29-9e6e-5b6bacd23004/SnapInsta.to_867662910_17968392579189414_57381.jpg/:/rs=w:1095,cg:true,m",
+      "sourceUrl": "https://www.instagram.com/lunasinarrr/?hl=en",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Markets"
+    },
+    {
       "id": "food-aliyaa-brings-premium-sri-lankan-dining-to-georg-cc6346073b",
       "kind": "food",
       "title": "Aliyaa Brings Premium Sri Lankan Dining to George Town’s Heritage Enclave",
@@ -499,22 +399,6 @@
       "sourceId": "penangtoday_food",
       "category": "Food",
       "publishedAt": "Sat, 17 Oct 2026 09:35:16 +0000"
-    },
-    {
-      "id": "food-burger-lobster-8ad52a274b",
-      "kind": "food",
-      "title": "Burger & Lobster",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image2-19.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#1_Burger_Lobster",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
     },
     {
       "id": "food-gurney-food-complex-gets-rm455-055-upgrade-after-facaf015f9",
@@ -567,69 +451,21 @@
       "publishedAt": "Mon, 26 Oct 2026 02:38:24 +0000"
     },
     {
-      "id": "food-le-a-at-pizzeria-turns-batu-ferringhi-sunset-int-c25f671d0d",
+      "id": "food-riz-ahmed-gained-weight-on-the-penang-shoot-and--7aa1076b46",
       "kind": "food",
-      "title": "LEÑA at Pizzeria Turns Batu Ferringhi Sunset Into a Full Night of Fire-Led Dining",
-      "summary": "There is a version of Batu Ferringhi that most visitors never see. It arrives after sunset, when the familiar daytime restaurant along the beachfront quietly changes character. Pizzeria, known through the day for casual …",
-      "detail": "There is a version of Batu Ferringhi that most visitors never see. It arrives after sunset, when the familiar daytime restaurant along the beachfront quietly changes character. Pizzeria, known through the day for casual pizza and pasta, gives way to LEÑA at Pizzeria: a fire-led dining concept at Hard Rock Hotel Penang that trades the […]",
+      "title": "Riz Ahmed gained weight on the Penang shoot and has no regrets about the food",
+      "summary": "British actor Riz Ahmed has said he ate so well during the shoot in Penang that his costumes had to be refitted, and that he has no regrets about any of it, Malay Mail reported. The Emmy-winning actor, 43, made the admis…",
+      "detail": "British actor Riz Ahmed has said he ate so well during the shoot in Penang that his costumes had to be refitted, and that he has no regrets about any of it, Malay Mail reported. The Emmy-winning actor, 43, made the admission on the Dish from Waitrose podcast, hosted by broadcaster Nick Grimshaw and Michelin-starred […]",
       "startDate": null,
       "endDate": null,
       "dateLabel": "Recently · Penang",
       "area": "Penang",
-      "imageUrl": "https://penangtoday.my/ipsostuh/pxl_20260826_1031074755615501418657834860.jpg",
-      "sourceUrl": "https://penangtoday.my/featured/9439/lena-at-pizzeria-turns-a-batu-ferringhi-sunset-into-a-full-night-of-fire-led-dining/",
+      "imageUrl": "https://penangtoday.my/ipsostuh/source-hype-riz-ahmed.jpg",
+      "sourceUrl": "https://penangtoday.my/news/10352/riz-ahmed-gained-weight-on-the-penang-shoot-and-has-no-regrets-about-the-food/",
       "sourceName": "PenangToday Food",
       "sourceId": "penangtoday_food",
       "category": "Food",
-      "publishedAt": "Wed, 02 Sep 2026 10:03:43 +0000"
-    },
-    {
-      "id": "food-lavender-bakery-d7e612e18f",
-      "kind": "food",
-      "title": "Lavender Bakery",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image6-16.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#3_Lavender_Bakery",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
-    },
-    {
-      "id": "food-mcna-coffeebar-5e9fe4099c",
-      "kind": "food",
-      "title": "MCNA Coffeebar",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image7-12.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#5_MCNA_Coffeebar",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
-    },
-    {
-      "id": "food-nami-coffee-727d17da7d",
-      "kind": "food",
-      "title": "Nami Coffee",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image3-14.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#4_Nami_Coffee",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
+      "publishedAt": "Mon, 09 Nov 2026 01:45:21 +0000"
     },
     {
       "id": "food-two-festivals-one-plate-penang-s-vegetarian-food-3668713088",
@@ -647,22 +483,6 @@
       "sourceId": "penangtoday_food",
       "category": "Food",
       "publishedAt": "Tue, 20 Oct 2026 05:52:34 +0000"
-    },
-    {
-      "id": "food-zus-signature-coffee-5b79933acd",
-      "kind": "food",
-      "title": "ZUS Signature Coffee",
-      "summary": "New cafe or restaurant opening highlighted in The Smart Local Penang roundup.",
-      "detail": "",
-      "startDate": null,
-      "endDate": null,
-      "dateLabel": "New opening · August",
-      "area": "Penang",
-      "imageUrl": "https://thesmartlocal.my/wp-content/uploads/2026/08/image5-1-1.png",
-      "sourceUrl": "https://thesmartlocal.my/new-cafes-restaurants-penang/#2_ZUS_Signature_Coffee",
-      "sourceName": "The Smart Local Penang Cafes",
-      "sourceId": "smartlocal_cafes",
-      "category": "Food"
     },
     {
       "id": "revisit-10-best-bars-speakeasy-you-must-visit-in-penang-d4e5894396",
@@ -738,7 +558,7 @@
       "endDate": null,
       "dateLabel": "Worth a revisit · Penang",
       "area": "Penang",
-      "imageUrl": "",
+      "imageUrl": "https://penangfoodie.sgp1.digitaloceanspaces.com/2026/01/cafe-2026-1.png",
       "sourceUrl": "https://penangfoodie.com/26-best-cafes-in-penang-that-deserve-a-spot-on-your-feed-2026-edition/",
       "sourceName": "Penang Foodie",
       "sourceId": "penang_foodie",
@@ -891,8 +711,10 @@
   ],
   "warnings": [
     "fetch failed for mypenang_events (status=404)",
-    "dropped 4 corporate/institutional PR item(s)",
+    "dropped 5 corporate/institutional PR item(s)",
+    "dropped 5 food opening(s) older than ~2 months",
     "dropped 4 past-tense event recap(s)",
-    "dropped 10 ended dated item(s) (endDate before today)"
+    "dropped 10 ended dated item(s) (endDate before today)",
+    "applied 1 editorial note(s)"
   ]
 }

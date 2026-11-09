@@ -1,0 +1,22 @@
+[
+  {
+    "matchTitle": "Zinister Business",
+    "until": "2026-11-29",
+    "pinScore": 120,
+    "note": "The Mee Myself and I zine, from the author, is there to look through at the exhibition and the shop.",
+    "fallback": {
+      "kind": "event",
+      "title": "Zinister Business: A Zine Exhibition",
+      "summary": "14–29 November 2026, Hin Bus Depot Residency Space. Fri 12:00pm–7:00pm, Sat & Sun 10:00am–7:00pm.",
+      "detail": "14–29 November 2026, Hin Bus Depot Residency Space. Fri 12:00pm–7:00pm, Sat & Sun 10:00am–7:00pm.",
+      "startDate": "2026-11-14",
+      "endDate": "2026-11-29",
+      "dateLabel": "14–29 Nov · Hin Bus Depot",
+      "area": "George Town",
+      "sourceUrl": "https://hinbusdepot.com/events",
+      "sourceName": "Hin Bus Depot",
+      "sourceId": "hin_bus_depot",
+      "category": "Arts"
+    }
+  }
+]

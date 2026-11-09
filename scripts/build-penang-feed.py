@@ -21,6 +21,7 @@ from urllib.parse import unquote, urljoin, urlparse
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "scripts" / "penang_sources.json"
+EDITORIAL_PATH = ROOT / "scripts" / "penang_editorial.json"
 
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
@@ -140,7 +141,7 @@ HIN_JUNK_RE = re.compile(
 # announcements, executive appointments, policy programmes, industry
 # symposiums, property launches. Applies to every kind, not just events.
 PROMO_NOISE_RE = re.compile(
-    r"\bmemorandum of understanding\b|\bmou\b|"
+    r"\bmemorandum of understanding\b|\bmou\b|\bmice sector\b|"
     r"\bthrough (?:a )?new partnership\b|"
     r"\btalent (?:pilot )?(?:programme|program|scheme)\b|"
     r"\bfood safety (?:symposium|day|ministry)\b|"
@@ -203,7 +204,7 @@ INTEREST_RULES: list[tuple[str, re.Pattern[str], int]] = [
         "literary",
         re.compile(
             r"\b(literary|literature|book\s*fair|bookstore|poetry|poet|author talk|"
-            r"reading\b|writers?|novel|书展|文学|buku|sastera)\b",
+            r"reading\b|writers?|novel|zines?|书展|文学|buku|sastera)\b",
             re.I,
         ),
         24,
@@ -1473,6 +1474,17 @@ def item_anchor_date(item: dict[str, Any]) -> dt.date | None:
             m = month_num(month)
             if m:
                 return dt.date(int(year), m, int(day))
+    # Smart Local labels are month-only ("New opening · August") with no pubDate.
+    label = str(item.get("dateLabel") or "").strip()
+    month_label = re.fullmatch(r"New opening · ([A-Za-z]+)", label)
+    if month_label:
+        month = month_num(month_label.group(1))
+        if month:
+            today = utc_now().date()
+            anchor = dt.date(today.year, month, 1)
+            if anchor > today:
+                anchor = dt.date(today.year - 1, month, 1)
+            return anchor
     # Last resort: dates mentioned in title/label (catches "Labour Day" season pieces).
     for key in ("dateLabel", "title", "summary"):
         start, _, _ = parse_dates_from_text(item.get(key) or "", utc_now().year)
@@ -1534,6 +1546,24 @@ def is_past_event_recap(item: dict[str, Any]) -> bool:
     """
     if item.get("kind") != "event":
         return False
+    # Undated write-ups that already name a finished day ("on 22 October").
+    # Skip non-months ("2 Way") and keep the item if any named day is still ahead.
+    if not _iso_date(item.get("startDate")) and not _iso_date(item.get("endDate")):
+        blob = item_text_blob(item)
+        if not FUTURE_EVENT_HINT_RE.search(blob):
+            today = utc_now().date()
+            named: list[dt.date] = []
+            for single in SINGLE_DATE_RE.finditer(clean_text(blob)):
+                day, month, year = single.groups()
+                month_i = month_num(month)
+                if not month_i:
+                    continue
+                try:
+                    named.append(dt.date(coerce_year(year, today.year), month_i, int(day)))
+                except ValueError:
+                    continue
+            if named and all(day < today for day in named):
+                return True
     blob = item_text_blob(item)
     if not PAST_EVENT_RECAP_RE.search(blob):
         return False
@@ -1680,6 +1710,90 @@ def annotate_event_ranking(
             item["demote"] = demote
         kept.append(item)
     return kept, dropped
+
+
+def _lead_with_note(existing: str, note: str) -> str:
+    body = (existing or "").strip()
+    if not note:
+        return body
+    if body.lower().startswith(note.lower()):
+        return body
+    return f"{note} {body}".strip() if body else note
+
+
+def _stamp_editorial(item: dict[str, Any], note: dict[str, Any]) -> None:
+    """Prepend an owned note and pin the event above scraped ranking."""
+    text = clean_text(str(note.get("note") or ""))
+    if text:
+        item["summary"] = _lead_with_note(str(item.get("summary") or ""), text)
+        item["detail"] = _lead_with_note(str(item.get("detail") or ""), text)
+    score, topics, demote = score_event_item(item)
+    item["topics"] = topics
+    item["interest"] = topics[:]
+    pin = int(note.get("pinScore") or 120)
+    item["interestScore"] = max(score, pin)
+    if demote:
+        item["demote"] = demote
+
+
+def _editorial_expired(note: dict[str, Any], today: dt.date) -> bool:
+    until = _iso_date(note.get("until"))
+    if until is None:
+        fallback = note.get("fallback") if isinstance(note.get("fallback"), dict) else {}
+        until = _iso_date(fallback.get("endDate"))
+    return until is not None and until < today
+
+
+def apply_editorial_notes(items: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int]:
+    """Merge owned event notes after ranking.
+
+    A matching scraped title gets the note and a pin score. If the scrape missed
+    the event, insert the fallback item until its end date.
+    """
+    if not EDITORIAL_PATH.is_file():
+        return items, 0
+    raw = json.loads(EDITORIAL_PATH.read_text(encoding="utf-8"))
+    notes = raw if isinstance(raw, list) else raw.get("notes") or []
+    today = utc_now().date()
+    applied = 0
+    for note in notes:
+        if not isinstance(note, dict) or _editorial_expired(note, today):
+            continue
+        needle = str(note.get("matchTitle") or "").strip()
+        if not needle:
+            continue
+        needle_re = re.compile(re.escape(needle), re.I)
+        matches = [
+            item
+            for item in items
+            if item.get("kind") == "event" and needle_re.search(str(item.get("title") or ""))
+        ]
+        if matches:
+            for item in matches:
+                _stamp_editorial(item, note)
+            applied += 1
+            continue
+        fallback = note.get("fallback")
+        if not isinstance(fallback, dict):
+            continue
+        end = _iso_date(fallback.get("endDate"))
+        if end is not None and end < today:
+            continue
+        item = dict(fallback)
+        title = str(item.get("title") or needle)
+        item["kind"] = "event"
+        item["title"] = title
+        item.setdefault("sourceUrl", "https://hinbusdepot.com/events")
+        item.setdefault("sourceName", "Hin Bus Depot")
+        item.setdefault("sourceId", "hin_bus_depot")
+        item.setdefault("area", "George Town")
+        item.setdefault("category", "Arts")
+        if not item.get("id"):
+            item["id"] = slug_id("event", title, item.get("startDate"))
+        _stamp_editorial(item, note)
+        items.append(item)
+        applied += 1
+    return items, applied
 
 
 def format_week_label(run_date: str) -> str:
@@ -1859,6 +1973,10 @@ def main() -> int:
             f"dropped {industry_dropped} industry/trade event(s) from consumer feed"
         )
         print(f"Dropped {industry_dropped} industry/trade event(s)")
+    items, editorial_applied = apply_editorial_notes(items)
+    if editorial_applied:
+        warnings.append(f"applied {editorial_applied} editorial note(s)")
+        print(f"Applied {editorial_applied} editorial note(s)")
 
     def sort_key(item: dict[str, Any]) -> tuple:
         start = item.get("startDate") or "9999-99-99"
